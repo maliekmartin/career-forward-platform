@@ -1,0 +1,506 @@
+// Career Quest Platform - Prisma Schema
+// Database: PostgreSQL
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ==================== USER & AUTHENTICATION ====================
+
+model User {
+  id              String    @id @default(cuid())
+  email           String    @unique
+  passwordHash    String    @map("password_hash")
+  emailVerified   DateTime? @map("email_verified")
+  role            Role      @default(CLIENT)
+  isActive        Boolean   @default(true) @map("is_active")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  lastLogin       DateTime? @map("last_login")
+
+  // Relations
+  profile               Profile?
+  resumes               Resume[]
+  coverLetters          CoverLetter[]
+  jobApplications       JobApplication[]
+  documents             Document[]
+  notifications         Notification[]
+  videoProgress         VideoProgress[]
+  assessmentCompletions AssessmentCompletion[]
+  userProgress          UserProgress[]
+  achievements          UserAchievement[]
+  sessions              Session[]
+
+  // Coach relationships
+  coachClients    CoachClient[]  @relation("Coach")
+  clientCoaches   CoachClient[]  @relation("Client")
+  coachNotes      CoachNote[]    @relation("CoachNotes")
+  clientNotes     CoachNote[]    @relation("ClientNotes")
+
+  // Audit
+  auditLogs AuditLog[]
+
+  @@map("users")
+}
+
+model Profile {
+  id                String   @id @default(cuid())
+  userId            String   @unique @map("user_id")
+  firstName         String?  @map("first_name")
+  lastName          String?  @map("last_name")
+  phone             String?
+  gender            Gender?
+  yearsInIndustry   Int?     @map("years_in_industry")
+  currentIndustry   String?  @map("current_industry")
+  careerGoal        CareerGoal? @map("career_goal")
+  profilePhotoUrl   String?  @map("profile_photo_url")
+  preferredLanguage String   @default("en") @map("preferred_language")
+  profileCompleted  Boolean  @default(false) @map("profile_completed")
+  welcomeTourDone   Boolean  @default(false) @map("welcome_tour_done")
+  createdAt         DateTime @default(now()) @map("created_at")
+  updatedAt         DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("profiles")
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  userId       String   @map("user_id")
+  tokenHash    String   @map("token_hash")
+  expiresAt    DateTime @map("expires_at")
+  deviceInfo   String?  @map("device_info")
+  rememberMe   Boolean  @default(false) @map("remember_me")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model VerificationToken {
+  id        String   @id @default(cuid())
+  email     String
+  token     String   @unique
+  type      TokenType
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("verification_tokens")
+}
+
+// ==================== RESUME & COVER LETTER ====================
+
+model Resume {
+  id         String   @id @default(cuid())
+  userId     String   @map("user_id")
+  name       String
+  templateId String   @map("template_id")
+  content    Json     // Structured resume data
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  coverLetters CoverLetter[]
+
+  @@map("resumes")
+}
+
+model CoverLetter {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  resumeId  String?  @map("resume_id")
+  name      String?
+  jobTitle  String?  @map("job_title")
+  company   String?
+  content   String   @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  resume Resume? @relation(fields: [resumeId], references: [id], onDelete: SetNull)
+
+  @@map("cover_letters")
+}
+
+model ResumeTemplate {
+  id           String   @id @default(cuid())
+  name         String
+  category     TemplateCategory
+  thumbnailUrl String?  @map("thumbnail_url")
+  templateData Json     @map("template_data")
+  sortOrder    Int      @default(0) @map("sort_order")
+  isActive     Boolean  @default(true) @map("is_active")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("resume_templates")
+}
+
+// ==================== JOB APPLICATIONS ====================
+
+model JobApplication {
+  id             String            @id @default(cuid())
+  userId         String            @map("user_id")
+  companyName    String            @map("company_name")
+  jobTitle       String?           @map("job_title")
+  industry       String?
+  platform       ApplicationPlatform
+  appliedDate    DateTime          @map("applied_date") @db.Date
+  alignmentScore Int?              @map("alignment_score")
+  status         ApplicationStatus @default(YELLOW)
+  notes          String?           @db.Text
+  isArchived     Boolean           @default(false) @map("is_archived")
+  externalJobId  String?           @map("external_job_id")
+  createdAt      DateTime          @default(now()) @map("created_at")
+  updatedAt      DateTime          @updatedAt @map("updated_at")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("job_applications")
+}
+
+// ==================== TRAINING & PROGRESS ====================
+
+model TrainingTopic {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  title       String
+  description String?  @db.Text
+  iconName    String?  @map("icon_name")
+  sortOrder   Int      @default(0) @map("sort_order")
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  videos    TrainingVideo[]
+  resources TrainingResource[]
+
+  @@map("training_topics")
+}
+
+model TrainingVideo {
+  id              String   @id @default(cuid())
+  topicId         String   @map("topic_id")
+  title           String
+  description     String?  @db.Text
+  youtubeUrl      String   @map("youtube_url")
+  durationMinutes Int?     @map("duration_minutes")
+  sortOrder       Int      @default(0) @map("sort_order")
+  isActive        Boolean  @default(true) @map("is_active")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  topic         TrainingTopic   @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  videoProgress VideoProgress[]
+
+  @@map("training_videos")
+}
+
+model TrainingResource {
+  id          String   @id @default(cuid())
+  topicId     String   @map("topic_id")
+  title       String
+  description String?  @db.Text
+  fileUrl     String?  @map("file_url")
+  externalUrl String?  @map("external_url")
+  sortOrder   Int      @default(0) @map("sort_order")
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  topic TrainingTopic @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+  @@map("training_resources")
+}
+
+model VideoProgress {
+  id         String    @id @default(cuid())
+  userId     String    @map("user_id")
+  videoId    String    @map("video_id")
+  watched    Boolean   @default(false)
+  watchedAt  DateTime? @map("watched_at")
+  bookmarked Boolean   @default(false)
+  createdAt  DateTime  @default(now()) @map("created_at")
+
+  // Relations
+  user  User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  video TrainingVideo @relation(fields: [videoId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, videoId])
+  @@map("video_progress")
+}
+
+// ==================== ASSESSMENTS ====================
+
+model Assessment {
+  id          String             @id @default(cuid())
+  name        String
+  provider    String?
+  description String?            @db.Text
+  externalUrl String             @map("external_url")
+  category    AssessmentCategory
+  sortOrder   Int                @default(0) @map("sort_order")
+  isActive    Boolean            @default(true) @map("is_active")
+  createdAt   DateTime           @default(now()) @map("created_at")
+  updatedAt   DateTime           @updatedAt @map("updated_at")
+
+  // Relations
+  completions AssessmentCompletion[]
+
+  @@map("assessments")
+}
+
+model AssessmentCompletion {
+  id           String    @id @default(cuid())
+  userId       String    @map("user_id")
+  assessmentId String    @map("assessment_id")
+  completedAt  DateTime  @default(now()) @map("completed_at")
+  notes        String?   @db.Text
+
+  // Relations
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assessment Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, assessmentId])
+  @@map("assessment_completions")
+}
+
+// ==================== CAREER QUEST PROGRESS ====================
+
+model UserProgress {
+  id          String    @id @default(cuid())
+  userId      String    @map("user_id")
+  stage       Int
+  itemKey     String    @map("item_key")
+  completed   Boolean   @default(false)
+  completedAt DateTime? @map("completed_at")
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, stage, itemKey])
+  @@map("user_progress")
+}
+
+model UserAchievement {
+  id       String   @id @default(cuid())
+  userId   String   @map("user_id")
+  badgeId  String   @map("badge_id")
+  earnedAt DateTime @default(now()) @map("earned_at")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, badgeId])
+  @@map("user_achievements")
+}
+
+// ==================== COACH PORTAL ====================
+
+model CoachClient {
+  id          String            @id @default(cuid())
+  coachId     String            @map("coach_id")
+  clientId    String            @map("client_id")
+  status      ConnectionStatus  @default(PENDING)
+  connectedAt DateTime?         @map("connected_at")
+  createdAt   DateTime          @default(now()) @map("created_at")
+
+  // Relations
+  coach  User @relation("Coach", fields: [coachId], references: [id], onDelete: Cascade)
+  client User @relation("Client", fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@unique([coachId, clientId])
+  @@map("coach_clients")
+}
+
+model CoachNote {
+  id        String   @id @default(cuid())
+  coachId   String   @map("coach_id")
+  clientId  String   @map("client_id")
+  content   String   @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  coach  User @relation("CoachNotes", fields: [coachId], references: [id], onDelete: Cascade)
+  client User @relation("ClientNotes", fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@map("coach_notes")
+}
+
+// ==================== DOCUMENTS ====================
+
+model Document {
+  id        String       @id @default(cuid())
+  userId    String       @map("user_id")
+  type      DocumentType
+  filename  String
+  fileUrl   String       @map("file_url")
+  fileSize  Int?         @map("file_size")
+  mimeType  String?      @map("mime_type")
+  createdAt DateTime     @default(now()) @map("created_at")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("documents")
+}
+
+// ==================== NOTIFICATIONS ====================
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  type      String
+  title     String
+  message   String?  @db.Text
+  read      Boolean  @default(false)
+  readAt    DateTime? @map("read_at")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+// ==================== JOB BOARD ====================
+
+model JobListing {
+  id          String    @id @default(cuid())
+  externalId  String    @unique @map("external_id")
+  title       String
+  company     String?
+  location    String?
+  description String?   @db.Text
+  jobType     String?   @map("job_type")
+  industry    String?
+  salaryRange String?   @map("salary_range")
+  externalUrl String    @map("external_url")
+  postedDate  DateTime? @map("posted_date") @db.Date
+  fetchedAt   DateTime  @default(now()) @map("fetched_at")
+  isActive    Boolean   @default(true) @map("is_active")
+
+  @@map("job_listings")
+}
+
+// ==================== AUDIT LOG ====================
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String?  @map("user_id")
+  action     String
+  entityType String?  @map("entity_type")
+  entityId   String?  @map("entity_id")
+  oldData    Json?    @map("old_data")
+  newData    Json?    @map("new_data")
+  ipAddress  String?  @map("ip_address")
+  userAgent  String?  @map("user_agent") @db.Text
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  // Relations
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([createdAt])
+  @@index([action])
+  @@map("audit_logs")
+}
+
+// ==================== WORKFORCE CENTER (Future Multi-tenant) ====================
+
+model WorkforceCenter {
+  id             String   @id @default(cuid())
+  name           String
+  slug           String   @unique
+  logoUrl        String?  @map("logo_url")
+  primaryColor   String?  @map("primary_color")
+  secondaryColor String?  @map("secondary_color")
+  isActive       Boolean  @default(true) @map("is_active")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  @@map("workforce_centers")
+}
+
+// ==================== ENUMS ====================
+
+enum Role {
+  CLIENT
+  COACH
+  ADMIN
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  NON_BINARY
+  PREFER_NOT_TO_SAY
+}
+
+enum CareerGoal {
+  SAME_INDUSTRY
+  NEW_INDUSTRY
+  CERTIFICATION
+}
+
+enum TokenType {
+  EMAIL_VERIFICATION
+  PASSWORD_RESET
+}
+
+enum TemplateCategory {
+  CHRONOLOGICAL
+  FUNCTIONAL
+  COMBINATION
+}
+
+enum ApplicationPlatform {
+  WORKSOURCEWA
+  INDEED
+  LINKEDIN
+  COMPANY_WEBSITE
+  REFERRAL
+  JOB_FAIR
+  OTHER
+}
+
+enum ApplicationStatus {
+  GREEN  // Moving forward / Next steps
+  YELLOW // Awaiting response
+  RED    // Rejected
+}
+
+enum AssessmentCategory {
+  INTERESTS
+  SKILLS
+  PERSONALITY
+  VALUES
+}
+
+enum ConnectionStatus {
+  PENDING
+  ACTIVE
+  ENDED
+}
+
+enum DocumentType {
+  RESUME_UPLOAD
+  COVER_LETTER_UPLOAD
+}

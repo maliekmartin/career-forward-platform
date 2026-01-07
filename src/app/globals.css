@@ -1,26 +1,210 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  /* Career Quest custom colors */
+  --color-teal: var(--teal);
+  --color-slate-brand: var(--slate-brand);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --radius: 0.5rem;
+
+  /* Career Quest Brand Colors */
+  --teal: #2B8A8A;
+  --slate-brand: #5A6A72;
+  --success: #38A169;
+  --warning: #D69E2E;
+
+  /* Base colors */
+  --background: #FFFFFF;
+  --foreground: #1A202C;
+
+  /* Card */
+  --card: #FFFFFF;
+  --card-foreground: #1A202C;
+
+  /* Popover */
+  --popover: #FFFFFF;
+  --popover-foreground: #1A202C;
+
+  /* Primary - Career Quest Teal */
+  --primary: #2B8A8A;
+  --primary-foreground: #FFFFFF;
+
+  /* Secondary - Career Quest Slate */
+  --secondary: #F8FAFB;
+  --secondary-foreground: #5A6A72;
+
+  /* Muted */
+  --muted: #F8FAFB;
+  --muted-foreground: #718096;
+
+  /* Accent */
+  --accent: #F8FAFB;
+  --accent-foreground: #2B8A8A;
+
+  /* Destructive */
+  --destructive: #E53E3E;
+  --destructive-foreground: #FFFFFF;
+
+  /* Border & Input */
+  --border: #E2E8F0;
+  --input: #E2E8F0;
+  --ring: #2B8A8A;
+
+  /* Chart colors */
+  --chart-1: #2B8A8A;
+  --chart-2: #38A169;
+  --chart-3: #D69E2E;
+  --chart-4: #5A6A72;
+  --chart-5: #E53E3E;
+
+  /* Sidebar */
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #1A202C;
+  --sidebar-primary: #2B8A8A;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #F8FAFB;
+  --sidebar-accent-foreground: #2B8A8A;
+  --sidebar-border: #E2E8F0;
+  --sidebar-ring: #2B8A8A;
+}
+
+.dark {
+  --background: #1A202C;
+  --foreground: #F7FAFC;
+
+  --card: #2D3748;
+  --card-foreground: #F7FAFC;
+
+  --popover: #2D3748;
+  --popover-foreground: #F7FAFC;
+
+  --primary: #4FD1C5;
+  --primary-foreground: #1A202C;
+
+  --secondary: #2D3748;
+  --secondary-foreground: #A0AEC0;
+
+  --muted: #2D3748;
+  --muted-foreground: #A0AEC0;
+
+  --accent: #2D3748;
+  --accent-foreground: #4FD1C5;
+
+  --destructive: #FC8181;
+  --destructive-foreground: #1A202C;
+
+  --border: #4A5568;
+  --input: #4A5568;
+  --ring: #4FD1C5;
+
+  --chart-1: #4FD1C5;
+  --chart-2: #68D391;
+  --chart-3: #F6E05E;
+  --chart-4: #A0AEC0;
+  --chart-5: #FC8181;
+
+  --sidebar: #2D3748;
+  --sidebar-foreground: #F7FAFC;
+  --sidebar-primary: #4FD1C5;
+  --sidebar-primary-foreground: #1A202C;
+  --sidebar-accent: #4A5568;
+  --sidebar-accent-foreground: #4FD1C5;
+  --sidebar-border: #4A5568;
+  --sidebar-ring: #4FD1C5;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Career Quest custom utility classes */
+@layer utilities {
+  .text-teal {
+    color: var(--teal);
+  }
+  .bg-teal {
+    background-color: var(--teal);
+  }
+  .text-slate-brand {
+    color: var(--slate-brand);
+  }
+  .bg-slate-brand {
+    background-color: var(--slate-brand);
+  }
+  .text-success {
+    color: var(--success);
+  }
+  .bg-success {
+    background-color: var(--success);
+  }
+  .text-warning {
+    color: var(--warning);
+  }
+  .bg-warning {
+    background-color: var(--warning);
+  }
+
+  /* Status colors for job tracker */
+  .status-green {
+    background-color: var(--success);
+  }
+  .status-yellow {
+    background-color: var(--warning);
+  }
+  .status-red {
+    background-color: var(--destructive);
+  }
 }

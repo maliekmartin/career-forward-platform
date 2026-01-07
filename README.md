@@ -1,36 +1,192 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Career Quest Platform
+
+A comprehensive workforce development platform designed to guide job seekers through their employment journey, from career discovery to job placement.
+
+![Career Quest Logo](./public/career-quest-logo.png)
+
+## Overview
+
+Career Quest provides job seekers with a guided pathway that starts with profile creation, moves through career assessments, resume building, interview preparation, and culminates in job tracking — all while working alongside a career coach in a workforce development setting.
+
+## Features
+
+### For Job Seekers
+- **Career Quest 5-Stage Pathway** - Guided journey from research to employment
+- **Resume Builder** - Professional templates with side-by-side editing
+- **Cover Letter Builder** - Job-matched content suggestions
+- **Job Application Tracker** - Stoplight status system (Green/Yellow/Red)
+- **Interview Training** - Video workshops organized by topic
+- **Career Assessments** - Guided external assessment recommendations
+- **Achievement System** - Badges and progress tracking
+
+### For Career Coaches
+- Client search and connection management
+- Read-only client progress views
+- Private notes per client
+- Caseload management and filtering
+- Progress reports
+
+### For Administrators
+- Content management (videos, resources, templates)
+- User management
+- Full audit logging
+
+## Tech Stack
+
+- **Framework:** Next.js 14+ (App Router)
+- **Language:** TypeScript
+- **UI:** shadcn/ui + Tailwind CSS
+- **Database:** PostgreSQL with Prisma ORM
+- **Authentication:** Custom JWT-based sessions
+- **Email:** Resend (planned)
+- **Resume Parsing:** Affinda API (planned)
+- **Deployment:** Vercel
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Node.js 18+
+- PostgreSQL database
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/maliekmartin/career-quest-platform.git
+   cd career-quest-platform
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Set up environment variables:
+   ```bash
+   cp .env.example .env
+   ```
+   Then edit `.env` with your database credentials and API keys.
+
+4. Set up the database:
+   ```bash
+   npx prisma generate
+   npx prisma db push
+   ```
+
+5. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+6. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Project Structure
+
+```
+career-quest-platform/
+├── docs/                    # Project documentation
+│   ├── PROJECT_SPECIFICATION.md
+│   ├── SCREEN_SPECIFICATIONS.md
+│   └── API_SPECIFICATION.md
+├── prisma/
+│   └── schema.prisma        # Database schema
+├── public/                  # Static assets
+├── src/
+│   ├── app/                 # Next.js app router pages
+│   │   ├── (auth)/          # Authentication pages
+│   │   ├── (dashboard)/     # Protected dashboard pages
+│   │   ├── api/             # API routes
+│   │   └── page.tsx         # Landing page
+│   ├── components/
+│   │   ├── ui/              # shadcn/ui components
+│   │   ├── layout/          # Layout components
+│   │   └── forms/           # Form components
+│   ├── lib/
+│   │   ├── auth/            # Authentication utilities
+│   │   ├── db/              # Database client
+│   │   ├── utils/           # Helper functions
+│   │   └── validations/     # Zod schemas
+│   ├── hooks/               # Custom React hooks
+│   └── types/               # TypeScript types
+└── README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Variable | Description |
+|----------|-------------|
+| `DATABASE_URL` | PostgreSQL connection string |
+| `JWT_SECRET` | Secret key for JWT tokens |
+| `RESEND_API_KEY` | Resend API key for emails |
+| `AFFINDA_API_KEY` | Affinda API key for resume parsing |
+| `NEXT_PUBLIC_APP_URL` | Public application URL |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Development
 
-## Learn More
+### Database Migrations
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+# Generate Prisma client
+npx prisma generate
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Push schema changes (development)
+npx prisma db push
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Create migration (production)
+npx prisma migrate dev --name migration_name
+```
 
-## Deploy on Vercel
+### Code Style
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The project uses ESLint and TypeScript for code quality. Run linting with:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run lint
+```
+
+## Deployment
+
+### Vercel (Recommended)
+
+1. Connect your GitHub repository to Vercel
+2. Set environment variables in Vercel dashboard
+3. Deploy
+
+### Other Platforms
+
+Build the production application:
+
+```bash
+npm run build
+npm start
+```
+
+## Documentation
+
+Detailed specifications are available in the `/docs` directory:
+
+- **PROJECT_SPECIFICATION.md** - Complete requirements and technical decisions
+- **SCREEN_SPECIFICATIONS.md** - UI/UX specifications for design
+- **API_SPECIFICATION.md** - API endpoint documentation
+
+## Language Support
+
+- English (default)
+- Spanish
+- Russian
+- Ukrainian
+- Marshallese (planned)
+
+## Contributing
+
+This project is currently maintained by WorkSource Spokane. For questions or contributions, please contact the development team.
+
+## License
+
+Proprietary - WorkSource Spokane
+
+---
+
+Built with care for workforce development professionals and job seekers.
