@@ -124,14 +124,13 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mb-8"
+          className="mb-8 text-center"
         >
-          <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full">
-            <span className="text-teal-400 text-sm font-medium tracking-wide uppercase">
+          <div className="inline-flex flex-col items-center gap-2 px-10 py-5 bg-gradient-to-b from-white/10 to-white/5 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl shadow-black/20">
+            <span className="text-teal-400 text-base font-semibold tracking-widest uppercase">
               Coming Soon
             </span>
-            <span className="w-px h-4 bg-white/20" />
-            <span className="text-white text-lg font-bold">
+            <span className="text-white text-4xl md:text-5xl font-bold tracking-tight">
               Q3 2026
             </span>
           </div>
