@@ -19,7 +19,6 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check if already unlocked in this session
     const unlocked = sessionStorage.getItem("cf_preview_unlocked");
     if (unlocked === "true") {
       setIsUnlocked(true);
@@ -52,16 +51,13 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
-      {/* Blurred background - the actual landing page */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="blur-md opacity-20 pointer-events-none">
-          {children}
-        </div>
-      </div>
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+      {/* Subtle grid pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:64px_64px]" />
 
-      {/* Dark overlay */}
-      <div className="absolute inset-0 bg-gray-900/80 backdrop-blur-sm" />
+      {/* Gradient orbs */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
 
       {/* Preview content */}
       <div className="relative z-10 min-h-screen flex flex-col items-center justify-center px-4 py-12">
@@ -70,71 +66,88 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="mb-8"
+          className="mb-10"
         >
           <Image
             src="/career-forward-logo-light.png"
             alt="Career Forward"
             width={280}
             height={80}
-            className="h-16 w-auto"
+            className="h-14 w-auto"
             priority
           />
         </motion.div>
 
-        {/* Video container */}
+        {/* MacBook Frame with Video */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="w-full max-w-4xl mb-8"
+          className="w-full max-w-4xl mb-10"
         >
-          <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10">
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="w-full aspect-video object-cover"
-            >
-              <source src="/hero-b2b.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+          {/* MacBook Frame */}
+          <div className="relative">
+            {/* Screen bezel */}
+            <div className="bg-[#1a1a1a] rounded-t-xl pt-3 px-3 pb-0">
+              {/* Camera dot */}
+              <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-2 h-2 bg-gray-700 rounded-full" />
 
-            {/* Gradient overlay on video */}
-            <div className="absolute inset-0 bg-gradient-to-t from-gray-900/60 via-transparent to-transparent pointer-events-none" />
+              {/* Screen */}
+              <div className="relative rounded-sm overflow-hidden bg-black">
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="w-full aspect-video object-cover"
+                >
+                  <source src="/hero-b2b.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </div>
+
+            {/* MacBook bottom/hinge */}
+            <div className="relative">
+              <div className="bg-gradient-to-b from-[#2a2a2a] to-[#1a1a1a] h-4 rounded-b-xl" />
+              {/* Notch */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-1.5 bg-[#0a0a0a] rounded-b-lg" />
+            </div>
+
+            {/* Base/Stand hint */}
+            <div className="mx-auto w-1/3 h-1 bg-gradient-to-r from-transparent via-gray-700 to-transparent rounded-full mt-0.5" />
           </div>
         </motion.div>
 
-        {/* Launch date */}
+        {/* Launch date badge */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="text-center mb-12"
+          className="mb-8"
         >
-          <p className="text-teal-400 text-sm font-medium tracking-wider uppercase mb-2">
-            Coming Soon
-          </p>
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-3">
-            Q3 2026
-          </h1>
-          <p className="text-gray-400 text-lg max-w-md mx-auto">
-            The future of workforce development is almost here.
-          </p>
+          <div className="inline-flex items-center gap-3 px-6 py-3 bg-white/5 backdrop-blur-sm border border-white/10 rounded-full">
+            <span className="text-teal-400 text-sm font-medium tracking-wide uppercase">
+              Coming Soon
+            </span>
+            <span className="w-px h-4 bg-white/20" />
+            <span className="text-white text-lg font-bold">
+              Q3 2026
+            </span>
+          </div>
         </motion.div>
 
-        {/* Password form */}
+        {/* Login form */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="w-full max-w-sm"
+          className="w-full max-w-xs"
         >
-          <form onSubmit={handleUnlock} className="space-y-4">
+          <form onSubmit={handleUnlock} className="space-y-3">
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <Lock className="h-5 w-5 text-gray-500" />
+                <Lock className="h-4 w-4 text-gray-500" />
               </div>
               <input
                 type={showPassword ? "text" : "password"}
@@ -143,8 +156,8 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
                   setPassword(e.target.value);
                   setError("");
                 }}
-                placeholder="Enter admin password"
-                className="w-full pl-12 pr-12 py-4 bg-white/10 border border-white/20 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all"
+                placeholder="Password"
+                className="w-full pl-11 pr-11 py-3 bg-white/5 border border-white/10 rounded-lg text-white text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-teal-500/50 focus:border-teal-500/50 transition-all"
               />
               <button
                 type="button"
@@ -152,9 +165,9 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
                 className="absolute inset-y-0 right-0 pr-4 flex items-center text-gray-500 hover:text-gray-300 transition-colors"
               >
                 {showPassword ? (
-                  <EyeOff className="h-5 w-5" />
+                  <EyeOff className="h-4 w-4" />
                 ) : (
-                  <Eye className="h-5 w-5" />
+                  <Eye className="h-4 w-4" />
                 )}
               </button>
             </div>
@@ -165,7 +178,7 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
-                  className="text-red-400 text-sm text-center"
+                  className="text-red-400 text-xs text-center"
                 >
                   {error}
                 </motion.p>
@@ -174,15 +187,11 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
 
             <button
               type="submit"
-              className="w-full py-4 bg-teal-600 hover:bg-teal-500 text-white font-semibold rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-teal-500/25"
+              className="w-full py-3 bg-teal-600 hover:bg-teal-500 text-white text-sm font-medium rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-teal-500/20"
             >
-              Preview Site
+              Login
             </button>
           </form>
-
-          <p className="text-gray-500 text-xs text-center mt-6">
-            This preview is password protected. Contact admin for access.
-          </p>
         </motion.div>
       </div>
     </div>
