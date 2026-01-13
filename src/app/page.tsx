@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { PreviewOverlay } from "@/components/preview-overlay";
 import { Button } from "@/components/ui/button";
 import {
   ArrowRight,
@@ -491,6 +492,7 @@ export default function LandingPage() {
   const accentColor = audience === "seekers" ? "#2B8A8A" : "#374151";
 
   return (
+    <PreviewOverlay>
     <div className="min-h-screen bg-[#FAFBFC] scroll-smooth">
       {/* Navigation */}
       <motion.nav
@@ -1941,5 +1943,6 @@ export default function LandingPage() {
       {/* Sticky CTA */}
       <StickyCTA audience={audience} isVisible={showStickyCTA} />
     </div>
+    </PreviewOverlay>
   );
 }
