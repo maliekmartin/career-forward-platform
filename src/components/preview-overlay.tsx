@@ -178,7 +178,7 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
               initial={{ opacity: 0, scale: 0.95, x: 20 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="w-full max-w-2xl"
+              className="w-full max-w-4xl"
             >
               {/* MacBook Frame */}
               <div className="relative">
