@@ -1,13 +1,13 @@
-# Career Quest Platform - API Specification
+# Career Forward Platform - API Specification
 
-This document outlines all API endpoints for the Career Quest platform.
+This document outlines all API endpoints for the Career Forward platform.
 
 ---
 
 ## Base URL
 
 **Development:** `http://localhost:3000/api`
-**Production:** `https://career-quest-platform.vercel.app/api`
+**Production:** `https://career-forward-platform.vercel.app/api`
 
 ## Authentication
 
@@ -647,7 +647,7 @@ Get job listings.
 ### User Progress & Achievements
 
 #### GET /api/progress
-Get user's Career Quest progress.
+Get user's Career Forward progress.
 
 **Response (200):**
 ```json

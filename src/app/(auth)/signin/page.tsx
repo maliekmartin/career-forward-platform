@@ -1,19 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { useState, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Loader2, AlertCircle, Eye, EyeOff } from "lucide-react";
+import { Loader2, AlertCircle, Eye, EyeOff, Users, Target, ArrowRight } from "lucide-react";
 
-export default function SignInPage() {
+function SignInForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const typeParam = searchParams.get("type");
+
+  const [loginType, setLoginType] = useState<"seeker" | "coach">(
+    typeParam === "coach" ? "coach" : "seeker"
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
@@ -43,8 +49,11 @@ export default function SignInPage() {
         return;
       }
 
-      // Redirect based on profile completion
-      if (data.user.profileCompleted) {
+      // Redirect based on user role
+      const userRole = data.user.role;
+      if (userRole === "COACH" || userRole === "ADMIN") {
+        router.push("/coach/dashboard");
+      } else if (data.user.profileCompleted) {
         router.push("/dashboard");
       } else {
         router.push("/onboarding");
@@ -60,18 +69,42 @@ export default function SignInPage() {
     <div className="min-h-screen flex items-center justify-center bg-muted/30 px-4 py-12">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <Link href="/" className="inline-block mx-auto mb-4">
+          <Link href="/" className="inline-block mb-4">
             <Image
-              src="/career-quest-logo.png"
-              alt="Career Quest"
-              width={150}
-              height={40}
+              src="/career-forward-logo.png"
+              alt="Career Forward"
+              width={220}
+              height={55}
               priority
             />
           </Link>
+
+          {/* Login Type Indicator */}
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <div className={`p-2 rounded-lg ${
+              loginType === "seeker"
+                ? "bg-[#2B8A8A]/10"
+                : "bg-gray-100"
+            }`}>
+              {loginType === "seeker" ? (
+                <Target className="h-5 w-5 text-[#2B8A8A]" />
+              ) : (
+                <Users className="h-5 w-5 text-gray-600" />
+              )}
+            </div>
+            <span className={`text-sm font-medium ${
+              loginType === "seeker" ? "text-[#2B8A8A]" : "text-gray-600"
+            }`}>
+              {loginType === "seeker" ? "Job Seeker" : "Coach"} Login
+            </span>
+          </div>
+
           <CardTitle className="text-2xl">Welcome Back</CardTitle>
           <CardDescription>
-            Sign in to continue your career journey
+            {loginType === "seeker"
+              ? "Sign in to continue your career journey"
+              : "Sign in to access your coach dashboard"
+            }
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -169,8 +202,41 @@ export default function SignInPage() {
               Create one here
             </Link>
           </div>
+
+          {/* Criss-cross toggle */}
+          <div className="mt-4 pt-4 border-t border-gray-100">
+            <button
+              type="button"
+              onClick={() => setLoginType(loginType === "seeker" ? "coach" : "seeker")}
+              className="w-full flex items-center justify-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {loginType === "seeker" ? (
+                <>
+                  <Users className="h-4 w-4" />
+                  <span>Are you a coach? <span className="font-medium text-primary">Sign in here</span></span>
+                </>
+              ) : (
+                <>
+                  <Target className="h-4 w-4" />
+                  <span>Job seeker? <span className="font-medium text-[#2B8A8A]">Sign in here</span></span>
+                </>
+              )}
+            </button>
+          </div>
         </CardContent>
       </Card>
     </div>
+  );
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-muted/30">
+        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+      </div>
+    }>
+      <SignInForm />
+    </Suspense>
   );
 }

@@ -122,7 +122,7 @@ export interface JobApplication {
 }
 
 // Progress types
-export interface CareerQuestStage {
+export interface CareerForwardStage {
   stage: number;
   title: string;
   description: string;

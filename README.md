@@ -1,17 +1,17 @@
-# Career Quest Platform
+# Career Forward Platform
 
 A comprehensive workforce development platform designed to guide job seekers through their employment journey, from career discovery to job placement.
 
-![Career Quest Logo](./public/career-quest-logo.png)
+![Career Forward Logo](./public/career-forward-logo.png)
 
 ## Overview
 
-Career Quest provides job seekers with a guided pathway that starts with profile creation, moves through career assessments, resume building, interview preparation, and culminates in job tracking — all while working alongside a career coach in a workforce development setting.
+Career Forward provides job seekers with a guided pathway that starts with profile creation, moves through career assessments, resume building, interview preparation, and culminates in job tracking — all while working alongside a career coach in a workforce development setting.
 
 ## Features
 
 ### For Job Seekers
-- **Career Quest 5-Stage Pathway** - Guided journey from research to employment
+- **Career Forward 5-Stage Pathway** - Guided journey from research to employment
 - **Resume Builder** - Professional templates with side-by-side editing
 - **Cover Letter Builder** - Job-matched content suggestions
 - **Job Application Tracker** - Stoplight status system (Green/Yellow/Red)
@@ -54,8 +54,8 @@ Career Quest provides job seekers with a guided pathway that starts with profile
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/maliekmartin/career-quest-platform.git
-   cd career-quest-platform
+   git clone https://github.com/maliekmartin/career-forward-platform.git
+   cd career-forward-platform
    ```
 
 2. Install dependencies:
@@ -85,7 +85,7 @@ Career Quest provides job seekers with a guided pathway that starts with profile
 ## Project Structure
 
 ```
-career-quest-platform/
+career-forward-platform/
 ├── docs/                    # Project documentation
 │   ├── PROJECT_SPECIFICATION.md
 │   ├── SCREEN_SPECIFICATIONS.md
@@ -179,13 +179,9 @@ Detailed specifications are available in the `/docs` directory:
 - Ukrainian
 - Marshallese (planned)
 
-## Contributing
-
-This project is currently maintained by WorkSource Spokane. For questions or contributions, please contact the development team.
-
 ## License
 
-Proprietary - WorkSource Spokane
+Proprietary - Martin Built Strategies LLC
 
 ---
 

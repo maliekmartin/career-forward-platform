@@ -1,6 +1,6 @@
-# Career Quest Platform - Screen Specifications
+# Career Forward Platform - Screen Specifications
 
-This document provides detailed specifications for each screen in the Career Quest platform, suitable for creating Figma designs.
+This document provides detailed specifications for each screen in the Career Forward platform, suitable for creating Figma designs.
 
 ---
 
@@ -55,7 +55,7 @@ Error Red:        #E53E3E
 **Navigation Bar (Fixed)**
 - Height: 64px
 - Background: White with subtle shadow
-- Left: Career Quest logo (from logo file)
+- Left: Career Forward logo (from logo file)
 - Right: "Sign In" button (secondary style), "Get Started" button (primary)
 
 **Hero Section**
@@ -63,14 +63,14 @@ Error Red:        #E53E3E
 - Background: Light gradient (white to #F8FAFB)
 - Content (centered, max-width 800px):
   - H1: "Your Career Journey Starts Here"
-  - Subtitle (Text Secondary): "Career Quest guides you through every step of your job search - from discovering your strengths to landing your dream job."
+  - Subtitle (Text Secondary): "Career Forward guides you through every step of your job search - from discovering your strengths to landing your dream job."
   - CTA Button (Primary, Large): "Start Your Quest"
   - Secondary link: "Already have an account? Sign In"
 
 **Features Section**
 - Background: White
 - 4-column grid (on desktop)
-- Section title: "How Career Quest Helps You"
+- Section title: "How Career Forward Helps You"
 - Feature cards (icon + title + description):
   1. Icon: Compass | "Career Discovery" | "Explore your interests and skills with guided assessments"
   2. Icon: FileText | "Resume Builder" | "Create professional resumes with our easy-to-use builder"
@@ -79,7 +79,7 @@ Error Red:        #E53E3E
 
 **Process Section**
 - Background: #F8FAFB
-- Title: "Your 5-Step Career Quest"
+- Title: "Your 5-Step Career Forward"
 - Vertical timeline preview showing 5 stages with icons:
   1. Research & Discovery
   2. Prepare for Success
@@ -110,7 +110,7 @@ Error Red:        #E53E3E
 **Page Structure:**
 - Background: #F8FAFB
 - Card (centered, max-width 400px):
-  - Career Quest logo (centered, smaller)
+  - Career Forward logo (centered, smaller)
   - H2: "Welcome Back"
   - Subtitle: "Sign in to continue your career journey"
 
@@ -138,7 +138,7 @@ Error Red:        #E53E3E
 **Layout:** Centered card on light background
 
 **Card (max-width 400px):**
-- Career Quest logo (centered)
+- Career Forward logo (centered)
 - H2: "Create Your Account"
 - Subtitle: "Start your journey to career success"
 
@@ -194,7 +194,7 @@ Error Red:        #E53E3E
 **Sidebar:**
 - Background: White
 - Border-right: 1px #E2E8F0
-- Top: Career Quest logo
+- Top: Career Forward logo
 - Navigation items (icons + labels):
   - Dashboard (Home icon) - Active state: teal background, teal text
   - My Resumes (FileText icon)
@@ -218,7 +218,7 @@ Error Red:        #E53E3E
 
 **Welcome Section:**
 - H2: "Welcome back, [First Name]!"
-- Progress summary: "You're [X]% through your Career Quest"
+- Progress summary: "You're [X]% through your Career Forward"
 - Horizontal progress bar
 
 **Quick Actions Row (3 cards):**
@@ -226,8 +226,8 @@ Error Red:        #E53E3E
 2. "Log Application" - Icon + brief text + button
 3. "Watch Training" - Icon + brief text + button
 
-**Career Quest Pathway (Main Feature):**
-- Title: "Your Career Quest Journey"
+**Career Forward Pathway (Main Feature):**
+- Title: "Your Career Forward Journey"
 - Vertical timeline visualization:
 
   For each stage (1-5):
@@ -314,7 +314,7 @@ Error Red:        #E53E3E
 
 **Final Screen:**
 - Success message
-- "Your Career Quest Begins Now!"
+- "Your Career Forward Begins Now!"
 - Button: "Go to Dashboard"
 
 ---
@@ -833,7 +833,7 @@ Clicking shows filtered assessments below
 **Tabs:**
 
 **Overview Tab:**
-- Current Career Quest stage visualization
+- Current Career Forward stage visualization
 - Progress percentage
 - Recent activity list
 - Quick stats: Resumes created, Applications logged, Videos watched

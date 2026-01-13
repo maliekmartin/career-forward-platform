@@ -1,8 +1,8 @@
-# Career Quest Platform - Project Specification
+# Career Forward Platform - Project Specification
 
 ## Executive Summary
 
-Career Quest is a comprehensive workforce development platform designed to guide job seekers through the employment journey. The platform serves as a tool for individuals working with career coaches in American Job Center workforce development offices, providing a structured pathway from career assessment through job placement.
+Career Forward is a comprehensive workforce development platform designed to guide job seekers through the employment journey. The platform serves as a tool for individuals working with career coaches in American Job Center workforce development offices, providing a structured pathway from career assessment through job placement.
 
 ---
 
@@ -26,7 +26,7 @@ Career Quest is a comprehensive workforce development platform designed to guide
 ## Project Overview
 
 ### Mission Statement
-Career Quest provides job seekers with a guided pathway that starts with profile creation, moves through career assessments, resume building, interview preparation, and culminates in job tracking - all while working alongside a career coach.
+Career Forward provides job seekers with a guided pathway that starts with profile creation, moves through career assessments, resume building, interview preparation, and culminates in job tracking - all while working alongside a career coach.
 
 ### Key Objectives
 - Streamline the job search process for workforce development clients
@@ -86,7 +86,7 @@ Career Quest provides job seekers with a guided pathway that starts with profile
 - Create job-matched cover letters
 - Track job applications
 - Access training resources and assessments
-- View their progress through Career Quest pathway
+- View their progress through Career Forward pathway
 
 ### 2. Career Coach
 - Search and add clients to their caseload
@@ -149,7 +149,7 @@ Career Quest provides job seekers with a guided pathway that starts with profile
 
 ---
 
-### 2. Career Quest Pathway (Vertical Timeline)
+### 2. Career Forward Pathway (Vertical Timeline)
 
 #### Stage 1: Research & Discovery
 - Set career goals
@@ -365,7 +365,7 @@ When user clicks "Apply":
 
 #### Client View
 - Profile summary
-- Current Career Quest stage
+- Current Career Forward stage
 - Resume previews (view, not edit)
 - Job tracker summary
 - Activity timeline
@@ -480,12 +480,12 @@ When user clicks "Apply":
 
 5. Welcome Tour
    ├── Dashboard overview
-   ├── Career Quest pathway explanation
+   ├── Career Forward pathway explanation
    ├── Resume builder highlight
    ├── Job tracker intro
    └── Coach connection info
 
-6. Dashboard (Career Quest Pathway)
+6. Dashboard (Career Forward Pathway)
    └── Begin at Stage 1 or choose starting point
 ```
 
@@ -597,7 +597,7 @@ Client Side:
 ### Public Pages
 
 #### Landing Page
-- Hero section with Career Quest branding
+- Hero section with Career Forward branding
 - Value proposition (3-4 bullet points)
 - "Get Started" CTA button
 - "Sign In" link for existing users
@@ -631,7 +631,7 @@ Client Side:
 
 #### Main Dashboard
 **Header:**
-- Career Quest logo
+- Career Forward logo
 - Navigation: Dashboard, Resumes, Job Tracker, Training, Profile
 - Notification bell
 - User menu (profile, settings, sign out)
@@ -639,12 +639,12 @@ Client Side:
 **Content:**
 - Welcome message with user's name
 - Progress summary card
-- Vertical timeline showing Career Quest stages
+- Vertical timeline showing Career Forward stages
 - Current stage highlighted
 - Completion badges displayed
 - Quick actions (Create Resume, Log Job, Watch Training)
 
-#### Career Quest Pathway (Vertical Timeline)
+#### Career Forward Pathway (Vertical Timeline)
 - 5 stages displayed vertically
 - Each stage shows:
   - Stage number and title
@@ -1298,7 +1298,7 @@ interface JobListing {
 
 ### Colors
 
-Based on the Career Quest logo:
+Based on the Career Forward logo:
 
 | Name | Hex | Usage |
 |------|-----|-------|
@@ -1676,4 +1676,4 @@ Using Tailwind's default scale:
 
 *Document Version: 1.0*
 *Last Updated: January 2025*
-*Project: Career Quest Platform*
+*Project: Career Forward Platform*

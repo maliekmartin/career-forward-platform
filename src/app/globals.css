@@ -3,6 +3,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+html {
+  scroll-behavior: smooth;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -45,7 +49,7 @@
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
 
-  /* Career Quest custom colors */
+  /* Career Forward custom colors */
   --color-teal: var(--teal);
   --color-slate-brand: var(--slate-brand);
   --color-success: var(--success);
@@ -55,7 +59,7 @@
 :root {
   --radius: 0.5rem;
 
-  /* Career Quest Brand Colors */
+  /* Career Forward Brand Colors */
   --teal: #2B8A8A;
   --slate-brand: #5A6A72;
   --success: #38A169;
@@ -73,11 +77,11 @@
   --popover: #FFFFFF;
   --popover-foreground: #1A202C;
 
-  /* Primary - Career Quest Teal */
+  /* Primary - Career Forward Teal */
   --primary: #2B8A8A;
   --primary-foreground: #FFFFFF;
 
-  /* Secondary - Career Quest Slate */
+  /* Secondary - Career Forward Slate */
   --secondary: #F8FAFB;
   --secondary-foreground: #5A6A72;
 
@@ -170,7 +174,7 @@
   }
 }
 
-/* Career Quest custom utility classes */
+/* Career Forward custom utility classes */
 @layer utilities {
   .text-teal {
     color: var(--teal);
