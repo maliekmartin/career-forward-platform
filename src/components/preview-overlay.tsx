@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
 
-const ADMIN_PASSWORD = "careerforward2026";
+const ADMIN_PASSWORD = "CF@Preview2026!MBS";
 
 interface PreviewOverlayProps {
   children: React.ReactNode;
