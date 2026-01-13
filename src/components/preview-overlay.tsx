@@ -106,12 +106,12 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="mb-10"
               >
-                <div className="inline-flex items-center gap-4 px-5 py-2.5 bg-teal-500/10 border border-teal-500/20 rounded-full">
-                  <span className="flex h-2 w-2 relative">
+                <div className="inline-flex items-center gap-4 px-6 py-3 bg-gradient-to-r from-teal-500/20 to-teal-500/10 border border-teal-400/30 rounded-full shadow-lg shadow-teal-500/10">
+                  <span className="flex h-3 w-3 relative">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-teal-500"></span>
+                    <span className="relative inline-flex rounded-full h-3 w-3 bg-teal-400"></span>
                   </span>
-                  <span className="text-teal-400 font-medium">
+                  <span className="text-teal-300 font-semibold text-lg tracking-wide">
                     Launching Q3 2026
                   </span>
                 </div>
