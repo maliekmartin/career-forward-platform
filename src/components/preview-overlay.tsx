@@ -71,9 +71,9 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
           <Image
             src="/career-forward-logo-light.png"
             alt="Career Forward"
-            width={280}
-            height={80}
-            className="h-14 w-auto"
+            width={400}
+            height={120}
+            className="h-24 md:h-28 w-auto"
             priority
           />
         </motion.div>
