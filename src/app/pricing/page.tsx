@@ -25,15 +25,6 @@ import {
   Briefcase,
 } from "lucide-react";
 
-// Organization size options (like AbsorbLMS)
-const orgSizeOptions = [
-  { value: "1-5", label: "1-5 coaches", icon: "👤" },
-  { value: "6-15", label: "6-15 coaches", icon: "👥" },
-  { value: "16-30", label: "16-30 coaches", icon: "🏢" },
-  { value: "31-50", label: "31-50 coaches", icon: "🏛️" },
-  { value: "51-100", label: "51-100 coaches", icon: "🌆" },
-  { value: "100+", label: "100+ coaches", icon: "🌐" },
-];
 
 // Feature categories
 const featureCategories = [
@@ -130,7 +121,7 @@ const faqItems = [
 export default function PricingPage() {
   // Form state
   const [formStep, setFormStep] = useState(0); // 0 = not started, 1 = org size, 2 = contact info, 3 = complete
-  const [orgSize, setOrgSize] = useState("");
+  const [teamSize, setTeamSize] = useState(5);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -162,7 +153,7 @@ export default function PricingPage() {
     await new Promise(resolve => setTimeout(resolve, 1000));
 
     // Log lead data (replace with actual API call)
-    console.log("Lead captured:", { orgSize, ...formData });
+    console.log("Lead captured:", { teamSize, ...formData });
 
     setIsSubmitting(false);
     setFormStep(3);
@@ -192,29 +183,58 @@ export default function PricingPage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-              {orgSizeOptions.map((option) => (
-                <button
-                  key={option.value}
-                  onClick={() => setOrgSize(option.value)}
-                  className={`p-4 rounded-xl border-2 transition-all duration-200 text-left ${
-                    orgSize === option.value
-                      ? "border-[#2B8A8A] bg-[#2B8A8A]/5"
-                      : "border-gray-200 hover:border-gray-300 bg-white"
-                  }`}
+            {/* Team size slider */}
+            <div className="py-8">
+              <div className="flex items-baseline justify-center gap-2 mb-8">
+                <motion.span
+                  key={teamSize}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="text-6xl font-bold text-[#2B8A8A]"
                 >
-                  <span className="text-2xl mb-2 block">{option.icon}</span>
-                  <span className={`font-medium ${orgSize === option.value ? "text-[#2B8A8A]" : "text-[#0F172A]"}`}>
-                    {option.label}
-                  </span>
-                </button>
-              ))}
+                  {teamSize}
+                </motion.span>
+                <span className="text-xl text-[#64748B]">
+                  {teamSize === 1 ? "coach" : "coaches"}
+                </span>
+              </div>
+
+              <div className="relative px-2">
+                <input
+                  type="range"
+                  min="1"
+                  max="30"
+                  value={teamSize}
+                  onChange={(e) => setTeamSize(parseInt(e.target.value))}
+                  className="w-full h-3 bg-[#E2E8F0] rounded-full appearance-none cursor-pointer"
+                  style={{
+                    background: `linear-gradient(to right, #2B8A8A 0%, #2B8A8A ${((teamSize - 1) / 29) * 100}%, #E2E8F0 ${((teamSize - 1) / 29) * 100}%, #E2E8F0 100%)`
+                  }}
+                />
+                <div className="flex justify-between mt-3 text-sm text-[#94A3B8]">
+                  <span>1</span>
+                  <span>15</span>
+                  <span>30</span>
+                </div>
+              </div>
+
+              {teamSize >= 25 && (
+                <motion.p
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="text-sm text-[#2B8A8A] text-center mt-6"
+                >
+                  Need more than 30?{" "}
+                  <Link href="mailto:hello@careerforward.io" className="underline font-medium">
+                    Contact us for enterprise pricing
+                  </Link>
+                </motion.p>
+              )}
             </div>
 
             <Button
               onClick={() => setFormStep(2)}
-              disabled={!orgSize}
-              className="w-full bg-[#0F172A] hover:bg-[#1E293B] text-white rounded-full h-12 text-base font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-[#0F172A] hover:bg-[#1E293B] text-white rounded-full h-12 text-base font-medium"
             >
               Continue
               <ArrowRight className="ml-2 h-4 w-4" />
@@ -500,7 +520,7 @@ export default function PricingPage() {
                       </div>
                       <div>
                         <p className="font-medium">Thanks, {formData.firstName}!</p>
-                        <p className="text-sm text-white/80">Here's your custom pricing for {orgSize} coaches</p>
+                        <p className="text-sm text-white/80">Here's your custom pricing for {teamSize} {teamSize === 1 ? "coach" : "coaches"}</p>
                       </div>
                     </div>
                   </div>
