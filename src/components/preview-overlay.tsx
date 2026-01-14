@@ -258,25 +258,29 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
               >
                 <div className="relative">
                   {/* Screen bezel */}
-                  <div className="bg-gray-900 rounded-t-2xl pt-3 px-3 pb-0 shadow-2xl">
-                    {/* Menu bar dots */}
-                    <div className="absolute top-2 left-4 flex gap-1.5">
-                      <div className="w-2.5 h-2.5 bg-red-500/80 rounded-full" />
-                      <div className="w-2.5 h-2.5 bg-yellow-500/80 rounded-full" />
-                      <div className="w-2.5 h-2.5 bg-green-500/80 rounded-full" />
+                  <div className="bg-[#1a1a1a] rounded-t-2xl p-2 pb-0 shadow-2xl">
+                    {/* Menu bar */}
+                    <div className="flex items-center justify-between px-2 pb-2">
+                      {/* Menu bar dots */}
+                      <div className="flex gap-1.5">
+                        <div className="w-3 h-3 bg-[#ff5f57] rounded-full" />
+                        <div className="w-3 h-3 bg-[#febc2e] rounded-full" />
+                        <div className="w-3 h-3 bg-[#28c840] rounded-full" />
+                      </div>
+                      {/* Camera dot */}
+                      <div className="w-2 h-2 bg-gray-600 rounded-full" />
+                      {/* Spacer for symmetry */}
+                      <div className="w-[54px]" />
                     </div>
 
-                    {/* Camera dot */}
-                    <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-gray-700 rounded-full" />
-
-                    {/* Screen */}
-                    <div className="relative rounded-t-sm overflow-hidden bg-black">
+                    {/* Screen - flush with bezel */}
+                    <div className="relative overflow-hidden bg-black rounded-sm">
                       <video
                         autoPlay
                         muted
                         loop
                         playsInline
-                        className="w-full aspect-video object-cover"
+                        className="w-full aspect-video object-cover block"
                       >
                         <source src="/hero-b2b.mp4" type="video/mp4" />
                         Your browser does not support the video tag.
@@ -286,12 +290,12 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
 
                   {/* MacBook bottom/hinge */}
                   <div className="relative">
-                    <div className="bg-gradient-to-b from-gray-700 to-gray-800 h-4 rounded-b-xl" />
-                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-1 bg-gray-900 rounded-b" />
+                    <div className="bg-gradient-to-b from-[#3d3d3d] to-[#262626] h-5 rounded-b-xl" />
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-1.5 bg-[#1a1a1a] rounded-b-lg" />
                   </div>
 
                   {/* Shadow */}
-                  <div className="mx-auto w-3/4 h-4 bg-gradient-to-b from-black/10 to-transparent rounded-full blur-md -mt-1" />
+                  <div className="mx-auto w-4/5 h-4 bg-gradient-to-b from-black/15 to-transparent rounded-full blur-lg mt-1" />
                 </div>
               </motion.div>
 
