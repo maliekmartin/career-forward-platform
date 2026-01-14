@@ -172,8 +172,10 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="flex flex-wrap justify-center lg:justify-start gap-4 mb-10"
+                className="mb-10"
               >
+                <p className="text-sm font-medium text-gray-500 mb-3 text-center lg:text-left">We provide tools for:</p>
+                <div className="flex flex-wrap justify-center lg:justify-start gap-3">
                 {valueProps.map((prop, i) => (
                   <div
                     key={i}
@@ -183,6 +185,7 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
                     <span className="text-sm font-medium text-gray-700">{prop.label}</span>
                   </div>
                 ))}
+                </div>
               </motion.div>
 
               {/* Login Card */}
