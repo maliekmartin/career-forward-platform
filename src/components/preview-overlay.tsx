@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Lock,
@@ -91,13 +92,15 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
         className="relative z-20 bg-white/80 backdrop-blur-xl border-b border-gray-100 shadow-sm"
       >
         <div className="max-w-7xl mx-auto flex h-16 items-center justify-between px-6">
-          <Image
-            src="/career-forward-logo.png"
-            alt="Career Forward"
-            width={180}
-            height={45}
-            priority
-          />
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/career-forward-logo.png"
+              alt="Career Forward"
+              width={180}
+              height={45}
+              priority
+            />
+          </Link>
           <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#2B8A8A]/10 to-[#2B8A8A]/5 rounded-full border border-[#2B8A8A]/20">
             <span className="flex h-2 w-2 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#2B8A8A] opacity-75"></span>

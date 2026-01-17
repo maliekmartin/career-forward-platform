@@ -4,13 +4,23 @@ import { useState, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Loader2, AlertCircle, Eye, EyeOff, Users, Target, ArrowRight } from "lucide-react";
+import {
+  Loader2,
+  AlertCircle,
+  Eye,
+  EyeOff,
+  Users,
+  Target,
+  ArrowRight,
+  Sparkles,
+  CheckCircle2
+} from "lucide-react";
 
 function SignInForm() {
   const router = useRouter();
@@ -49,7 +59,6 @@ function SignInForm() {
         return;
       }
 
-      // Redirect based on user role
       const userRole = data.user.role;
       if (userRole === "COACH" || userRole === "ADMIN") {
         router.push("/coach/dashboard");
@@ -65,166 +74,283 @@ function SignInForm() {
     }
   };
 
+  const accentColor = loginType === "seeker" ? "#2B8A8A" : "#2B8A8A";
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-muted/30 px-4 py-12">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <Link href="/" className="inline-block mb-4">
+    <div className="relative min-h-screen overflow-hidden bg-[#FAFBFC]">
+      {/* Gradient Background */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-3xl opacity-20 bg-[#2B8A8A]" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full blur-3xl opacity-10 bg-[#2B8A8A]" />
+      </div>
+
+      {/* Navigation */}
+      <motion.nav
+        initial={{ y: -20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="relative z-20 bg-white/80 backdrop-blur-xl border-b border-gray-100 shadow-sm"
+      >
+        <div className="max-w-7xl mx-auto flex h-16 items-center justify-between px-6">
+          <Link href="/">
             <Image
               src="/career-forward-logo.png"
               alt="Career Forward"
-              width={220}
-              height={55}
+              width={180}
+              height={45}
               priority
             />
           </Link>
+          <p className="text-sm text-gray-500 hidden sm:block">Here to Move You Forward</p>
+        </div>
+      </motion.nav>
 
-          {/* Login Type Indicator */}
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <div className={`p-2 rounded-lg ${
-              loginType === "seeker"
-                ? "bg-[#2B8A8A]/10"
-                : "bg-gray-100"
-            }`}>
-              {loginType === "seeker" ? (
-                <Target className="h-5 w-5 text-[#2B8A8A]" />
-              ) : (
-                <Users className="h-5 w-5 text-gray-600" />
-              )}
-            </div>
-            <span className={`text-sm font-medium ${
-              loginType === "seeker" ? "text-[#2B8A8A]" : "text-gray-600"
-            }`}>
-              {loginType === "seeker" ? "Job Seeker" : "Coach"} Login
-            </span>
-          </div>
+      {/* Main Content */}
+      <div className="relative z-10 min-h-[calc(100vh-64px)] flex items-center justify-center px-4 py-12">
+        <div className="w-full max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            {/* Left Side - Branding */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="hidden lg:block"
+            >
+              {/* Badge */}
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-lg shadow-gray-200/50 border border-gray-100 mb-8">
+                <Sparkles className="h-4 w-4 text-[#2B8A8A]" />
+                <span className="text-sm font-medium text-gray-700">
+                  {loginType === "seeker" ? "100% Free for Job Seekers" : "For Workforce Partners"}
+                </span>
+              </div>
 
-          <CardTitle className="text-2xl">Welcome Back</CardTitle>
-          <CardDescription>
-            {loginType === "seeker"
-              ? "Sign in to continue your career journey"
-              : "Sign in to access your coach dashboard"
-            }
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {error && (
-              <Alert variant="destructive">
-                <AlertCircle className="h-4 w-4" />
-                <AlertDescription>{error}</AlertDescription>
-              </Alert>
-            )}
+              {/* Headline */}
+              <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] text-gray-900 mb-6">
+                {loginType === "seeker" ? (
+                  <>
+                    Your career journey
+                    <br />
+                    <span className="text-[#2B8A8A]">continues here</span>
+                  </>
+                ) : (
+                  <>
+                    Empower your
+                    <br />
+                    <span className="text-[#2B8A8A]">team today</span>
+                  </>
+                )}
+              </h1>
 
-            <div className="space-y-2">
-              <Label htmlFor="email">Email Address</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="you@example.com"
-                value={formData.email}
-                onChange={(e) =>
-                  setFormData({ ...formData, email: e.target.value })
+              <p className="text-xl text-gray-600 leading-relaxed mb-8 max-w-md">
+                {loginType === "seeker"
+                  ? "Access your personalized dashboard, track applications, and take the next step toward your dream job."
+                  : "Monitor job seeker progress, track outcomes, and drive results with real-time insights."
                 }
-                required
-                disabled={isLoading}
-              />
-            </div>
+              </p>
 
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <div className="relative">
-                <Input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  value={formData.password}
-                  onChange={(e) =>
-                    setFormData({ ...formData, password: e.target.value })
-                  }
-                  required
-                  disabled={isLoading}
-                  className="pr-10"
-                />
+              {/* Trust indicators */}
+              <div className="flex flex-col gap-3">
+                <div className="flex items-center gap-2 text-gray-600">
+                  <CheckCircle2 className="h-5 w-5 text-[#2B8A8A]" />
+                  <span>AI-powered job matching</span>
+                </div>
+                <div className="flex items-center gap-2 text-gray-600">
+                  <CheckCircle2 className="h-5 w-5 text-[#2B8A8A]" />
+                  <span>Resume builder & interview prep</span>
+                </div>
+                <div className="flex items-center gap-2 text-gray-600">
+                  <CheckCircle2 className="h-5 w-5 text-[#2B8A8A]" />
+                  <span>Progress tracking & analytics</span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Right Side - Login Form */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+              className="w-full max-w-md mx-auto lg:mx-0"
+            >
+              {/* Login Type Toggle */}
+              <div className="flex bg-white rounded-xl p-1 shadow-sm border border-gray-100 mb-6">
                 <button
                   type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                  onClick={() => setLoginType("seeker")}
+                  className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg text-sm font-medium transition-all ${
+                    loginType === "seeker"
+                      ? "bg-[#2B8A8A] text-white shadow-md"
+                      : "text-gray-600 hover:text-gray-900"
+                  }`}
                 >
-                  {showPassword ? (
-                    <EyeOff className="h-4 w-4" />
-                  ) : (
-                    <Eye className="h-4 w-4" />
-                  )}
+                  <Target className="h-4 w-4" />
+                  Job Seeker
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setLoginType("coach")}
+                  className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg text-sm font-medium transition-all ${
+                    loginType === "coach"
+                      ? "bg-[#2B8A8A] text-white shadow-md"
+                      : "text-gray-600 hover:text-gray-900"
+                  }`}
+                >
+                  <Users className="h-4 w-4" />
+                  Coach
                 </button>
               </div>
-            </div>
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="rememberMe"
-                  checked={formData.rememberMe}
-                  onCheckedChange={(checked) =>
-                    setFormData({ ...formData, rememberMe: checked as boolean })
-                  }
-                  disabled={isLoading}
-                />
-                <Label
-                  htmlFor="rememberMe"
-                  className="text-sm font-normal cursor-pointer"
-                >
-                  Remember me for 30 days
-                </Label>
+              {/* Form Card */}
+              <div className="bg-white rounded-2xl p-8 shadow-xl shadow-gray-200/50 border border-gray-100">
+                {/* Mobile Logo */}
+                <div className="lg:hidden text-center mb-6">
+                  <Link href="/">
+                    <Image
+                      src="/career-forward-logo.png"
+                      alt="Career Forward"
+                      width={180}
+                      height={45}
+                      className="mx-auto"
+                      priority
+                    />
+                  </Link>
+                </div>
+
+                <div className="text-center mb-6">
+                  <h2 className="text-2xl font-bold text-gray-900">Welcome Back</h2>
+                  <p className="text-gray-500 mt-1">
+                    {loginType === "seeker"
+                      ? "Sign in to continue your journey"
+                      : "Access your coach dashboard"
+                    }
+                  </p>
+                </div>
+
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <AnimatePresence>
+                    {error && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                      >
+                        <Alert variant="destructive">
+                          <AlertCircle className="h-4 w-4" />
+                          <AlertDescription>{error}</AlertDescription>
+                        </Alert>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="email" className="text-gray-700">Email Address</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="you@example.com"
+                      value={formData.email}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
+                      required
+                      disabled={isLoading}
+                      className="h-12 bg-gray-50 border-gray-200 focus:border-[#2B8A8A] focus:ring-[#2B8A8A]/20"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="password" className="text-gray-700">Password</Label>
+                    <div className="relative">
+                      <Input
+                        id="password"
+                        type={showPassword ? "text" : "password"}
+                        value={formData.password}
+                        onChange={(e) =>
+                          setFormData({ ...formData, password: e.target.value })
+                        }
+                        required
+                        disabled={isLoading}
+                        className="h-12 bg-gray-50 border-gray-200 focus:border-[#2B8A8A] focus:ring-[#2B8A8A]/20 pr-10"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                      >
+                        {showPassword ? (
+                          <EyeOff className="h-5 w-5" />
+                        ) : (
+                          <Eye className="h-5 w-5" />
+                        )}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <Checkbox
+                        id="rememberMe"
+                        checked={formData.rememberMe}
+                        onCheckedChange={(checked) =>
+                          setFormData({ ...formData, rememberMe: checked as boolean })
+                        }
+                        disabled={isLoading}
+                      />
+                      <Label
+                        htmlFor="rememberMe"
+                        className="text-sm font-normal text-gray-600 cursor-pointer"
+                      >
+                        Remember me
+                      </Label>
+                    </div>
+                    <Link
+                      href="/forgot-password"
+                      className="text-sm text-[#2B8A8A] hover:underline"
+                    >
+                      Forgot password?
+                    </Link>
+                  </div>
+
+                  <Button
+                    type="submit"
+                    className="w-full h-12 bg-[#2B8A8A] hover:bg-[#237070] text-white font-semibold shadow-lg shadow-[#2B8A8A]/25 hover:shadow-xl hover:shadow-[#2B8A8A]/30 transition-all duration-200"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <>
+                        <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                        Signing in...
+                      </>
+                    ) : (
+                      <>
+                        Sign In
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                      </>
+                    )}
+                  </Button>
+                </form>
+
+                <div className="mt-6 text-center">
+                  <p className="text-gray-500">
+                    Don&apos;t have an account?{" "}
+                    <Link
+                      href={loginType === "seeker" ? "/register/seeker" : "/register/coach"}
+                      className="text-[#2B8A8A] font-medium hover:underline"
+                    >
+                      Create one here
+                    </Link>
+                  </p>
+                </div>
               </div>
-              <Link
-                href="/forgot-password"
-                className="text-sm text-primary hover:underline"
-              >
-                Forgot password?
-              </Link>
-            </div>
 
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Signing in...
-                </>
-              ) : (
-                "Sign In"
-              )}
-            </Button>
-          </form>
-
-          <div className="mt-6 text-center text-sm text-muted-foreground">
-            Don&apos;t have an account?{" "}
-            <Link href="/register" className="text-primary hover:underline">
-              Create one here
-            </Link>
+              {/* Footer */}
+              <p className="text-center text-sm text-gray-400 mt-6">
+                © 2026 Career Forward. All rights reserved.
+              </p>
+            </motion.div>
           </div>
-
-          {/* Criss-cross toggle */}
-          <div className="mt-4 pt-4 border-t border-gray-100">
-            <button
-              type="button"
-              onClick={() => setLoginType(loginType === "seeker" ? "coach" : "seeker")}
-              className="w-full flex items-center justify-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              {loginType === "seeker" ? (
-                <>
-                  <Users className="h-4 w-4" />
-                  <span>Are you a coach? <span className="font-medium text-primary">Sign in here</span></span>
-                </>
-              ) : (
-                <>
-                  <Target className="h-4 w-4" />
-                  <span>Job seeker? <span className="font-medium text-[#2B8A8A]">Sign in here</span></span>
-                </>
-              )}
-            </button>
-          </div>
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 }
@@ -232,8 +358,8 @@ function SignInForm() {
 export default function SignInPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center bg-muted/30">
-        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+      <div className="min-h-screen flex items-center justify-center bg-[#FAFBFC]">
+        <Loader2 className="h-8 w-8 animate-spin text-[#2B8A8A]" />
       </div>
     }>
       <SignInForm />

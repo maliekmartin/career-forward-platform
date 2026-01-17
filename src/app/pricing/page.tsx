@@ -106,7 +106,7 @@ const faqItems = [
   },
   {
     q: "Is there a contract?",
-    a: "No long-term contracts required. Monthly billing with the flexibility to adjust as needed. Annual plans offer 17% savings for teams ready to commit.",
+    a: "No long-term contracts required. Monthly billing with the flexibility to adjust as needed. Annual plans offer 14% savings for teams ready to commit.",
   },
   {
     q: "What reporting is available for funders?",
@@ -140,10 +140,10 @@ export default function PricingPage() {
   const [activeTab, setActiveTab] = useState<"features" | "faq">("features");
 
   // Pricing calculation
-  const pricePerSeat = billingCycle === "monthly" ? 12 : 10;
+  const pricePerSeat = billingCycle === "monthly" ? 21 : 18;
   const monthlyTotal = coachCount * pricePerSeat;
   const annualTotal = monthlyTotal * 12;
-  const savings = billingCycle === "annual" ? coachCount * 24 : 0;
+  const savings = billingCycle === "annual" ? coachCount * 36 : 0;
 
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -409,11 +409,16 @@ export default function PricingPage() {
               priority
             />
           </Link>
-          <Link href="/register/seeker">
-            <Button variant="outline" className="rounded-full px-5 h-9 text-sm font-medium">
-              I'm a Job Seeker (Free)
-            </Button>
-          </Link>
+          <div className="flex items-center gap-6">
+            <Link href="/faq" className="text-sm text-gray-600 hover:text-[#2B8A8A] transition-colors font-medium">
+              FAQ
+            </Link>
+            <Link href="/register/seeker">
+              <Button variant="outline" className="rounded-full px-5 h-9 text-sm font-medium">
+                I&apos;m a Job Seeker (Free)
+              </Button>
+            </Link>
+          </div>
         </div>
       </nav>
 
@@ -549,7 +554,7 @@ export default function PricingPage() {
                         >
                           Annual
                           <span className="bg-[#2B8A8A] text-white text-xs px-2 py-0.5 rounded-full font-medium">
-                            -17%
+                            -14%
                           </span>
                         </button>
                       </div>
@@ -949,13 +954,28 @@ export default function PricingPage() {
 
       {/* Footer */}
       <footer className="py-8 px-6 border-t border-gray-100">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-[#94A3B8] text-sm">
-            © {new Date().getFullYear()} Career Forward. All Rights Reserved.
-          </p>
-          <div className="flex items-center gap-2 text-[#94A3B8] text-sm">
-            <Building2 className="h-4 w-4 text-[#2B8A8A]" />
-            <span>A MartinBuiltStrategies Product</span>
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-4">
+            <div className="flex items-center gap-6">
+              <Link href="/" className="text-sm text-gray-500 hover:text-[#2B8A8A] transition-colors">
+                Home
+              </Link>
+              <Link href="/faq" className="text-sm text-gray-500 hover:text-[#2B8A8A] transition-colors">
+                FAQ
+              </Link>
+              <Link href="/privacy" className="text-sm text-gray-500 hover:text-[#2B8A8A] transition-colors">
+                Privacy Policy
+              </Link>
+            </div>
+            <div className="flex items-center gap-2 text-[#94A3B8] text-sm">
+              <Building2 className="h-4 w-4 text-[#2B8A8A]" />
+              <span>A MartinBuiltStrategies Product</span>
+            </div>
+          </div>
+          <div className="border-t border-gray-100 pt-4 text-center md:text-left">
+            <p className="text-[#94A3B8] text-sm">
+              © {new Date().getFullYear()} Career Forward. All Rights Reserved.
+            </p>
           </div>
         </div>
       </footer>

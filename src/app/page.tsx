@@ -46,14 +46,6 @@ const orgStats = [
   { value: "85%", label: "Client Retention" },
 ];
 
-// Social proof logos (placeholder names)
-const partnerLogos = [
-  "WorkSource",
-  "Spokane Workforce",
-  "Career Connect",
-  "Employment Services",
-  "Job Link",
-];
 
 // Animated section wrapper
 function AnimatedSection({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
@@ -264,7 +256,8 @@ function StickyCTA({ audience, isVisible }: { audience: string; isVisible: boole
 const heroContent = {
   seekers: {
     badge: "100% Free for Job Seekers",
-    headline: "Land your dream job,",
+    headlineTop: "Land your dream",
+    headlineBottom: "job,",
     headlineAccent: "faster",
     subheadline: "Build resumes, track applications, and prep for interviews. All in one place. Completely free.",
     cta: "Start Your Journey",
@@ -274,12 +267,13 @@ const heroContent = {
   },
   organizations: {
     badge: "For Workforce Partners",
-    headline: "Empower your team,",
+    headlineTop: "Empower your",
+    headlineBottom: "team,",
     headlineAccent: "together",
     subheadline: "Give coaches real-time visibility into job seeker progress. Track outcomes, celebrate wins, and drive results.",
     cta: "Request a Demo",
     secondaryCta: "View Pricing",
-    ctaLink: "mailto:hello@careerforward.io?subject=Demo%20Request",
+    ctaLink: "/demo",
     secondaryCtaLink: "/pricing",
   },
 };
@@ -524,6 +518,9 @@ export default function LandingPage() {
             <a href="#testimonials" className="text-sm text-gray-600 hover:text-[#2B8A8A] transition-colors font-medium">
               Stories
             </a>
+            <Link href="/faq" className="text-sm text-gray-600 hover:text-[#2B8A8A] transition-colors font-medium">
+              FAQ
+            </Link>
             {audience === "organizations" && (
               <Link href="/pricing" className="text-sm text-gray-600 hover:text-[#2B8A8A] transition-colors font-medium">
                 Pricing
@@ -653,7 +650,7 @@ export default function LandingPage() {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="mb-8"
             >
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05] text-gray-900">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] text-gray-900">
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={audience}
@@ -662,11 +659,22 @@ export default function LandingPage() {
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.3 }}
                   >
-                    {heroContent[audience].headline}
+                    {heroContent[audience].headlineTop}
                   </motion.span>
                 </AnimatePresence>
                 <br />
-                <span className="relative inline-block" style={{ color: accentColor }}>
+                <AnimatePresence mode="wait">
+                  <motion.span
+                    key={`bottom-${audience}`}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {heroContent[audience].headlineBottom}
+                  </motion.span>
+                </AnimatePresence>{" "}
+                <span className="relative inline" style={{ color: accentColor }}>
                   <AnimatePresence mode="wait">
                     <motion.span
                       key={`accent-${audience}`}
@@ -903,39 +911,6 @@ export default function LandingPage() {
         </motion.div>
       </section>
 
-      {/* Social Proof Section - NEW */}
-      <section className="py-16 px-6 border-y border-gray-100 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col md:flex-row items-center justify-between gap-8"
-          >
-            <div className="text-center md:text-left">
-              <p className="text-sm text-gray-500 font-medium mb-1">
-                {audience === "seekers" ? "Trusted by workforce programs" : "Powering workforce development"}
-              </p>
-              <p className="text-gray-400 text-sm">across Washington State</p>
-            </div>
-
-            <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12">
-              {partnerLogos.map((logo, index) => (
-                <motion.div
-                  key={logo}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="text-gray-400 font-semibold text-sm hover:text-gray-600 transition-colors cursor-default"
-                >
-                  {logo}
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
 
       {/* Features Section - Bento Grid */}
       <section id="features" className="py-32 px-6 bg-[#FAFBFC]">
@@ -1863,10 +1838,10 @@ export default function LandingPage() {
                       asChild
                       className="bg-white text-[#374151] hover:bg-gray-100 rounded-full px-12 h-16 text-lg font-bold shadow-2xl hover:scale-105 transition-all duration-300"
                     >
-                      <a href="mailto:hello@careerforward.io?subject=Demo%20Request">
+                      <Link href="/demo">
                         Request a Demo
                         <ArrowRight className="ml-2 h-5 w-5" />
-                      </a>
+                      </Link>
                     </Button>
                     <Button
                       variant="outline"
@@ -1914,6 +1889,7 @@ export default function LandingPage() {
             <div>
               <h4 className="font-bold text-gray-900 mb-5">Resources</h4>
               <ul className="space-y-4 text-gray-500">
+                <li><Link href="/faq" className="hover:text-[#2B8A8A] transition-colors">FAQ</Link></li>
                 <li><a href="https://worksourcewa.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#2B8A8A] transition-colors">WorkSource Washington</a></li>
                 <li><a href="https://spokaneworkforce.org" target="_blank" rel="noopener noreferrer" className="hover:text-[#2B8A8A] transition-colors">Spokane Workforce Council</a></li>
               </ul>
