@@ -1890,8 +1890,7 @@ export default function LandingPage() {
               <h4 className="font-bold text-gray-900 mb-5">Resources</h4>
               <ul className="space-y-4 text-gray-500">
                 <li><Link href="/faq" className="hover:text-[#2B8A8A] transition-colors">FAQ</Link></li>
-                <li><a href="https://worksourcewa.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#2B8A8A] transition-colors">WorkSource Washington</a></li>
-                <li><a href="https://spokaneworkforce.org" target="_blank" rel="noopener noreferrer" className="hover:text-[#2B8A8A] transition-colors">Spokane Workforce Council</a></li>
+                <li><Link href="/demo" className="hover:text-[#2B8A8A] transition-colors">Platform Demo</Link></li>
               </ul>
             </div>
             <div>
