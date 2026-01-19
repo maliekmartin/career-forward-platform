@@ -91,7 +91,7 @@ export const faqData: FAQCategory[] = [
       {
         id: "free-tier-features",
         question: "What's included in the free tier for job seekers?",
-        answer: "Job seekers get access to the complete Career Forward platform at no cost, including: unlimited resume creation and storage (up to 3 resumes), AI-powered resume parsing from document uploads, job-matched cover letter generation, comprehensive job application tracking with a stoplight status system, progress tracking through the 5-stage Career Forward pathway, access to interview preparation videos and training resources, career assessments and labor market information, achievement badges and milestone tracking, and integration with the WorkSourceWA job board.",
+        answer: "Job seekers get access to the complete Career Forward platform at no cost, including: unlimited resume creation and storage (up to 3 resumes), AI-powered resume parsing from document uploads, job-matched cover letter generation, comprehensive job application tracking with a stoplight status system, progress tracking through the 5-stage Career Forward pathway, access to interview preparation videos and training resources, career assessments and labor market information, achievement badges and milestone tracking, and integration with partner job boards.",
         tags: ["free", "features"]
       },
       {
@@ -363,7 +363,7 @@ export const faqData: FAQCategory[] = [
       {
         id: "available-integrations",
         question: "What integrations are available?",
-        answer: "Career Forward integrates with WorkSourceWA job board for real-time job listings, the Affinda resume parser for automatic data extraction from uploaded resumes, and Resend for secure email delivery. These integrations work seamlessly—clients see no disruption while your team gets reliable, connected data flows.",
+        answer: "Career Forward integrates with partner job boards for real-time job listings, the Affinda resume parser for automatic data extraction from uploaded resumes, and Resend for secure email delivery. These integrations work seamlessly—clients see no disruption while your team gets reliable, connected data flows.",
         tags: ["integration", "tools"]
       },
       {
@@ -639,7 +639,7 @@ export const faqData: FAQCategory[] = [
       {
         id: "third-party-integrations",
         question: "How does Career Forward handle third-party integrations?",
-        answer: "Career Forward uses trusted, industry-standard third-party services to enhance your experience, but we maintain strict data governance. We integrate with Affinda for resume parsing, Resend for secure email delivery, and WorkSourceWA for job listings. These integrations only receive the minimum data necessary to provide their service. All third-party services are contractually bound to protect your data.",
+        answer: "Career Forward uses trusted, industry-standard third-party services to enhance your experience, but we maintain strict data governance. We integrate with Affinda for resume parsing, Resend for secure email delivery, and partner job boards for job listings. These integrations only receive the minimum data necessary to provide their service. All third-party services are contractually bound to protect your data.",
         tags: ["integrations", "third-party"]
       },
       {

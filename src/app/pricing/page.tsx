@@ -334,7 +334,7 @@ export default function PricingPage() {
                     value={formData.company}
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                     className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] transition-all"
-                    placeholder="WorkSource Spokane"
+                    placeholder="Your Organization"
                   />
                 </div>
               </div>

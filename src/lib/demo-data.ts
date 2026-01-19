@@ -213,9 +213,9 @@ export const demoCoach: DemoCoach = {
   id: "coach-1",
   firstName: "Sarah",
   lastName: "Johnson",
-  email: "sarah.johnson@worksource.gov",
+  email: "sarah.johnson@careerservices.org",
   avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face",
-  organization: "WorkSource Spokane",
+  organization: "Career Services Center",
   quirkyFact: {
     prompt: "Pet's name",
     answer: "Luna (a very fluffy cat)",

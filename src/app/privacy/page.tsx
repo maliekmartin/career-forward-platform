@@ -36,7 +36,7 @@ Career Forward is intended for users who are 18 years of age or older. We do not
 
 **Information from Third Parties:**
 • Resume parsing services (Affinda): extracted resume data from uploaded documents
-• Job board integrations (WorkSourceWA): job listing data
+• Job board integrations: job listing data from partner job boards
 • Authentication providers: if you sign in using third-party services`,
   },
   {
@@ -226,7 +226,7 @@ We do not use advertising cookies or engage in targeted advertising based on you
     title: "Third-Party Links and Services",
     content: `Our platform may contain links to third-party websites or integrate with third-party services:
 
-**Job Board Integration (WorkSourceWA):**
+**Job Board Integration:**
 When you search for jobs, we display listings from external job boards. Clicking on a job listing may take you to an external site with its own privacy policy.
 
 **Resume Parsing (Affinda):**

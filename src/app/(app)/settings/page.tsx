@@ -197,7 +197,7 @@ export default function SettingsPage() {
                             Connected with Sarah Johnson
                           </p>
                           <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
-                            WorkSource Spokane
+                            Career Services Center
                           </p>
                         </div>
                       </div>

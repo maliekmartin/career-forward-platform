@@ -268,7 +268,7 @@ export const enhancedFAQAdditions: FAQCategory[] = [
       {
         id: "subprocessors-vendors",
         question: "What third-party vendors (subprocessors) does Career Forward use?",
-        answer: "Career Forward uses carefully vetted third-party services: Vercel (application hosting), Supabase/Vercel Postgres (database), Affinda (resume parsing), Resend (email delivery), WorkSourceWA (job board data), and Stripe (payment processing). All vendors are contractually bound to data protection standards equivalent to our own Privacy Policy. We maintain a current list of subprocessors and will notify Enterprise customers 30 days before adding new subprocessors. Contact privacy@careerforward.com for our complete subprocessor list.",
+        answer: "Career Forward uses carefully vetted third-party services: Vercel (application hosting), Supabase/Vercel Postgres (database), Affinda (resume parsing), Resend (email delivery), partner job boards (job board data), and Stripe (payment processing). All vendors are contractually bound to data protection standards equivalent to our own Privacy Policy. We maintain a current list of subprocessors and will notify Enterprise customers 30 days before adding new subprocessors. Contact privacy@careerforward.com for our complete subprocessor list.",
         tags: ["subprocessors", "vendors", "third-party", "privacy"]
       }
     ]
