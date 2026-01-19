@@ -70,6 +70,34 @@ Career Forward is intended for users who are 18 years of age or older. We do not
 • Comply with legal obligations`,
   },
   {
+    id: "ai-processing",
+    title: "AI-Powered Features & Data Processing",
+    content: `Career Forward uses artificial intelligence (AI) technology to enhance your experience. We want to be transparent about how AI is used with your data.
+
+**AI Technologies Used:**
+We integrate with AI systems, including Claude (Anthropic) and similar large language model (LLM) technologies, to power features such as:
+• Resume parsing and content analysis
+• Personalized career recommendations
+• Cover letter generation assistance
+• Job matching algorithms
+• Interview preparation guidance
+• Chatbot and support features
+
+**How Your Data is Processed:**
+• Your resume content and profile information may be processed by AI systems to provide personalized recommendations
+• AI-generated content is created based on the information you provide
+• We do not use your personal data to train AI models
+• AI processing is performed by trusted third-party providers under strict data protection agreements
+
+**Your Rights Regarding AI Processing:**
+• You can review and edit any AI-generated content before using it
+• You may request information about how AI features use your data
+• You can opt out of certain AI-powered features through your account settings
+
+**Limitations:**
+AI-generated recommendations and content are provided as suggestions only. We encourage you to review all AI outputs for accuracy and appropriateness before use. See our Terms of Service for important disclaimers about AI features and employment outcomes.`,
+  },
+  {
     id: "data-sharing",
     title: "How We Share Your Information",
     content: `We do not sell your personal information. We share information only in the following circumstances:
