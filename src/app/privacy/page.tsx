@@ -199,7 +199,7 @@ Organizations that cancel maintain access to data for 30 days to export informat
 • Revoke third-party integrations
 • Withdraw consent for non-essential data processing
 
-To exercise these rights, access your Account Settings or contact us at privacy@careerforward.io.`,
+To exercise these rights, access your Account Settings or contact us at support@martinbuiltstrategies.com.`,
   },
   {
     id: "gdpr-ccpa",
@@ -228,7 +228,7 @@ If you are a California resident, you have the following rights:
 • Right to delete your personal information
 • Right to equal service and price (non-discrimination)
 
-To submit a CCPA request, contact us at privacy@careerforward.io or call our dedicated privacy line. We will verify your identity before processing requests.`,
+To submit a CCPA request, contact us at support@martinbuiltstrategies.com. We will verify your identity before processing requests.`,
   },
   {
     id: "cookies",
@@ -270,7 +270,7 @@ We are not responsible for the privacy practices of third-party websites or serv
     title: "Children's Privacy",
     content: `Career Forward is intended for users who are 18 years of age or older. We do not knowingly collect personal information from children under 18.
 
-If we learn that we have collected personal information from a child under 18, we will take steps to delete that information as quickly as possible. If you believe we have inadvertently collected information from a child under 18, please contact us immediately at privacy@careerforward.io.`,
+If we learn that we have collected personal information from a child under 18, we will take steps to delete that information as quickly as possible. If you believe we have inadvertently collected information from a child under 18, please contact us immediately at support@martinbuiltstrategies.com.`,
   },
   {
     id: "international",
@@ -302,11 +302,10 @@ We encourage you to review this Privacy Policy periodically. Your continued use 
     content: `If you have questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:
 
 **Martin Built Strategies LLC**
-Email: privacy@careerforward.io
-Support: support@careerforward.io
+Email: support@martinbuiltstrategies.com
 Website: careerforward.io
 
-For GDPR-related inquiries, you may also contact our Data Protection Officer at privacy@careerforward.io.
+For GDPR-related inquiries, you may also contact us at support@martinbuiltstrategies.com.
 
 We will respond to your inquiry within 30 days. For California residents exercising CCPA rights, we will respond within 45 days as required by law.`,
   },
@@ -495,7 +494,7 @@ export default function PrivacyPage() {
               or concerns.
             </p>
             <a
-              href="mailto:privacy@careerforward.io"
+              href="mailto:support@martinbuiltstrategies.com"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#2B8A8A] text-white font-semibold rounded-xl shadow-lg shadow-[#2B8A8A]/25 hover:bg-[#237070] transition-all"
             >
               Contact Privacy Team

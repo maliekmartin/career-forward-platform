@@ -271,10 +271,9 @@ You may not assign your rights under these Terms. We may assign our rights to an
     content: `If you have questions about these Terms of Service, please contact us:
 
 **Martin Built Strategies LLC**
-Email: legal@careerforward.io
-Support: support@careerforward.io
+Email: support@martinbuiltstrategies.com
 
-For privacy-related inquiries, please see our Privacy Policy or contact privacy@careerforward.io.
+For privacy-related inquiries, please see our Privacy Policy or contact support@martinbuiltstrategies.com.
 
 **Effective Date:** January 2026
 **Last Updated:** January 2026`,
