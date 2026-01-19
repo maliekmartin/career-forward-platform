@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
+import { TermsConsentModal, ConsentRecord } from "@/components/terms-consent-modal";
 import {
   Select,
   SelectContent,
@@ -43,6 +43,8 @@ export default function SeekerRegisterPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
+  const [showConsentModal, setShowConsentModal] = useState(false);
+  const [consentRecord, setConsentRecord] = useState<ConsentRecord | null>(null);
 
   const [formData, setFormData] = useState<SeekerFormData>({
     firstName: "",
@@ -53,6 +55,12 @@ export default function SeekerRegisterPage() {
     currentStatus: "",
     acceptTerms: false,
   });
+
+  const handleConsentComplete = (consents: ConsentRecord) => {
+    setConsentRecord(consents);
+    setFormData({ ...formData, acceptTerms: true });
+    setShowConsentModal(false);
+  };
 
   const handleGoogleSignup = () => {
     // Placeholder for Google OAuth - will be implemented later
@@ -78,9 +86,15 @@ export default function SeekerRegisterPage() {
     registrations.push({
       type: "seeker",
       ...formData,
+      consents: consentRecord,
       submittedAt: new Date().toISOString(),
     });
     localStorage.setItem("cq_registrations", JSON.stringify(registrations));
+
+    // Store consent separately for the user (for checking on login)
+    if (consentRecord) {
+      localStorage.setItem(`cf_consent_${formData.email}`, JSON.stringify(consentRecord));
+    }
 
     setIsLoading(false);
     setSuccess(true);
@@ -362,29 +376,46 @@ export default function SeekerRegisterPage() {
               </Select>
             </div>
 
-            <div className="flex items-start space-x-3 pt-2">
-              <Checkbox
-                id="acceptTerms"
-                checked={formData.acceptTerms}
-                onCheckedChange={(checked) =>
-                  setFormData({ ...formData, acceptTerms: checked as boolean })
-                }
-                disabled={isLoading}
-                className="mt-0.5 rounded"
-              />
-              <Label
-                htmlFor="acceptTerms"
-                className="text-sm font-normal cursor-pointer leading-relaxed text-gray-600"
+            <div className="pt-2">
+              <button
+                type="button"
+                onClick={() => setShowConsentModal(true)}
+                disabled={isLoading || formData.acceptTerms}
+                className={`w-full p-4 rounded-xl border-2 text-left transition-all ${
+                  formData.acceptTerms
+                    ? "border-[#2B8A8A] bg-[#2B8A8A]/5"
+                    : "border-gray-200 hover:border-[#2B8A8A]/50 hover:bg-gray-50"
+                }`}
               >
-                I agree to the{" "}
-                <Link href="/terms" className="text-[#2B8A8A] hover:underline" target="_blank">
-                  Terms of Service
-                </Link>{" "}
-                and{" "}
-                <Link href="/privacy" className="text-[#2B8A8A] hover:underline" target="_blank">
-                  Privacy Policy
-                </Link>
-              </Label>
+                <div className="flex items-center gap-3">
+                  <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${
+                    formData.acceptTerms
+                      ? "border-[#2B8A8A] bg-[#2B8A8A]"
+                      : "border-gray-300"
+                  }`}>
+                    {formData.acceptTerms && (
+                      <CheckCircle2 className="h-4 w-4 text-white" />
+                    )}
+                  </div>
+                  <div className="flex-1">
+                    {formData.acceptTerms ? (
+                      <span className="text-sm font-medium text-[#2B8A8A]">
+                        Terms of Service and Privacy Policy accepted
+                      </span>
+                    ) : (
+                      <span className="text-sm text-gray-600">
+                        Click to review and accept the{" "}
+                        <span className="text-[#2B8A8A] font-medium">Terms of Service</span>
+                        {" "}and{" "}
+                        <span className="text-[#2B8A8A] font-medium">Privacy Policy</span>
+                      </span>
+                    )}
+                  </div>
+                  {!formData.acceptTerms && (
+                    <ArrowRight className="h-4 w-4 text-gray-400" />
+                  )}
+                </div>
+              </button>
             </div>
 
             <Button
@@ -464,6 +495,13 @@ export default function SeekerRegisterPage() {
           </motion.div>
         </div>
       </div>
+
+      {/* Terms Consent Modal */}
+      <TermsConsentModal
+        isOpen={showConsentModal}
+        onComplete={handleConsentComplete}
+        onCancel={() => setShowConsentModal(false)}
+      />
     </div>
   );
 }
