@@ -15,6 +15,9 @@ import {
   BarChart3,
   Sparkles,
   CheckCircle2,
+  FileText,
+  MessageSquare,
+  Briefcase,
 } from "lucide-react";
 
 const ADMIN_PASSWORD = "CF@Preview2026!MBS";
@@ -23,18 +26,45 @@ interface PreviewOverlayProps {
   children: React.ReactNode;
 }
 
-// Value propositions matching landing page
-const valueProps = [
+// Value propositions for each audience
+const seekerValueProps = [
+  { icon: FileText, label: "Resume Builder" },
+  { icon: Briefcase, label: "Job Tracker" },
+  { icon: MessageSquare, label: "Interview Prep" },
+];
+
+const orgValueProps = [
   { icon: Target, label: "AI-Powered Job Matching" },
   { icon: Users, label: "Caseload Management" },
   { icon: BarChart3, label: "Outcome Tracking" },
 ];
 
-const stats = [
+const seekerStats = [
   { value: "70%", label: "Placement Rate" },
   { value: "3 wks", label: "Avg Time to Hire" },
   { value: "Free", label: "For Job Seekers" },
 ];
+
+const orgStats = [
+  { value: "40%", label: "More Placements" },
+  { value: "8 hrs", label: "Saved Weekly" },
+  { value: "96%", label: "Coach Satisfaction" },
+];
+
+const heroContent = {
+  seekers: {
+    headline: "Land Your Dream Job",
+    headlineAccent: "Faster",
+    subheadline: "Build resumes, track applications, and prep for interviews. All in one place. Completely free.",
+    video: "/hero-b2c.mp4",
+  },
+  organizations: {
+    headline: "The Future of Workforce",
+    headlineAccent: "Development",
+    subheadline: "Empowering job seekers and career coaches with tools to accelerate career success.",
+    video: "/hero-b2b.mp4",
+  },
+};
 
 export function PreviewOverlay({ children }: PreviewOverlayProps) {
   const [isUnlocked, setIsUnlocked] = useState(false);
@@ -42,6 +72,7 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [audience, setAudience] = useState<"seekers" | "organizations">("seekers");
 
   useEffect(() => {
     const unlocked = sessionStorage.getItem("cf_preview_unlocked");
@@ -50,6 +81,11 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
     }
     setIsLoading(false);
   }, []);
+
+  const accentColor = audience === "seekers" ? "#2B8A8A" : "#374151";
+  const currentContent = heroContent[audience];
+  const currentValueProps = audience === "seekers" ? seekerValueProps : orgValueProps;
+  const currentStats = audience === "seekers" ? seekerStats : orgStats;
 
   const handleUnlock = (e: React.FormEvent) => {
     e.preventDefault();
@@ -77,14 +113,21 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#FAFBFC]">
-      {/* Gradient Background - matching landing page */}
+      {/* Gradient Background */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-3xl opacity-20 bg-[#2B8A8A]" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-3xl opacity-10 bg-[#2B8A8A]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] rounded-full blur-3xl opacity-5 bg-[#2B8A8A]" />
+        <motion.div
+          className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-3xl opacity-20"
+          animate={{ backgroundColor: accentColor }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.div
+          className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-3xl opacity-10"
+          animate={{ backgroundColor: accentColor }}
+          transition={{ duration: 0.5 }}
+        />
       </div>
 
-      {/* Navigation - matching landing page style */}
+      {/* Navigation */}
       <motion.nav
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -101,12 +144,18 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
               priority
             />
           </Link>
-          <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#2B8A8A]/10 to-[#2B8A8A]/5 rounded-full border border-[#2B8A8A]/20">
+          <div
+            className="flex items-center gap-2 px-4 py-2 rounded-full border"
+            style={{
+              background: `linear-gradient(to right, ${accentColor}10, ${accentColor}05)`,
+              borderColor: `${accentColor}20`
+            }}
+          >
             <span className="flex h-2 w-2 relative">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#2B8A8A] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#2B8A8A]"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ backgroundColor: accentColor }}></span>
+              <span className="relative inline-flex rounded-full h-2 w-2" style={{ backgroundColor: accentColor }}></span>
             </span>
-            <span className="text-[#2B8A8A] text-sm font-semibold">Launching Q3 2026</span>
+            <span className="text-sm font-semibold" style={{ color: accentColor }}>Launching Q3 2026</span>
           </div>
         </div>
       </motion.nav>
@@ -117,58 +166,130 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Left Side - Content */}
             <div className="text-center lg:text-left">
+              {/* Audience Toggle */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="flex justify-center lg:justify-start mb-8"
+              >
+                <div className="relative bg-white rounded-2xl p-1.5 shadow-xl shadow-gray-200/50 border border-gray-100">
+                  <motion.div
+                    className="absolute top-1.5 bottom-1.5 rounded-xl"
+                    initial={false}
+                    animate={{
+                      x: audience === "seekers" ? 0 : "100%",
+                      backgroundColor: accentColor,
+                    }}
+                    transition={{ type: "spring", stiffness: 400, damping: 35 }}
+                    style={{ width: "calc(50% - 3px)", left: "6px" }}
+                  />
+                  <div className="relative flex">
+                    <button
+                      onClick={() => setAudience("seekers")}
+                      className="relative z-10"
+                    >
+                      <div className="flex items-center gap-2 px-5 py-3">
+                        <Target className={`w-4 h-4 transition-colors duration-300 ${
+                          audience === "seekers" ? "text-white" : "text-gray-400"
+                        }`} />
+                        <div className="text-left">
+                          <p className={`font-semibold text-sm transition-colors duration-300 ${
+                            audience === "seekers" ? "text-white" : "text-gray-700"
+                          }`}>
+                            Job Seeker
+                          </p>
+                        </div>
+                      </div>
+                    </button>
+                    <div className="w-px bg-gray-200 my-2" />
+                    <button
+                      onClick={() => setAudience("organizations")}
+                      className="relative z-10"
+                    >
+                      <div className="flex items-center gap-2 px-5 py-3">
+                        <Building2 className={`w-4 h-4 transition-colors duration-300 ${
+                          audience === "organizations" ? "text-white" : "text-gray-400"
+                        }`} />
+                        <div className="text-left">
+                          <p className={`font-semibold text-sm transition-colors duration-300 ${
+                            audience === "organizations" ? "text-white" : "text-gray-700"
+                          }`}>
+                            Organization
+                          </p>
+                        </div>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </motion.div>
+
               {/* Badge */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-lg shadow-gray-200/50 border border-gray-100 mb-8"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-lg shadow-gray-200/50 border border-gray-100 mb-6"
               >
-                <Sparkles className="h-4 w-4 text-[#2B8A8A]" />
-                <span className="text-sm font-medium text-gray-700">Early Access Preview</span>
+                <Sparkles className="h-4 w-4" style={{ color: accentColor }} />
+                <span className="text-sm font-medium text-gray-700">
+                  {audience === "seekers" ? "100% Free for Job Seekers" : "Early Access Preview"}
+                </span>
               </motion.div>
 
-              {/* Headline - matching landing page typography */}
+              {/* Headline */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
                 className="mb-6"
               >
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] text-gray-900 mb-4">
-                  The Future of
-                  <span className="relative inline-block ml-3 text-[#2B8A8A]">
-                    Workforce
-                    <motion.svg
-                      className="absolute -bottom-1 left-0 w-full"
-                      viewBox="0 0 200 8"
-                      initial={{ pathLength: 0 }}
-                      animate={{ pathLength: 1 }}
-                      transition={{ delay: 0.8, duration: 0.6 }}
-                    >
-                      <motion.path
-                        d="M2 6 Q 100 2 198 6"
-                        fill="none"
-                        stroke="#2B8A8A"
-                        strokeWidth="3"
-                        strokeLinecap="round"
-                      />
-                    </motion.svg>
-                  </span>
-                  <br />
-                  <span className="text-[#2B8A8A]">Development</span>
-                </h1>
+                <AnimatePresence mode="wait">
+                  <motion.h1
+                    key={audience}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ duration: 0.3 }}
+                    className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] text-gray-900 mb-4"
+                  >
+                    {currentContent.headline}
+                    <br />
+                    <span className="relative inline-block" style={{ color: accentColor }}>
+                      {currentContent.headlineAccent}
+                      <motion.svg
+                        className="absolute -bottom-1 left-0 w-full"
+                        viewBox="0 0 200 8"
+                        initial={{ pathLength: 0 }}
+                        animate={{ pathLength: 1 }}
+                        transition={{ delay: 0.5, duration: 0.6 }}
+                      >
+                        <motion.path
+                          d="M2 6 Q 100 2 198 6"
+                          fill="none"
+                          stroke={accentColor}
+                          strokeWidth="3"
+                          strokeLinecap="round"
+                        />
+                      </motion.svg>
+                    </span>
+                  </motion.h1>
+                </AnimatePresence>
               </motion.div>
 
               {/* Subheadline */}
-              <motion.p
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="text-xl text-gray-600 leading-relaxed mb-8 max-w-lg mx-auto lg:mx-0"
-              >
-                Empowering job seekers and career coaches with tools to accelerate career success. Be among the first to experience the platform.
-              </motion.p>
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={`sub-${audience}`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="text-xl text-gray-600 leading-relaxed mb-8 max-w-lg mx-auto lg:mx-0"
+                >
+                  {currentContent.subheadline}
+                </motion.p>
+              </AnimatePresence>
 
               {/* Value Props */}
               <motion.div
@@ -177,17 +298,19 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
                 transition={{ duration: 0.5, delay: 0.3 }}
                 className="mb-10"
               >
-                <p className="text-sm font-medium text-gray-500 mb-3 text-center lg:text-left">We provide tools for:</p>
+                <p className="text-sm font-medium text-gray-500 mb-3 text-center lg:text-left">
+                  {audience === "seekers" ? "Everything you need:" : "Tools for your team:"}
+                </p>
                 <div className="flex flex-wrap justify-center lg:justify-start gap-3">
-                {valueProps.map((prop, i) => (
-                  <div
-                    key={i}
-                    className="flex items-center gap-2 px-4 py-2 bg-white rounded-xl shadow-sm border border-gray-100"
-                  >
-                    <prop.icon className="h-4 w-4 text-[#2B8A8A]" />
-                    <span className="text-sm font-medium text-gray-700">{prop.label}</span>
-                  </div>
-                ))}
+                  {currentValueProps.map((prop, i) => (
+                    <div
+                      key={`${audience}-${i}`}
+                      className="flex items-center gap-2 px-4 py-2 bg-white rounded-xl shadow-sm border border-gray-100"
+                    >
+                      <prop.icon className="h-4 w-4" style={{ color: accentColor }} />
+                      <span className="text-sm font-medium text-gray-700">{prop.label}</span>
+                    </div>
+                  ))}
                 </div>
               </motion.div>
 
@@ -199,8 +322,11 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
                 className="bg-white rounded-2xl p-6 shadow-xl shadow-gray-200/50 border border-gray-100 max-w-md mx-auto lg:mx-0"
               >
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 bg-[#2B8A8A]/10 rounded-xl flex items-center justify-center">
-                    <Lock className="h-5 w-5 text-[#2B8A8A]" />
+                  <div
+                    className="w-10 h-10 rounded-xl flex items-center justify-center"
+                    style={{ backgroundColor: `${accentColor}10` }}
+                  >
+                    <Lock className="h-5 w-5" style={{ color: accentColor }} />
                   </div>
                   <div>
                     <h3 className="font-semibold text-gray-900">Preview Access</h3>
@@ -218,7 +344,10 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
                         setError("");
                       }}
                       placeholder="Enter preview password"
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] transition-all"
+                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 transition-all"
+                      style={{
+                        "--tw-ring-color": `${accentColor}20`,
+                      } as React.CSSProperties}
                     />
                     <button
                       type="button"
@@ -244,7 +373,11 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
 
                   <button
                     type="submit"
-                    className="w-full py-3.5 bg-[#2B8A8A] hover:bg-[#237070] text-white font-semibold rounded-xl shadow-lg shadow-[#2B8A8A]/25 hover:shadow-xl hover:shadow-[#2B8A8A]/30 transition-all duration-200 flex items-center justify-center gap-2 group"
+                    className="w-full py-3.5 text-white font-semibold rounded-xl transition-all duration-200 flex items-center justify-center gap-2 group"
+                    style={{
+                      backgroundColor: accentColor,
+                      boxShadow: `0 10px 25px ${accentColor}25`
+                    }}
                   >
                     Access Preview
                     <ArrowRight className="h-5 w-5 group-hover:translate-x-0.5 transition-transform" />
@@ -267,30 +400,34 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
                   <div className="bg-[#1a1a1a] rounded-t-2xl p-2 pb-0 shadow-2xl">
                     {/* Menu bar */}
                     <div className="flex items-center justify-between px-2 pb-2">
-                      {/* Menu bar dots */}
                       <div className="flex gap-1.5">
                         <div className="w-3 h-3 bg-[#ff5f57] rounded-full" />
                         <div className="w-3 h-3 bg-[#febc2e] rounded-full" />
                         <div className="w-3 h-3 bg-[#28c840] rounded-full" />
                       </div>
-                      {/* Camera dot */}
                       <div className="w-2 h-2 bg-gray-600 rounded-full" />
-                      {/* Spacer for symmetry */}
                       <div className="w-[54px]" />
                     </div>
 
-                    {/* Screen - flush with bezel */}
+                    {/* Screen */}
                     <div className="relative overflow-hidden bg-black rounded-sm">
-                      <video
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        className="w-full aspect-video object-cover block"
-                      >
-                        <source src="/hero-b2b.mp4" type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
+                      <AnimatePresence mode="wait">
+                        <motion.video
+                          key={audience}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          transition={{ duration: 0.5 }}
+                          autoPlay
+                          muted
+                          loop
+                          playsInline
+                          className="w-full aspect-video object-cover block"
+                        >
+                          <source src={currentContent.video} type="video/mp4" />
+                          Your browser does not support the video tag.
+                        </motion.video>
+                      </AnimatePresence>
                     </div>
                   </div>
 
@@ -305,16 +442,16 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
                 </div>
               </motion.div>
 
-              {/* Stats Row - matching landing page style */}
+              {/* Stats Row */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.5 }}
                 className="flex items-center justify-center gap-8"
               >
-                {stats.map((stat, i) => (
-                  <div key={i} className="text-center">
-                    <div className="text-2xl md:text-3xl font-bold text-[#2B8A8A]">{stat.value}</div>
+                {currentStats.map((stat, i) => (
+                  <div key={`${audience}-stat-${i}`} className="text-center">
+                    <div className="text-2xl md:text-3xl font-bold" style={{ color: accentColor }}>{stat.value}</div>
                     <div className="text-sm text-gray-500">{stat.label}</div>
                   </div>
                 ))}
@@ -328,12 +465,12 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
                 className="flex items-center gap-6 text-sm text-gray-500"
               >
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-[#2B8A8A]" />
-                  <span>Free for job seekers</span>
+                  <CheckCircle2 className="h-4 w-4" style={{ color: accentColor }} />
+                  <span>{audience === "seekers" ? "Free for job seekers" : "Easy onboarding"}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-[#2B8A8A]" />
-                  <span>No credit card required</span>
+                  <CheckCircle2 className="h-4 w-4" style={{ color: accentColor }} />
+                  <span>{audience === "seekers" ? "No credit card required" : "Real-time tracking"}</span>
                 </div>
               </motion.div>
             </div>

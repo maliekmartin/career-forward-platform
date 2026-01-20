@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,17 +23,20 @@ import {
   CheckCircle2,
   ArrowRight,
   ArrowLeft,
-  Mail,
   FileText,
   Target,
   Briefcase,
   Sparkles,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 
 interface SeekerFormData {
   firstName: string;
   lastName: string;
   email: string;
+  password: string;
+  confirmPassword: string;
   targetRole: string;
   biggestNeed: string;
   currentStatus: string;
@@ -40,16 +44,20 @@ interface SeekerFormData {
 }
 
 export default function SeekerRegisterPage() {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
   const [showConsentModal, setShowConsentModal] = useState(false);
   const [consentRecord, setConsentRecord] = useState<ConsentRecord | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [formData, setFormData] = useState<SeekerFormData>({
     firstName: "",
     lastName: "",
     email: "",
+    password: "",
+    confirmPassword: "",
     targetRole: "",
     biggestNeed: "",
     currentStatus: "",
@@ -67,131 +75,97 @@ export default function SeekerRegisterPage() {
     console.log("Google signup clicked");
   };
 
+  const validatePassword = (password: string): string | null => {
+    if (password.length < 12) return "Password must be at least 12 characters";
+    if (!/[A-Z]/.test(password)) return "Password must contain at least one uppercase letter";
+    if (!/[a-z]/.test(password)) return "Password must contain at least one lowercase letter";
+    if (!/[0-9]/.test(password)) return "Password must contain at least one number";
+    if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) {
+      return "Password must contain at least one special character";
+    }
+    return null;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError(null);
 
+    // Validate terms acceptance
     if (!formData.acceptTerms) {
       setError("Please accept the terms to continue");
       setIsLoading(false);
       return;
     }
 
-    // Simulate submission delay
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    // Store in localStorage for demo purposes
-    const registrations = JSON.parse(localStorage.getItem("cq_registrations") || "[]");
-    registrations.push({
-      type: "seeker",
-      ...formData,
-      consents: consentRecord,
-      submittedAt: new Date().toISOString(),
-    });
-    localStorage.setItem("cq_registrations", JSON.stringify(registrations));
-
-    // Store consent separately for the user (for checking on login)
-    if (consentRecord) {
-      localStorage.setItem(`cf_consent_${formData.email}`, JSON.stringify(consentRecord));
+    // Validate password
+    const passwordError = validatePassword(formData.password);
+    if (passwordError) {
+      setError(passwordError);
+      setIsLoading(false);
+      return;
     }
 
-    setIsLoading(false);
-    setSuccess(true);
+    // Validate password match
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match");
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      // Step 1: Register the user
+      const registerRes = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+          confirmPassword: formData.confirmPassword,
+          acceptTerms: formData.acceptTerms,
+        }),
+      });
+
+      const registerData = await registerRes.json();
+
+      if (!registerRes.ok) {
+        setError(registerData.message || "Registration failed. Please try again.");
+        setIsLoading(false);
+        return;
+      }
+
+      // Store consent record for the user
+      if (consentRecord) {
+        localStorage.setItem(`cf_consent_${formData.email}`, JSON.stringify(consentRecord));
+      }
+
+      // Step 2: Log the user in
+      const loginRes = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+          rememberMe: false,
+        }),
+      });
+
+      const loginData = await loginRes.json();
+
+      if (!loginRes.ok) {
+        // Registration succeeded but login failed - redirect to signin
+        router.push("/signin");
+        return;
+      }
+
+      // Step 3: Redirect to onboarding
+      router.push("/onboarding");
+    } catch (err) {
+      console.error("Registration error:", err);
+      setError("An unexpected error occurred. Please try again.");
+      setIsLoading(false);
+    }
   };
-
-  // Success/Confirmation screen
-  if (success) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#FAFBFC] to-white px-4 py-12">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-          className="w-full max-w-md text-center"
-        >
-          {/* Celebration animation */}
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-            className="mx-auto mb-8 h-20 w-20 rounded-full bg-[#2B8A8A] flex items-center justify-center shadow-lg shadow-[#2B8A8A]/30"
-          >
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.4, type: "spring" }}
-            >
-              <CheckCircle2 className="h-10 w-10 text-white" />
-            </motion.div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-          >
-            <h1 className="text-3xl font-bold text-gray-900 mb-3">
-              You're in, {formData.firstName}!
-            </h1>
-            <p className="text-gray-600 text-lg mb-8">
-              Your career journey starts now.
-            </p>
-          </motion.div>
-
-          {/* What's next */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 mb-8"
-          >
-            <h3 className="font-semibold text-gray-900 mb-4 text-left">What you can do now:</h3>
-            <div className="space-y-4">
-              {[
-                { icon: FileText, text: "Build your first resume", color: "#2B8A8A" },
-                { icon: Briefcase, text: "Start tracking applications", color: "#374151" },
-                { icon: Target, text: "Set your career goals", color: "#2B8A8A" },
-              ].map((item, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.6 + index * 0.1 }}
-                  className="flex items-center gap-3 text-left"
-                >
-                  <div
-                    className="w-10 h-10 rounded-lg flex items-center justify-center"
-                    style={{ backgroundColor: `${item.color}15` }}
-                  >
-                    <item.icon className="h-5 w-5" style={{ color: item.color }} />
-                  </div>
-                  <span className="text-gray-700">{item.text}</span>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.9 }}
-          >
-            <Link href="/dashboard">
-              <Button className="bg-[#2B8A8A] hover:bg-[#237070] text-white rounded-full h-12 px-8 font-medium shadow-lg shadow-[#2B8A8A]/25">
-                Go to Dashboard
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-
-            <p className="text-sm text-gray-500 mt-6">
-              Check your email for a welcome message from us.
-            </p>
-          </motion.div>
-        </motion.div>
-      </div>
-    );
-  }
 
   // Registration form
   return (
@@ -288,7 +262,7 @@ export default function SeekerRegisterPage() {
                   onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                   required
                   disabled={isLoading}
-                  className="h-12 rounded-xl border-gray-200 bg-white text-gray-900 placeholder:text-gray-400 focus:border-[#2B8A8A] focus:ring-[#2B8A8A]"
+                  className="h-12 rounded-xl border-gray-200 bg-white placeholder:text-gray-400 focus:border-[#2B8A8A] focus:ring-[#2B8A8A]"
                 />
               </div>
               <div className="space-y-2">
@@ -300,7 +274,7 @@ export default function SeekerRegisterPage() {
                   onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                   required
                   disabled={isLoading}
-                  className="h-12 rounded-xl border-gray-200 bg-white text-gray-900 placeholder:text-gray-400 focus:border-[#2B8A8A] focus:ring-[#2B8A8A]"
+                  className="h-12 rounded-xl border-gray-200 bg-white placeholder:text-gray-400 focus:border-[#2B8A8A] focus:ring-[#2B8A8A]"
                 />
               </div>
             </div>
@@ -315,8 +289,57 @@ export default function SeekerRegisterPage() {
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
                 disabled={isLoading}
-                className="h-12 rounded-xl border-gray-200 bg-white text-gray-900 placeholder:text-gray-400 focus:border-[#2B8A8A] focus:ring-[#2B8A8A]"
+                className="h-12 rounded-xl border-gray-200 bg-white placeholder:text-gray-400 focus:border-[#2B8A8A] focus:ring-[#2B8A8A]"
               />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="password" className="text-gray-700">Password</Label>
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Create a strong password"
+                  value={formData.password}
+                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                  required
+                  disabled={isLoading}
+                  className="h-12 rounded-xl border-gray-200 bg-white placeholder:text-gray-400 focus:border-[#2B8A8A] focus:ring-[#2B8A8A] pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                >
+                  {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                </button>
+              </div>
+              <p className="text-xs text-gray-500">
+                At least 12 characters with uppercase, lowercase, number, and special character
+              </p>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="confirmPassword" className="text-gray-700">Confirm Password</Label>
+              <div className="relative">
+                <Input
+                  id="confirmPassword"
+                  type={showConfirmPassword ? "text" : "password"}
+                  placeholder="Confirm your password"
+                  value={formData.confirmPassword}
+                  onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                  required
+                  disabled={isLoading}
+                  className="h-12 rounded-xl border-gray-200 bg-white placeholder:text-gray-400 focus:border-[#2B8A8A] focus:ring-[#2B8A8A] pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                >
+                  {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                </button>
+              </div>
             </div>
 
             <div className="space-y-2">
@@ -329,20 +352,20 @@ export default function SeekerRegisterPage() {
                 value={formData.targetRole}
                 onChange={(e) => setFormData({ ...formData, targetRole: e.target.value })}
                 disabled={isLoading}
-                className="h-12 rounded-xl border-gray-200 bg-white text-gray-900 placeholder:text-gray-400 focus:border-[#2B8A8A] focus:ring-[#2B8A8A]"
+                className="h-12 rounded-xl border-gray-200 bg-white placeholder:text-gray-400 focus:border-[#2B8A8A] focus:ring-[#2B8A8A]"
               />
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="biggestNeed" className="text-gray-700">
-                What's your biggest need right now? <span className="text-gray-400 font-normal">(optional)</span>
+                What&apos;s your biggest need right now? <span className="text-gray-400 font-normal">(optional)</span>
               </Label>
               <Select
                 value={formData.biggestNeed}
                 onValueChange={(value) => setFormData({ ...formData, biggestNeed: value })}
                 disabled={isLoading}
               >
-                <SelectTrigger id="biggestNeed" className="h-12 rounded-xl border-gray-200 bg-white text-gray-900">
+                <SelectTrigger id="biggestNeed" className="h-12 rounded-xl border-gray-200 bg-white">
                   <SelectValue placeholder="Select your top priority" className="text-gray-400" />
                 </SelectTrigger>
                 <SelectContent>
@@ -363,7 +386,7 @@ export default function SeekerRegisterPage() {
                 onValueChange={(value) => setFormData({ ...formData, currentStatus: value })}
                 disabled={isLoading}
               >
-                <SelectTrigger id="status" className="h-12 rounded-xl border-gray-200 bg-white text-gray-900">
+                <SelectTrigger id="status" className="h-12 rounded-xl border-gray-200 bg-white">
                   <SelectValue placeholder="Select your status" />
                 </SelectTrigger>
                 <SelectContent>

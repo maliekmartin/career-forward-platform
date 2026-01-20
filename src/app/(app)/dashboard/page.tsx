@@ -26,6 +26,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/lib/theme-context";
 import { demoCoach } from "@/lib/demo-data";
+import { ScoreCard } from "@/components/dashboard/score-card";
 
 // Animation variants
 const containerVariants = {
@@ -181,6 +182,11 @@ export default function DashboardPage() {
             </div>
           </motion.div>
         </Link>
+      </motion.div>
+
+      {/* Career Forward Score Section */}
+      <motion.div variants={itemVariants} className="mb-4">
+        <ScoreCard />
       </motion.div>
 
       {/* Main Content */}

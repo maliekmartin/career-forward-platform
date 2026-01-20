@@ -22,6 +22,14 @@ model User {
   updatedAt       DateTime  @updatedAt @map("updated_at")
   lastLogin       DateTime? @map("last_login")
 
+  // Subscription
+  subscriptionTier      SubscriptionTier @default(FREE) @map("subscription_tier")
+  subscriptionStatus    String?          @map("subscription_status") // active, canceled, past_due
+  stripeCustomerId      String?          @unique @map("stripe_customer_id")
+  stripeSubscriptionId  String?          @unique @map("stripe_subscription_id")
+  subscriptionStartDate DateTime?        @map("subscription_start_date")
+  subscriptionEndDate   DateTime?        @map("subscription_end_date")
+
   // Relations
   profile               Profile?
   resumes               Resume[]
@@ -34,6 +42,7 @@ model User {
   userProgress          UserProgress[]
   achievements          UserAchievement[]
   sessions              Session[]
+  scores                JobSeekerScore[]
 
   // Coach relationships
   coachClients    CoachClient[]  @relation("Coach")
@@ -422,6 +431,50 @@ model AuditLog {
   @@map("audit_logs")
 }
 
+// ==================== JOB SEEKER SCORES ====================
+
+model JobSeekerScore {
+  id                    String   @id @default(cuid())
+  userId                String   @map("user_id")
+
+  // Total Scores
+  totalScore            Float    @map("total_score")           // 0-100
+  resumeQualityTotal    Float    @map("resume_quality_total")  // 0-30
+  jobSeekerTotal        Float    @map("job_seeker_total")      // 0-70
+
+  // Resume Quality Breakdown (30 pts max)
+  formattingStructure   Float    @map("formatting_structure")  // 0-10.5
+  spellingGrammar       Float    @map("spelling_grammar")      // 0-7.5
+  lengthBrevity         Float    @map("length_brevity")        // 0-6
+  relevanceClarity      Float    @map("relevance_clarity")     // 0-6
+
+  // Job Seeker Breakdown (70 pts max)
+  educationScore        Float    @map("education_score")       // 0-15
+  tenureScore           Float    @map("tenure_score")          // 0-20
+  gapsScore             Float    @map("gaps_score")            // 0-15
+  marketMatchScore      Float    @map("market_match_score")    // 0-20
+
+  // Market Data
+  marketDemandLevel     String?  @map("market_demand_level")   // high, medium, low
+  localMarketScore      Float?   @map("local_market_score")
+  regionalMarketScore   Float?   @map("regional_market_score")
+  remoteMarketScore     Float?   @map("remote_market_score")
+
+  // Recommendations (stored as JSON)
+  recommendations       Json     @default("[]")
+
+  // Metadata
+  calculatedAt          DateTime @default(now()) @map("calculated_at")
+  createdAt             DateTime @default(now()) @map("created_at")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([calculatedAt])
+  @@map("job_seeker_scores")
+}
+
 // ==================== WORKFORCE CENTER (Future Multi-tenant) ====================
 
 model WorkforceCenter {
@@ -502,4 +555,9 @@ enum ConnectionStatus {
 enum DocumentType {
   RESUME_UPLOAD
   COVER_LETTER_UPLOAD
+}
+
+enum SubscriptionTier {
+  FREE
+  PREMIUM  // $4.99/month - access to scores, recommendations, AI coach
 }

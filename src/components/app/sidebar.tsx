@@ -19,6 +19,7 @@ import {
   Search,
   MapPin,
   ArrowRight,
+  Sparkles,
 } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { useTheme } from "@/lib/theme-context";
@@ -30,6 +31,7 @@ const navigation = [
 ];
 
 const tools = [
+  { name: "Compass", href: "/ai-coach", icon: Sparkles, premium: true },
   { name: "Resume Builder", href: "/resume-builder", icon: FileText },
   { name: "Job Tracker", href: "/job-tracker", icon: Briefcase },
   { name: "Interview Prep", href: "/interview-prep", icon: BookOpen },
