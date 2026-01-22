@@ -87,7 +87,10 @@ export async function GET() {
 
     return NextResponse.json({
       success: true,
-      profile: user.profile,
+      profile: {
+        ...user.profile,
+        email: user.email,
+      },
       latestResume: user.resumes[0] || null,
     });
   } catch (error) {

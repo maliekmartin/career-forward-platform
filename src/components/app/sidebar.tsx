@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   LayoutDashboard,
   FileText,
@@ -20,6 +20,7 @@ import {
   MapPin,
   ArrowRight,
   Sparkles,
+  User,
 } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { useTheme } from "@/lib/theme-context";
@@ -47,14 +48,12 @@ const questStages = [
   { name: "Success", progress: 0, color: "#805AD5" },
 ];
 
-// Demo job seeker data
-const demoJobSeeker = {
-  firstName: "Marcus",
-  lastName: "Thompson",
-  email: "marcus.thompson@email.com",
-  avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
-  questProgress: 32,
-};
+interface UserProfile {
+  firstName: string;
+  lastName: string;
+  email: string;
+  questProgress: number;
+}
 
 export function Sidebar() {
   const pathname = usePathname();
@@ -62,6 +61,23 @@ export function Sidebar() {
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
   const [isSigningOut, setIsSigningOut] = useState(false);
+  const [user, setUser] = useState<UserProfile | null>(null);
+
+  useEffect(() => {
+    fetchUserProfile();
+  }, []);
+
+  const fetchUserProfile = async () => {
+    try {
+      const res = await fetch("/api/profile");
+      if (res.ok) {
+        const data = await res.json();
+        setUser(data.profile);
+      }
+    } catch (error) {
+      console.error("Failed to fetch profile:", error);
+    }
+  };
 
   const handleSignOut = async () => {
     setIsSigningOut(true);
@@ -118,7 +134,7 @@ export function Sidebar() {
             Your Quest
           </span>
           <span className={`text-xs font-semibold ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`}>
-            {demoJobSeeker.questProgress}%
+            {user?.questProgress ?? 32}%
           </span>
         </div>
         <div className="flex gap-1">
@@ -270,17 +286,15 @@ export function Sidebar() {
       {/* User Profile */}
       <div className={`p-4 border-t transition-colors ${isDark ? "border-gray-800" : "border-gray-100"}`}>
         <div className="flex items-center gap-3">
-          <img
-            src={demoJobSeeker.avatar}
-            alt={`${demoJobSeeker.firstName} ${demoJobSeeker.lastName}'s profile photo`}
-            className="w-10 h-10 rounded-full object-cover"
-          />
+          <div className={`w-10 h-10 rounded-full flex items-center justify-center ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#2B8A8A]/10"}`}>
+            <User className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} />
+          </div>
           <div className="flex-1 min-w-0">
             <p className={`text-sm font-medium truncate ${isDark ? "text-white" : "text-gray-900"}`}>
-              {demoJobSeeker.firstName} {demoJobSeeker.lastName}
+              {user ? `${user.firstName} ${user.lastName}` : "Loading..."}
             </p>
             <p className={`text-xs truncate ${isDark ? "text-gray-400" : "text-gray-500"}`}>
-              {demoJobSeeker.email}
+              {user?.email || ""}
             </p>
           </div>
         </div>
