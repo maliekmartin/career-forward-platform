@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -12,9 +12,17 @@ import {
   Briefcase,
   Calendar,
   Bot,
+  User,
 } from "lucide-react";
 import { useTheme } from "@/lib/theme-context";
-import { useJobSeekerMessages, currentJobSeeker } from "@/lib/job-seeker-messages-context";
+import { useJobSeekerMessages } from "@/lib/job-seeker-messages-context";
+
+interface UserProfile {
+  firstName: string;
+  lastName: string;
+  email: string;
+  profilePhotoUrl: string | null;
+}
 
 // Page title mapping
 const pageTitles: Record<string, string> = {
@@ -77,6 +85,23 @@ export function JobSeekerHeader() {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showMessages, setShowMessages] = useState(false);
   const [notifications, setNotifications] = useState(demoNotifications);
+  const [user, setUser] = useState<UserProfile | null>(null);
+
+  useEffect(() => {
+    fetchUserProfile();
+  }, []);
+
+  const fetchUserProfile = async () => {
+    try {
+      const res = await fetch("/api/profile");
+      if (res.ok) {
+        const data = await res.json();
+        setUser(data.profile);
+      }
+    } catch (error) {
+      console.error("Failed to fetch profile:", error);
+    }
+  };
 
   const pageTitle = pageTitles[pathname] || "Dashboard";
   const unreadNotifCount = notifications.filter(n => !n.read).length;
@@ -143,7 +168,7 @@ export function JobSeekerHeader() {
           </h1>
           {pathname === "/dashboard" && (
             <p className={`text-sm mt-0.5 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
-              Welcome back, {currentJobSeeker.firstName}! Let's continue your quest.
+              Welcome back{user?.firstName ? `, ${user.firstName}` : ""}! Let's continue your quest.
             </p>
           )}
         </div>
@@ -354,17 +379,23 @@ export function JobSeekerHeader() {
           </div>
 
           {/* Profile */}
-          <div className={`flex items-center gap-3 pl-3 border-l ${isDark ? "border-gray-700" : "border-gray-200"}`}>
-            <img
-              src={currentJobSeeker.avatar}
-              alt=""
-              className="w-9 h-9 rounded-full object-cover"
-              aria-hidden="true"
-            />
+          <Link href="/settings" className={`flex items-center gap-3 pl-3 border-l transition-colors ${isDark ? "border-gray-700 hover:bg-gray-800" : "border-gray-200 hover:bg-gray-100"} rounded-lg px-3 py-1.5 -mr-3`}>
+            {user?.profilePhotoUrl ? (
+              <img
+                src={user.profilePhotoUrl}
+                alt=""
+                className="w-9 h-9 rounded-full object-cover"
+                aria-hidden="true"
+              />
+            ) : (
+              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#2B8A8A]/10"}`}>
+                <User className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} />
+              </div>
+            )}
             <span className={`text-sm font-medium ${isDark ? "text-gray-200" : "text-gray-700"}`}>
-              {currentJobSeeker.firstName} {currentJobSeeker.lastName}
+              {user ? `${user.firstName} ${user.lastName}` : "Loading..."}
             </span>
-          </div>
+          </Link>
         </div>
       </div>
     </header>

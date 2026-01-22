@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useTheme } from "@/lib/theme-context";
 import {
@@ -16,8 +16,10 @@ import {
   ChevronRight,
   Camera,
   Check,
+  Loader2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ProfilePictureSelector } from "@/components/profile/profile-picture-selector";
 
 const tabs = [
   { id: "profile", name: "Profile", icon: User },
@@ -27,11 +29,79 @@ const tabs = [
   { id: "data", name: "Your Data", icon: Download },
 ];
 
+interface UserProfile {
+  firstName: string | null;
+  lastName: string | null;
+  phone: string | null;
+  email: string;
+  profilePhotoUrl: string | null;
+}
+
 export default function SettingsPage() {
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
   const [activeTab, setActiveTab] = useState("profile");
   const [coachConnected, setCoachConnected] = useState(false);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [saveMessage, setSaveMessage] = useState<string | null>(null);
+
+  // Form state
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  const fetchProfile = async () => {
+    try {
+      const res = await fetch("/api/profile");
+      if (res.ok) {
+        const data = await res.json();
+        setProfile(data.profile);
+        setFirstName(data.profile?.firstName || "");
+        setLastName(data.profile?.lastName || "");
+        setPhone(data.profile?.phone || "");
+      }
+    } catch (error) {
+      console.error("Failed to fetch profile:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSaveProfile = async () => {
+    setSaving(true);
+    setSaveMessage(null);
+    try {
+      const res = await fetch("/api/profile", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          profile: { firstName, lastName, phone },
+        }),
+      });
+
+      if (res.ok) {
+        setSaveMessage("Profile saved successfully!");
+        fetchProfile();
+      } else {
+        setSaveMessage("Failed to save profile");
+      }
+    } catch (error) {
+      setSaveMessage("Failed to save profile");
+    } finally {
+      setSaving(false);
+      setTimeout(() => setSaveMessage(null), 3000);
+    }
+  };
+
+  const handlePhotoChange = (url: string) => {
+    setProfile((prev) => prev ? { ...prev, profilePhotoUrl: url } : null);
+  };
 
   return (
     <div className="max-w-5xl mx-auto">
@@ -86,25 +156,18 @@ export default function SettingsPage() {
                   Profile Photo
                 </h2>
                 <div className="flex items-center gap-6">
-                  <div className="relative">
-                    <div className="w-24 h-24 bg-[#2B8A8A]/10 rounded-2xl flex items-center justify-center">
-                      <span className="text-3xl font-bold text-[#2B8A8A]">
-                        JD
-                      </span>
-                    </div>
-                    <button className={`absolute -bottom-2 -right-2 w-8 h-8 rounded-full flex items-center justify-center ${
-                      isDark ? "bg-[#4FD1C5] text-gray-900 hover:bg-[#3DBDB0]" : "bg-[#2B8A8A] text-white hover:bg-[#237070]"
-                    }`}>
-                      <Camera className="h-4 w-4" />
-                    </button>
-                  </div>
+                  <ProfilePictureSelector
+                    currentPhotoUrl={profile?.profilePhotoUrl}
+                    onPhotoChange={handlePhotoChange}
+                    size="lg"
+                  />
                   <div>
                     <p className={`text-sm mb-2 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
-                      Upload a professional photo for your profile
+                      Upload a professional photo or choose an avatar
                     </p>
-                    <Button variant="outline" size="sm" className={isDark ? "border-gray-700 text-gray-300 hover:bg-gray-800" : ""}>
-                      Upload Photo
-                    </Button>
+                    <p className={`text-xs ${isDark ? "text-gray-500" : "text-gray-400"}`}>
+                      Click on the photo to change it
+                    </p>
                   </div>
                 </div>
               </div>
@@ -114,61 +177,95 @@ export default function SettingsPage() {
                 <h2 className={`text-lg font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>
                   Personal Information
                 </h2>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className={`block text-sm font-medium mb-1 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
-                      First Name
-                    </label>
-                    <input
-                      type="text"
-                      defaultValue="John"
-                      className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] ${
-                        isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-gray-900"
-                      }`}
-                    />
+                {loading ? (
+                  <div className="flex items-center justify-center py-8">
+                    <Loader2 className={`w-6 h-6 animate-spin ${isDark ? "text-gray-400" : "text-gray-500"}`} />
                   </div>
-                  <div>
-                    <label className={`block text-sm font-medium mb-1 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
-                      Last Name
-                    </label>
-                    <input
-                      type="text"
-                      defaultValue="Doe"
-                      className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] ${
-                        isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-gray-900"
-                      }`}
-                    />
-                  </div>
-                  <div className="col-span-2">
-                    <label className={`block text-sm font-medium mb-1 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      defaultValue="john@example.com"
-                      className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] ${
-                        isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-gray-900"
-                      }`}
-                    />
-                  </div>
-                  <div className="col-span-2">
-                    <label className={`block text-sm font-medium mb-1 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
-                      Phone
-                    </label>
-                    <input
-                      type="tel"
-                      defaultValue="(509) 555-1234"
-                      className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] ${
-                        isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-gray-900"
-                      }`}
-                    />
-                  </div>
-                </div>
-                <div className="mt-4 flex justify-end">
-                  <Button className={`rounded-xl ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"}`}>
-                    Save Changes
-                  </Button>
-                </div>
+                ) : (
+                  <>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className={`block text-sm font-medium mb-1 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+                          First Name
+                        </label>
+                        <input
+                          type="text"
+                          value={firstName}
+                          onChange={(e) => setFirstName(e.target.value)}
+                          className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] ${
+                            isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-gray-900"
+                          }`}
+                        />
+                      </div>
+                      <div>
+                        <label className={`block text-sm font-medium mb-1 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+                          Last Name
+                        </label>
+                        <input
+                          type="text"
+                          value={lastName}
+                          onChange={(e) => setLastName(e.target.value)}
+                          className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] ${
+                            isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-gray-900"
+                          }`}
+                        />
+                      </div>
+                      <div className="col-span-2">
+                        <label className={`block text-sm font-medium mb-1 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+                          Email
+                        </label>
+                        <input
+                          type="email"
+                          value={profile?.email || ""}
+                          disabled
+                          className={`w-full px-4 py-2.5 border rounded-xl ${
+                            isDark ? "bg-gray-800/50 border-gray-700 text-gray-400" : "bg-gray-50 border-gray-200 text-gray-500"
+                          }`}
+                        />
+                        <p className={`text-xs mt-1 ${isDark ? "text-gray-500" : "text-gray-400"}`}>
+                          Email cannot be changed
+                        </p>
+                      </div>
+                      <div className="col-span-2">
+                        <label className={`block text-sm font-medium mb-1 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+                          Phone
+                        </label>
+                        <input
+                          type="tel"
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          placeholder="(555) 555-1234"
+                          className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] ${
+                            isDark ? "bg-gray-800 border-gray-700 text-white placeholder:text-gray-600" : "bg-white border-gray-200 text-gray-900 placeholder:text-gray-400"
+                          }`}
+                        />
+                      </div>
+                    </div>
+                    <div className="mt-4 flex items-center justify-between">
+                      {saveMessage && (
+                        <p className={`text-sm ${saveMessage.includes("success") ? "text-green-500" : "text-red-500"}`}>
+                          {saveMessage}
+                        </p>
+                      )}
+                      <div className="ml-auto">
+                        <Button
+                          onClick={handleSaveProfile}
+                          disabled={saving}
+                          className={`rounded-xl ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"}`}
+                        >
+                          {saving ? (
+                            <>
+                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                              Saving...
+                            </>
+                          ) : (
+                            "Save Changes"
+                          )}
+                        </Button>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           )}

@@ -53,6 +53,7 @@ interface UserProfile {
   lastName: string;
   email: string;
   questProgress: number;
+  profilePhotoUrl: string | null;
 }
 
 export function Sidebar() {
@@ -286,9 +287,17 @@ export function Sidebar() {
       {/* User Profile */}
       <div className={`p-4 border-t transition-colors ${isDark ? "border-gray-800" : "border-gray-100"}`}>
         <div className="flex items-center gap-3">
-          <div className={`w-10 h-10 rounded-full flex items-center justify-center ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#2B8A8A]/10"}`}>
-            <User className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} />
-          </div>
+          {user?.profilePhotoUrl ? (
+            <img
+              src={user.profilePhotoUrl}
+              alt={`${user.firstName} ${user.lastName}`}
+              className="w-10 h-10 rounded-full object-cover"
+            />
+          ) : (
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#2B8A8A]/10"}`}>
+              <User className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} />
+            </div>
+          )}
           <div className="flex-1 min-w-0">
             <p className={`text-sm font-medium truncate ${isDark ? "text-white" : "text-gray-900"}`}>
               {user ? `${user.firstName} ${user.lastName}` : "Loading..."}
