@@ -1,13 +1,16 @@
 import { PrismaClient } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
-import { Pool } from "pg";
+import { Pool, neonConfig } from "@neondatabase/serverless";
+
+// Enable WebSocket connections for serverless environments
+neonConfig.webSocketConstructor = globalThis.WebSocket;
 
 const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined;
   pool: Pool | undefined;
 };
 
-// Create connection pool
+// Create connection pool using Neon's serverless driver
 const pool = globalForPrisma.pool ?? new Pool({
   connectionString: process.env.DATABASE_URL,
 });
