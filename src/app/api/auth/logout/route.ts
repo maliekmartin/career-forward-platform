@@ -1,14 +1,30 @@
 import { NextResponse } from "next/server";
-import { clearSession } from "@/lib/auth";
+import { getCurrentSession } from "@/lib/auth";
+import prisma from "@/lib/db";
 
 export async function POST() {
   try {
-    await clearSession();
+    // Get and delete session from database
+    const session = await getCurrentSession();
 
-    return NextResponse.json({
+    if (session) {
+      await prisma.session.delete({
+        where: { id: session.sessionId },
+      }).catch(() => {
+        // Session might already be deleted
+      });
+    }
+
+    // Create response
+    const response = NextResponse.json({
       success: true,
       message: "Logged out successfully",
     });
+
+    // Clear session cookie on the response
+    response.cookies.delete("career_quest_session");
+
+    return response;
   } catch (error) {
     console.error("Logout error:", error);
     return NextResponse.json(

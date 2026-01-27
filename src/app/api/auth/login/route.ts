@@ -73,16 +73,14 @@ export async function POST(request: NextRequest) {
     // Create session
     const sessionToken = await createSession(user.id, rememberMe, userAgent);
 
-    // Set cookie
-    await setSessionCookie(sessionToken, rememberMe);
-
     // Update last login
     await prisma.user.update({
       where: { id: user.id },
       data: { lastLogin: new Date() },
     });
 
-    return NextResponse.json({
+    // Create response with user data
+    const response = NextResponse.json({
       success: true,
       user: {
         id: user.id,
@@ -92,6 +90,17 @@ export async function POST(request: NextRequest) {
         emailVerified: !!user.emailVerified,
       },
     });
+
+    // Set session cookie on the response
+    response.cookies.set("career_quest_session", sessionToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: rememberMe ? 30 * 24 * 60 * 60 : 24 * 60 * 60,
+    });
+
+    return response;
   } catch (error) {
     console.error("Login error:", error);
     return NextResponse.json(
