@@ -5,11 +5,14 @@ import { loginSchema } from "@/lib/validations/auth";
 
 export async function POST(request: NextRequest) {
   try {
+    console.log("[LOGIN] Starting login request");
     const body = await request.json();
+    console.log("[LOGIN] Body parsed, email:", body.email);
 
     // Validate input
     const validationResult = loginSchema.safeParse(body);
     if (!validationResult.success) {
+      console.log("[LOGIN] Validation failed:", validationResult.error);
       return NextResponse.json(
         {
           error: true,
@@ -22,14 +25,17 @@ export async function POST(request: NextRequest) {
     }
 
     const { email, password, rememberMe } = validationResult.data;
+    console.log("[LOGIN] Validation passed for email:", email);
 
     // Find user
+    console.log("[LOGIN] Looking up user in database");
     const user = await prisma.user.findUnique({
       where: { email: email.toLowerCase() },
       include: {
         profile: true,
       },
     });
+    console.log("[LOGIN] User lookup complete, found:", !!user);
 
     if (!user) {
       return NextResponse.json(
@@ -55,7 +61,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Verify password
+    console.log("[LOGIN] Verifying password");
     const isValidPassword = await verifyPassword(password, user.passwordHash);
+    console.log("[LOGIN] Password valid:", isValidPassword);
     if (!isValidPassword) {
       return NextResponse.json(
         {
@@ -71,13 +79,17 @@ export async function POST(request: NextRequest) {
     const userAgent = request.headers.get("user-agent") || undefined;
 
     // Create session
+    console.log("[LOGIN] Creating session");
     const sessionToken = await createSession(user.id, rememberMe, userAgent);
+    console.log("[LOGIN] Session created");
 
     // Update last login
+    console.log("[LOGIN] Updating last login");
     await prisma.user.update({
       where: { id: user.id },
       data: { lastLogin: new Date() },
     });
+    console.log("[LOGIN] Last login updated");
 
     // Create response with user data
     const response = NextResponse.json({
