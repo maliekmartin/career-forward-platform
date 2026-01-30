@@ -20,7 +20,7 @@ import {
   Briefcase,
 } from "lucide-react";
 
-const ADMIN_PASSWORD = "CF@Preview2026!MBS";
+const ADMIN_PASSWORD = "CFAdminPanel123!";
 
 interface PreviewOverlayProps {
   children: React.ReactNode;
