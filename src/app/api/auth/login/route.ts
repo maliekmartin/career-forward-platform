@@ -103,11 +103,19 @@ export async function POST(request: NextRequest) {
     return response;
   } catch (error) {
     console.error("Login error:", error);
+    console.error("Error details:", {
+      message: error instanceof Error ? error.message : String(error),
+      stack: error instanceof Error ? error.stack : undefined,
+      name: error instanceof Error ? error.name : undefined,
+    });
     return NextResponse.json(
       {
         error: true,
         code: "INTERNAL_ERROR",
         message: "An error occurred during login",
+        debug: process.env.NODE_ENV === "development"
+          ? (error instanceof Error ? error.message : String(error))
+          : undefined,
       },
       { status: 500 }
     );
