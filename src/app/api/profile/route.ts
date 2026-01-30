@@ -66,16 +66,9 @@ export async function GET() {
       );
     }
 
-    // Get user with profile
+    // Get user
     const user = await prisma.user.findUnique({
       where: { id: session.userId },
-      include: {
-        profile: true,
-        resumes: {
-          orderBy: { updatedAt: "desc" },
-          take: 1,
-        },
-      },
     });
 
     if (!user) {
@@ -85,13 +78,24 @@ export async function GET() {
       );
     }
 
+    // Get profile separately
+    const profile = await prisma.profile.findUnique({
+      where: { userId: session.userId },
+    });
+
+    // Get latest resume separately
+    const latestResume = await prisma.resume.findFirst({
+      where: { userId: session.userId },
+      orderBy: { updatedAt: "desc" },
+    });
+
     return NextResponse.json({
       success: true,
-      profile: {
-        ...user.profile,
+      profile: profile ? {
+        ...profile,
         email: user.email,
-      },
-      latestResume: user.resumes[0] || null,
+      } : null,
+      latestResume: latestResume || null,
     });
   } catch (error) {
     console.error("Get profile error:", error);
