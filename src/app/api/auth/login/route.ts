@@ -31,9 +31,6 @@ export async function POST(request: NextRequest) {
     console.log("[LOGIN] Looking up user in database");
     const user = await prisma.user.findUnique({
       where: { email: email.toLowerCase() },
-      include: {
-        profile: true,
-      },
     });
     console.log("[LOGIN] User lookup complete, found:", !!user);
 
@@ -98,7 +95,6 @@ export async function POST(request: NextRequest) {
         id: user.id,
         email: user.email,
         role: user.role,
-        profileCompleted: user.profile?.profileCompleted ?? false,
         emailVerified: !!user.emailVerified,
       },
     });
