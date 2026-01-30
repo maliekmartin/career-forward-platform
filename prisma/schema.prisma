@@ -70,6 +70,7 @@ model Profile {
   preferredLanguage String   @default("en") @map("preferred_language")
   profileCompleted  Boolean  @default(false) @map("profile_completed")
   welcomeTourDone   Boolean  @default(false) @map("welcome_tour_done")
+  dashboardPreferences Json? @map("dashboard_preferences") // Premium: customizable dashboard config
   createdAt         DateTime @default(now()) @map("created_at")
   updatedAt         DateTime @updatedAt @map("updated_at")
 
@@ -393,18 +394,26 @@ model Notification {
 model JobListing {
   id          String    @id @default(cuid())
   externalId  String    @unique @map("external_id")
+  source      String    // "jsearch" or "usajobs"
   title       String
   company     String?
   location    String?
   description String?   @db.Text
-  jobType     String?   @map("job_type")
+  jobType     String?   @map("job_type")      // "full-time", "part-time", "contract"
+  workMode    String?   @map("work_mode")     // "remote", "hybrid", "on-site"
   industry    String?
   salaryRange String?   @map("salary_range")
+  salaryMin   Float?    @map("salary_min")
+  salaryMax   Float?    @map("salary_max")
   externalUrl String    @map("external_url")
   postedDate  DateTime? @map("posted_date") @db.Date
   fetchedAt   DateTime  @default(now()) @map("fetched_at")
   isActive    Boolean   @default(true) @map("is_active")
 
+  @@index([location])
+  @@index([jobType])
+  @@index([workMode])
+  @@index([isActive, postedDate])
   @@map("job_listings")
 }
 

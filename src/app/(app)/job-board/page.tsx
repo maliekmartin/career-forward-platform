@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Search,
@@ -17,10 +17,10 @@ import {
   Laptop,
   CheckCircle2,
   Sparkles,
+  Loader2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
-  mockJobs,
   Job,
   formatPay,
   formatJobDate,
@@ -47,61 +47,69 @@ export default function JobBoardPage() {
   const [applyingJobId, setApplyingJobId] = useState<string | null>(null);
   const [showSuccessToast, setShowSuccessToast] = useState<string | null>(null);
 
-  // Filter and sort jobs
-  const filteredJobs = useMemo(() => {
-    let jobs = [...mockJobs];
+  // API state
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
 
-    // Search filter
-    if (searchQuery) {
-      const query = searchQuery.toLowerCase();
-      jobs = jobs.filter(
-        (job) =>
-          job.title.toLowerCase().includes(query) ||
-          job.company.toLowerCase().includes(query) ||
-          job.description.toLowerCase().includes(query) ||
-          job.location.toLowerCase().includes(query)
-      );
+  // Fetch jobs from API
+  useEffect(() => {
+    async function fetchJobs() {
+      setLoading(true);
+      setError(null);
+
+      try {
+        const params = new URLSearchParams({
+          q: searchQuery,
+          location: "Washington",
+          ...(selectedCategory !== "all" && { industry: selectedCategory }),
+          ...(selectedSource !== "all" && { source: selectedSource === "governmentjobs" ? "usajobs" : selectedSource }),
+          ...(selectedHoursType !== "all" && { jobType: selectedHoursType }),
+          ...(remoteOnly && { workMode: "remote" }),
+          sortBy: sortBy === "newest" ? "newest" : sortBy === "pay-high" ? "pay-high" : "pay-low",
+        });
+
+        const response = await fetch(`/api/jobs/search?${params}`);
+        const data = await response.json();
+
+        if (data.success && data.jobs) {
+          // Transform API jobs to match Job interface
+          const transformedJobs: Job[] = data.jobs.map((apiJob: any) => ({
+            id: apiJob.id,
+            externalId: apiJob.externalId,
+            title: apiJob.title,
+            company: apiJob.company || "Unknown Company",
+            location: apiJob.location || "Location not specified",
+            description: apiJob.description || "",
+            payMin: apiJob.salaryMin || 0,
+            payMax: apiJob.salaryMax || 0,
+            payType: "salary" as const,
+            hoursType: apiJob.jobType || "full-time",
+            datePosted: apiJob.postedDate || new Date().toISOString(),
+            source: apiJob.source === "usajobs" ? "governmentjobs" : (apiJob.source || "indeed"),
+            sourceUrl: apiJob.externalUrl,
+            category: apiJob.industry || "other",
+            remote: apiJob.workMode === "remote",
+          }));
+
+          setJobs(transformedJobs);
+          setLastUpdated(new Date());
+        } else {
+          setError("Failed to load jobs");
+        }
+      } catch (err) {
+        console.error("Error fetching jobs:", err);
+        setError("Failed to connect to job board");
+      } finally {
+        setLoading(false);
+      }
     }
 
-    // Category filter
-    if (selectedCategory !== "all") {
-      jobs = jobs.filter((job) => job.category === selectedCategory);
-    }
-
-    // Source filter
-    if (selectedSource !== "all") {
-      jobs = jobs.filter((job) => job.source === selectedSource);
-    }
-
-    // Hours type filter
-    if (selectedHoursType !== "all") {
-      jobs = jobs.filter((job) => job.hoursType === selectedHoursType);
-    }
-
-    // Remote filter
-    if (remoteOnly) {
-      jobs = jobs.filter((job) => job.remote);
-    }
-
-    // Sort
-    if (sortBy === "newest") {
-      jobs.sort((a, b) => new Date(b.datePosted).getTime() - new Date(a.datePosted).getTime());
-    } else if (sortBy === "pay-high") {
-      jobs.sort((a, b) => {
-        const aMax = a.payType === "hourly" ? a.payMax * 2080 : a.payMax;
-        const bMax = b.payType === "hourly" ? b.payMax * 2080 : b.payMax;
-        return bMax - aMax;
-      });
-    } else if (sortBy === "pay-low") {
-      jobs.sort((a, b) => {
-        const aMin = a.payType === "hourly" ? a.payMin * 2080 : a.payMin;
-        const bMin = b.payType === "hourly" ? b.payMin * 2080 : b.payMin;
-        return aMin - bMin;
-      });
-    }
-
-    return jobs;
+    fetchJobs();
   }, [searchQuery, selectedCategory, selectedSource, selectedHoursType, remoteOnly, sortBy]);
+
+  const filteredJobs = jobs;
 
   const categoryOptions = [
     { value: "all", label: "All Categories" },
@@ -387,13 +395,64 @@ export default function JobBoardPage() {
       {/* Results Count */}
       <div className="flex items-center justify-between mb-4">
         <p className={isDark ? "text-gray-400" : "text-gray-600"}>
-          Showing <span className="font-semibold">{filteredJobs.length}</span> jobs
+          {loading ? (
+            "Loading jobs..."
+          ) : (
+            <>
+              Showing <span className="font-semibold">{filteredJobs.length}</span> jobs
+              {lastUpdated && (
+                <span className="text-xs ml-2">
+                  (Updated {new Date(lastUpdated).toLocaleTimeString()})
+                </span>
+              )}
+            </>
+          )}
         </p>
       </div>
 
+      {/* Loading State */}
+      {loading && (
+        <div className="flex flex-col items-center justify-center py-20">
+          <Loader2 className="h-12 w-12 animate-spin text-[#2B8A8A] mb-4" />
+          <p className={isDark ? "text-gray-400" : "text-gray-600"}>
+            Finding the best jobs for you...
+          </p>
+        </div>
+      )}
+
+      {/* Error State */}
+      {error && !loading && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className={`rounded-2xl border p-12 text-center ${
+            isDark ? "bg-red-900/20 border-red-800/50" : "bg-red-50 border-red-200"
+          }`}
+        >
+          <div className={`w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 ${
+            isDark ? "bg-red-900/30" : "bg-red-100"
+          }`}>
+            <X className="h-8 w-8 text-red-500" />
+          </div>
+          <h3 className={`font-semibold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+            Could not load jobs
+          </h3>
+          <p className={`mb-4 ${isDark ? "text-gray-400" : "text-gray-600"}`}>
+            {error}
+          </p>
+          <Button
+            onClick={() => window.location.reload()}
+            className="bg-[#2B8A8A] hover:bg-[#237070] text-white rounded-full"
+          >
+            <RefreshCw className="h-4 w-4 mr-2" />
+            Try again
+          </Button>
+        </motion.div>
+      )}
+
       {/* Job Cards */}
       <div className="space-y-4">
-        {filteredJobs.map((job, index) => {
+        {!loading && !error && filteredJobs.map((job, index) => {
           const sourceInfo = getSourceInfo(job.source);
           const isApplied = isJobApplied(job.id);
           const isApplying = applyingJobId === job.id;
@@ -526,7 +585,7 @@ export default function JobBoardPage() {
       </div>
 
       {/* Empty State */}
-      {filteredJobs.length === 0 && (
+      {!loading && !error && filteredJobs.length === 0 && (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
