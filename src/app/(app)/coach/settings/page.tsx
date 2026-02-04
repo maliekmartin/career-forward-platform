@@ -345,7 +345,7 @@ export default function CoachSettingsPage() {
                 Inactivity Alerts
               </legend>
               <p className={`text-sm mb-4 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
-                Alert me when clients haven't logged in for:
+                Alert me when clients haven&apos;t logged in for:
               </p>
               <div className="flex gap-3" role="radiogroup" aria-label="Inactivity alert timing">
                 {["1 day", "3 days", "7 days", "Never"].map((option) => (

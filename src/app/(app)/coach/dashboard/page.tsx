@@ -200,67 +200,70 @@ export default function CoachDashboardPage() {
     createdBy: string;
   }
 
-  // Demo tasks
-  const [tasks, setTasks] = useState<CoachTask[]>([
-    {
-      id: "task-1",
-      title: "Call Aisha - Interview Prep",
-      description: "Congratulate on interview and prep for upcoming interview at Tech Corp",
-      dueDate: new Date(),
-      dueTime: "09:00",
-      notifyBefore: { value: 1, unit: "hours" },
-      assignedJobSeekers: [demoClients[1].id],
-      priority: "urgent",
-      status: "pending",
-      isRecurring: false,
-      createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000),
-      createdBy: `${demoCoach.firstName} ${demoCoach.lastName}`,
-    },
-    {
-      id: "task-2",
-      title: "Resume Review - Marcus",
-      description: "Review updated resume and provide feedback on skills section",
-      dueDate: new Date(),
-      dueTime: "14:00",
-      notifyBefore: { value: 2, unit: "hours" },
-      assignedJobSeekers: [demoClients[0].id],
-      priority: "default",
-      status: "pending",
-      isRecurring: false,
-      createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
-      createdBy: `${demoCoach.firstName} ${demoCoach.lastName}`,
-    },
-    {
-      id: "task-3",
-      title: "Weekly Check-in",
-      description: "Weekly progress check-in with caseload members",
-      dueDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
-      dueTime: "10:00",
-      notifyBefore: { value: 1, unit: "days" },
-      assignedJobSeekers: [demoClients[0].id, demoClients[1].id, demoClients[2].id],
-      priority: "default",
-      status: "pending",
-      isRecurring: true,
-      recurringFrequency: "weekly",
-      recurringEndDate: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
-      createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000),
-      createdBy: `${demoCoach.firstName} ${demoCoach.lastName}`,
-    },
-    {
-      id: "task-4",
-      title: "Follow up on application",
-      description: "Check status of Marketing Coordinator application",
-      dueDate: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
-      dueTime: "11:00",
-      notifyBefore: { value: 4, unit: "hours" },
-      assignedJobSeekers: [demoClients[2].id],
-      priority: "default",
-      status: "overdue",
-      isRecurring: false,
-      createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
-      createdBy: `${demoCoach.firstName} ${demoCoach.lastName}`,
-    },
-  ]);
+  // Demo tasks - using lazy initializer to avoid impure Date.now() calls during render
+  const [tasks, setTasks] = useState<CoachTask[]>(() => {
+    const now = Date.now();
+    return [
+      {
+        id: "task-1",
+        title: "Call Aisha - Interview Prep",
+        description: "Congratulate on interview and prep for upcoming interview at Tech Corp",
+        dueDate: new Date(),
+        dueTime: "09:00",
+        notifyBefore: { value: 1, unit: "hours" },
+        assignedJobSeekers: [demoClients[1].id],
+        priority: "urgent",
+        status: "pending",
+        isRecurring: false,
+        createdAt: new Date(now - 24 * 60 * 60 * 1000),
+        createdBy: `${demoCoach.firstName} ${demoCoach.lastName}`,
+      },
+      {
+        id: "task-2",
+        title: "Resume Review - Marcus",
+        description: "Review updated resume and provide feedback on skills section",
+        dueDate: new Date(),
+        dueTime: "14:00",
+        notifyBefore: { value: 2, unit: "hours" },
+        assignedJobSeekers: [demoClients[0].id],
+        priority: "default",
+        status: "pending",
+        isRecurring: false,
+        createdAt: new Date(now - 2 * 24 * 60 * 60 * 1000),
+        createdBy: `${demoCoach.firstName} ${demoCoach.lastName}`,
+      },
+      {
+        id: "task-3",
+        title: "Weekly Check-in",
+        description: "Weekly progress check-in with caseload members",
+        dueDate: new Date(now + 2 * 24 * 60 * 60 * 1000),
+        dueTime: "10:00",
+        notifyBefore: { value: 1, unit: "days" },
+        assignedJobSeekers: [demoClients[0].id, demoClients[1].id, demoClients[2].id],
+        priority: "default",
+        status: "pending",
+        isRecurring: true,
+        recurringFrequency: "weekly",
+        recurringEndDate: new Date(now + 90 * 24 * 60 * 60 * 1000),
+        createdAt: new Date(now - 7 * 24 * 60 * 60 * 1000),
+        createdBy: `${demoCoach.firstName} ${demoCoach.lastName}`,
+      },
+      {
+        id: "task-4",
+        title: "Follow up on application",
+        description: "Check status of Marketing Coordinator application",
+        dueDate: new Date(now - 1 * 24 * 60 * 60 * 1000),
+        dueTime: "11:00",
+        notifyBefore: { value: 4, unit: "hours" },
+        assignedJobSeekers: [demoClients[2].id],
+        priority: "default",
+        status: "overdue",
+        isRecurring: false,
+        createdAt: new Date(now - 3 * 24 * 60 * 60 * 1000),
+        createdBy: `${demoCoach.firstName} ${demoCoach.lastName}`,
+      },
+    ];
+  });
 
   // Task helpers
   const getTasksDueToday = () => {
@@ -312,22 +315,25 @@ export default function CoachDashboardPage() {
     timestamp: Date;
     coachName: string;
   }
-  const [clientNotes, setClientNotes] = useState<Record<string, ClientNote[]>>({
-    // Demo notes for first client
-    [demoClients[0].id]: [
-      {
-        id: "note-1",
-        text: "Discussed career goals and target industries. Client is motivated and engaged.",
-        timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 days ago
-        coachName: `${demoCoach.firstName} ${demoCoach.lastName}`,
-      },
-      {
-        id: "note-2",
-        text: "Reviewed resume updates. Suggested adding more quantifiable achievements.",
-        timestamp: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000), // 5 days ago
-        coachName: `${demoCoach.firstName} ${demoCoach.lastName}`,
-      },
-    ],
+  const [clientNotes, setClientNotes] = useState<Record<string, ClientNote[]>>(() => {
+    // Demo notes for first client - using lazy initializer
+    const now = Date.now();
+    return {
+      [demoClients[0].id]: [
+        {
+          id: "note-1",
+          text: "Discussed career goals and target industries. Client is motivated and engaged.",
+          timestamp: new Date(now - 2 * 24 * 60 * 60 * 1000), // 2 days ago
+          coachName: `${demoCoach.firstName} ${demoCoach.lastName}`,
+        },
+        {
+          id: "note-2",
+          text: "Reviewed resume updates. Suggested adding more quantifiable achievements.",
+          timestamp: new Date(now - 5 * 24 * 60 * 60 * 1000), // 5 days ago
+          coachName: `${demoCoach.firstName} ${demoCoach.lastName}`,
+        },
+      ],
+    };
   });
   const [newNoteText, setNewNoteText] = useState("");
 
@@ -484,7 +490,7 @@ export default function CoachDashboardPage() {
     setMenuOpen(null);
   }, []);
 
-  const handleClientClick = useCallback((client: DemoClient) => {
+  const _handleClientClick = useCallback((client: DemoClient) => {
     setSelectedClient(selectedClient?.id === client.id ? null : client);
   }, [selectedClient]);
 
@@ -564,7 +570,7 @@ export default function CoachDashboardPage() {
   // Stats calculations
   const activeClients = clients.filter(c => c.daysInactive < 3).length;
   const placementsThisMonth = clients.filter(c => c.currentMilestone === "quest-complete").length;
-  const engagementRate = Math.round((activeClients / clients.length) * 100);
+  const _engagementRate = Math.round((activeClients / clients.length) * 100);
 
   // Pagination calculations
   const totalPages = Math.ceil(clients.length / itemsPerPage);
@@ -794,7 +800,7 @@ export default function CoachDashboardPage() {
               </thead>
               <tbody className={`divide-y ${isDark ? "divide-gray-800" : "divide-gray-100"}`}>
                 {paginatedClients.map((client, index) => {
-                  const milestoneInfo = getMilestoneInfo(client.currentMilestone);
+                  const _milestoneInfo = getMilestoneInfo(client.currentMilestone);
                   const isSelected = selectedClient?.id === client.id;
                   // Get action icon component
                   const ActionIcon = getActionIcon(client.lastAction.type);
@@ -1114,7 +1120,7 @@ export default function CoachDashboardPage() {
             {tasksDueToday.length > 0 && (
               <div className="mt-3 space-y-2">
                 {tasksDueToday.slice(0, 2).map((task) => {
-                  const assignedClient = demoClients.find(c => task.assignedJobSeekers.includes(c.id));
+                  const _assignedClient = demoClients.find(c => task.assignedJobSeekers.includes(c.id));
                   return (
                     <div
                       key={task.id}
@@ -1271,7 +1277,7 @@ export default function CoachDashboardPage() {
             role="region"
             aria-label="Today's schedule"
           >
-            <h3 className={`font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>Today's Schedule</h3>
+            <h3 className={`font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>Today&apos;s Schedule</h3>
             <ul className="space-y-3" role="list">
               {todaySchedule.map((item, i) => (
                 <motion.li
@@ -2108,7 +2114,7 @@ export default function CoachDashboardPage() {
                   <ul className={`text-sm space-y-2 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
                     <li className="flex items-start gap-2">
                       <Mail className="h-4 w-4 mt-0.5 flex-shrink-0" aria-hidden="true" />
-                      <span>Job seeker receives an email with an "Accept Invite" link</span>
+                      <span>Job seeker receives an email with an &ldquo;Accept Invite&rdquo; link</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <Bell className="h-4 w-4 mt-0.5 flex-shrink-0" aria-hidden="true" />

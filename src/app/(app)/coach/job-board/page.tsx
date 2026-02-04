@@ -271,7 +271,7 @@ export default function CoachJobBoardPage() {
                         Assign as Task
                       </p>
                       <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
-                        Add to job seeker's task list to review
+                        Add to job seeker&apos;s task list to review
                       </p>
                     </div>
                   </button>

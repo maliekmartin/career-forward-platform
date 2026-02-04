@@ -749,7 +749,7 @@ export default function PricingPage() {
               </div>
               <Link href="/register/seeker">
                 <Button className="bg-white text-[#2B8A8A] hover:bg-white/90 rounded-full px-6 font-medium shadow-lg">
-                  I'm a Job Seeker
+                  I&apos;m a Job Seeker
                 </Button>
               </Link>
             </div>

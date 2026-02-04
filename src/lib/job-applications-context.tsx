@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useCallback, ReactNode } from "react";
-import { Job, JobApplication, mockJobs } from "./job-data";
+import { Job, JobApplication } from "./job-data";
 
 interface HiredData {
   startDate: string;

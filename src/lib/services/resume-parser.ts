@@ -191,7 +191,7 @@ Important:
       // Remove any markdown code blocks if present
       const jsonStr = content.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
       parsed = JSON.parse(jsonStr);
-    } catch (parseError) {
+    } catch {
       console.error("Failed to parse Claude response as JSON:", content);
       return {
         success: false,
@@ -262,8 +262,9 @@ Important:
 
 /**
  * Parse personal info from resume text
+ * Note: Currently unused - fallback for local parsing if AI is unavailable
  */
-function extractPersonalInfo(text: string): PersonalInfo {
+function _extractPersonalInfo(text: string): PersonalInfo {
   const info: PersonalInfo = {};
 
   // Extract email
@@ -333,7 +334,7 @@ function extractPersonalInfo(text: string): PersonalInfo {
 /**
  * Extract summary from resume text
  */
-function extractSummary(text: string): string | undefined {
+function _extractSummary(text: string): string | undefined {
   // Look for summary section
   const summaryPatterns = [
     /(?:summary|profile|objective|about)\s*[:\-]?\s*\n([\s\S]*?)(?=\n\s*(?:skills|experience|education|work|employment|professional|technical|core competencies))/i,
@@ -359,7 +360,7 @@ function extractSummary(text: string): string | undefined {
 /**
  * Extract skills from resume text
  */
-function extractSkills(text: string): string[] {
+function _extractSkills(text: string): string[] {
   const skills: Set<string> = new Set();
 
   // Look for skills section
@@ -393,7 +394,7 @@ function extractSkills(text: string): string[] {
 /**
  * Extract work experience from resume text
  */
-function extractExperience(text: string): WorkExperience[] {
+function _extractExperience(text: string): WorkExperience[] {
   const experiences: WorkExperience[] = [];
 
   // Look for experience section
@@ -492,7 +493,7 @@ function extractExperience(text: string): WorkExperience[] {
 /**
  * Extract education from resume text
  */
-function extractEducation(text: string): Education[] {
+function _extractEducation(text: string): Education[] {
   const education: Education[] = [];
 
   // Look for education section
@@ -565,7 +566,7 @@ function extractEducation(text: string): Education[] {
 /**
  * Parse resume using Claude API for intelligent extraction
  */
-async function parseWithClaude(text: string): Promise<ParseResult> {
+async function _parseWithClaude(text: string): Promise<ParseResult> {
   const apiKey = process.env.ANTHROPIC_API_KEY;
 
   if (!apiKey) {
@@ -678,7 +679,7 @@ Important:
       // Remove any markdown code blocks if present
       const jsonStr = content.replace(/```json\n?/g, "").replace(/```\n?/g, "").trim();
       parsed = JSON.parse(jsonStr);
-    } catch (parseError) {
+    } catch {
       console.error("Failed to parse Claude response as JSON:", content);
       return {
         success: false,

@@ -97,7 +97,7 @@ export async function searchJobs(query: USAJobsQuery): Promise<RawJob[]> {
           salaryMin = parseFloat(job.RemunerationRange.MinimumRange);
           salaryMax = parseFloat(job.RemunerationRange.MaximumRange);
           salaryRange = `$${salaryMin.toLocaleString()} - $${salaryMax.toLocaleString()} per year`;
-        } catch (e) {
+        } catch {
           // Ignore parsing errors
         }
       }

@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, useCallback } from "react";
+import { createContext, useContext, useEffect, useState, useCallback, useRef } from "react";
 
 type Theme = "light" | "dark" | "system";
 
@@ -20,26 +20,32 @@ const defaultContext: ThemeContextType = {
 
 const ThemeContext = createContext<ThemeContextType>(defaultContext);
 
+// Helper to get stored theme (safe for SSR)
+function getStoredTheme(): Theme {
+  if (typeof window === "undefined") return "system";
+  return (localStorage.getItem("theme") as Theme | null) || "system";
+}
+
+// Helper to get system theme preference
+function getSystemThemePreference(): "light" | "dark" {
+  if (typeof window === "undefined") return "light";
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+// Helper to resolve theme
+function resolveThemeValue(t: Theme): "light" | "dark" {
+  if (t === "system") {
+    return getSystemThemePreference();
+  }
+  return t;
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("system");
-  const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">("light");
+  // Use lazy initializers to avoid setState in effects
+  const [theme, setThemeState] = useState<Theme>(getStoredTheme);
+  const [resolvedTheme, setResolvedTheme] = useState<"light" | "dark">(() => resolveThemeValue(getStoredTheme()));
   const [mounted, setMounted] = useState(false);
-
-  // Get system preference
-  const getSystemTheme = useCallback((): "light" | "dark" => {
-    if (typeof window !== "undefined") {
-      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-    }
-    return "light";
-  }, []);
-
-  // Resolve the actual theme to apply
-  const resolveTheme = useCallback((t: Theme): "light" | "dark" => {
-    if (t === "system") {
-      return getSystemTheme();
-    }
-    return t;
-  }, [getSystemTheme]);
+  const initializedRef = useRef(false);
 
   // Apply theme to document
   const applyTheme = useCallback((resolved: "light" | "dark") => {
@@ -49,16 +55,13 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     root.style.colorScheme = resolved;
   }, []);
 
-  // Initialize theme from localStorage
+  // Initialize on mount - apply theme and mark as mounted
   useEffect(() => {
-    const stored = localStorage.getItem("theme") as Theme | null;
-    const initialTheme = stored || "system";
-    setThemeState(initialTheme);
-    const resolved = resolveTheme(initialTheme);
-    setResolvedTheme(resolved);
-    applyTheme(resolved);
+    if (initializedRef.current) return;
+    initializedRef.current = true;
+    applyTheme(resolvedTheme);
     setMounted(true);
-  }, [resolveTheme, applyTheme]);
+  }, [resolvedTheme, applyTheme]);
 
   // Listen for system theme changes
   useEffect(() => {
@@ -67,7 +70,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     const handleChange = () => {
       if (theme === "system") {
-        const resolved = getSystemTheme();
+        const resolved = getSystemThemePreference();
         setResolvedTheme(resolved);
         applyTheme(resolved);
       }
@@ -75,15 +78,15 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
     mediaQuery.addEventListener("change", handleChange);
     return () => mediaQuery.removeEventListener("change", handleChange);
-  }, [theme, mounted, getSystemTheme, applyTheme]);
+  }, [theme, mounted, applyTheme]);
 
   const setTheme = useCallback((newTheme: Theme) => {
     setThemeState(newTheme);
     localStorage.setItem("theme", newTheme);
-    const resolved = resolveTheme(newTheme);
+    const resolved = resolveThemeValue(newTheme);
     setResolvedTheme(resolved);
     applyTheme(resolved);
-  }, [resolveTheme, applyTheme]);
+  }, [applyTheme]);
 
   const toggleTheme = useCallback(() => {
     const newTheme = resolvedTheme === "light" ? "dark" : "light";

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronDown, Check, FileText, Shield, AlertTriangle, Bot } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -173,27 +173,33 @@ By clicking "I Agree" below, you acknowledge that you have read, understood, and
 };
 
 export function TermsConsentModal({ isOpen, onComplete, onCancel }: TermsConsentModalProps) {
-  const [step, setStep] = useState<PolicyStep>("terms");
+  const [step, setStepInternal] = useState<PolicyStep>("terms");
   const [hasScrolledToBottom, setHasScrolledToBottom] = useState(false);
   const [consents, setConsents] = useState<Partial<ConsentRecord>>({});
   const scrollRef = useRef<HTMLDivElement>(null);
+  const prevIsOpenRef = useRef(isOpen);
 
-  // Reset state when modal opens
-  useEffect(() => {
-    if (isOpen) {
-      setStep("terms");
-      setHasScrolledToBottom(false);
-      setConsents({});
-    }
-  }, [isOpen]);
-
-  // Reset scroll tracking when step changes
-  useEffect(() => {
+  // Wrapper for setStep that also resets scroll state
+  const setStep = useCallback((newStep: PolicyStep) => {
+    setStepInternal(newStep);
     setHasScrolledToBottom(false);
     if (scrollRef.current) {
       scrollRef.current.scrollTop = 0;
     }
-  }, [step]);
+  }, []);
+
+  // Reset state when modal opens - using ref to track previous state
+  useEffect(() => {
+    const wasOpen = prevIsOpenRef.current;
+    prevIsOpenRef.current = isOpen;
+
+    // Only reset when transitioning from closed to open
+    if (isOpen && !wasOpen) {
+      setStepInternal("terms");
+      setHasScrolledToBottom(false);
+      setConsents({});
+    }
+  }, [isOpen]);
 
   const handleScroll = () => {
     if (scrollRef.current) {

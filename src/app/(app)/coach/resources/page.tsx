@@ -20,13 +20,10 @@ import {
   Calendar,
   Clock,
   Filter,
-  ChevronRight,
   Award,
-  BookOpen,
   Monitor,
   Users,
   Share2,
-  Copy,
   Check,
   X,
   Send,
@@ -370,7 +367,7 @@ export default function CoachResourcesPage() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedIndustry, setSelectedIndustry] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
-  const [copiedId, setCopiedId] = useState<string | null>(null);
+  const [_copiedId, setCopiedId] = useState<string | null>(null);
 
   // Share modal state
   const [showShareModal, setShowShareModal] = useState(false);
@@ -416,7 +413,7 @@ export default function CoachResourcesPage() {
     return date.toLocaleDateString([], { weekday: "short", month: "short", day: "numeric" });
   };
 
-  const copyResourceLink = async (resource: Resource) => {
+  const _copyResourceLink = async (resource: Resource) => {
     const text = `${resource.name}\n${resource.description}\n${resource.website || resource.phone || resource.address || ""}`;
     await navigator.clipboard.writeText(text);
     setCopiedId(resource.id);

@@ -653,13 +653,11 @@ export async function calculateMarketMatchScore(
  */
 async function fetchBLSData(
   industry?: string,
-  location?: string
+  _location?: string
 ): Promise<Partial<MarketMatchData> | null> {
-  const apiKey = process.env.BLS_API_KEY;
-
   // BLS API V2 requires registration for higher limits
   // For now, return estimated data based on industry
-  // TODO: Implement full BLS API integration
+  // TODO: Implement full BLS API integration with process.env.BLS_API_KEY
 
   const industryDemand: Record<string, MarketMatchData> = {
     "technology": { localScore: 85, regionalScore: 88, remoteScore: 95, demandLevel: "high" },

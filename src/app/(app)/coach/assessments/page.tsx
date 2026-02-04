@@ -241,7 +241,7 @@ export default function CoachAssessmentsPage() {
                         Assign as Task
                       </p>
                       <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
-                        Add to job seeker's task list
+                        Add to job seeker&apos;s task list
                       </p>
                     </div>
                   </button>
@@ -391,7 +391,7 @@ export default function CoachAssessmentsPage() {
             <p className={`text-sm ${isDark ? "text-gray-300" : "text-gray-600"}`}>
               Career assessments help job seekers understand their interests, skills, personality, and values.
               Share these with your caseload to help them make informed career decisions.
-              View completion status and results in each job seeker's profile.
+              View completion status and results in each job seeker&apos;s profile.
             </p>
           </div>
         </div>

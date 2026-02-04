@@ -5,16 +5,12 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Send,
   Sparkles,
-  Lock,
   Loader2,
   ArrowRight,
   TrendingUp,
   Target,
-  AlertCircle,
-  CheckCircle2,
   FileText,
   Briefcase,
-  GraduationCap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/lib/theme-context";
@@ -224,8 +220,8 @@ export default function AICoachPage() {
 
           <div className={`p-5 rounded-xl mb-6 text-left ${isDark ? "bg-gray-800/50" : "bg-gray-50"}`}>
             <p className={`text-sm leading-relaxed ${isDark ? "text-gray-300" : "text-gray-600"}`}>
-              "Hey! I'm Compass - here to help you find your direction. Whether you're polishing
-              your resume, prepping for interviews, or figuring out your next move, I've got you."
+              &ldquo;Hey! I&apos;m Compass - here to help you find your direction. Whether you&apos;re polishing
+              your resume, prepping for interviews, or figuring out your next move, I&apos;ve got you.&rdquo;
             </p>
           </div>
 

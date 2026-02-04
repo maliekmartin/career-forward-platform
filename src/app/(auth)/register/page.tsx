@@ -44,7 +44,7 @@ export default function RegisterPage() {
               <div className="w-14 h-14 bg-[#2B8A8A]/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#2B8A8A] transition-colors">
                 <Target className="h-7 w-7 text-[#2B8A8A] group-hover:text-white transition-colors" />
               </div>
-              <h2 className="text-xl font-bold text-gray-900 mb-2">I'm a Job Seeker</h2>
+              <h2 className="text-xl font-bold text-gray-900 mb-2">I&apos;m a Job Seeker</h2>
               <p className="text-gray-600 text-sm mb-6 leading-relaxed">
                 Build resumes, track applications, and land your dream job. All the tools you need, completely free.
               </p>
@@ -65,7 +65,7 @@ export default function RegisterPage() {
               <div className="w-14 h-14 bg-[#374151]/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#374151] transition-colors">
                 <Users className="h-7 w-7 text-[#374151] group-hover:text-white transition-colors" />
               </div>
-              <h2 className="text-xl font-bold text-gray-900 mb-2">I'm a Coach / Organization</h2>
+              <h2 className="text-xl font-bold text-gray-900 mb-2">I&apos;m a Coach / Organization</h2>
               <p className="text-gray-600 text-sm mb-6 leading-relaxed">
                 Manage caseloads, track outcomes, and empower your job seekers with real-time visibility.
               </p>
