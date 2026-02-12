@@ -3,13 +3,13 @@ import { getCurrentSession } from "@/lib/auth/session";
 import prisma from "@/lib/db";
 
 // Message limits
-const FREE_MESSAGE_LIMIT = 2;
-const PREMIUM_MESSAGE_LIMIT = 50;
+const FREE_DAILY_LIMIT = 5;
+// Premium is unlimited
 
-// Get current month in YYYY-MM format
-function getCurrentMonthYear(): string {
+// Get current date in YYYY-MM-DD format for daily tracking
+function getCurrentDate(): string {
   const now = new Date();
-  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+  return now.toISOString().split("T")[0]; // "2024-01-15"
 }
 
 export async function POST(request: NextRequest) {
@@ -39,46 +39,41 @@ export async function POST(request: NextRequest) {
     }
 
     const isPremium = user.subscriptionTier === "PREMIUM" && user.subscriptionStatus === "active";
-    const messageLimit = isPremium ? PREMIUM_MESSAGE_LIMIT : FREE_MESSAGE_LIMIT;
-    const monthYear = getCurrentMonthYear();
+    const today = getCurrentDate();
 
-    // Get or create usage record for this month
-    let usage = await prisma.aIMessageUsage.findUnique({
-      where: {
-        userId_monthYear: {
-          userId: user.id,
-          monthYear,
-        },
-      },
-    });
+    // Premium users have unlimited messages - skip limit checking
+    let usage = null;
 
-    if (!usage) {
-      usage = await prisma.aIMessageUsage.create({
-        data: {
-          userId: user.id,
-          monthYear,
-          messageCount: 0,
+    if (!isPremium) {
+      // Get or create usage record for today (free users only)
+      usage = await prisma.aIMessageUsage.findUnique({
+        where: {
+          userId_monthYear: {
+            userId: user.id,
+            monthYear: today, // Using daily tracking for free users
+          },
         },
       });
-    }
 
-    // Check if user has reached their limit
-    if (usage.messageCount >= messageLimit) {
-      if (isPremium) {
+      if (!usage) {
+        usage = await prisma.aIMessageUsage.create({
+          data: {
+            userId: user.id,
+            monthYear: today,
+            messageCount: 0,
+          },
+        });
+      }
+
+      // Check if free user has reached daily limit
+      if (usage.messageCount >= FREE_DAILY_LIMIT) {
         return NextResponse.json({
           error: "limit_reached",
-          message: "You've reached your 50 message limit for this month. Your limit resets on the 1st of next month.",
-          limitType: "premium",
-          messagesUsed: usage.messageCount,
-          messagesLimit: PREMIUM_MESSAGE_LIMIT,
-        }, { status: 429 });
-      } else {
-        return NextResponse.json({
-          error: "limit_reached",
-          message: "You've used your 2 free messages! Upgrade to Premium for 50 messages per month and unlock the full power of Compass.",
+          message: "You've used your 5 free messages for today! Upgrade to Premium for unlimited conversations with Compass.",
           limitType: "free",
           messagesUsed: usage.messageCount,
-          messagesLimit: FREE_MESSAGE_LIMIT,
+          messagesLimit: FREE_DAILY_LIMIT,
+          resetsAt: "midnight",
           upgradeUrl: "/pricing",
         }, { status: 429 });
       }
@@ -218,29 +213,40 @@ Topics you help with:
     const tokensIn = result.usage?.input_tokens || 0;
     const tokensOut = result.usage?.output_tokens || 0;
 
-    await prisma.aIMessageUsage.update({
+    // Track usage for free users (daily) or premium users (monthly for analytics)
+    const trackingPeriod = isPremium ? getCurrentDate().slice(0, 7) : today; // YYYY-MM for premium, YYYY-MM-DD for free
+
+    await prisma.aIMessageUsage.upsert({
       where: {
         userId_monthYear: {
           userId: user.id,
-          monthYear,
+          monthYear: trackingPeriod,
         },
       },
-      data: {
+      create: {
+        userId: user.id,
+        monthYear: trackingPeriod,
+        messageCount: 1,
+        totalTokensIn: tokensIn,
+        totalTokensOut: tokensOut,
+      },
+      update: {
         messageCount: { increment: 1 },
         totalTokensIn: { increment: tokensIn },
         totalTokensOut: { increment: tokensOut },
       },
     });
 
-    // Calculate remaining messages
-    const messagesRemaining = messageLimit - (usage.messageCount + 1);
+    // Calculate remaining messages (only relevant for free users)
+    const messagesUsed = usage ? usage.messageCount + 1 : 1;
+    const messagesRemaining = isPremium ? null : FREE_DAILY_LIMIT - messagesUsed;
 
     return NextResponse.json({
       success: true,
       message: assistantMessage,
       usage: {
-        messagesUsed: usage.messageCount + 1,
-        messagesLimit: messageLimit,
+        messagesUsed: isPremium ? null : messagesUsed,
+        messagesLimit: isPremium ? "unlimited" : FREE_DAILY_LIMIT,
         messagesRemaining,
         isPremium,
       },
@@ -275,14 +281,27 @@ export async function GET() {
     }
 
     const isPremium = user.subscriptionTier === "PREMIUM" && user.subscriptionStatus === "active";
-    const messageLimit = isPremium ? PREMIUM_MESSAGE_LIMIT : FREE_MESSAGE_LIMIT;
-    const monthYear = getCurrentMonthYear();
 
+    // Premium users have unlimited - return early
+    if (isPremium) {
+      return NextResponse.json({
+        success: true,
+        usage: {
+          messagesUsed: null,
+          messagesLimit: "unlimited",
+          messagesRemaining: null,
+          isPremium: true,
+        },
+      });
+    }
+
+    // Free users - check daily usage
+    const today = getCurrentDate();
     const usage = await prisma.aIMessageUsage.findUnique({
       where: {
         userId_monthYear: {
           userId: session.userId,
-          monthYear,
+          monthYear: today,
         },
       },
     });
@@ -293,10 +312,10 @@ export async function GET() {
       success: true,
       usage: {
         messagesUsed,
-        messagesLimit: messageLimit,
-        messagesRemaining: messageLimit - messagesUsed,
-        isPremium,
-        resetsOn: getNextResetDate(),
+        messagesLimit: FREE_DAILY_LIMIT,
+        messagesRemaining: FREE_DAILY_LIMIT - messagesUsed,
+        isPremium: false,
+        resetsAt: "midnight",
       },
     });
   } catch (error) {
@@ -306,10 +325,4 @@ export async function GET() {
       { status: 500 }
     );
   }
-}
-
-function getNextResetDate(): string {
-  const now = new Date();
-  const nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
-  return nextMonth.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
 }
