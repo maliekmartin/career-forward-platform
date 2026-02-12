@@ -2,6 +2,16 @@ import { NextRequest, NextResponse } from "next/server";
 import { getCurrentSession } from "@/lib/auth/session";
 import prisma from "@/lib/db";
 
+// Message limits
+const FREE_MESSAGE_LIMIT = 2;
+const PREMIUM_MESSAGE_LIMIT = 50;
+
+// Get current month in YYYY-MM format
+function getCurrentMonthYear(): string {
+  const now = new Date();
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+}
+
 export async function POST(request: NextRequest) {
   try {
     const session = await getCurrentSession();
@@ -9,7 +19,6 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // Check subscription
     const user = await prisma.user.findUnique({
       where: { id: session.userId },
       include: {
@@ -30,11 +39,49 @@ export async function POST(request: NextRequest) {
     }
 
     const isPremium = user.subscriptionTier === "PREMIUM" && user.subscriptionStatus === "active";
-    if (!isPremium) {
-      return NextResponse.json(
-        { error: "Compass is a premium feature. Subscribe to start chatting!" },
-        { status: 403 }
-      );
+    const messageLimit = isPremium ? PREMIUM_MESSAGE_LIMIT : FREE_MESSAGE_LIMIT;
+    const monthYear = getCurrentMonthYear();
+
+    // Get or create usage record for this month
+    let usage = await prisma.aIMessageUsage.findUnique({
+      where: {
+        userId_monthYear: {
+          userId: user.id,
+          monthYear,
+        },
+      },
+    });
+
+    if (!usage) {
+      usage = await prisma.aIMessageUsage.create({
+        data: {
+          userId: user.id,
+          monthYear,
+          messageCount: 0,
+        },
+      });
+    }
+
+    // Check if user has reached their limit
+    if (usage.messageCount >= messageLimit) {
+      if (isPremium) {
+        return NextResponse.json({
+          error: "limit_reached",
+          message: "You've reached your 50 message limit for this month. Your limit resets on the 1st of next month.",
+          limitType: "premium",
+          messagesUsed: usage.messageCount,
+          messagesLimit: PREMIUM_MESSAGE_LIMIT,
+        }, { status: 429 });
+      } else {
+        return NextResponse.json({
+          error: "limit_reached",
+          message: "You've used your 2 free messages! Upgrade to Premium for 50 messages per month and unlock the full power of Compass.",
+          limitType: "free",
+          messagesUsed: usage.messageCount,
+          messagesLimit: FREE_MESSAGE_LIMIT,
+          upgradeUrl: "/pricing",
+        }, { status: 429 });
+      }
     }
 
     const { message, conversationHistory } = await request.json();
@@ -106,6 +153,7 @@ ${latestResume?.content ? "Resume data available in system." : "No resume upload
       },
     ];
 
+    // Call Claude Haiku (cost-effective model)
     const response = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
@@ -114,7 +162,7 @@ ${latestResume?.content ? "Resume data available in system." : "No resume upload
         "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
+        model: "claude-3-5-haiku-20241022",
         max_tokens: 1024,
         system: `You are Compass, a friendly and experienced career coach at Career Forward. You've helped hundreds of job seekers land their dream roles. You're warm, encouraging, and speak like a supportive mentor - not a robot.
 
@@ -166,9 +214,36 @@ Topics you help with:
       );
     }
 
+    // Update usage count and token tracking
+    const tokensIn = result.usage?.input_tokens || 0;
+    const tokensOut = result.usage?.output_tokens || 0;
+
+    await prisma.aIMessageUsage.update({
+      where: {
+        userId_monthYear: {
+          userId: user.id,
+          monthYear,
+        },
+      },
+      data: {
+        messageCount: { increment: 1 },
+        totalTokensIn: { increment: tokensIn },
+        totalTokensOut: { increment: tokensOut },
+      },
+    });
+
+    // Calculate remaining messages
+    const messagesRemaining = messageLimit - (usage.messageCount + 1);
+
     return NextResponse.json({
       success: true,
       message: assistantMessage,
+      usage: {
+        messagesUsed: usage.messageCount + 1,
+        messagesLimit: messageLimit,
+        messagesRemaining,
+        isPremium,
+      },
     });
   } catch (error) {
     console.error("AI Coach error:", error);
@@ -177,4 +252,64 @@ Topics you help with:
       { status: 500 }
     );
   }
+}
+
+// GET endpoint to check usage status
+export async function GET() {
+  try {
+    const session = await getCurrentSession();
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id: session.userId },
+      select: {
+        subscriptionTier: true,
+        subscriptionStatus: true,
+      },
+    });
+
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    }
+
+    const isPremium = user.subscriptionTier === "PREMIUM" && user.subscriptionStatus === "active";
+    const messageLimit = isPremium ? PREMIUM_MESSAGE_LIMIT : FREE_MESSAGE_LIMIT;
+    const monthYear = getCurrentMonthYear();
+
+    const usage = await prisma.aIMessageUsage.findUnique({
+      where: {
+        userId_monthYear: {
+          userId: session.userId,
+          monthYear,
+        },
+      },
+    });
+
+    const messagesUsed = usage?.messageCount || 0;
+
+    return NextResponse.json({
+      success: true,
+      usage: {
+        messagesUsed,
+        messagesLimit: messageLimit,
+        messagesRemaining: messageLimit - messagesUsed,
+        isPremium,
+        resetsOn: getNextResetDate(),
+      },
+    });
+  } catch (error) {
+    console.error("AI Coach usage check error:", error);
+    return NextResponse.json(
+      { error: "Failed to check usage" },
+      { status: 500 }
+    );
+  }
+}
+
+function getNextResetDate(): string {
+  const now = new Date();
+  const nextMonth = new Date(now.getFullYear(), now.getMonth() + 1, 1);
+  return nextMonth.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
 }
