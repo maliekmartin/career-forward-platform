@@ -7,6 +7,13 @@ import { DemoToggle } from "@/components/app/demo-toggle";
 import { JobApplicationsProvider } from "@/lib/job-applications-context";
 import { JobSeekerMessagesProvider } from "@/lib/job-seeker-messages-context";
 import { useTheme } from "@/lib/theme-context";
+import { usePageTracker } from "@/hooks/use-page-tracker";
+
+// Wrapper component to track page visits
+function PageTracker({ children }: { children: React.ReactNode }) {
+  usePageTracker();
+  return <>{children}</>;
+}
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -26,21 +33,23 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <JobApplicationsProvider>
       <JobSeekerMessagesProvider>
-        <div className={`min-h-screen transition-colors duration-300 ${isDark ? "bg-gray-950" : "bg-[#F5F5F5]"}`}>
-          <Sidebar />
-          <div className="pl-64 flex flex-col min-h-screen">
-            <JobSeekerHeader />
-            <main
-              id="main-content"
-              className="flex-1 p-6 overflow-auto"
-              role="main"
-              aria-label="Job seeker main content"
-            >
-              {children}
-            </main>
+        <PageTracker>
+          <div className={`min-h-screen transition-colors duration-300 ${isDark ? "bg-gray-950" : "bg-[#F5F5F5]"}`}>
+            <Sidebar />
+            <div className="pl-64 flex flex-col min-h-screen">
+              <JobSeekerHeader />
+              <main
+                id="main-content"
+                className="flex-1 p-6 overflow-auto"
+                role="main"
+                aria-label="Job seeker main content"
+              >
+                {children}
+              </main>
+            </div>
+            <DemoToggle />
           </div>
-          <DemoToggle />
-        </div>
+        </PageTracker>
       </JobSeekerMessagesProvider>
     </JobApplicationsProvider>
   );

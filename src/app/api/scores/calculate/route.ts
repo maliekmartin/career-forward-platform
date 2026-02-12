@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCurrentSession } from "@/lib/auth/session";
 import prisma from "@/lib/db";
+import { Prisma } from "@prisma/client";
 import { calculateScores } from "@/lib/services/scoring-service";
 import type { ParsedResume } from "@/lib/services/resume-parser";
 
@@ -55,7 +56,7 @@ export async function POST(request: NextRequest) {
         localMarketScore: scores.marketData?.localScore,
         regionalMarketScore: scores.marketData?.regionalScore,
         remoteMarketScore: scores.marketData?.remoteScore,
-        recommendations: scores.recommendations,
+        recommendations: scores.recommendations as unknown as Prisma.InputJsonValue,
         calculatedAt: new Date(scores.calculatedAt),
       },
     });

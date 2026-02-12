@@ -27,6 +27,7 @@ import { Button } from "@/components/ui/button";
 import { useTheme } from "@/lib/theme-context";
 import { demoCoach } from "@/lib/demo-data";
 import { ScoreCard } from "@/components/dashboard/score-card";
+import { ContinueCard } from "@/components/dashboard/continue-card";
 
 // Animation variants
 const containerVariants = {
@@ -97,6 +98,9 @@ export default function DashboardPage() {
 
   return (
     <motion.div variants={containerVariants} initial="hidden" animate="visible">
+      {/* Continue Where You Left Off */}
+      <ContinueCard />
+
       {/* Stats Cards */}
       <motion.div variants={itemVariants} className="grid grid-cols-3 gap-4 mb-4">
         {/* Quest Progress */}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -13,10 +13,25 @@ import {
   Megaphone,
   Mail,
   ListTodo,
+  Settings2,
+  Sparkles,
+  User,
 } from "lucide-react";
 import { demoCoach, demoClients } from "@/lib/demo-data";
 import { useTheme } from "@/lib/theme-context";
 import { useChatContext } from "@/components/app/chat-widget";
+import Link from "next/link";
+
+interface UserProfile {
+  firstName: string;
+  lastName: string;
+  email: string;
+  profilePhotoUrl: string | null;
+}
+
+interface UserData {
+  subscriptionTier: 'FREE' | 'PREMIUM';
+}
 
 // Page title mapping
 const pageTitles: Record<string, string> = {
@@ -72,7 +87,11 @@ const demoNotifications = [
   },
 ];
 
-export function CoachHeader() {
+interface CoachHeaderProps {
+  onOpenCustomize?: () => void;
+}
+
+export function CoachHeader({ onOpenCustomize }: CoachHeaderProps) {
   const pathname = usePathname();
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
@@ -80,6 +99,31 @@ export function CoachHeader() {
   const [showNotifications, setShowNotifications] = useState(false);
   const [showMessages, setShowMessages] = useState(false);
   const [notifications, setNotifications] = useState(demoNotifications);
+  const [user, setUser] = useState<UserProfile | null>(null);
+  const [isPremium, setIsPremium] = useState(false);
+
+  // Fetch user profile
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const res = await fetch("/api/profile");
+        if (res.ok) {
+          const data = await res.json();
+          setUser(data.profile);
+        }
+
+        // Check subscription tier
+        const userRes = await fetch("/api/user");
+        if (userRes.ok) {
+          const userData = await userRes.json();
+          setIsPremium(userData.user?.subscriptionTier === 'PREMIUM');
+        }
+      } catch (error) {
+        console.error("Failed to fetch profile:", error);
+      }
+    };
+    fetchUserProfile();
+  }, []);
 
   // Get conversations from shared chat context
   const { conversations, openChat, markAsRead } = useChatContext();
@@ -399,18 +443,52 @@ export function CoachHeader() {
             </AnimatePresence>
           </div>
 
+          {/* Customize Dashboard Button (Premium Only) */}
+          {isPremium && pathname === "/coach/dashboard" && onOpenCustomize && (
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={onOpenCustomize}
+              className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                isDark
+                  ? "bg-gradient-to-r from-[#4FD1C5]/20 to-purple-500/20 text-[#4FD1C5] hover:from-[#4FD1C5]/30 hover:to-purple-500/30 border border-[#4FD1C5]/30"
+                  : "bg-gradient-to-r from-[#2B8A8A]/10 to-purple-500/10 text-[#2B8A8A] hover:from-[#2B8A8A]/20 hover:to-purple-500/20 border border-[#2B8A8A]/30"
+              }`}
+              aria-label="Customize dashboard"
+            >
+              <Sparkles className="h-4 w-4" />
+              <span>Customize</span>
+            </motion.button>
+          )}
+
           {/* Profile */}
-          <div className={`flex items-center gap-3 pl-3 border-l ${isDark ? "border-gray-700" : "border-gray-200"}`}>
-            <img
-              src={demoCoach.avatar}
-              alt=""
-              className="w-9 h-9 rounded-full object-cover"
-              aria-hidden="true"
-            />
-            <span className={`text-sm font-medium ${isDark ? "text-gray-200" : "text-gray-700"}`}>
-              {demoCoach.firstName} {demoCoach.lastName}
-            </span>
-          </div>
+          <Link
+            href="/coach/settings"
+            className={`flex items-center gap-3 pl-3 border-l transition-colors hover:opacity-80 ${isDark ? "border-gray-700" : "border-gray-200"}`}
+          >
+            {user?.profilePhotoUrl ? (
+              <img
+                src={user.profilePhotoUrl}
+                alt=""
+                className="w-9 h-9 rounded-full object-cover"
+                aria-hidden="true"
+              />
+            ) : (
+              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#2B8A8A]/10"}`}>
+                <User className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} />
+              </div>
+            )}
+            <div className="flex flex-col">
+              <span className={`text-sm font-medium ${isDark ? "text-gray-200" : "text-gray-700"}`}>
+                {user ? `${user.firstName} ${user.lastName}` : "Loading..."}
+              </span>
+              {isPremium && (
+                <span className={`text-[10px] font-semibold ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`}>
+                  PREMIUM
+                </span>
+              )}
+            </div>
+          </Link>
         </div>
       </div>
     </header>

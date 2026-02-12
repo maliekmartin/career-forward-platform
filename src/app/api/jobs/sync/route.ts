@@ -44,11 +44,10 @@ export async function POST(request: NextRequest) {
 
     // Return results
     return NextResponse.json({
-      success: result.success,
+      ...result,
       message: result.success
         ? `Successfully synced ${result.jobsSaved} jobs`
         : "Sync completed with errors",
-      ...result,
     });
   } catch (error) {
     console.error("[API] Job sync error:", error);

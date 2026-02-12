@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAutoSave } from "@/hooks/use-auto-save";
 import {
   Plus,
   Search,
@@ -52,6 +53,38 @@ export default function JobTrackerPage() {
   const [showSuccessStoryModal, setShowSuccessStoryModal] = useState(false);
   const [successStory, setSuccessStory] = useState("");
   const [recentlyHiredApp, setRecentlyHiredApp] = useState<JobApplication | null>(null);
+
+  // Auto-save for form data persistence
+  interface JobTrackerDraft {
+    hiredFormData?: typeof hiredFormData;
+    showHiredModal?: string | null;
+    view?: "list" | "board";
+    filterStatus?: StatusFilter;
+  }
+
+  const { data: draft, setData: saveDraft, savedAt, clearDraft } = useAutoSave<JobTrackerDraft>("job-tracker");
+
+  // Restore draft on mount
+  useEffect(() => {
+    if (draft) {
+      if (draft.hiredFormData) setHiredFormData(draft.hiredFormData);
+      if (draft.showHiredModal) setShowHiredModal(draft.showHiredModal);
+      if (draft.view) setView(draft.view);
+      if (draft.filterStatus) setFilterStatus(draft.filterStatus);
+    }
+  }, [draft]);
+
+  // Save form state when hired modal is open and being edited
+  useEffect(() => {
+    if (showHiredModal) {
+      saveDraft({
+        hiredFormData,
+        showHiredModal,
+        view,
+        filterStatus,
+      });
+    }
+  }, [hiredFormData, showHiredModal, saveDraft, view, filterStatus]);
 
   // Stats for the dashboard-within-dashboard feel
   const stats = [
@@ -130,6 +163,9 @@ export default function JobTrackerPage() {
     setShowHiredModal(null);
     setRecentlyHiredApp(app || null);
     setShowCelebration(true);
+
+    // Clear the auto-saved draft since form was submitted successfully
+    clearDraft();
 
     // Show celebration for 3 seconds, then show success story modal
     setTimeout(() => {

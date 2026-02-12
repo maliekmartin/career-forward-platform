@@ -43,6 +43,7 @@ model User {
   achievements          UserAchievement[]
   sessions              Session[]
   scores                JobSeekerScore[]
+  sessionState          UserSessionState?
 
   // Coach relationships
   coachClients    CoachClient[]  @relation("Coach")
@@ -93,6 +94,27 @@ model Session {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("sessions")
+}
+
+model UserSessionState {
+  id            String   @id @default(cuid())
+  userId        String   @unique @map("user_id")
+
+  // Last location tracking
+  lastPath      String   @map("last_path")           // e.g., "/resume-builder"
+  lastPathName  String   @map("last_path_name")      // e.g., "Resume Builder"
+  lastVisitedAt DateTime @default(now()) @map("last_visited_at")
+
+  // Draft form data (JSON blob for the current page)
+  draftData     Json?    @map("draft_data")
+
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_session_state")
 }
 
 model VerificationToken {

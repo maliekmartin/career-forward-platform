@@ -47,6 +47,7 @@ import { Button } from "@/components/ui/button";
 import { demoClients, demoCoach, DemoClient, getActionLabel, formatActionTime, ActionType } from "@/lib/demo-data";
 import { useChatContext } from "@/components/app/chat-widget";
 import { useTheme } from "@/lib/theme-context";
+import { PremiumStatCards } from "@/components/dashboard/premium-stat-cards";
 
 // Animation variants
 const containerVariants = {
@@ -607,125 +608,9 @@ export default function CoachDashboardPage() {
       initial="hidden"
       animate="visible"
     >
-      {/* Stats Cards */}
-      <motion.div variants={itemVariants} className="grid grid-cols-3 gap-5 mb-6">
-        {/* Active Clients */}
-        <motion.div
-          variants={cardHoverVariants}
-          initial="rest"
-          whileHover="hover"
-          className={`rounded-2xl p-5 border shadow-sm transition-colors ${
-            isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"
-          }`}
-          role="region"
-          aria-label="Job Seekers on Caseload statistic"
-        >
-          <div className="flex items-start justify-between">
-            <div className="flex items-center gap-4">
-              <div className={`w-14 h-14 rounded-full flex items-center justify-center relative ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#2B8A8A]/10"}`}>
-                <svg className="w-14 h-14 -rotate-90" aria-hidden="true">
-                  <circle cx="28" cy="28" r="24" fill="none" stroke={isDark ? "#374151" : "#e5e7eb"} strokeWidth="4" />
-                  <motion.circle
-                    cx="28"
-                    cy="28"
-                    r="24"
-                    fill="none"
-                    stroke={isDark ? "#4FD1C5" : "#2B8A8A"}
-                    strokeWidth="4"
-                    strokeLinecap="round"
-                    initial={{ strokeDasharray: "0 150.8" }}
-                    animate={{ strokeDasharray: `${(activeClients / clients.length) * 150.8} 150.8` }}
-                    transition={{ duration: 1, ease: "easeOut" }}
-                  />
-                </svg>
-                <Users className={`h-5 w-5 absolute ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} aria-hidden="true" />
-              </div>
-              <div>
-                <p className={`text-3xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>{activeClients}</p>
-                <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>Job Seekers on Caseload</p>
-              </div>
-            </div>
-            <motion.span
-              initial={{ opacity: 0, x: 10 }}
-              animate={{ opacity: 1, x: 0 }}
-              className={`flex items-center gap-1 text-sm px-2 py-1 rounded-full ${isDark ? "text-green-400 bg-green-900/30" : "text-green-600 bg-green-50"}`}
-            >
-              <TrendingUp className="h-3 w-3" aria-hidden="true" />
-              +8%
-            </motion.span>
-          </div>
-        </motion.div>
-
-        {/* Placements This Month */}
-        <motion.div
-          variants={cardHoverVariants}
-          initial="rest"
-          whileHover="hover"
-          className={`rounded-2xl p-5 border shadow-sm transition-colors ${
-            isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"
-          }`}
-          role="region"
-          aria-label="Placements this month statistic"
-        >
-          <div className="flex items-start justify-between">
-            <div className="flex items-center gap-4">
-              <motion.div
-                className={`w-14 h-14 rounded-full flex items-center justify-center ${isDark ? "bg-emerald-900/30" : "bg-emerald-50"}`}
-                whileHover={{ rotate: [0, -10, 10, 0] }}
-                transition={{ duration: 0.5 }}
-              >
-                <Trophy className={`h-6 w-6 ${isDark ? "text-emerald-400" : "text-emerald-600"}`} aria-hidden="true" />
-              </motion.div>
-              <div>
-                <p className={`text-3xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>{placementsThisMonth}</p>
-                <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>Placements this month</p>
-              </div>
-            </div>
-            <motion.span
-              initial={{ opacity: 0, x: 10 }}
-              animate={{ opacity: 1, x: 0 }}
-              className={`flex items-center gap-1 text-sm px-2 py-1 rounded-full ${isDark ? "text-green-400 bg-green-900/30" : "text-green-600 bg-green-50"}`}
-            >
-              <TrendingUp className="h-3 w-3" aria-hidden="true" />
-              +12%
-            </motion.span>
-          </div>
-        </motion.div>
-
-        {/* Tasks Due Today */}
-        <motion.div
-          variants={cardHoverVariants}
-          initial="rest"
-          whileHover="hover"
-          className={`rounded-2xl p-5 border shadow-sm transition-colors cursor-pointer ${
-            isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"
-          }`}
-          role="region"
-          aria-label="Tasks due today"
-          onClick={() => window.location.href = "/coach/tasks"}
-        >
-          <div className="flex items-start justify-between">
-            <div className="flex items-center gap-4">
-              <div className={`w-14 h-14 rounded-full flex items-center justify-center relative ${isDark ? "bg-purple-900/30" : "bg-purple-50"}`}>
-                <ListTodo className={`h-6 w-6 ${isDark ? "text-purple-400" : "text-purple-600"}`} aria-hidden="true" />
-              </div>
-              <div>
-                <p className={`text-3xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>{tasksDueToday.length}</p>
-                <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>Tasks Due Today</p>
-              </div>
-            </div>
-            {overdueTasks.length > 0 && (
-              <motion.span
-                initial={{ opacity: 0, x: 10 }}
-                animate={{ opacity: 1, x: 0 }}
-                className={`flex items-center gap-1 text-sm px-2 py-1 rounded-full ${isDark ? "text-red-400 bg-red-900/30" : "text-red-600 bg-red-50"}`}
-              >
-                <AlertTriangle className="h-3 w-3" aria-hidden="true" />
-                {overdueTasks.length} overdue
-              </motion.span>
-            )}
-          </div>
-        </motion.div>
+      {/* Premium Stats Cards */}
+      <motion.div variants={itemVariants} className="mb-6">
+        <PremiumStatCards role="coach" />
       </motion.div>
 
       {/* Main Content - Two Columns */}

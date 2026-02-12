@@ -73,6 +73,18 @@ export const faqData: FAQCategory[] = [
         question: "How do I update my profile information?",
         answer: "Updating your profile is easy. Log into Career Forward and click on your user menu in the top-right corner, then select 'Profile.' You can edit your personal information, contact details, career goals, and other settings. After making changes, click the 'Save' button to update your profile. Your profile information helps personalize your Career Forward experience and is only visible to you and your assigned career coach if you have one.",
         tags: ["profile", "settings"]
+      },
+      {
+        id: "system-requirements",
+        question: "What are the system requirements to use Career Forward?",
+        answer: "Career Forward is a web-based platform that works on any modern device with an internet connection. For the best experience, we recommend: a stable internet connection (minimum 1 Mbps), a modern web browser (Chrome 90+, Firefox 88+, Safari 14+, or Edge 90+), JavaScript enabled, and cookies enabled for login functionality. The platform is optimized for desktop, tablet, and mobile devices. No software installation is required.",
+        tags: ["requirements", "technical", "setup"]
+      },
+      {
+        id: "first-steps-job-seeker",
+        question: "What should I do first as a new job seeker on Career Forward?",
+        answer: "Welcome! Here's your recommended first-day checklist: (1) Complete your profile with your contact information and career goals, (2) Take the career assessment to identify your strengths and interests, (3) Build your first resume using our guided Resume Builder, (4) Explore the job board and save 3-5 positions that interest you, (5) Watch at least one interview prep video, and (6) Add your first job application to the Job Tracker. This foundation will set you up for success!",
+        tags: ["onboarding", "first-steps", "job-seeker"]
       }
     ]
   },
@@ -261,6 +273,36 @@ export const faqData: FAQCategory[] = [
         question: "Will there be a mobile app for Career Forward?",
         answer: "Yes! A mobile app is coming soon after our Q3 2026 launch. This will allow you to access your profile, track applications, watch interview prep videos, and communicate with your coach on the go. We'll announce availability dates as we get closer to release.",
         tags: ["mobile", "roadmap"]
+      },
+      {
+        id: "application-reminders",
+        question: "Can I set up automatic reminders for job application follow-ups?",
+        answer: "Yes! The Job Tracker includes a built-in reminder system. When you log a job application, you can set custom follow-up reminders (e.g., 'Follow up in 1 week' or 'Check status in 2 weeks'). Career Forward will send you email notifications and in-app alerts when it's time to take action. This ensures you never miss an opportunity to follow up with employers at the right time.",
+        tags: ["reminders", "job-tracker", "notifications"]
+      },
+      {
+        id: "cover-letter-help",
+        question: "Does Career Forward help me write cover letters?",
+        answer: "Absolutely! Career Forward includes AI-powered cover letter assistance. When you're ready to apply for a job, our AI coach can help you draft a tailored cover letter based on the job description and your resume. The AI suggests strong opening lines, highlights relevant experiences, and ensures your cover letter aligns with the specific role. You can save and edit multiple cover letters for different applications.",
+        tags: ["cover-letter", "ai-coach", "writing"]
+      },
+      {
+        id: "skill-gap-analysis",
+        question: "Can Career Forward help me identify skill gaps for my target jobs?",
+        answer: "Yes! Our career assessment tools help you identify both your current strengths and areas for development. When you view jobs on our board, we show you which skills you already have and which skills the employer is seeking that you might want to develop. Your AI coach can recommend training resources, certifications, or experiences to help you build those missing skills and become a stronger candidate.",
+        tags: ["skills", "assessments", "career-development"]
+      },
+      {
+        id: "job-board-filters",
+        question: "What filtering options are available on the job board?",
+        answer: "Our job board offers comprehensive filtering to help you find the right opportunities: filter by location (city, state, remote options), salary range (minimum and maximum), job type (full-time, part-time, contract, temporary), experience level (entry-level, mid-level, senior), industry and occupation, company size, and posting date. You can also save your favorite filter combinations and set up job alerts for new postings matching your criteria.",
+        tags: ["job-board", "filters", "search"]
+      },
+      {
+        id: "application-statistics",
+        question: "Can I see statistics about my job search progress?",
+        answer: "Yes! Your dashboard displays comprehensive job search analytics including: total applications submitted, interview requests received, response rate from employers, average time between application and response, applications by status (pending, interviewing, rejected, offered), and activity trends over time. These metrics help you understand your job search patterns, identify what's working, and adjust your strategy for better results.",
+        tags: ["analytics", "statistics", "progress"]
       }
     ]
   },
@@ -407,6 +449,42 @@ export const faqData: FAQCategory[] = [
         question: "What's the implementation timeline?",
         answer: "Typical implementation takes 2-4 weeks. Week 1: Admin account setup and organization customization. Week 2: Team training and coach onboarding. Week 3: Pilot launch with 1-2 coaches and 20-30 clients. Week 4: Full rollout and refinement based on pilot feedback. Post-launch support ensures smooth adoption.",
         tags: ["implementation", "timeline"]
+      },
+      {
+        id: "wioa-specific-reporting",
+        question: "What WIOA-specific reports and metrics does Career Forward track?",
+        answer: "Career Forward is designed with WIOA compliance in mind and tracks key performance indicators including: participant enrollment and demographics, measurable skill gains (tracked through assessment completion and credential attainment), employment outcomes (job placement, retention at 2nd and 4th quarters), median earnings, credential attainment, and training completion rates. All data can be exported in formats compatible with state workforce systems. The platform maintains audit trails for all participant activities to support monitoring visits.",
+        tags: ["wioa", "compliance", "reporting", "grants"]
+      },
+      {
+        id: "bulk-client-import",
+        question: "Can we import existing clients in bulk rather than adding them individually?",
+        answer: "Yes! Administrators can use our bulk import feature to onboard multiple clients at once. Upload a CSV file with client information (name, email, phone, demographics) and Career Forward will create accounts and send welcome emails automatically. We provide a template CSV file with required fields. For large migrations (100+ clients), our team can assist with data mapping and import validation. This significantly reduces onboarding time when transitioning from another system.",
+        tags: ["import", "bulk", "onboarding", "admin"]
+      },
+      {
+        id: "coach-performance-metrics",
+        question: "Can administrators track individual coach performance and productivity?",
+        answer: "Yes. The Admin Dashboard provides coach-level analytics including: number of active clients per coach, client engagement rates, average time to job placement for each coach's caseload, client satisfaction indicators, message response times, and caseload progression through career pathway stages. These metrics help identify high-performing coaches, ensure equitable caseload distribution, and provide targeted professional development. All metrics respect client privacy and focus on aggregate performance.",
+        tags: ["admin", "coach-performance", "metrics", "management"]
+      },
+      {
+        id: "multi-location-organizations",
+        question: "How does Career Forward handle organizations with multiple office locations?",
+        answer: "Career Forward supports multi-location organizations through location-based user groups. Administrators can create location tags (e.g., 'Spokane Office', 'Seattle Office') and assign coaches and clients to specific locations. This enables location-specific reporting, allows regional managers to view their location's data, and helps track performance across different sites. You can also filter dashboards and reports by location to understand regional variations in outcomes.",
+        tags: ["multi-location", "organization", "locations", "admin"]
+      },
+      {
+        id: "client-consent-privacy",
+        question: "How does Career Forward handle client consent and data sharing permissions?",
+        answer: "Client privacy is central to Career Forward's design. When a client creates an account, they agree to our Terms of Service and Privacy Policy. Clients must explicitly accept connection requests from coaches before any coach can view their information. Clients control what data coaches can see through privacy settings. All data sharing is logged in audit trails. For organizations with specific consent requirements (e.g., signed release forms), you can upload consent documents to client profiles and restrict coach access until consent is documented.",
+        tags: ["consent", "privacy", "compliance", "data-sharing"]
+      },
+      {
+        id: "data-migration-assistance",
+        question: "Will Career Forward help us migrate data from our current system?",
+        answer: "Yes! We provide data migration support for organizations transitioning from another case management system. Our team will work with you to map your existing data structure to Career Forward's format, validate data integrity, and perform test imports before going live. For large organizations (50+ coaches), we assign a dedicated implementation specialist to ensure smooth migration. Data migration services are included for annual plans and available as an add-on for monthly plans.",
+        tags: ["migration", "implementation", "data-import", "support"]
       }
     ]
   },
@@ -511,6 +589,12 @@ export const faqData: FAQCategory[] = [
         question: "What happens to our data if we cancel our subscription?",
         answer: "Your data is yours. If you cancel, your organization maintains access to all your job seekers' profiles, resumes, job tracking records, and coaching notes for 30 days. This gives you time to export data in standard formats (CSV, PDF). After 30 days, accounts transition to read-only mode. Job seekers can still access their own accounts.",
         tags: ["data", "cancellation"]
+      },
+      {
+        id: "grant-funded-payment",
+        question: "Can we pay for Career Forward using grant funds?",
+        answer: "Yes, many workforce development organizations successfully use WIOA, TANF, SNAP E&T, and other grant funds to pay for Career Forward subscriptions. Our platform qualifies as an allowable expense under most workforce development grants as it directly supports case management, participant tracking, and outcome reporting. We provide detailed invoices with line-item descriptions that meet grantor requirements. For specific grant compliance questions, consult your grant administrator or contact our team for supporting documentation.",
+        tags: ["grants", "payment", "funding", "wioa"]
       }
     ]
   },
@@ -701,6 +785,12 @@ export const faqData: FAQCategory[] = [
         question: "Is my information safe on shared or public devices?",
         answer: "Career Forward is designed to work on shared devices, but extra caution is recommended. Always use a private browsing window (incognito mode) on shared devices. Do NOT enable the 'Remember Me' option on shared devices. Always manually log out after each session, and clear your browser cache and cookies.",
         tags: ["security", "shared-devices"]
+      },
+      {
+        id: "soc2-compliance",
+        question: "Is Career Forward SOC 2 compliant?",
+        answer: "Career Forward is currently working toward SOC 2 Type II certification, with an expected completion date in Q4 2026. We've implemented SOC 2-aligned security controls including encryption, access management, change management, and incident response procedures. For organizations with SOC 2 requirements, we can provide our current security documentation and roadmap. Enterprise customers can request security questionnaires and participate in vendor security assessments.",
+        tags: ["soc2", "compliance", "security", "certification"]
       }
     ]
   },

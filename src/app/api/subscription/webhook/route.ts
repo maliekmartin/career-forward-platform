@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
 
         if (userId && subscriptionId) {
           // Get subscription details
-          const subscription = await stripe.subscriptions.retrieve(subscriptionId);
+          const subscription = await stripe.subscriptions.retrieve(subscriptionId) as Stripe.Subscription;
 
           await prisma.user.update({
             where: { id: userId },
@@ -56,8 +56,8 @@ export async function POST(request: NextRequest) {
               subscriptionTier: "PREMIUM",
               subscriptionStatus: subscription.status,
               stripeSubscriptionId: subscriptionId,
-              subscriptionStartDate: new Date(subscription.current_period_start * 1000),
-              subscriptionEndDate: new Date(subscription.current_period_end * 1000),
+              subscriptionStartDate: new Date((subscription as unknown as { current_period_start: number }).current_period_start * 1000),
+              subscriptionEndDate: new Date((subscription as unknown as { current_period_end: number }).current_period_end * 1000),
             },
           });
 
@@ -79,7 +79,7 @@ export async function POST(request: NextRequest) {
             where: { id: user.id },
             data: {
               subscriptionStatus: subscription.status,
-              subscriptionEndDate: new Date(subscription.current_period_end * 1000),
+              subscriptionEndDate: new Date((subscription as unknown as { current_period_end: number }).current_period_end * 1000),
             },
           });
 
