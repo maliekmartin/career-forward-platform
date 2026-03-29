@@ -107,7 +107,10 @@ export async function GET() {
 }
 
 export async function PUT(request: NextRequest) {
+  let currentStep = "initializing";
+
   try {
+    currentStep = "checking session";
     const session = await getCurrentSession();
     if (!session) {
       return NextResponse.json(
@@ -116,66 +119,69 @@ export async function PUT(request: NextRequest) {
       );
     }
 
+    currentStep = "parsing request body";
     const body = await request.json();
 
-    // Validate input
+    currentStep = "validating input";
     const validationResult = onboardingUpdateSchema.safeParse(body);
     if (!validationResult.success) {
+      const errors = validationResult.error.flatten();
+      console.error("Validation errors:", errors);
       return NextResponse.json(
-        { error: "Invalid input", details: validationResult.error.flatten() },
+        { error: "Invalid input", details: errors },
         { status: 400 }
       );
     }
 
     const { profile: profileData, resumeContent, resumeName } = validationResult.data;
 
-    // Get or create profile
+    currentStep = "finding existing profile";
     let profile = await prisma.profile.findUnique({
       where: { userId: session.userId },
     });
 
     if (profile) {
-      // Update existing profile
+      currentStep = "updating profile";
       profile = await prisma.profile.update({
         where: { userId: session.userId },
         data: {
           firstName: profileData.firstName,
           lastName: profileData.lastName,
-          phone: profileData.phone,
-          gender: profileData.gender,
-          yearsInIndustry: profileData.yearsInIndustry,
-          currentIndustry: profileData.currentIndustry,
-          careerGoal: profileData.careerGoal,
+          phone: profileData.phone || null,
+          gender: profileData.gender || null,
+          yearsInIndustry: profileData.yearsInIndustry ?? null,
+          currentIndustry: profileData.currentIndustry || null,
+          careerGoal: profileData.careerGoal || null,
           profileCompleted: profileData.profileCompleted ?? true,
         },
       });
     } else {
-      // Create new profile
+      currentStep = "creating profile";
       profile = await prisma.profile.create({
         data: {
           userId: session.userId,
           firstName: profileData.firstName,
           lastName: profileData.lastName,
-          phone: profileData.phone,
-          gender: profileData.gender,
-          yearsInIndustry: profileData.yearsInIndustry,
-          currentIndustry: profileData.currentIndustry,
-          careerGoal: profileData.careerGoal,
+          phone: profileData.phone || null,
+          gender: profileData.gender || null,
+          yearsInIndustry: profileData.yearsInIndustry ?? null,
+          currentIndustry: profileData.currentIndustry || null,
+          careerGoal: profileData.careerGoal || null,
           profileCompleted: profileData.profileCompleted ?? true,
         },
       });
     }
 
-    // If resume content provided, create/update resume
     let resume = null;
     if (resumeContent) {
-      // Check for existing resume
+      currentStep = "finding existing resume";
       const existingResume = await prisma.resume.findFirst({
         where: { userId: session.userId },
         orderBy: { updatedAt: "desc" },
       });
 
       if (existingResume) {
+        currentStep = "updating resume";
         resume = await prisma.resume.update({
           where: { id: existingResume.id },
           data: {
@@ -184,6 +190,7 @@ export async function PUT(request: NextRequest) {
           },
         });
       } else {
+        currentStep = "creating resume";
         resume = await prisma.resume.create({
           data: {
             userId: session.userId,
@@ -200,18 +207,24 @@ export async function PUT(request: NextRequest) {
       profile,
       resume,
     });
-  } catch (error) {
-    console.error("Update profile error:", error);
-    // Log full error details for debugging
-    const errorMessage = error instanceof Error ? error.message : "Unknown error";
-    const errorStack = error instanceof Error ? error.stack : "";
-    console.error("Error details:", { message: errorMessage, stack: errorStack });
+  } catch (error: unknown) {
+    console.error(`Profile update error at step "${currentStep}":`, error);
 
-    // Return detailed error for debugging
+    // Extract error message
+    let errorMessage = "Unknown error";
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    } else if (typeof error === "object" && error !== null) {
+      const err = error as Record<string, unknown>;
+      errorMessage = String(err.message || err.code || JSON.stringify(err));
+    } else if (typeof error === "string") {
+      errorMessage = error;
+    }
+
     return NextResponse.json(
       {
-        error: errorMessage || "Failed to update profile",
-        details: process.env.NODE_ENV === "development" ? errorStack : undefined,
+        error: `Failed at ${currentStep}: ${errorMessage}`,
+        step: currentStep,
       },
       { status: 500 }
     );
