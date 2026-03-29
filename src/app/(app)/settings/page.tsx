@@ -8,6 +8,7 @@ import {
   Bell,
   Shield,
   Eye,
+  EyeOff,
   Globe,
   Palette,
   Link2,
@@ -17,12 +18,16 @@ import {
   Camera,
   Check,
   Loader2,
+  Lock,
+  AlertCircle,
+  CheckCircle2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ProfilePictureSelector } from "@/components/profile/profile-picture-selector";
 
 const tabs = [
   { id: "profile", name: "Profile", icon: User },
+  { id: "security", name: "Security", icon: Lock },
   { id: "notifications", name: "Notifications", icon: Bell },
   { id: "privacy", name: "Privacy & Coach", icon: Shield },
   { id: "preferences", name: "Preferences", icon: Palette },
@@ -51,6 +56,100 @@ export default function SettingsPage() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [phone, setPhone] = useState("");
+
+  // Password change state
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  // Account deletion state
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deletePassword, setDeletePassword] = useState("");
+  const [deleteConfirmation, setDeleteConfirmation] = useState("");
+  const [deleting, setDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [changingPassword, setChangingPassword] = useState(false);
+  const [passwordMessage, setPasswordMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+
+  // Password requirements
+  const passwordRequirements = [
+    { label: "At least 12 characters", test: (p: string) => p.length >= 12 },
+    { label: "One uppercase letter", test: (p: string) => /[A-Z]/.test(p) },
+    { label: "One lowercase letter", test: (p: string) => /[a-z]/.test(p) },
+    { label: "One number", test: (p: string) => /[0-9]/.test(p) },
+    { label: "One special character", test: (p: string) => /[^A-Za-z0-9]/.test(p) },
+  ];
+
+  const allRequirementsMet = passwordRequirements.every((r) => r.test(newPassword));
+  const passwordsMatch = newPassword === confirmPassword && confirmPassword.length > 0;
+  const canChangePassword = currentPassword && allRequirementsMet && passwordsMatch;
+
+  const handleChangePassword = async () => {
+    if (!canChangePassword) return;
+
+    setChangingPassword(true);
+    setPasswordMessage(null);
+
+    try {
+      const res = await fetch("/api/auth/change-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ currentPassword, newPassword }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setPasswordMessage({ type: "success", text: data.message || "Password changed successfully!" });
+        setCurrentPassword("");
+        setNewPassword("");
+        setConfirmPassword("");
+      } else {
+        setPasswordMessage({ type: "error", text: data.error || "Failed to change password" });
+      }
+    } catch {
+      setPasswordMessage({ type: "error", text: "An error occurred. Please try again." });
+    } finally {
+      setChangingPassword(false);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    if (deleteConfirmation !== "DELETE MY ACCOUNT") {
+      setDeleteError("Please type 'DELETE MY ACCOUNT' exactly to confirm.");
+      return;
+    }
+
+    setDeleting(true);
+    setDeleteError(null);
+
+    try {
+      const res = await fetch("/api/auth/delete-account", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          password: deletePassword,
+          confirmation: deleteConfirmation,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        // Redirect to home page after successful deletion
+        window.location.href = "/";
+      } else {
+        setDeleteError(data.error || "Failed to delete account");
+      }
+    } catch {
+      setDeleteError("An error occurred. Please try again.");
+    } finally {
+      setDeleting(false);
+    }
+  };
 
   useEffect(() => {
     fetchProfile();
@@ -270,6 +369,170 @@ export default function SettingsPage() {
             </div>
           )}
 
+          {activeTab === "security" && (
+            <div className="space-y-6">
+              {/* Change Password */}
+              <div className={`rounded-2xl border p-6 ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}>
+                <h2 className={`text-lg font-semibold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+                  Change Password
+                </h2>
+                <p className={`text-sm mb-6 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
+                  Update your password to keep your account secure.
+                </p>
+
+                {passwordMessage && (
+                  <div className={`mb-4 p-4 rounded-xl flex items-start gap-3 ${
+                    passwordMessage.type === "success"
+                      ? isDark ? "bg-green-900/20 border border-green-800" : "bg-green-50 border border-green-200"
+                      : isDark ? "bg-red-900/20 border border-red-800" : "bg-red-50 border border-red-200"
+                  }`}>
+                    {passwordMessage.type === "success" ? (
+                      <CheckCircle2 className={`h-5 w-5 flex-shrink-0 ${isDark ? "text-green-400" : "text-green-600"}`} />
+                    ) : (
+                      <AlertCircle className={`h-5 w-5 flex-shrink-0 ${isDark ? "text-red-400" : "text-red-600"}`} />
+                    )}
+                    <p className={`text-sm ${
+                      passwordMessage.type === "success"
+                        ? isDark ? "text-green-300" : "text-green-700"
+                        : isDark ? "text-red-300" : "text-red-700"
+                    }`}>
+                      {passwordMessage.text}
+                    </p>
+                  </div>
+                )}
+
+                <div className="space-y-4">
+                  <div>
+                    <label className={`block text-sm font-medium mb-1 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+                      Current Password
+                    </label>
+                    <div className="relative">
+                      <input
+                        type={showCurrentPassword ? "text" : "password"}
+                        value={currentPassword}
+                        onChange={(e) => setCurrentPassword(e.target.value)}
+                        className={`w-full px-4 py-2.5 pr-12 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] ${
+                          isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-gray-900"
+                        }`}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                        className={`absolute right-4 top-1/2 -translate-y-1/2 ${isDark ? "text-gray-400 hover:text-gray-300" : "text-gray-400 hover:text-gray-600"}`}
+                      >
+                        {showCurrentPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className={`block text-sm font-medium mb-1 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+                      New Password
+                    </label>
+                    <div className="relative">
+                      <input
+                        type={showNewPassword ? "text" : "password"}
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        className={`w-full px-4 py-2.5 pr-12 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] ${
+                          isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-gray-900"
+                        }`}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowNewPassword(!showNewPassword)}
+                        className={`absolute right-4 top-1/2 -translate-y-1/2 ${isDark ? "text-gray-400 hover:text-gray-300" : "text-gray-400 hover:text-gray-600"}`}
+                      >
+                        {showNewPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Password Requirements */}
+                  {newPassword && (
+                    <div className={`p-4 rounded-xl ${isDark ? "bg-gray-800" : "bg-gray-50"}`}>
+                      <p className={`text-sm font-medium mb-2 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+                        Password requirements:
+                      </p>
+                      <div className="grid grid-cols-2 gap-2">
+                        {passwordRequirements.map((req, i) => (
+                          <div key={i} className="flex items-center gap-2 text-sm">
+                            {req.test(newPassword) ? (
+                              <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />
+                            ) : (
+                              <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 ${isDark ? "border-gray-600" : "border-gray-300"}`} />
+                            )}
+                            <span className={req.test(newPassword) ? "text-green-500" : isDark ? "text-gray-400" : "text-gray-500"}>
+                              {req.label}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <div>
+                    <label className={`block text-sm font-medium mb-1 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+                      Confirm New Password
+                    </label>
+                    <div className="relative">
+                      <input
+                        type={showConfirmPassword ? "text" : "password"}
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        className={`w-full px-4 py-2.5 pr-12 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] ${
+                          isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-gray-900"
+                        }`}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        className={`absolute right-4 top-1/2 -translate-y-1/2 ${isDark ? "text-gray-400 hover:text-gray-300" : "text-gray-400 hover:text-gray-600"}`}
+                      >
+                        {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                      </button>
+                    </div>
+                    {confirmPassword && !passwordsMatch && (
+                      <p className="text-sm text-red-500 mt-1">Passwords do not match</p>
+                    )}
+                    {passwordsMatch && (
+                      <p className="text-sm text-green-500 mt-1 flex items-center gap-1">
+                        <CheckCircle2 className="w-4 h-4" /> Passwords match
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="pt-2">
+                    <Button
+                      onClick={handleChangePassword}
+                      disabled={!canChangePassword || changingPassword}
+                      className={`rounded-xl ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"} disabled:opacity-50 disabled:cursor-not-allowed`}
+                    >
+                      {changingPassword ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Changing Password...
+                        </>
+                      ) : (
+                        "Change Password"
+                      )}
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Active Sessions Info */}
+              <div className={`rounded-2xl border p-6 ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}>
+                <h2 className={`text-lg font-semibold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+                  Session Security
+                </h2>
+                <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
+                  When you change your password, all other sessions will be automatically logged out for your security.
+                </p>
+              </div>
+            </div>
+          )}
+
           {activeTab === "privacy" && (
             <div className="space-y-6">
               {/* Coach Connection */}
@@ -480,10 +743,106 @@ export default function SettingsPage() {
                   Permanently delete your account and all associated data. This
                   action cannot be undone.
                 </p>
-                <Button variant="outline" className={`${isDark ? "text-red-400 border-red-700 hover:bg-red-900/30" : "text-red-600 border-red-300 hover:bg-red-100"}`}>
+                <Button
+                  variant="outline"
+                  onClick={() => setShowDeleteModal(true)}
+                  className={`${isDark ? "text-red-400 border-red-700 hover:bg-red-900/30" : "text-red-600 border-red-300 hover:bg-red-100"}`}
+                >
                   <Trash2 className="h-4 w-4 mr-2" />
                   Delete Account
                 </Button>
+              </div>
+            </div>
+          )}
+
+          {/* Delete Account Confirmation Modal */}
+          {showDeleteModal && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center">
+              <div
+                className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+                onClick={() => {
+                  setShowDeleteModal(false);
+                  setDeletePassword("");
+                  setDeleteConfirmation("");
+                  setDeleteError(null);
+                }}
+              />
+              <div className={`relative z-10 w-full max-w-md mx-4 rounded-2xl p-6 shadow-xl ${isDark ? "bg-gray-900 border border-gray-800" : "bg-white"}`}>
+                <h2 className={`text-xl font-bold mb-2 ${isDark ? "text-red-400" : "text-red-600"}`}>
+                  Delete Your Account
+                </h2>
+                <p className={`text-sm mb-4 ${isDark ? "text-gray-400" : "text-gray-600"}`}>
+                  This will permanently delete your account and all associated data including resumes, job applications, and progress. This action cannot be undone.
+                </p>
+
+                {deleteError && (
+                  <div className={`mb-4 p-3 rounded-xl flex items-start gap-2 ${isDark ? "bg-red-900/30 border border-red-800" : "bg-red-50 border border-red-200"}`}>
+                    <AlertCircle className={`h-5 w-5 flex-shrink-0 ${isDark ? "text-red-400" : "text-red-600"}`} />
+                    <p className={`text-sm ${isDark ? "text-red-300" : "text-red-700"}`}>{deleteError}</p>
+                  </div>
+                )}
+
+                <div className="space-y-4">
+                  <div>
+                    <label className={`block text-sm font-medium mb-1 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+                      Enter your password
+                    </label>
+                    <input
+                      type="password"
+                      value={deletePassword}
+                      onChange={(e) => setDeletePassword(e.target.value)}
+                      className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 ${
+                        isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-gray-900"
+                      }`}
+                    />
+                  </div>
+                  <div>
+                    <label className={`block text-sm font-medium mb-1 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+                      Type <span className="font-mono text-red-500">DELETE MY ACCOUNT</span> to confirm
+                    </label>
+                    <input
+                      type="text"
+                      value={deleteConfirmation}
+                      onChange={(e) => setDeleteConfirmation(e.target.value)}
+                      placeholder="DELETE MY ACCOUNT"
+                      className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 ${
+                        isDark ? "bg-gray-800 border-gray-700 text-white placeholder:text-gray-600" : "bg-white border-gray-200 text-gray-900 placeholder:text-gray-400"
+                      }`}
+                    />
+                  </div>
+                </div>
+
+                <div className="flex gap-3 mt-6">
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      setShowDeleteModal(false);
+                      setDeletePassword("");
+                      setDeleteConfirmation("");
+                      setDeleteError(null);
+                    }}
+                    className={`flex-1 ${isDark ? "border-gray-700 text-gray-300 hover:bg-gray-800" : ""}`}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    onClick={handleDeleteAccount}
+                    disabled={deleting || !deletePassword || deleteConfirmation !== "DELETE MY ACCOUNT"}
+                    className="flex-1 bg-red-600 hover:bg-red-700 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {deleting ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Deleting...
+                      </>
+                    ) : (
+                      <>
+                        <Trash2 className="w-4 h-4 mr-2" />
+                        Delete Forever
+                      </>
+                    )}
+                  </Button>
+                </div>
               </div>
             </div>
           )}

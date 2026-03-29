@@ -3,11 +3,82 @@ import prisma from "@/lib/db";
 import { verifyPassword, createSession, setSessionCookie } from "@/lib/auth";
 import { loginSchema } from "@/lib/validations/auth";
 
+// Rate limiting configuration
+const rateLimitMap = new Map<string, { count: number; resetTime: number; lockedUntil?: number }>();
+const RATE_LIMIT_WINDOW = 15 * 60 * 1000; // 15 minutes
+const MAX_ATTEMPTS = 5; // 5 attempts per window
+const LOCKOUT_DURATION = 30 * 60 * 1000; // 30 minute lockout after max attempts
+
+function checkRateLimit(identifier: string): { allowed: boolean; remainingAttempts?: number; lockedUntil?: number } {
+  const now = Date.now();
+  const record = rateLimitMap.get(identifier);
+
+  // Clean up old records periodically
+  if (rateLimitMap.size > 10000) {
+    for (const [key, value] of rateLimitMap.entries()) {
+      if (now > value.resetTime && (!value.lockedUntil || now > value.lockedUntil)) {
+        rateLimitMap.delete(key);
+      }
+    }
+  }
+
+  // Check if locked out
+  if (record?.lockedUntil && now < record.lockedUntil) {
+    return { allowed: false, lockedUntil: record.lockedUntil };
+  }
+
+  // Reset if window expired
+  if (!record || now > record.resetTime) {
+    rateLimitMap.set(identifier, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
+    return { allowed: true, remainingAttempts: MAX_ATTEMPTS - 1 };
+  }
+
+  // Check if max attempts reached
+  if (record.count >= MAX_ATTEMPTS) {
+    record.lockedUntil = now + LOCKOUT_DURATION;
+    return { allowed: false, lockedUntil: record.lockedUntil };
+  }
+
+  // Increment counter
+  record.count++;
+  return { allowed: true, remainingAttempts: MAX_ATTEMPTS - record.count };
+}
+
+function resetRateLimit(identifier: string): void {
+  rateLimitMap.delete(identifier);
+}
+
 export async function POST(request: NextRequest) {
   try {
-    console.log("[LOGIN] Starting login request");
     const body = await request.json();
-    console.log("[LOGIN] Body parsed, email:", body.email);
+
+    // Get identifier for rate limiting (IP + email combination)
+    const ip = request.headers.get("x-forwarded-for")?.split(",")[0] ||
+               request.headers.get("x-real-ip") ||
+               "unknown";
+    const emailForRateLimit = body.email?.toLowerCase() || "";
+    const rateLimitKey = `${ip}:${emailForRateLimit}`;
+
+    // Check rate limit
+    const rateCheck = checkRateLimit(rateLimitKey);
+    if (!rateCheck.allowed) {
+      const retryAfter = rateCheck.lockedUntil
+        ? Math.ceil((rateCheck.lockedUntil - Date.now()) / 1000)
+        : 900; // 15 minutes default
+
+      return NextResponse.json(
+        {
+          error: true,
+          code: "RATE_LIMITED",
+          message: `Too many login attempts. Please try again in ${Math.ceil(retryAfter / 60)} minutes.`,
+          retryAfter,
+        },
+        {
+          status: 429,
+          headers: { "Retry-After": String(retryAfter) }
+        }
+      );
+    }
 
     // Validate input
     const validationResult = loginSchema.safeParse(body);
@@ -25,14 +96,11 @@ export async function POST(request: NextRequest) {
     }
 
     const { email, password, rememberMe } = validationResult.data;
-    console.log("[LOGIN] Validation passed for email:", email);
 
     // Find user
-    console.log("[LOGIN] Looking up user in database");
     const user = await prisma.user.findUnique({
       where: { email: email.toLowerCase() },
     });
-    console.log("[LOGIN] User lookup complete, found:", !!user);
 
     if (!user) {
       return NextResponse.json(
@@ -58,9 +126,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Verify password
-    console.log("[LOGIN] Verifying password");
     const isValidPassword = await verifyPassword(password, user.passwordHash);
-    console.log("[LOGIN] Password valid:", isValidPassword);
     if (!isValidPassword) {
       return NextResponse.json(
         {
@@ -76,17 +142,16 @@ export async function POST(request: NextRequest) {
     const userAgent = request.headers.get("user-agent") || undefined;
 
     // Create session
-    console.log("[LOGIN] Creating session");
     const sessionToken = await createSession(user.id, rememberMe, userAgent);
-    console.log("[LOGIN] Session created");
 
     // Update last login
-    console.log("[LOGIN] Updating last login");
     await prisma.user.update({
       where: { id: user.id },
       data: { lastLogin: new Date() },
     });
-    console.log("[LOGIN] Last login updated");
+
+    // Reset rate limit on successful login
+    resetRateLimit(rateLimitKey);
 
     // Create response with user data
     const response = NextResponse.json({
