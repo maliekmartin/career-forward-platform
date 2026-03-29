@@ -207,10 +207,11 @@ export async function PUT(request: NextRequest) {
     const errorStack = error instanceof Error ? error.stack : "";
     console.error("Error details:", { message: errorMessage, stack: errorStack });
 
+    // Return detailed error for debugging
     return NextResponse.json(
       {
-        error: "Failed to update profile",
-        details: errorMessage,
+        error: errorMessage || "Failed to update profile",
+        details: process.env.NODE_ENV === "development" ? errorStack : undefined,
       },
       { status: 500 }
     );

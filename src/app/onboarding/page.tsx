@@ -364,8 +364,9 @@ export default function OnboardingPage() {
       });
 
       if (!res.ok) {
-        const error = await res.json();
-        throw new Error(error.error || "Failed to save profile");
+        const errorData = await res.json();
+        console.error("Profile save error response:", errorData);
+        throw new Error(errorData.error || "Failed to save profile");
       }
 
       // Calculate initial scores
@@ -401,7 +402,8 @@ export default function OnboardingPage() {
       setCurrentStep("complete");
     } catch (error) {
       console.error("Save error:", error);
-      alert(error instanceof Error ? error.message : "Failed to save profile");
+      const errorMsg = error instanceof Error ? error.message : "Failed to save profile";
+      alert(`Error: ${errorMsg}\n\nPlease try again or contact support if this persists.`);
     } finally {
       setIsSaving(false);
     }
