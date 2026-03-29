@@ -1,22 +1,34 @@
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 // Environment variables
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 
-// Client-side Supabase client (uses anon key)
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Check if Supabase is configured
+export const isSupabaseConfigured = !!(supabaseUrl && supabaseAnonKey);
 
-// Server-side Supabase client (uses service role key for admin operations)
-export const supabaseAdmin = supabaseServiceRoleKey
-  ? createClient(supabaseUrl, supabaseServiceRoleKey, {
-      auth: {
-        autoRefreshToken: false,
-        persistSession: false,
-      },
-    })
-  : supabase;
+// Create clients only if configured
+let supabaseClient: SupabaseClient | null = null;
+let supabaseAdminClient: SupabaseClient | null = null;
+
+if (isSupabaseConfigured) {
+  supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+  supabaseAdminClient = supabaseServiceRoleKey
+    ? createClient(supabaseUrl, supabaseServiceRoleKey, {
+        auth: {
+          autoRefreshToken: false,
+          persistSession: false,
+        },
+      })
+    : supabaseClient;
+} else {
+  console.warn('Supabase not configured - storage features will be disabled');
+}
+
+// Export clients (may be null if not configured)
+export const supabase = supabaseClient;
+export const supabaseAdmin = supabaseAdminClient;
 
 // ============================================================
 // STORAGE HELPERS
@@ -36,6 +48,10 @@ export async function uploadFile(
     upsert?: boolean;
   }
 ): Promise<{ url: string; path: string } | { error: string }> {
+  if (!supabaseAdmin) {
+    return { error: 'Storage not configured' };
+  }
+
   const { data, error } = await supabaseAdmin.storage
     .from(bucket)
     .upload(path, file, {
@@ -74,6 +90,10 @@ export async function deleteFile(
   bucket: StorageBucket,
   path: string
 ): Promise<{ success: boolean; error?: string }> {
+  if (!supabaseAdmin) {
+    return { success: false, error: 'Storage not configured' };
+  }
+
   const { error } = await supabaseAdmin.storage.from(bucket).remove([path]);
 
   if (error) {
@@ -92,6 +112,10 @@ export async function getSignedUrl(
   path: string,
   expiresIn: number = 3600
 ): Promise<{ url: string } | { error: string }> {
+  if (!supabaseAdmin) {
+    return { error: 'Storage not configured' };
+  }
+
   const { data, error } = await supabaseAdmin.storage
     .from(bucket)
     .createSignedUrl(path, expiresIn);
@@ -107,6 +131,9 @@ export async function getSignedUrl(
  * Get public URL for a file in a public bucket
  */
 export function getPublicUrl(bucket: StorageBucket, path: string): string {
+  if (!supabaseAdmin) {
+    return '';
+  }
   const { data } = supabaseAdmin.storage.from(bucket).getPublicUrl(path);
   return data.publicUrl;
 }
@@ -118,6 +145,10 @@ export async function listFiles(
   bucket: StorageBucket,
   folder?: string
 ): Promise<{ files: { name: string; id: string | null; created_at: string | null }[] } | { error: string }> {
+  if (!supabaseAdmin) {
+    return { error: 'Storage not configured' };
+  }
+
   const { data, error } = await supabaseAdmin.storage.from(bucket).list(folder);
 
   if (error) {
@@ -495,7 +526,7 @@ export interface FileUpload {
 }
 
 /**
- * Track a file upload in the database
+ * Track a file upload in the database (non-fatal - fails silently)
  */
 export async function trackFileUpload(
   userId: string,
@@ -509,23 +540,39 @@ export async function trackFileUpload(
     metadata?: Record<string, unknown>;
   }
 ): Promise<{ upload: FileUpload } | { error: string }> {
-  const { data, error } = await supabaseAdmin
-    .from('file_uploads')
-    .insert({
-      user_id: userId,
-      bucket: file.bucket,
-      file_path: file.filePath,
-      file_name: file.fileName,
-      file_size: file.fileSize,
-      mime_type: file.mimeType,
-      purpose: file.purpose,
-      metadata: file.metadata || {},
-    })
-    .select()
-    .single();
+  if (!supabaseAdmin) {
+    // Fail silently if not configured - tracking is optional
+    console.warn('Supabase not configured - skipping file tracking');
+    return { error: 'Storage not configured' };
+  }
 
-  if (error) {
-    return { error: error.message };
+  try {
+    const { data, error } = await supabaseAdmin
+      .from('file_uploads')
+      .insert({
+        user_id: userId,
+        bucket: file.bucket,
+        file_path: file.filePath,
+        file_name: file.fileName,
+        file_size: file.fileSize,
+        mime_type: file.mimeType,
+        purpose: file.purpose,
+        metadata: file.metadata || {},
+      })
+      .select()
+      .single();
+
+    if (error) {
+      // Log but don't fail - tracking is optional
+      console.warn('File tracking failed (non-fatal):', error.message);
+      return { error: error.message };
+    }
+
+    return { upload: data };
+  } catch (err) {
+    // Catch any unexpected errors - tracking should never break the main flow
+    console.warn('File tracking error (non-fatal):', err);
+    return { error: 'Tracking failed' };
   }
 
   return { upload: data };
