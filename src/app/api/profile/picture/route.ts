@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { put } from "@vercel/blob";
 import { getCurrentSession } from "@/lib/auth/session";
 import prisma from "@/lib/db";
+import { uploadFile, deleteFile, trackFileUpload } from "@/lib/supabase";
 
 export async function POST(request: NextRequest) {
   try {
@@ -34,12 +34,36 @@ export async function POST(request: NextRequest) {
         );
       }
 
-      // Upload to Vercel Blob
-      const blob = await put(`profile-pictures/${session.userId}/${file.name}`, file, {
-        access: "public",
+      // Generate unique filename
+      const timestamp = Date.now();
+      const extension = file.name.split('.').pop() || 'jpg';
+      const filePath = `${session.userId}/${timestamp}.${extension}`;
+
+      // Upload to Supabase Storage
+      const uploadResult = await uploadFile('avatars', filePath, file, {
+        contentType: file.type,
+        upsert: true,
       });
 
-      profilePhotoUrl = blob.url;
+      if ('error' in uploadResult) {
+        console.error("Supabase upload error:", uploadResult.error);
+        return NextResponse.json(
+          { error: "Failed to upload image. Please try again." },
+          { status: 500 }
+        );
+      }
+
+      profilePhotoUrl = uploadResult.url;
+
+      // Track the file upload
+      await trackFileUpload(session.userId, {
+        bucket: 'avatars',
+        filePath: uploadResult.path,
+        fileName: file.name,
+        fileSize: file.size,
+        mimeType: file.type,
+        purpose: 'avatar',
+      });
     } else if (presetUrl) {
       // Using a preset avatar
       profilePhotoUrl = presetUrl;
@@ -76,7 +100,22 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    // Remove profile photo URL
+    // Get current profile to find the file path
+    const profile = await prisma.profile.findUnique({
+      where: { userId: session.userId },
+      select: { profilePhotoUrl: true },
+    });
+
+    // If it's a Supabase URL, delete the file from storage
+    if (profile?.profilePhotoUrl?.includes('supabase')) {
+      // Extract path from URL
+      const urlParts = profile.profilePhotoUrl.split('/avatars/');
+      if (urlParts[1]) {
+        await deleteFile('avatars', urlParts[1]);
+      }
+    }
+
+    // Remove profile photo URL from database
     await prisma.profile.update({
       where: { userId: session.userId },
       data: { profilePhotoUrl: null },

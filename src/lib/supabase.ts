@@ -1,0 +1,693 @@
+import { createClient } from '@supabase/supabase-js';
+
+// Environment variables
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+// Client-side Supabase client (uses anon key)
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+// Server-side Supabase client (uses service role key for admin operations)
+export const supabaseAdmin = supabaseServiceRoleKey
+  ? createClient(supabaseUrl, supabaseServiceRoleKey, {
+      auth: {
+        autoRefreshToken: false,
+        persistSession: false,
+      },
+    })
+  : supabase;
+
+// ============================================================
+// STORAGE HELPERS
+// ============================================================
+
+export type StorageBucket = 'avatars' | 'resumes' | 'cover-letters' | 'training-resources' | 'workforce-branding';
+
+/**
+ * Upload a file to Supabase Storage
+ */
+export async function uploadFile(
+  bucket: StorageBucket,
+  path: string,
+  file: File | Blob,
+  options?: {
+    contentType?: string;
+    upsert?: boolean;
+  }
+): Promise<{ url: string; path: string } | { error: string }> {
+  const { data, error } = await supabaseAdmin.storage
+    .from(bucket)
+    .upload(path, file, {
+      contentType: options?.contentType,
+      upsert: options?.upsert ?? false,
+    });
+
+  if (error) {
+    console.error('Upload error:', error);
+    return { error: error.message };
+  }
+
+  // Get public URL for public buckets, signed URL for private
+  const isPublicBucket = ['avatars', 'training-resources', 'workforce-branding'].includes(bucket);
+
+  if (isPublicBucket) {
+    const { data: urlData } = supabaseAdmin.storage.from(bucket).getPublicUrl(data.path);
+    return { url: urlData.publicUrl, path: data.path };
+  } else {
+    // Create a signed URL valid for 1 hour for private buckets
+    const { data: urlData, error: urlError } = await supabaseAdmin.storage
+      .from(bucket)
+      .createSignedUrl(data.path, 3600);
+
+    if (urlError) {
+      return { error: urlError.message };
+    }
+    return { url: urlData.signedUrl, path: data.path };
+  }
+}
+
+/**
+ * Delete a file from Supabase Storage
+ */
+export async function deleteFile(
+  bucket: StorageBucket,
+  path: string
+): Promise<{ success: boolean; error?: string }> {
+  const { error } = await supabaseAdmin.storage.from(bucket).remove([path]);
+
+  if (error) {
+    console.error('Delete error:', error);
+    return { success: false, error: error.message };
+  }
+
+  return { success: true };
+}
+
+/**
+ * Get a signed URL for a private file
+ */
+export async function getSignedUrl(
+  bucket: StorageBucket,
+  path: string,
+  expiresIn: number = 3600
+): Promise<{ url: string } | { error: string }> {
+  const { data, error } = await supabaseAdmin.storage
+    .from(bucket)
+    .createSignedUrl(path, expiresIn);
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  return { url: data.signedUrl };
+}
+
+/**
+ * Get public URL for a file in a public bucket
+ */
+export function getPublicUrl(bucket: StorageBucket, path: string): string {
+  const { data } = supabaseAdmin.storage.from(bucket).getPublicUrl(path);
+  return data.publicUrl;
+}
+
+/**
+ * List files in a bucket/folder
+ */
+export async function listFiles(
+  bucket: StorageBucket,
+  folder?: string
+): Promise<{ files: { name: string; id: string | null; created_at: string | null }[] } | { error: string }> {
+  const { data, error } = await supabaseAdmin.storage.from(bucket).list(folder);
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  return {
+    files: data.map((f) => ({
+      name: f.name,
+      id: f.id,
+      created_at: f.created_at,
+    })),
+  };
+}
+
+// ============================================================
+// AI CONVERSATION HELPERS
+// ============================================================
+
+export interface AIConversation {
+  id: string;
+  user_id: string;
+  title: string;
+  summary?: string;
+  message_count: number;
+  total_tokens_used: number;
+  is_archived: boolean;
+  is_starred: boolean;
+  created_at: string;
+  updated_at: string;
+  last_message_at: string;
+}
+
+export interface AIMessage {
+  id: string;
+  conversation_id: string;
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+  tokens_in: number;
+  tokens_out: number;
+  model?: string;
+  metadata?: Record<string, unknown>;
+  created_at: string;
+}
+
+/**
+ * Create a new AI conversation
+ */
+export async function createAIConversation(
+  userId: string,
+  title?: string
+): Promise<{ conversation: AIConversation } | { error: string }> {
+  const { data, error } = await supabaseAdmin
+    .from('ai_conversations')
+    .insert({
+      user_id: userId,
+      title: title || 'New Conversation',
+    })
+    .select()
+    .single();
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  return { conversation: data };
+}
+
+/**
+ * Get user's AI conversations
+ */
+export async function getAIConversations(
+  userId: string,
+  options?: {
+    limit?: number;
+    includeArchived?: boolean;
+  }
+): Promise<{ conversations: AIConversation[] } | { error: string }> {
+  let query = supabaseAdmin
+    .from('ai_conversations')
+    .select('*')
+    .eq('user_id', userId)
+    .order('last_message_at', { ascending: false });
+
+  if (!options?.includeArchived) {
+    query = query.eq('is_archived', false);
+  }
+
+  if (options?.limit) {
+    query = query.limit(options.limit);
+  }
+
+  const { data, error } = await query;
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  return { conversations: data };
+}
+
+/**
+ * Get messages for a conversation
+ */
+export async function getAIMessages(
+  conversationId: string,
+  options?: {
+    limit?: number;
+    offset?: number;
+  }
+): Promise<{ messages: AIMessage[] } | { error: string }> {
+  let query = supabaseAdmin
+    .from('ai_messages')
+    .select('*')
+    .eq('conversation_id', conversationId)
+    .order('created_at', { ascending: true });
+
+  if (options?.limit) {
+    query = query.limit(options.limit);
+  }
+
+  if (options?.offset) {
+    query = query.range(options.offset, options.offset + (options.limit || 50) - 1);
+  }
+
+  const { data, error } = await query;
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  return { messages: data };
+}
+
+/**
+ * Add a message to a conversation
+ */
+export async function addAIMessage(
+  conversationId: string,
+  message: {
+    role: 'user' | 'assistant' | 'system';
+    content: string;
+    tokens_in?: number;
+    tokens_out?: number;
+    model?: string;
+    metadata?: Record<string, unknown>;
+  }
+): Promise<{ message: AIMessage } | { error: string }> {
+  const { data, error } = await supabaseAdmin
+    .from('ai_messages')
+    .insert({
+      conversation_id: conversationId,
+      ...message,
+    })
+    .select()
+    .single();
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  return { message: data };
+}
+
+/**
+ * Delete a conversation and all its messages
+ */
+export async function deleteAIConversation(
+  conversationId: string
+): Promise<{ success: boolean; error?: string }> {
+  const { error } = await supabaseAdmin
+    .from('ai_conversations')
+    .delete()
+    .eq('id', conversationId);
+
+  if (error) {
+    return { success: false, error: error.message };
+  }
+
+  return { success: true };
+}
+
+/**
+ * Archive/unarchive a conversation
+ */
+export async function toggleArchiveConversation(
+  conversationId: string,
+  archived: boolean
+): Promise<{ success: boolean; error?: string }> {
+  const { error } = await supabaseAdmin
+    .from('ai_conversations')
+    .update({ is_archived: archived })
+    .eq('id', conversationId);
+
+  if (error) {
+    return { success: false, error: error.message };
+  }
+
+  return { success: true };
+}
+
+// ============================================================
+// DIRECT MESSAGING HELPERS
+// ============================================================
+
+export interface DirectMessage {
+  id: string;
+  sender_id: string;
+  recipient_id: string;
+  content: string;
+  message_type: 'text' | 'file' | 'system';
+  file_url?: string;
+  file_name?: string;
+  file_size?: number;
+  is_read: boolean;
+  read_at?: string;
+  created_at: string;
+}
+
+export interface MessageThread {
+  id: string;
+  participant_1: string;
+  participant_2: string;
+  last_message_id?: string;
+  last_message_at: string;
+  unread_count_1: number;
+  unread_count_2: number;
+}
+
+/**
+ * Send a direct message
+ */
+export async function sendDirectMessage(
+  senderId: string,
+  recipientId: string,
+  content: string,
+  options?: {
+    messageType?: 'text' | 'file' | 'system';
+    fileUrl?: string;
+    fileName?: string;
+    fileSize?: number;
+  }
+): Promise<{ message: DirectMessage } | { error: string }> {
+  const { data, error } = await supabaseAdmin
+    .from('direct_messages')
+    .insert({
+      sender_id: senderId,
+      recipient_id: recipientId,
+      content,
+      message_type: options?.messageType || 'text',
+      file_url: options?.fileUrl,
+      file_name: options?.fileName,
+      file_size: options?.fileSize,
+    })
+    .select()
+    .single();
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  return { message: data };
+}
+
+/**
+ * Get messages between two users
+ */
+export async function getDirectMessages(
+  userId: string,
+  otherUserId: string,
+  options?: {
+    limit?: number;
+    before?: string;
+  }
+): Promise<{ messages: DirectMessage[] } | { error: string }> {
+  let query = supabaseAdmin
+    .from('direct_messages')
+    .select('*')
+    .or(
+      `and(sender_id.eq.${userId},recipient_id.eq.${otherUserId}),and(sender_id.eq.${otherUserId},recipient_id.eq.${userId})`
+    )
+    .order('created_at', { ascending: false });
+
+  if (options?.limit) {
+    query = query.limit(options.limit);
+  }
+
+  if (options?.before) {
+    query = query.lt('created_at', options.before);
+  }
+
+  const { data, error } = await query;
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  // Reverse to show oldest first
+  return { messages: data.reverse() };
+}
+
+/**
+ * Get user's message threads
+ */
+export async function getMessageThreads(
+  userId: string
+): Promise<{ threads: MessageThread[] } | { error: string }> {
+  const { data, error } = await supabaseAdmin
+    .from('message_threads')
+    .select('*')
+    .or(`participant_1.eq.${userId},participant_2.eq.${userId}`)
+    .order('last_message_at', { ascending: false });
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  return { threads: data };
+}
+
+/**
+ * Mark messages as read
+ */
+export async function markMessagesAsRead(
+  userId: string,
+  senderId: string
+): Promise<{ count: number } | { error: string }> {
+  const { data, error } = await supabaseAdmin.rpc('mark_messages_read', {
+    p_user_id: userId,
+    p_sender_id: senderId,
+  });
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  return { count: data };
+}
+
+/**
+ * Get unread message count
+ */
+export async function getUnreadMessageCount(
+  userId: string
+): Promise<{ count: number } | { error: string }> {
+  const { data, error } = await supabaseAdmin.rpc('get_unread_message_count', {
+    p_user_id: userId,
+  });
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  return { count: data };
+}
+
+// ============================================================
+// FILE TRACKING HELPERS
+// ============================================================
+
+export interface FileUpload {
+  id: string;
+  user_id: string;
+  bucket: string;
+  file_path: string;
+  file_name: string;
+  file_size?: number;
+  mime_type?: string;
+  purpose: string;
+  metadata?: Record<string, unknown>;
+  is_processed: boolean;
+  processing_status: 'pending' | 'processing' | 'completed' | 'failed';
+  processing_error?: string;
+  created_at: string;
+}
+
+/**
+ * Track a file upload in the database
+ */
+export async function trackFileUpload(
+  userId: string,
+  file: {
+    bucket: StorageBucket;
+    filePath: string;
+    fileName: string;
+    fileSize?: number;
+    mimeType?: string;
+    purpose: 'avatar' | 'resume' | 'cover_letter' | 'training' | 'branding' | 'message_attachment' | 'other';
+    metadata?: Record<string, unknown>;
+  }
+): Promise<{ upload: FileUpload } | { error: string }> {
+  const { data, error } = await supabaseAdmin
+    .from('file_uploads')
+    .insert({
+      user_id: userId,
+      bucket: file.bucket,
+      file_path: file.filePath,
+      file_name: file.fileName,
+      file_size: file.fileSize,
+      mime_type: file.mimeType,
+      purpose: file.purpose,
+      metadata: file.metadata || {},
+    })
+    .select()
+    .single();
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  return { upload: data };
+}
+
+/**
+ * Get user's uploaded files
+ */
+export async function getUserFiles(
+  userId: string,
+  purpose?: string
+): Promise<{ files: FileUpload[] } | { error: string }> {
+  let query = supabaseAdmin
+    .from('file_uploads')
+    .select('*')
+    .eq('user_id', userId)
+    .order('created_at', { ascending: false });
+
+  if (purpose) {
+    query = query.eq('purpose', purpose);
+  }
+
+  const { data, error } = await query;
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  return { files: data };
+}
+
+// ============================================================
+// NOTIFICATION HELPERS
+// ============================================================
+
+export interface RealtimeNotification {
+  id: string;
+  user_id: string;
+  type: string;
+  title: string;
+  body?: string;
+  data?: Record<string, unknown>;
+  is_read: boolean;
+  read_at?: string;
+  expires_at?: string;
+  created_at: string;
+}
+
+/**
+ * Create a notification
+ */
+export async function createNotification(
+  userId: string,
+  notification: {
+    type: 'message' | 'achievement' | 'reminder' | 'system' | 'coach_note';
+    title: string;
+    body?: string;
+    data?: Record<string, unknown>;
+    expiresAt?: string;
+  }
+): Promise<{ notification: RealtimeNotification } | { error: string }> {
+  const { data, error } = await supabaseAdmin
+    .from('realtime_notifications')
+    .insert({
+      user_id: userId,
+      type: notification.type,
+      title: notification.title,
+      body: notification.body,
+      data: notification.data || {},
+      expires_at: notification.expiresAt,
+    })
+    .select()
+    .single();
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  return { notification: data };
+}
+
+/**
+ * Get user's notifications
+ */
+export async function getNotifications(
+  userId: string,
+  options?: {
+    unreadOnly?: boolean;
+    limit?: number;
+  }
+): Promise<{ notifications: RealtimeNotification[] } | { error: string }> {
+  let query = supabaseAdmin
+    .from('realtime_notifications')
+    .select('*')
+    .eq('user_id', userId)
+    .order('created_at', { ascending: false });
+
+  if (options?.unreadOnly) {
+    query = query.eq('is_read', false);
+  }
+
+  if (options?.limit) {
+    query = query.limit(options.limit);
+  }
+
+  const { data, error } = await query;
+
+  if (error) {
+    return { error: error.message };
+  }
+
+  return { notifications: data };
+}
+
+/**
+ * Mark notification as read
+ */
+export async function markNotificationRead(
+  notificationId: string
+): Promise<{ success: boolean; error?: string }> {
+  const { error } = await supabaseAdmin
+    .from('realtime_notifications')
+    .update({ is_read: true, read_at: new Date().toISOString() })
+    .eq('id', notificationId);
+
+  if (error) {
+    return { success: false, error: error.message };
+  }
+
+  return { success: true };
+}
+
+// ============================================================
+// ANALYTICS HELPERS
+// ============================================================
+
+/**
+ * Track an analytics event
+ */
+export async function trackEvent(
+  userId: string,
+  event: {
+    eventType: string;
+    eventName: string;
+    eventData?: Record<string, unknown>;
+    pagePath?: string;
+    sessionId?: string;
+  }
+): Promise<{ success: boolean; error?: string }> {
+  const { error } = await supabaseAdmin.from('user_analytics').insert({
+    user_id: userId,
+    session_id: event.sessionId,
+    event_type: event.eventType,
+    event_name: event.eventName,
+    event_data: event.eventData || {},
+    page_path: event.pagePath,
+  });
+
+  if (error) {
+    console.error('Analytics tracking error:', error);
+    return { success: false, error: error.message };
+  }
+
+  return { success: true };
+}

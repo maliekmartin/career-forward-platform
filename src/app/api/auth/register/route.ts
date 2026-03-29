@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import prisma from "@/lib/db";
 import { hashPassword } from "@/lib/auth";
 import { registerSchema } from "@/lib/validations/auth";
+import { sendVerificationEmail } from "@/lib/services/email-service";
 import crypto from "crypto";
 
 export async function POST(request: NextRequest) {
@@ -75,8 +76,19 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // TODO: Send verification email using Resend
-    // For now, we'll log the token in development
+    // Send verification email (non-blocking - don't fail registration if email fails)
+    let emailSent = false;
+    try {
+      const emailResult = await sendVerificationEmail(email, verificationToken);
+      emailSent = emailResult.success;
+      if (!emailResult.success) {
+        console.error("Failed to send verification email:", emailResult.error);
+      }
+    } catch (emailError) {
+      console.error("Email service error:", emailError);
+    }
+
+    // Also log token in development for testing
     if (process.env.NODE_ENV === "development") {
       console.log(`Verification token for ${email}: ${verificationToken}`);
     }
@@ -84,8 +96,11 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         success: true,
-        message: "Account created. Please check your email to verify your account.",
+        message: emailSent
+          ? "Account created! Please check your email to verify your account."
+          : "Account created! Email verification is temporarily unavailable - you can request a new verification email later.",
         userId: user.id,
+        emailSent,
       },
       { status: 201 }
     );
