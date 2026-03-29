@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { CollapsibleCoachSidebar } from "@/components/app/coach-sidebar-collapsible";
 import { CoachHeader } from "@/components/app/coach-header";
 import { ChatProvider } from "@/components/app/chat-widget";
@@ -10,16 +10,89 @@ import { useTheme } from "@/lib/theme-context";
 import { CustomizeDashboardModal } from "@/components/dashboard/customize-dashboard-modal";
 import { useDashboardPreferences } from "@/lib/hooks/use-dashboard-preferences";
 import { DashboardPreferences } from "@/lib/types/dashboard";
+import { Loader2, ShieldAlert } from "lucide-react";
 
 export default function CoachLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const router = useRouter();
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
   const pathname = usePathname();
   const isDashboard = pathname === "/coach/dashboard";
+
+  // Role-based access control
+  const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
+  const [isChecking, setIsChecking] = useState(true);
+
+  useEffect(() => {
+    async function checkAccess() {
+      try {
+        const res = await fetch("/api/user");
+        if (!res.ok) {
+          // Not logged in - redirect to signin
+          router.replace("/signin?type=coach");
+          return;
+        }
+
+        const data = await res.json();
+        const userRole = data.user?.role;
+
+        // Only COACH and ADMIN roles can access the coach section
+        if (userRole === "COACH" || userRole === "ADMIN") {
+          setIsAuthorized(true);
+        } else {
+          setIsAuthorized(false);
+          // Redirect job seekers to their dashboard
+          setTimeout(() => {
+            router.replace("/dashboard");
+          }, 2000);
+        }
+      } catch {
+        router.replace("/signin?type=coach");
+      } finally {
+        setIsChecking(false);
+      }
+    }
+
+    checkAccess();
+  }, [router]);
+
+  // Show loading state while checking authorization
+  if (isChecking) {
+    return (
+      <div className={`min-h-screen flex items-center justify-center ${isDark ? "bg-gray-950" : "bg-[#F5F5F5]"}`}>
+        <div className="text-center">
+          <Loader2 className={`w-8 h-8 animate-spin mx-auto mb-4 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} />
+          <p className={isDark ? "text-gray-400" : "text-gray-600"}>Verifying access...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show unauthorized message
+  if (isAuthorized === false) {
+    return (
+      <div className={`min-h-screen flex items-center justify-center ${isDark ? "bg-gray-950" : "bg-[#F5F5F5]"}`}>
+        <div className="text-center max-w-md mx-auto p-6">
+          <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${isDark ? "bg-red-900/30" : "bg-red-100"}`}>
+            <ShieldAlert className={`w-8 h-8 ${isDark ? "text-red-400" : "text-red-600"}`} />
+          </div>
+          <h1 className={`text-xl font-bold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+            Access Restricted
+          </h1>
+          <p className={`mb-4 ${isDark ? "text-gray-400" : "text-gray-600"}`}>
+            The Coach Portal is only available to authorized career coaches.
+          </p>
+          <p className={`text-sm ${isDark ? "text-gray-500" : "text-gray-500"}`}>
+            Redirecting to your dashboard...
+          </p>
+        </div>
+      </div>
+    );
+  }
 
   // Customize modal state
   const [showCustomizeModal, setShowCustomizeModal] = useState(false);
