@@ -172,6 +172,48 @@ html {
   body {
     @apply bg-background text-foreground;
   }
+
+  /* Accessibility: Ensure high contrast text in all form inputs */
+  input,
+  textarea,
+  select {
+    color: #111827 !important; /* gray-900 - near black for maximum readability */
+    caret-color: #111827;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #6B7280 !important; /* gray-500 - visible but distinct from input text */
+  }
+
+  /* Dark mode adjustments */
+  .dark input,
+  .dark textarea,
+  .dark select {
+    color: #F9FAFB !important; /* gray-50 - near white for dark mode */
+    caret-color: #F9FAFB;
+  }
+
+  .dark input::placeholder,
+  .dark textarea::placeholder {
+    color: #9CA3AF !important; /* gray-400 */
+  }
+
+  /* Ensure autofill doesn't break contrast */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill {
+    -webkit-text-fill-color: #111827 !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  .dark input:-webkit-autofill,
+  .dark input:-webkit-autofill:hover,
+  .dark input:-webkit-autofill:focus,
+  .dark textarea:-webkit-autofill {
+    -webkit-text-fill-color: #F9FAFB !important;
+  }
 }
 
 /* Career Forward custom utility classes */
