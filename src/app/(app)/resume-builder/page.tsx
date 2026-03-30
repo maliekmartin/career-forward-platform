@@ -73,7 +73,9 @@ function ResumeBuilderContent() {
   };
 
   const handleNewResume = (templateId?: TemplateId) => {
+    console.log("[Resume Builder] handleNewResume called with templateId:", templateId);
     openWizard({ templateId: templateId || "modern" });
+    console.log("[Resume Builder] openWizard dispatched");
   };
 
   const handleUploadResume = async (event: React.ChangeEvent<HTMLInputElement>) => {

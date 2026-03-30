@@ -94,8 +94,11 @@ export function ResumeWizard() {
     }
   };
 
+  console.log("[ResumeWizard] Rendering, isWizardOpen:", state.isWizardOpen);
+
   if (!state.isWizardOpen) return null;
 
+  console.log("[ResumeWizard] Wizard IS open, rendering content");
   return (
     <AnimatePresence>
       <motion.div

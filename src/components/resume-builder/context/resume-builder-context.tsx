@@ -458,9 +458,12 @@ export function ResumeBuilderProvider({
 
   const openWizard = useCallback(
     (options?: { resumeId?: string; templateId?: TemplateId }) => {
+      console.log("[Context] openWizard called with:", options);
+      console.log("[Context] Current state.isWizardOpen:", state.isWizardOpen);
       dispatch({ type: "OPEN_WIZARD", payload: options });
+      console.log("[Context] OPEN_WIZARD dispatched");
     },
-    []
+    [state.isWizardOpen]
   );
 
   const closeWizard = useCallback(() => {
