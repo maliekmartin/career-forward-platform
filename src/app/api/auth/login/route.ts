@@ -150,6 +150,12 @@ export async function POST(request: NextRequest) {
       data: { lastLogin: new Date() },
     });
 
+    // Fetch user's profile to check if onboarding is complete
+    const profile = await prisma.profile.findUnique({
+      where: { userId: user.id },
+      select: { profileCompleted: true },
+    });
+
     // Reset rate limit on successful login
     resetRateLimit(rateLimitKey);
 
@@ -161,6 +167,7 @@ export async function POST(request: NextRequest) {
         email: user.email,
         role: user.role,
         emailVerified: !!user.emailVerified,
+        profileCompleted: profile?.profileCompleted ?? false,
       },
     });
 

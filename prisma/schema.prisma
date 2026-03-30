@@ -164,10 +164,49 @@ model Resume {
   updatedAt  DateTime @updatedAt @map("updated_at")
 
   // Relations
-  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  coverLetters CoverLetter[]
+  user            User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  coverLetters    CoverLetter[]
+  versions        ResumeVersion[]
+  tailoredResumes TailoredResume[]
 
   @@map("resumes")
+}
+
+model ResumeVersion {
+  id                String   @id @default(cuid())
+  resumeId          String   @map("resume_id")
+  content           Json     // Snapshot of resume data at this version
+  templateId        String   @map("template_id")
+  versionNumber     Int      @map("version_number")
+  versionLabel      String?  @map("version_label")
+  changeDescription String?  @map("change_description") @db.Text
+  createdAt         DateTime @default(now()) @map("created_at")
+
+  // Relations
+  resume Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
+
+  @@index([resumeId, versionNumber])
+  @@map("resume_versions")
+}
+
+model TailoredResume {
+  id              String   @id @default(cuid())
+  masterResumeId  String   @map("master_resume_id")
+  name            String
+  targetJobTitle  String   @map("target_job_title")
+  targetCompany   String   @map("target_company")
+  jobDescription  String?  @map("job_description") @db.Text
+  matchScore      Int?     @map("match_score")
+  content         Json     // Tailored resume data
+  templateId      String   @map("template_id")
+  createdAt       DateTime @default(now()) @map("created_at")
+  updatedAt       DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  masterResume Resume @relation(fields: [masterResumeId], references: [id], onDelete: Cascade)
+
+  @@index([masterResumeId])
+  @@map("tailored_resumes")
 }
 
 model CoverLetter {

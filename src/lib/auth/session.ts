@@ -3,7 +3,19 @@ import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import prisma from "@/lib/db";
 
-const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key-change-in-production";
+// Ensure JWT_SECRET is set - this is a critical security requirement
+function getJwtSecret(): string {
+  const secret = process.env.JWT_SECRET;
+  if (!secret) {
+    throw new Error(
+      "JWT_SECRET environment variable is required. " +
+      "Generate one with: openssl rand -base64 32"
+    );
+  }
+  return secret;
+}
+
+const JWT_SECRET = getJwtSecret();
 const SESSION_COOKIE_NAME = "career_quest_session";
 
 interface SessionPayload {
