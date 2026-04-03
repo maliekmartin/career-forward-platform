@@ -45,6 +45,7 @@ model User {
   scores                JobSeekerScore[]
   sessionState          UserSessionState?
   aiMessageUsage        AIMessageUsage[]
+  successStories        SuccessStory[]
 
   // Coach relationships
   coachClients    CoachClient[]  @relation("Coach")
@@ -569,6 +570,47 @@ model JobSeekerScore {
   @@map("job_seeker_scores")
 }
 
+// ==================== SUCCESS STORIES ====================
+
+model SuccessStory {
+  id              String       @id @default(cuid())
+  userId          String       @map("user_id")
+
+  // Job details from hired data
+  jobTitle        String       @map("job_title")
+  companyName     String       @map("company_name")
+  hourlyWage      Float?       @map("hourly_wage")
+  hoursPerWeek    Int?         @map("hours_per_week")
+  startDate       DateTime?    @map("start_date") @db.Date
+
+  // The story
+  story           String       @db.Text
+
+  // Display info (can be anonymized)
+  displayName     String?      @map("display_name")  // e.g., "Marcus R." or "Anonymous"
+  showFullName    Boolean      @default(false) @map("show_full_name")
+
+  // Moderation
+  status          StoryStatus  @default(PENDING)
+  reviewedAt      DateTime?    @map("reviewed_at")
+  reviewedBy      String?      @map("reviewed_by")  // Admin user ID
+  rejectionReason String?      @map("rejection_reason")
+
+  // Metadata
+  featured        Boolean      @default(false)  // Show prominently on landing page
+  sortOrder       Int          @default(0) @map("sort_order")
+  createdAt       DateTime     @default(now()) @map("created_at")
+  updatedAt       DateTime     @updatedAt @map("updated_at")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([status])
+  @@index([featured, status])
+  @@map("success_stories")
+}
+
 // ==================== WORKFORCE CENTER (Future Multi-tenant) ====================
 
 model WorkforceCenter {
@@ -654,4 +696,10 @@ enum DocumentType {
 enum SubscriptionTier {
   FREE
   PREMIUM  // $4.99/month - access to scores, recommendations, AI coach
+}
+
+enum StoryStatus {
+  PENDING    // Awaiting admin review
+  APPROVED   // Visible on public pages
+  REJECTED   // Not approved (with reason)
 }

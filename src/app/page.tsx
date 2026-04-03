@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
@@ -460,10 +460,22 @@ const orgTestimonials = [
   },
 ];
 
+// Type for dynamic success stories
+interface SuccessStoryData {
+  id: string;
+  jobTitle: string;
+  companyName: string;
+  story: string;
+  displayName: string;
+  featured: boolean;
+  createdAt: string;
+}
+
 export default function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showStickyCTA, setShowStickyCTA] = useState(false);
   const [audience, setAudience] = useState<"seekers" | "organizations">("seekers");
+  const [dynamicStories, setDynamicStories] = useState<SuccessStoryData[]>([]);
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -473,14 +485,30 @@ export default function LandingPage() {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const heroScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
 
+  // Fetch real success stories
+  const fetchSuccessStories = useCallback(async () => {
+    try {
+      const response = await fetch("/api/success-stories?limit=3");
+      if (response.ok) {
+        const data = await response.json();
+        if (data.stories && data.stories.length > 0) {
+          setDynamicStories(data.stories);
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching success stories:", error);
+    }
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
       setShowStickyCTA(window.scrollY > 600);
     };
     window.addEventListener("scroll", handleScroll);
+    fetchSuccessStories();
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [fetchSuccessStories]);
 
   const accentColor = audience === "seekers" ? "#2B8A8A" : "#374151";
 
@@ -1501,20 +1529,52 @@ export default function LandingPage() {
 
           {/* Featured testimonial + 2 smaller */}
           <div className="grid lg:grid-cols-2 gap-8">
-            <TestimonialCard
-              testimonial={(audience === "seekers" ? seekerTestimonials : orgTestimonials)[0]}
-              index={0}
-              featured
-            />
-            <div className="grid gap-8">
-              {(audience === "seekers" ? seekerTestimonials : orgTestimonials).slice(1).map((testimonial, index) => (
+            {/* Use dynamic stories for job seekers if available, otherwise use mock data */}
+            {audience === "seekers" && dynamicStories.length >= 3 ? (
+              <>
                 <TestimonialCard
-                  key={`${audience}-testimonial-${index + 1}`}
-                  testimonial={testimonial}
-                  index={index + 1}
+                  testimonial={{
+                    quote: dynamicStories[0].story,
+                    name: dynamicStories[0].displayName,
+                    role: dynamicStories[0].jobTitle,
+                    avatar: dynamicStories[0].displayName[0],
+                  }}
+                  index={0}
+                  featured
                 />
-              ))}
-            </div>
+                <div className="grid gap-8">
+                  {dynamicStories.slice(1, 3).map((story, index) => (
+                    <TestimonialCard
+                      key={`dynamic-story-${story.id}`}
+                      testimonial={{
+                        quote: story.story,
+                        name: story.displayName,
+                        role: story.jobTitle,
+                        avatar: story.displayName[0],
+                      }}
+                      index={index + 1}
+                    />
+                  ))}
+                </div>
+              </>
+            ) : (
+              <>
+                <TestimonialCard
+                  testimonial={(audience === "seekers" ? seekerTestimonials : orgTestimonials)[0]}
+                  index={0}
+                  featured
+                />
+                <div className="grid gap-8">
+                  {(audience === "seekers" ? seekerTestimonials : orgTestimonials).slice(1).map((testimonial, index) => (
+                    <TestimonialCard
+                      key={`${audience}-testimonial-${index + 1}`}
+                      testimonial={testimonial}
+                      index={index + 1}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
           </div>
         </div>
       </section>

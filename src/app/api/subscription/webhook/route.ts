@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import prisma from "@/lib/db";
 import { stripe } from "@/lib/stripe";
 import Stripe from "stripe";
+import { sendPaymentFailedEmail, sendSubscriptionCanceledEmail } from "@/lib/services/email-service";
 
 export async function POST(request: NextRequest) {
   if (!stripe) {
@@ -94,9 +95,13 @@ export async function POST(request: NextRequest) {
 
         const user = await prisma.user.findUnique({
           where: { stripeCustomerId: customerId },
+          include: { profile: true },
         });
 
         if (user) {
+          // Get the end date before updating
+          const endDate = user.subscriptionEndDate || new Date();
+
           await prisma.user.update({
             where: { id: user.id },
             data: {
@@ -105,6 +110,24 @@ export async function POST(request: NextRequest) {
               stripeSubscriptionId: null,
             },
           });
+
+          // Send subscription canceled notification email
+          const firstName = user.profile?.firstName || undefined;
+
+          try {
+            const emailResult = await sendSubscriptionCanceledEmail(
+              user.email,
+              firstName,
+              endDate
+            );
+            if (emailResult.success) {
+              console.log(`Subscription canceled email sent to user ${user.id}`);
+            } else {
+              console.error(`Failed to send subscription canceled email: ${emailResult.error}`);
+            }
+          } catch (emailError) {
+            console.error("Error sending subscription canceled email:", emailError);
+          }
 
           console.log(`Subscription canceled for user ${user.id}`);
         }
@@ -117,6 +140,7 @@ export async function POST(request: NextRequest) {
 
         const user = await prisma.user.findUnique({
           where: { stripeCustomerId: customerId },
+          include: { profile: true },
         });
 
         if (user) {
@@ -127,8 +151,26 @@ export async function POST(request: NextRequest) {
             },
           });
 
-          // TODO: Send notification to user about failed payment
-          console.log(`Payment failed for user ${user.id}`);
+          // Send payment failure notification email
+          const attemptCount = invoice.attempt_count || 1;
+          const firstName = user.profile?.firstName || undefined;
+
+          try {
+            const emailResult = await sendPaymentFailedEmail(
+              user.email,
+              firstName,
+              attemptCount
+            );
+            if (emailResult.success) {
+              console.log(`Payment failure email sent to user ${user.id}`);
+            } else {
+              console.error(`Failed to send payment failure email: ${emailResult.error}`);
+            }
+          } catch (emailError) {
+            console.error("Error sending payment failure email:", emailError);
+          }
+
+          console.log(`Payment failed for user ${user.id} (attempt ${attemptCount})`);
         }
         break;
       }

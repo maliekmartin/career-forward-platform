@@ -120,31 +120,20 @@ function ResumeBuilderContent() {
 
       const uploadData = await uploadResponse.json();
 
-      // Parse the uploaded resume
-      const parseResponse = await fetch("/api/resume/parse", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          documentId: uploadData.document.id,
-          fileUrl: uploadData.document.url,
-          mimeType: file.type,
-        }),
-      });
-
-      if (!parseResponse.ok) {
-        throw new Error("Failed to parse resume");
+      // Check if parsing failed (upload API already parses the resume)
+      if (uploadData.parseError) {
+        console.warn("Resume parsing warning:", uploadData.parseError);
+        // Continue anyway - we can still create a resume without parsed data
       }
 
-      const parseData = await parseResponse.json();
-
-      // Create a new resume with parsed data
+      // Create a new resume with parsed data (or empty if parsing failed)
       const createResponse = await fetch("/api/resume", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: file.name.replace(/\.[^/.]+$/, "") || "Imported Resume",
           templateId: "modern",
-          content: parseData.resumeData,
+          content: uploadData.parsed || null,
         }),
       });
 

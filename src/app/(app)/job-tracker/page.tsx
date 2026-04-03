@@ -174,12 +174,36 @@ export default function JobTrackerPage() {
     }, 3000);
   };
 
-  const handleSuccessStorySubmit = () => {
+  const handleSuccessStorySubmit = async () => {
     if (recentlyHiredApp && successStory) {
+      // Save to local context
       setHiredData(recentlyHiredApp.id, {
         ...recentlyHiredApp.hiredData!,
         successStory,
       });
+
+      // Also save to database for potential public display
+      try {
+        const response = await fetch("/api/success-stories", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            jobTitle: recentlyHiredApp.hiredData?.jobTitle || recentlyHiredApp.job.title,
+            companyName: recentlyHiredApp.job.company,
+            hourlyWage: recentlyHiredApp.hiredData?.hourlyWage,
+            hoursPerWeek: recentlyHiredApp.hiredData?.hoursPerWeek,
+            startDate: recentlyHiredApp.hiredData?.startDate,
+            story: successStory,
+            showFullName: false,
+          }),
+        });
+
+        if (!response.ok) {
+          console.error("Failed to save success story to database");
+        }
+      } catch (error) {
+        console.error("Error saving success story:", error);
+      }
     }
     setShowSuccessStoryModal(false);
     setSuccessStory("");

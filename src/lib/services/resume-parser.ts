@@ -1,9 +1,11 @@
 /**
  * Resume Parser Service
  *
- * This service handles resume parsing. It can parse PDFs directly
- * or integrate with Affinda API when configured.
+ * This service handles resume parsing. It can parse PDFs and Word documents
+ * directly or integrate with Affinda API when configured.
  */
+
+import mammoth from "mammoth";
 
 export interface PersonalInfo {
   firstName?: string;
@@ -135,6 +137,7 @@ Return this exact JSON structure (fill in values from the resume, use empty stri
       "degree": "",
       "field": "",
       "location": "",
+      "startDate": "",
       "endDate": ""
     }
   ],
@@ -154,8 +157,15 @@ Important:
 - For LinkedIn, include the full URL
 - For experience and education, extract ALL entries found
 - For skills, list individual skills as separate array items
-- Dates should be in format like "01/2024" or "2024" as shown in resume
-- Set "current" to true if the job is current/present
+- CRITICAL: Extract ALL dates exactly as they appear on the resume. Dates may be in any format:
+  - "MM/YYYY" (e.g., "01/2024")
+  - "Month YYYY" (e.g., "January 2024", "Jan 2024")
+  - "YYYY" (e.g., "2024")
+  - "MM-YYYY" (e.g., "01-2024")
+  - Date ranges like "2020 - 2023" or "Jan 2020 - Present"
+- Convert all dates to MM/YYYY format (e.g., "01/2024"). If only year is given, use "01/YYYY"
+- For both experience AND education, always extract startDate and endDate when available
+- Set "current" to true if the position is current/present, and leave endDate empty
 - Return ONLY the JSON, no explanation or markdown`,
               },
             ],
@@ -224,6 +234,7 @@ Important:
         degree: (e.degree as string) || "",
         field: (e.field as string) || "",
         location: (e.location as string) || "",
+        startDate: (e.startDate as string) || "",
         endDate: (e.endDate as string) || "",
       };
     });
@@ -624,6 +635,7 @@ Return this exact JSON structure (fill in values from the resume, use empty stri
       "degree": "",
       "field": "",
       "location": "",
+      "startDate": "",
       "endDate": ""
     }
   ],
@@ -643,8 +655,15 @@ Important:
 - For LinkedIn, include the full URL
 - For experience and education, extract ALL entries found
 - For skills, list individual skills as separate array items
-- Dates should be in format like "01/2024" or "2024" as shown in resume
-- Set "current" to true if the job is current/present
+- CRITICAL: Extract ALL dates exactly as they appear on the resume. Dates may be in any format:
+  - "MM/YYYY" (e.g., "01/2024")
+  - "Month YYYY" (e.g., "January 2024", "Jan 2024")
+  - "YYYY" (e.g., "2024")
+  - "MM-YYYY" (e.g., "01-2024")
+  - Date ranges like "2020 - 2023" or "Jan 2020 - Present"
+- Convert all dates to MM/YYYY format (e.g., "01/2024"). If only year is given, use "01/YYYY"
+- For both experience AND education, always extract startDate and endDate when available
+- Set "current" to true if the position is current/present, and leave endDate empty
 - Return ONLY the JSON, no explanation or markdown`
           }
         ],
@@ -711,6 +730,7 @@ Important:
         degree: (e.degree as string) || "",
         field: (e.field as string) || "",
         location: (e.location as string) || "",
+        startDate: (e.startDate as string) || "",
         endDate: (e.endDate as string) || "",
       };
     });
@@ -749,6 +769,47 @@ Important:
 }
 
 /**
+ * Parse Word document using mammoth to extract text, then Claude for structured extraction
+ */
+async function parseWordDocument(buffer: Buffer): Promise<ParseResult> {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+
+  if (!apiKey) {
+    return {
+      success: false,
+      error: "Claude API key not configured",
+      source: "local",
+    };
+  }
+
+  try {
+    // Extract text from Word document using mammoth
+    console.log("Extracting text from Word document with mammoth...");
+    const result = await mammoth.extractRawText({ buffer });
+    const text = result.value;
+
+    if (!text || text.trim().length === 0) {
+      return {
+        success: false,
+        error: "Could not extract text from Word document. The file may be empty or corrupted.",
+        source: "local",
+      };
+    }
+
+    console.log("Parsing extracted text with Claude API...");
+    // Use Claude to parse the extracted text
+    return parseWithClaude(text);
+  } catch (error) {
+    console.error("Word document parsing error:", error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Failed to parse Word document",
+      source: "local",
+    };
+  }
+}
+
+/**
  * Parse resume from file buffer
  */
 async function parseFromBuffer(buffer: Buffer, mimeType: string): Promise<ParseResult> {
@@ -765,11 +826,26 @@ async function parseFromBuffer(buffer: Buffer, mimeType: string): Promise<ParseR
       return claudeResult;
     }
 
-    // For Word docs or if Claude not configured
-    if (mimeType !== "application/pdf") {
+    // For Word documents (.docx, .doc)
+    const wordMimeTypes = [
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // .docx
+      "application/msword", // .doc
+    ];
+    if (wordMimeTypes.includes(mimeType) && process.env.ANTHROPIC_API_KEY) {
+      console.log("Parsing Word document...");
+      const wordResult = await parseWordDocument(buffer);
+      if (wordResult.success) {
+        return wordResult;
+      }
+      console.warn("Word document parsing failed:", wordResult.error);
+      return wordResult;
+    }
+
+    // Unsupported format
+    if (mimeType !== "application/pdf" && !wordMimeTypes.includes(mimeType)) {
       return {
         success: false,
-        error: "Word document parsing not yet implemented. Please upload a PDF.",
+        error: "Unsupported file format. Please upload a PDF or Word document (.doc, .docx).",
         source: "local",
       };
     }

@@ -649,37 +649,245 @@ export async function calculateMarketMatchScore(
 }
 
 /**
+ * BLS API Configuration
+ * CES (Current Employment Statistics) Series ID Format:
+ * - Positions 1-2: CE (prefix)
+ * - Position 3: U (unadjusted) or S (seasonally adjusted)
+ * - Positions 4-11: Supersector and Industry Codes (8 digits)
+ * - Positions 12-13: Data Type Code (01 = All Employees, thousands)
+ */
+const BLS_API_URL = "https://api.bls.gov/publicAPI/v2/timeseries/data/";
+
+// CES industry codes for national employment data
+const BLS_INDUSTRY_SERIES: Record<string, string> = {
+  "technology": "CES5000000001",      // Information sector
+  "information": "CES5000000001",
+  "software": "CES5000000001",
+  "healthcare": "CES6562000001",      // Health care and social assistance
+  "health": "CES6562000001",
+  "medical": "CES6562000001",
+  "finance": "CES5500000001",         // Financial activities
+  "banking": "CES5500000001",
+  "insurance": "CES5500000001",
+  "manufacturing": "CES3000000001",   // Manufacturing
+  "retail": "CES4200000001",          // Retail trade
+  "hospitality": "CES7000000001",     // Leisure and hospitality
+  "restaurant": "CES7000000001",
+  "hotel": "CES7000000001",
+  "education": "CES6500000001",       // Education and health services
+  "construction": "CES2000000001",    // Construction
+  "professional": "CES6000000001",    // Professional and business services
+  "business": "CES6000000001",
+  "government": "CES9000000001",      // Government
+  "transportation": "CES4300000001",  // Transportation and warehousing
+  "logistics": "CES4300000001",
+};
+
+// Fallback data when API is unavailable
+const FALLBACK_INDUSTRY_DATA: Record<string, MarketMatchData> = {
+  "technology": { localScore: 85, regionalScore: 88, remoteScore: 95, demandLevel: "high" },
+  "healthcare": { localScore: 90, regionalScore: 92, remoteScore: 70, demandLevel: "high" },
+  "finance": { localScore: 80, regionalScore: 85, remoteScore: 85, demandLevel: "high" },
+  "manufacturing": { localScore: 75, regionalScore: 78, remoteScore: 50, demandLevel: "medium" },
+  "retail": { localScore: 70, regionalScore: 72, remoteScore: 40, demandLevel: "medium" },
+  "hospitality": { localScore: 75, regionalScore: 78, remoteScore: 30, demandLevel: "medium" },
+  "education": { localScore: 70, regionalScore: 75, remoteScore: 60, demandLevel: "medium" },
+  "construction": { localScore: 80, regionalScore: 82, remoteScore: 20, demandLevel: "high" },
+  "professional": { localScore: 82, regionalScore: 85, remoteScore: 88, demandLevel: "high" },
+  "government": { localScore: 75, regionalScore: 78, remoteScore: 40, demandLevel: "medium" },
+  "transportation": { localScore: 78, regionalScore: 80, remoteScore: 45, demandLevel: "medium" },
+};
+
+interface BLSResponse {
+  status: string;
+  responseTime: number;
+  message: string[];
+  Results?: {
+    series: Array<{
+      seriesID: string;
+      data: Array<{
+        year: string;
+        period: string;
+        periodName: string;
+        value: string;
+        footnotes: Array<{ code: string; text: string }>;
+      }>;
+    }>;
+  };
+}
+
+/**
  * Fetch data from BLS API
+ * Uses CES (Current Employment Statistics) for national employment by industry
  */
 async function fetchBLSData(
   industry?: string,
   location?: string
 ): Promise<Partial<MarketMatchData> | null> {
   const apiKey = process.env.BLS_API_KEY;
-
-  // BLS API V2 requires registration for higher limits
-  // For now, return estimated data based on industry
-  // TODO: Implement full BLS API integration
-
-  const industryDemand: Record<string, MarketMatchData> = {
-    "technology": { localScore: 85, regionalScore: 88, remoteScore: 95, demandLevel: "high" },
-    "healthcare": { localScore: 90, regionalScore: 92, remoteScore: 70, demandLevel: "high" },
-    "finance": { localScore: 80, regionalScore: 85, remoteScore: 85, demandLevel: "high" },
-    "manufacturing": { localScore: 75, regionalScore: 78, remoteScore: 50, demandLevel: "medium" },
-    "retail": { localScore: 70, regionalScore: 72, remoteScore: 40, demandLevel: "medium" },
-    "hospitality": { localScore: 75, regionalScore: 78, remoteScore: 30, demandLevel: "medium" },
-    "education": { localScore: 70, regionalScore: 75, remoteScore: 60, demandLevel: "medium" },
-    "construction": { localScore: 80, regionalScore: 82, remoteScore: 20, demandLevel: "high" },
-  };
-
   const normalizedIndustry = (industry || "").toLowerCase();
-  for (const [key, data] of Object.entries(industryDemand)) {
+
+  // Find the matching series ID for the industry
+  let seriesId: string | null = null;
+  for (const [key, id] of Object.entries(BLS_INDUSTRY_SERIES)) {
+    if (normalizedIndustry.includes(key)) {
+      seriesId = id;
+      break;
+    }
+  }
+
+  // If no matching series, try to find fallback data
+  if (!seriesId) {
+    for (const [key, data] of Object.entries(FALLBACK_INDUSTRY_DATA)) {
+      if (normalizedIndustry.includes(key)) {
+        return data;
+      }
+    }
+    return null;
+  }
+
+  // If no API key, use fallback data
+  if (!apiKey) {
+    console.log("BLS API key not configured, using fallback data");
+    for (const [key, data] of Object.entries(FALLBACK_INDUSTRY_DATA)) {
+      if (normalizedIndustry.includes(key)) {
+        return data;
+      }
+    }
+    return null;
+  }
+
+  try {
+    const currentYear = new Date().getFullYear();
+    const startYear = currentYear - 3; // Get 3 years of data for trend analysis
+
+    const response = await fetch(BLS_API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        seriesid: [seriesId],
+        startyear: startYear.toString(),
+        endyear: currentYear.toString(),
+        registrationkey: apiKey,
+      }),
+    });
+
+    if (!response.ok) {
+      console.error("BLS API error:", response.status, response.statusText);
+      return getFallbackData(normalizedIndustry);
+    }
+
+    const data: BLSResponse = await response.json();
+
+    if (data.status !== "REQUEST_SUCCEEDED" || !data.Results?.series?.[0]?.data) {
+      console.error("BLS API returned unsuccessful status:", data.status, data.message);
+      return getFallbackData(normalizedIndustry);
+    }
+
+    // Calculate employment growth rate from the data
+    const seriesData = data.Results.series[0].data;
+    const marketData = calculateMarketDataFromBLS(seriesData, normalizedIndustry);
+    return marketData;
+  } catch (error) {
+    console.error("BLS API fetch error:", error);
+    return getFallbackData(normalizedIndustry);
+  }
+}
+
+/**
+ * Get fallback data for an industry
+ */
+function getFallbackData(normalizedIndustry: string): MarketMatchData | null {
+  for (const [key, data] of Object.entries(FALLBACK_INDUSTRY_DATA)) {
     if (normalizedIndustry.includes(key)) {
       return data;
     }
   }
-
   return null;
+}
+
+/**
+ * Calculate market data from BLS time series
+ * Analyzes employment trends to determine demand levels
+ */
+function calculateMarketDataFromBLS(
+  seriesData: Array<{ year: string; period: string; value: string }>,
+  industry: string
+): MarketMatchData {
+  // Sort data by year and period (most recent first)
+  const sortedData = seriesData.sort((a, b) => {
+    const yearDiff = parseInt(b.year) - parseInt(a.year);
+    if (yearDiff !== 0) return yearDiff;
+    return parseInt(b.period.replace("M", "")) - parseInt(a.period.replace("M", ""));
+  });
+
+  // Get most recent and historical employment values
+  const recentValues = sortedData.slice(0, 12).map(d => parseFloat(d.value)); // Last 12 months
+  const olderValues = sortedData.slice(12, 24).map(d => parseFloat(d.value)); // Previous 12 months
+
+  const recentAvg = recentValues.reduce((a, b) => a + b, 0) / recentValues.length;
+  const olderAvg = olderValues.length > 0
+    ? olderValues.reduce((a, b) => a + b, 0) / olderValues.length
+    : recentAvg;
+
+  // Calculate year-over-year growth rate
+  const growthRate = olderAvg > 0 ? ((recentAvg - olderAvg) / olderAvg) * 100 : 0;
+
+  // Determine demand level based on growth rate
+  let demandLevel: "high" | "medium" | "low";
+  let baseScore: number;
+
+  if (growthRate > 2) {
+    demandLevel = "high";
+    baseScore = 85 + Math.min(10, growthRate * 2); // 85-95 range
+  } else if (growthRate > 0) {
+    demandLevel = "medium";
+    baseScore = 70 + (growthRate * 7.5); // 70-85 range
+  } else {
+    demandLevel = "low";
+    baseScore = Math.max(50, 70 + growthRate * 5); // 50-70 range
+  }
+
+  // Adjust scores based on industry characteristics
+  const remoteAdjustment = getRemoteWorkAdjustment(industry);
+
+  return {
+    localScore: Math.round(baseScore),
+    regionalScore: Math.round(baseScore + 3),
+    remoteScore: Math.round(baseScore * remoteAdjustment),
+    demandLevel,
+    jobPostings: Math.round(recentAvg * 1000), // Rough estimate of total employment (thousands)
+  };
+}
+
+/**
+ * Get remote work adjustment factor for an industry
+ * Some industries have more remote opportunities than others
+ */
+function getRemoteWorkAdjustment(industry: string): number {
+  const remoteFactors: Record<string, number> = {
+    "technology": 1.1,    // Tech is very remote-friendly
+    "information": 1.1,
+    "software": 1.15,
+    "finance": 1.0,       // Finance is moderately remote-friendly
+    "professional": 1.05, // Professional services moderately remote
+    "education": 0.75,    // Education less remote-friendly
+    "healthcare": 0.6,    // Healthcare mostly in-person
+    "construction": 0.2,  // Construction rarely remote
+    "manufacturing": 0.4, // Manufacturing rarely remote
+    "retail": 0.35,       // Retail mostly in-person
+    "hospitality": 0.25,  // Hospitality rarely remote
+    "transportation": 0.4,// Transportation mostly in-person
+  };
+
+  for (const [key, factor] of Object.entries(remoteFactors)) {
+    if (industry.includes(key)) {
+      return factor;
+    }
+  }
+  return 0.7; // Default remote factor
 }
 
 /**

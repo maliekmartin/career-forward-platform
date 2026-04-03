@@ -45,13 +45,16 @@ export async function POST(request: NextRequest) {
     const passwordHash = await hashPassword(password);
 
     // Create user
-    // TESTING PHASE: All new accounts get PREMIUM tier for full feature testing
-    // TODO: Change back to FREE tier (or remove this line) for official launch
+    // TODO: For production launch, change subscriptionTier back to "FREE" and remove
+    // subscriptionStatus and subscriptionStartDate. Currently set to PREMIUM for testing.
+    // All new accounts get PREMIUM tier with active status for full platform access
     const user = await prisma.user.create({
       data: {
         email: email.toLowerCase(),
         passwordHash,
-        subscriptionTier: "PREMIUM", // Remove this line for production launch
+        subscriptionTier: "PREMIUM", // Change to "FREE" for production launch
+        subscriptionStatus: "active", // Remove for production launch
+        subscriptionStartDate: new Date(), // Remove for production launch
         profile: {
           create: {
             preferredLanguage: "en",
