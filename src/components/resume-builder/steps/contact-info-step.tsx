@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { useResumeBuilder } from "../context/resume-builder-context";
 import { useTheme } from "@/lib/theme-context";
 import { cn } from "@/lib/utils";
+import { WhyThisMatters, FieldTip, useBeginnerMode } from "../beginner-mode-helpers";
 
 const US_STATES = [
   "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
@@ -21,6 +22,8 @@ export function ContactInfoStep() {
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
   const { contactInfo } = state.data;
+  const { guidedMode } = state;
+  const isBeginnerMode = useBeginnerMode(guidedMode);
   const [isLoadingProfile, setIsLoadingProfile] = useState(false);
 
   // Pre-fill from user profile on first load
@@ -89,6 +92,9 @@ export function ContactInfoStep() {
         </p>
       </div>
 
+      {/* Beginner Mode: Why This Matters */}
+      {isBeginnerMode && <WhyThisMatters step="contact" isDark={isDark} />}
+
       {isLoadingProfile && (
         <div className={cn(
           "flex items-center gap-2 p-3 rounded-xl",
@@ -147,6 +153,9 @@ export function ContactInfoStep() {
               className={cn(inputClass, "pl-10")}
             />
           </div>
+          {isBeginnerMode && (
+            <FieldTip tip="Use a professional email like firstname.lastname@email.com" isDark={isDark} />
+          )}
         </div>
         <div>
           <Label htmlFor="phone" className={labelClass}>

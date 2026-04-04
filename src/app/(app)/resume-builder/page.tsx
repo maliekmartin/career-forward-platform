@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Plus,
   FileText,
@@ -22,16 +22,19 @@ import { useTheme } from "@/lib/theme-context";
 import {
   ResumeBuilderProvider,
   useResumeBuilder,
+  GuidedMode,
 } from "@/components/resume-builder/context/resume-builder-context";
 import { ResumeWizard } from "@/components/resume-builder/wizard/resume-wizard";
 import { ResumeBuilderErrorBoundary } from "@/components/resume-builder/error-boundary";
-import { TEMPLATES, TemplateId } from "@/components/resume-builder/types/resume-types";
+import { TEMPLATES, TemplateId, ResumeData, WizardStep } from "@/components/resume-builder/types/resume-types";
+import { GuidedResumeFlow, GuidedAction } from "@/components/resume-builder/guided-resume-flow";
 import { cn } from "@/lib/utils";
 
 interface SavedResume {
   id: string;
   name: string;
   templateId: string;
+  content: ResumeData;
   createdAt: string;
   updatedAt: string;
 }
@@ -40,7 +43,7 @@ function ResumeBuilderContent() {
   const [activeTab, setActiveTab] = useState<"resumes" | "templates">("resumes");
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
-  const { openWizard, loadResume } = useResumeBuilder();
+  const { openWizard, loadResume, openWizardAtStep, loadResumeWithMode } = useResumeBuilder();
 
   // Data fetching state
   const [resumes, setResumes] = useState<SavedResume[]>([]);
@@ -48,6 +51,29 @@ function ResumeBuilderContent() {
   const [error, setError] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+
+  // Guided flow state
+  const [showGuidedFlow, setShowGuidedFlow] = useState(true);
+  const [userExperienceLevel, setUserExperienceLevel] = useState<GuidedMode>(null);
+  const [hasCheckedFirstVisit, setHasCheckedFirstVisit] = useState(false);
+
+  // Fetch user's experience level preference
+  useEffect(() => {
+    const fetchUserPreference = async () => {
+      try {
+        const response = await fetch("/api/profile");
+        if (response.ok) {
+          const data = await response.json();
+          if (data.profile?.resumeExperienceLevel) {
+            setUserExperienceLevel(data.profile.resumeExperienceLevel as GuidedMode);
+          }
+        }
+      } catch (err) {
+        console.error("Error fetching user preferences:", err);
+      }
+    };
+    fetchUserPreference();
+  }, []);
 
   // Fetch resumes on mount
   useEffect(() => {
@@ -58,12 +84,13 @@ function ResumeBuilderContent() {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch("/api/resume");
+      const response = await fetch("/api/resume?includeContent=true");
       if (!response.ok) {
         throw new Error("Failed to fetch resumes");
       }
       const data = await response.json();
       setResumes(data.resumes || []);
+      setHasCheckedFirstVisit(true);
     } catch (err) {
       setError("Failed to load your resumes. Please try again.");
       console.error("Error fetching resumes:", err);
@@ -71,6 +98,88 @@ function ResumeBuilderContent() {
       setIsLoading(false);
     }
   };
+
+  // Handler for saving experience level preference
+  const handleSaveExperienceLevel = useCallback(async (level: GuidedMode) => {
+    setUserExperienceLevel(level);
+    try {
+      await fetch("/api/profile/experience-level", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ resumeExperienceLevel: level }),
+      });
+    } catch (err) {
+      console.error("Error saving experience level:", err);
+    }
+  }, []);
+
+  // Handler for guided flow completion
+  const handleGuidedAction = useCallback(async (action: GuidedAction) => {
+    setShowGuidedFlow(false);
+
+    if (action.type === "browse") {
+      setActiveTab("templates");
+      return;
+    }
+
+    if (action.type === "dismiss") {
+      return;
+    }
+
+    if (action.type === "create-new") {
+      if (action.cloneExisting && resumes.length > 0) {
+        // Clone existing resume
+        try {
+          const response = await fetch(`/api/resume/${resumes[0].id}`);
+          if (!response.ok) throw new Error("Failed to fetch resume");
+          const resume = await response.json();
+
+          const createResponse = await fetch("/api/resume", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: `${resume.name} (Copy)`,
+              templateId: resume.templateId,
+              content: resume.content,
+            }),
+          });
+
+          if (!createResponse.ok) throw new Error("Failed to create resume");
+
+          const newResume = await createResponse.json();
+          await fetchResumes();
+          await loadResume(newResume.id);
+        } catch (err) {
+          console.error("Error cloning resume:", err);
+        }
+      } else {
+        // Start fresh
+        openWizard({ templateId: "modern" });
+      }
+      return;
+    }
+
+    if (action.type === "full-wizard") {
+      if (resumes.length > 0) {
+        await loadResumeWithMode(resumes[0].id, action.mode);
+      }
+      return;
+    }
+
+    if (action.type === "edit-section") {
+      if (resumes.length > 0) {
+        await openWizardAtStep(resumes[0].id, action.section, action.mode);
+      }
+      return;
+    }
+  }, [resumes, loadResume, loadResumeWithMode, openWizard, openWizardAtStep]);
+
+  // Determine if guided flow should show
+  const shouldShowGuidedFlow =
+    !isLoading &&
+    hasCheckedFirstVisit &&
+    resumes.length >= 1 &&
+    showGuidedFlow;
 
   const handleNewResume = (templateId?: TemplateId) => {
     console.log("[Resume Builder] handleNewResume called with templateId:", templateId);
@@ -244,6 +353,25 @@ function ResumeBuilderContent() {
 
   return (
     <div className="max-w-7xl mx-auto">
+      {/* Guided Resume Flow Modal */}
+      <AnimatePresence>
+        {shouldShowGuidedFlow && resumes[0] && (
+          <GuidedResumeFlow
+            resume={{
+              id: resumes[0].id,
+              name: resumes[0].name,
+              templateId: resumes[0].templateId,
+              content: resumes[0].content,
+              updatedAt: resumes[0].updatedAt,
+            }}
+            userExperienceLevel={userExperienceLevel}
+            onComplete={handleGuidedAction}
+            onDismiss={() => setShowGuidedFlow(false)}
+            onSaveExperienceLevel={handleSaveExperienceLevel}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Stats Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         {stats.map((stat, index) => (

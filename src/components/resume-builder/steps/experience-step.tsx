@@ -21,6 +21,7 @@ import { useResumeBuilder } from "../context/resume-builder-context";
 import { WorkExperience, generateId } from "../types/resume-types";
 import { useTheme } from "@/lib/theme-context";
 import { cn } from "@/lib/utils";
+import { WhyThisMatters, useBeginnerMode } from "../beginner-mode-helpers";
 
 const US_STATES = [
   "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
@@ -35,6 +36,8 @@ export function ExperienceStep() {
     useResumeBuilder();
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
+  const { guidedMode } = state;
+  const isBeginnerMode = useBeginnerMode(guidedMode);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [isGenerating, setIsGenerating] = useState<string | null>(null);
 
@@ -143,6 +146,9 @@ export function ExperienceStep() {
           Use bullet points to highlight your achievements.
         </p>
       </div>
+
+      {/* Beginner Mode: Why This Matters */}
+      {isBeginnerMode && <WhyThisMatters step="experience" isDark={isDark} />}
 
       {/* Experience list */}
       <div className="space-y-4">

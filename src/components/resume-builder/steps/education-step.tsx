@@ -20,6 +20,7 @@ import { useResumeBuilder } from "../context/resume-builder-context";
 import { Education, generateId } from "../types/resume-types";
 import { useTheme } from "@/lib/theme-context";
 import { cn } from "@/lib/utils";
+import { WhyThisMatters, useBeginnerMode } from "../beginner-mode-helpers";
 
 const US_STATES = [
   "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
@@ -54,6 +55,8 @@ export function EducationStep() {
     useResumeBuilder();
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
+  const { guidedMode } = state;
+  const isBeginnerMode = useBeginnerMode(guidedMode);
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   const handleAddEducation = () => {
@@ -107,6 +110,9 @@ export function EducationStep() {
           Add your educational background, starting with your highest degree or most recent education.
         </p>
       </div>
+
+      {/* Beginner Mode: Why This Matters */}
+      {isBeginnerMode && <WhyThisMatters step="education" isDark={isDark} />}
 
       {/* Education list */}
       <div className="space-y-4">

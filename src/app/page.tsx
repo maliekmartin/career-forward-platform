@@ -797,6 +797,19 @@ export default function LandingPage() {
                   {heroContent[audience].secondaryCta}
                 </Link>
               </Button>
+              {audience === "seekers" && (
+                <Button
+                  variant="ghost"
+                  size="lg"
+                  asChild
+                  className="rounded-full px-8 h-14 text-base font-medium text-gray-600 hover:text-[#2B8A8A] hover:bg-[#2B8A8A]/5 transition-all duration-300"
+                >
+                  <Link href="/waitlist">
+                    <Sparkles className="mr-2 h-4 w-4" />
+                    Join Beta Waitlist
+                  </Link>
+                </Button>
+              )}
             </motion.div>
 
             {/* Stats row */}

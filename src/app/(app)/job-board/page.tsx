@@ -28,6 +28,7 @@ import {
 } from "@/lib/job-data";
 import { useJobApplications } from "@/lib/job-applications-context";
 import { useTheme } from "@/lib/theme-context";
+import { JobPreviewModal } from "@/components/job-board/job-preview-modal";
 
 type Category = "all" | "healthcare" | "manufacturing" | "admin" | "retail";
 type Source = "all" | "worksourcewa" | "indeed" | "linkedin" | "governmentjobs";
@@ -46,6 +47,7 @@ export default function JobBoardPage() {
   const [showFilters, setShowFilters] = useState(false);
   const [applyingJobId, setApplyingJobId] = useState<string | null>(null);
   const [showSuccessToast, setShowSuccessToast] = useState<string | null>(null);
+  const [selectedJob, setSelectedJob] = useState<Job | null>(null);
 
   // API state
   const [jobs, setJobs] = useState<Job[]>([]);
@@ -463,7 +465,8 @@ export default function JobBoardPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.05 * Math.min(index, 10) }}
-              className={`rounded-2xl border p-6 transition-all group ${
+              onClick={() => setSelectedJob(job)}
+              className={`rounded-2xl border p-6 transition-all group cursor-pointer ${
                 isDark
                   ? "bg-gray-900 border-gray-800 hover:border-gray-700"
                   : "bg-white border-gray-100 hover:shadow-lg hover:border-gray-200"
@@ -557,7 +560,10 @@ export default function JobBoardPage() {
                     </span>
                   ) : (
                     <Button
-                      onClick={() => handleApply(job)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleApply(job);
+                      }}
                       disabled={isApplying}
                       className="bg-[#2B8A8A] hover:bg-[#237070] text-white rounded-xl px-6 py-6 h-auto"
                     >
@@ -623,6 +629,20 @@ export default function JobBoardPage() {
           </p>
         </div>
       )}
+
+      {/* Job Preview Modal */}
+      <JobPreviewModal
+        job={selectedJob}
+        isOpen={!!selectedJob}
+        onClose={() => setSelectedJob(null)}
+        onApply={(job) => {
+          handleApply(job);
+          setSelectedJob(null);
+        }}
+        isApplied={selectedJob ? isJobApplied(selectedJob.id) : false}
+        isApplying={selectedJob ? applyingJobId === selectedJob.id : false}
+        isDark={isDark}
+      />
     </div>
   );
 }

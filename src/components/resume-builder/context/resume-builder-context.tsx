@@ -19,6 +19,9 @@ import {
   ContactInfo,
 } from "../types/resume-types";
 
+// Guided mode type
+export type GuidedMode = "beginner" | "expert" | null;
+
 // State interface
 interface ResumeBuilderState {
   // Resume data
@@ -30,6 +33,7 @@ interface ResumeBuilderState {
   // Wizard state
   currentStep: WizardStep;
   isWizardOpen: boolean;
+  guidedMode: GuidedMode;
 
   // UI state
   isSaving: boolean;
@@ -67,6 +71,8 @@ type ResumeBuilderAction =
   | { type: "SET_ERRORS"; payload: Record<string, string[]> }
   | { type: "CLEAR_ERRORS" }
   | { type: "LOAD_RESUME"; payload: { id: string; name: string; templateId: TemplateId; data: ResumeData } }
+  | { type: "LOAD_RESUME_AT_STEP"; payload: { id: string; name: string; templateId: TemplateId; data: ResumeData; step: WizardStep; mode: GuidedMode } }
+  | { type: "SET_GUIDED_MODE"; payload: GuidedMode }
   | { type: "RESET" }
   | { type: "MARK_SAVED" };
 
@@ -78,6 +84,7 @@ const initialState: ResumeBuilderState = {
   data: DEFAULT_RESUME_DATA,
   currentStep: "contact",
   isWizardOpen: false,
+  guidedMode: null,
   isSaving: false,
   lastSaved: null,
   hasUnsavedChanges: false,
@@ -302,8 +309,25 @@ function resumeBuilderReducer(
         data: action.payload.data,
         isWizardOpen: true,
         currentStep: "contact",
+        guidedMode: null,
         hasUnsavedChanges: false,
       };
+
+    case "LOAD_RESUME_AT_STEP":
+      return {
+        ...state,
+        resumeId: action.payload.id,
+        resumeName: action.payload.name,
+        templateId: action.payload.templateId,
+        data: action.payload.data,
+        isWizardOpen: true,
+        currentStep: action.payload.step,
+        guidedMode: action.payload.mode,
+        hasUnsavedChanges: false,
+      };
+
+    case "SET_GUIDED_MODE":
+      return { ...state, guidedMode: action.payload };
 
     case "MARK_SAVED":
       return { ...state, hasUnsavedChanges: false, lastSaved: new Date() };
@@ -323,12 +347,14 @@ interface ResumeBuilderContextValue {
 
   // Helper actions
   openWizard: (options?: { resumeId?: string; templateId?: TemplateId }) => void;
+  openWizardAtStep: (resumeId: string, step: WizardStep, mode: GuidedMode) => Promise<void>;
   closeWizard: () => void;
   goToStep: (step: WizardStep) => void;
   nextStep: () => void;
   prevStep: () => void;
   saveResume: () => Promise<void>;
   loadResume: (id: string) => Promise<void>;
+  loadResumeWithMode: (id: string, mode: GuidedMode) => Promise<void>;
   updateContactInfo: (data: Partial<ContactInfo>) => void;
   updateSummary: (summary: string) => void;
   addExperience: (exp: WorkExperience) => void;
@@ -345,6 +371,7 @@ interface ResumeBuilderContextValue {
   deleteCertification: (id: string) => void;
   setTemplate: (templateId: TemplateId) => void;
   setResumeName: (name: string) => void;
+  setGuidedMode: (mode: GuidedMode) => void;
 }
 
 // Context
@@ -520,6 +547,58 @@ export function ResumeBuilderProvider({
     }
   }, []);
 
+  const loadResumeWithMode = useCallback(async (id: string, mode: GuidedMode) => {
+    try {
+      const response = await fetch(`/api/resume/${id}`);
+      if (!response.ok) {
+        throw new Error("Failed to load resume");
+      }
+      const resume = await response.json();
+      dispatch({
+        type: "LOAD_RESUME_AT_STEP",
+        payload: {
+          id: resume.id,
+          name: resume.name,
+          templateId: resume.templateId as TemplateId,
+          data: resume.content,
+          step: "contact",
+          mode,
+        },
+      });
+    } catch (error) {
+      console.error("Failed to load resume:", error);
+      throw error;
+    }
+  }, []);
+
+  const openWizardAtStep = useCallback(async (resumeId: string, step: WizardStep, mode: GuidedMode) => {
+    try {
+      const response = await fetch(`/api/resume/${resumeId}`);
+      if (!response.ok) {
+        throw new Error("Failed to load resume");
+      }
+      const resume = await response.json();
+      dispatch({
+        type: "LOAD_RESUME_AT_STEP",
+        payload: {
+          id: resume.id,
+          name: resume.name,
+          templateId: resume.templateId as TemplateId,
+          data: resume.content,
+          step,
+          mode,
+        },
+      });
+    } catch (error) {
+      console.error("Failed to load resume at step:", error);
+      throw error;
+    }
+  }, []);
+
+  const setGuidedMode = useCallback((mode: GuidedMode) => {
+    dispatch({ type: "SET_GUIDED_MODE", payload: mode });
+  }, []);
+
   const updateContactInfo = useCallback((data: Partial<ContactInfo>) => {
     dispatch({ type: "SET_CONTACT_INFO", payload: data });
   }, []);
@@ -597,12 +676,14 @@ export function ResumeBuilderProvider({
     state,
     dispatch,
     openWizard,
+    openWizardAtStep,
     closeWizard,
     goToStep,
     nextStep,
     prevStep,
     saveResume,
     loadResume,
+    loadResumeWithMode,
     updateContactInfo,
     updateSummary,
     addExperience,
@@ -619,6 +700,7 @@ export function ResumeBuilderProvider({
     deleteCertification,
     setTemplate,
     setResumeName,
+    setGuidedMode,
   };
 
   return (

@@ -87,16 +87,19 @@ export async function searchJobs(query: USAJobsQuery): Promise<RawJob[]> {
         description += job.QualificationSummary;
       }
 
-      // Parse salary
+      // Parse salary - USAJOBS uses PositionRemuneration array
       let salaryMin: number | null = null;
       let salaryMax: number | null = null;
       let salaryRange: string | null = null;
 
-      if (job.RemunerationRange?.MinimumRange && job.RemunerationRange?.MaximumRange) {
+      const remuneration = job.PositionRemuneration?.[0];
+      if (remuneration?.MinimumRange && remuneration?.MaximumRange) {
         try {
-          salaryMin = parseFloat(job.RemunerationRange.MinimumRange);
-          salaryMax = parseFloat(job.RemunerationRange.MaximumRange);
-          salaryRange = `$${salaryMin.toLocaleString()} - $${salaryMax.toLocaleString()} per year`;
+          salaryMin = parseFloat(remuneration.MinimumRange);
+          salaryMax = parseFloat(remuneration.MaximumRange);
+          const period = remuneration.RateIntervalCode === "PA" ? "year" :
+                        remuneration.RateIntervalCode === "PH" ? "hour" : "year";
+          salaryRange = `$${salaryMin.toLocaleString()} - $${salaryMax.toLocaleString()} per ${period}`;
         } catch (e) {
           // Ignore parsing errors
         }

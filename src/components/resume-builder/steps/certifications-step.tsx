@@ -19,12 +19,15 @@ import { useResumeBuilder } from "../context/resume-builder-context";
 import { Certification, generateId } from "../types/resume-types";
 import { useTheme } from "@/lib/theme-context";
 import { cn } from "@/lib/utils";
+import { WhyThisMatters, useBeginnerMode } from "../beginner-mode-helpers";
 
 export function CertificationsStep() {
   const { state, addCertification, updateCertification, deleteCertification } =
     useResumeBuilder();
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
+  const { guidedMode } = state;
+  const isBeginnerMode = useBeginnerMode(guidedMode);
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
   const handleAddCertification = () => {
@@ -88,6 +91,9 @@ export function CertificationsStep() {
         <span>•</span>
         <span className="text-xs">Skip if you don't have certifications</span>
       </div>
+
+      {/* Beginner Mode: Why This Matters */}
+      {isBeginnerMode && <WhyThisMatters step="certifications" isDark={isDark} />}
 
       {/* Certifications list */}
       <div className="space-y-4">

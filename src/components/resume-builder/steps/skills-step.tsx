@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { useResumeBuilder } from "../context/resume-builder-context";
 import { useTheme } from "@/lib/theme-context";
 import { cn } from "@/lib/utils";
+import { WhyThisMatters, useBeginnerMode } from "../beginner-mode-helpers";
 
 // Common skills suggestions by category
 const SKILL_SUGGESTIONS = {
@@ -80,6 +81,8 @@ export function SkillsStep() {
   const { state, addSkill, removeSkill } = useResumeBuilder();
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
+  const { guidedMode } = state;
+  const isBeginnerMode = useBeginnerMode(guidedMode);
   const [inputValue, setInputValue] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -163,6 +166,9 @@ export function SkillsStep() {
           Add relevant skills that showcase your abilities. Include both technical and soft skills.
         </p>
       </div>
+
+      {/* Beginner Mode: Why This Matters */}
+      {isBeginnerMode && <WhyThisMatters step="skills" isDark={isDark} />}
 
       {/* AI Generate button */}
       <Button

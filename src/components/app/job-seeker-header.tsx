@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -13,6 +13,7 @@ import {
   Calendar,
   Bot,
   User,
+  X,
 } from "lucide-react";
 import { useTheme } from "@/lib/theme-context";
 import { useJobSeekerMessages } from "@/lib/job-seeker-messages-context";
@@ -38,44 +39,60 @@ const pageTitles: Record<string, string> = {
   "/settings": "Settings",
 };
 
-// Demo notifications
-const demoNotifications = [
+// Notification type with navigation route
+interface Notification {
+  id: string;
+  type: "achievement" | "message" | "reminder" | "job" | "milestone";
+  title: string;
+  message: string;
+  time: string;
+  read: boolean;
+  route: string; // Navigation route when clicked
+}
+
+// Demo notifications with routes
+const demoNotifications: Notification[] = [
   {
     id: "notif-1",
-    type: "achievement" as const,
+    type: "achievement",
     title: "Achievement Unlocked!",
     message: "You completed your profile - +50 XP",
     time: "2 hours ago",
     read: false,
+    route: "/achievements",
   },
   {
     id: "notif-2",
-    type: "message" as const,
+    type: "message",
     title: "New Message",
     message: "Sarah Johnson sent you a message",
     time: "3 hours ago",
     read: false,
+    route: "/messages",
   },
   {
     id: "notif-3",
-    type: "reminder" as const,
+    type: "reminder",
     title: "Interview Tomorrow",
     message: "Don't forget your interview at Tech Corp at 10:00 AM",
     time: "5 hours ago",
     read: false,
+    route: "/job-tracker",
   },
   {
     id: "notif-4",
-    type: "job" as const,
+    type: "job",
     title: "New Job Match",
     message: "3 new jobs match your profile",
     time: "1 day ago",
     read: true,
+    route: "/job-board",
   },
 ];
 
 export function JobSeekerHeader() {
   const pathname = usePathname();
+  const router = useRouter();
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
 
@@ -84,7 +101,7 @@ export function JobSeekerHeader() {
 
   const [showNotifications, setShowNotifications] = useState(false);
   const [showMessages, setShowMessages] = useState(false);
-  const [notifications, setNotifications] = useState(demoNotifications);
+  const [notifications, setNotifications] = useState<Notification[]>(demoNotifications);
   const [user, setUser] = useState<UserProfile | null>(null);
 
   useEffect(() => {
@@ -106,14 +123,31 @@ export function JobSeekerHeader() {
   const pageTitle = pageTitles[pathname] || "Dashboard";
   const unreadNotifCount = notifications.filter(n => !n.read).length;
 
-  const markNotifAsRead = (id: string) => {
+  // Handle notification click - navigate and mark as read
+  const handleNotificationClick = (notif: Notification) => {
+    // Mark as read
     setNotifications(prev => prev.map(n =>
-      n.id === id ? { ...n, read: true } : n
+      n.id === notif.id ? { ...n, read: true } : n
     ));
+    // Close dropdown
+    setShowNotifications(false);
+    // Navigate to the relevant page
+    router.push(notif.route);
+  };
+
+  // Clear a single notification
+  const clearNotification = (id: string, e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent triggering the parent click
+    setNotifications(prev => prev.filter(n => n.id !== id));
   };
 
   const markAllNotifsAsRead = () => {
     setNotifications(prev => prev.map(n => ({ ...n, read: true })));
+  };
+
+  const clearAllNotifications = () => {
+    setNotifications([]);
+    setShowNotifications(false);
   };
 
   const getNotificationIcon = (type: string) => {
@@ -217,38 +251,63 @@ export function JobSeekerHeader() {
                   >
                     <div className={`px-4 py-3 border-b flex items-center justify-between ${isDark ? "border-gray-800" : "border-gray-100"}`}>
                       <h3 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>Notifications</h3>
-                      {unreadNotifCount > 0 && (
-                        <button onClick={markAllNotifsAsRead} className={`text-xs font-medium ${isDark ? "text-[#4FD1C5] hover:text-[#3DBDB0]" : "text-[#2B8A8A] hover:text-[#237070]"}`}>
-                          Mark all as read
-                        </button>
-                      )}
+                      <div className="flex items-center gap-3">
+                        {unreadNotifCount > 0 && (
+                          <button onClick={markAllNotifsAsRead} className={`text-xs font-medium ${isDark ? "text-[#4FD1C5] hover:text-[#3DBDB0]" : "text-[#2B8A8A] hover:text-[#237070]"}`}>
+                            Mark all read
+                          </button>
+                        )}
+                        {notifications.length > 0 && (
+                          <button onClick={clearAllNotifications} className={`text-xs font-medium ${isDark ? "text-gray-400 hover:text-red-400" : "text-gray-500 hover:text-red-500"}`}>
+                            Clear all
+                          </button>
+                        )}
+                      </div>
                     </div>
                     <div className="max-h-80 overflow-y-auto">
-                      {notifications.map((notif) => (
-                        <button
-                          key={notif.id}
-                          onClick={() => markNotifAsRead(notif.id)}
-                          className={`w-full px-4 py-3 text-left transition-colors border-b last:border-b-0 ${
-                            notif.read
-                              ? isDark ? "border-gray-800" : "border-gray-50"
-                              : isDark ? "bg-gray-800/50 border-gray-800" : "bg-blue-50/50 border-gray-50"
-                          } ${isDark ? "hover:bg-gray-800" : "hover:bg-gray-50"}`}
-                        >
-                          <div className="flex items-start gap-3">
-                            <div className={`mt-0.5 ${getNotificationColor(notif.type, notif.read)}`}>
-                              {getNotificationIcon(notif.type)}
+                      {notifications.length === 0 ? (
+                        <div className={`px-4 py-8 text-center ${isDark ? "text-gray-500" : "text-gray-400"}`}>
+                          <Bell className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                          <p className="text-sm">No notifications</p>
+                        </div>
+                      ) : (
+                        notifications.map((notif) => (
+                          <button
+                            key={notif.id}
+                            onClick={() => handleNotificationClick(notif)}
+                            className={`w-full px-4 py-3 text-left transition-colors border-b last:border-b-0 group/notif ${
+                              notif.read
+                                ? isDark ? "border-gray-800" : "border-gray-50"
+                                : isDark ? "bg-gray-800/50 border-gray-800" : "bg-blue-50/50 border-gray-50"
+                            } ${isDark ? "hover:bg-gray-800" : "hover:bg-gray-50"}`}
+                          >
+                            <div className="flex items-start gap-3">
+                              <div className={`mt-0.5 ${getNotificationColor(notif.type, notif.read)}`}>
+                                {getNotificationIcon(notif.type)}
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className={`text-sm font-medium ${notif.read ? (isDark ? "text-gray-400" : "text-gray-500") : (isDark ? "text-white" : "text-gray-900")}`}>
+                                  {notif.title}
+                                </p>
+                                <p className={`text-xs mt-0.5 truncate ${isDark ? "text-gray-500" : "text-gray-400"}`}>{notif.message}</p>
+                                <p className={`text-xs mt-1 ${isDark ? "text-gray-600" : "text-gray-300"}`}>{notif.time}</p>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                {!notif.read && <div className="w-2 h-2 rounded-full bg-[#2B8A8A] dark:bg-[#4FD1C5]" />}
+                                <button
+                                  onClick={(e) => clearNotification(notif.id, e)}
+                                  className={`p-1 rounded opacity-0 group-hover/notif:opacity-100 transition-opacity ${
+                                    isDark ? "hover:bg-gray-700 text-gray-500 hover:text-gray-300" : "hover:bg-gray-200 text-gray-400 hover:text-gray-600"
+                                  }`}
+                                  aria-label="Clear notification"
+                                >
+                                  <X className="h-3 w-3" />
+                                </button>
+                              </div>
                             </div>
-                            <div className="flex-1 min-w-0">
-                              <p className={`text-sm font-medium ${notif.read ? (isDark ? "text-gray-400" : "text-gray-500") : (isDark ? "text-white" : "text-gray-900")}`}>
-                                {notif.title}
-                              </p>
-                              <p className={`text-xs mt-0.5 truncate ${isDark ? "text-gray-500" : "text-gray-400"}`}>{notif.message}</p>
-                              <p className={`text-xs mt-1 ${isDark ? "text-gray-600" : "text-gray-300"}`}>{notif.time}</p>
-                            </div>
-                            {!notif.read && <div className="w-2 h-2 rounded-full bg-[#2B8A8A] dark:bg-[#4FD1C5] mt-2" />}
-                          </div>
-                        </button>
-                      ))}
+                          </button>
+                        ))
+                      )}
                     </div>
                   </motion.div>
                 </>

@@ -73,9 +73,10 @@ model Profile {
   preferredLanguage String   @default("en") @map("preferred_language")
   profileCompleted  Boolean  @default(false) @map("profile_completed")
   welcomeTourDone   Boolean  @default(false) @map("welcome_tour_done")
-  dashboardPreferences Json? @map("dashboard_preferences") // Premium: customizable dashboard config
-  createdAt         DateTime @default(now()) @map("created_at")
-  updatedAt         DateTime @updatedAt @map("updated_at")
+  dashboardPreferences    Json?   @map("dashboard_preferences") // Premium: customizable dashboard config
+  resumeExperienceLevel   String? @map("resume_experience_level") // "beginner" | "expert"
+  createdAt               DateTime @default(now()) @map("created_at")
+  updatedAt               DateTime @updatedAt @map("updated_at")
 
   // Relations
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -611,6 +612,24 @@ model SuccessStory {
   @@map("success_stories")
 }
 
+// ==================== WAITLIST ====================
+
+model WaitlistEntry {
+  id            String         @id @default(cuid())
+  email         String         @unique
+  firstName     String         @map("first_name")
+  lastName      String         @map("last_name")
+  region        String         // US region (e.g., "northwest", "southeast")
+  referralCode  String         @unique @map("referral_code")
+  referredBy    String?        @map("referred_by")  // referralCode of the referrer
+  status        WaitlistStatus @default(PENDING)
+  createdAt     DateTime       @default(now()) @map("created_at")
+  updatedAt     DateTime       @updatedAt @map("updated_at")
+
+  @@index([referredBy])
+  @@map("waitlist_entries")
+}
+
 // ==================== WORKFORCE CENTER (Future Multi-tenant) ====================
 
 model WorkforceCenter {
@@ -702,4 +721,10 @@ enum StoryStatus {
   PENDING    // Awaiting admin review
   APPROVED   // Visible on public pages
   REJECTED   // Not approved (with reason)
+}
+
+enum WaitlistStatus {
+  PENDING    // Signed up, awaiting invite
+  INVITED    // Sent beta invite
+  REGISTERED // Converted to full user
 }

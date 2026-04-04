@@ -69,6 +69,9 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
+    const { searchParams } = new URL(request.url);
+    const includeContent = searchParams.get("includeContent") === "true";
+
     const resumes = await prisma.resume.findMany({
       where: { userId: session.userId },
       orderBy: { updatedAt: "desc" },
@@ -78,6 +81,7 @@ export async function GET(request: NextRequest) {
         templateId: true,
         createdAt: true,
         updatedAt: true,
+        ...(includeContent && { content: true }),
       },
     });
 

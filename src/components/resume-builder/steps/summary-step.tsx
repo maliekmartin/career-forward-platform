@@ -6,11 +6,14 @@ import { Button } from "@/components/ui/button";
 import { useResumeBuilder } from "../context/resume-builder-context";
 import { useTheme } from "@/lib/theme-context";
 import { cn } from "@/lib/utils";
+import { WhyThisMatters, useBeginnerMode } from "../beginner-mode-helpers";
 
 export function SummaryStep() {
   const { state, updateSummary } = useResumeBuilder();
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
+  const { guidedMode } = state;
+  const isBeginnerMode = useBeginnerMode(guidedMode);
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -73,6 +76,9 @@ export function SummaryStep() {
           This section is optional but highly recommended.
         </p>
       </div>
+
+      {/* Beginner Mode: Why This Matters */}
+      {isBeginnerMode && <WhyThisMatters step="summary" isDark={isDark} />}
 
       {/* AI Generate Button */}
       <div className="flex items-center gap-3">

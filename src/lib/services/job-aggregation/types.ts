@@ -101,6 +101,12 @@ export interface USAJobsItem {
       MinimumRange?: string;
       MaximumRange?: string;
     };
+    PositionRemuneration?: Array<{
+      MinimumRange?: string;
+      MaximumRange?: string;
+      RateIntervalCode?: string; // "PA" = Per Annum, "PH" = Per Hour
+      Description?: string;
+    }>;
   };
 }
 

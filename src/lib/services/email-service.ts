@@ -501,3 +501,126 @@ If you canceled by mistake or have any feedback, we'd love to hear from you.
     };
   }
 }
+
+/**
+ * Send waitlist confirmation email with referral link and founding member perks
+ */
+export async function sendWaitlistConfirmationEmail(
+  email: string,
+  firstName: string,
+  referralLink: string
+): Promise<SendEmailResult> {
+  try {
+    const { data, error } = await getResend().emails.send({
+      from: FROM_EMAIL,
+      to: email,
+      subject: "Welcome, Founding Member! You're on the Career Forward Waitlist",
+      html: `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+  <div style="text-align: center; margin-bottom: 30px;">
+    <h1 style="color: #0d9488; margin: 0;">Career Forward</h1>
+  </div>
+
+  <h2 style="color: #1f2937;">Welcome, ${firstName}! You're a Founding Member</h2>
+
+  <p>You're officially part of something special. As a founding member of Career Forward, you're helping shape the future of career development - and we're rewarding you for it.</p>
+
+  <div style="background-color: #fef3c7; border: 1px solid #fcd34d; border-radius: 8px; padding: 20px; margin: 24px 0;">
+    <h3 style="color: #92400e; margin: 0 0 12px 0; font-size: 16px;">Your Founding Member Perks:</h3>
+    <ul style="color: #78350f; margin: 0; padding-left: 20px;">
+      <li><strong>2 Months Free Premium</strong> - Full access to all features when we launch</li>
+      <li><strong>Exclusive Founding Member Badge</strong> - Displayed on your profile forever</li>
+      <li><strong>Shape the Product</strong> - Direct input on features we build next</li>
+      <li><strong>Raffle Entry</strong> - One lucky winner gets 6 months free premium!</li>
+    </ul>
+  </div>
+
+  <div style="background-color: #f0fdfa; border: 1px solid #99f6e4; border-radius: 8px; padding: 20px; margin: 24px 0;">
+    <h3 style="color: #0d9488; margin: 0 0 12px 0; font-size: 16px;">What You'll Get Access To:</h3>
+    <ul style="color: #115e59; margin: 0; padding-left: 20px;">
+      <li>AI-powered resume builder with 100-point scoring</li>
+      <li>Personalized 5-stage career pathway</li>
+      <li>Smart job board with salary insights</li>
+      <li>Compass - Your AI career coach</li>
+      <li>Interview prep with video training</li>
+    </ul>
+  </div>
+
+  <h3 style="color: #1f2937;">Invite Friends, Get Even More</h3>
+
+  <p>Share your unique referral link with friends. When they join, you both get recognition as early supporters!</p>
+
+  <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin: 20px 0; text-align: center;">
+    <p style="color: #64748b; font-size: 12px; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 0.5px;">Your Referral Link</p>
+    <a href="${referralLink}" style="color: #0d9488; word-break: break-all; font-weight: 600;">${referralLink}</a>
+  </div>
+
+  <div style="text-align: center; margin: 24px 0;">
+    <a href="https://twitter.com/intent/tweet?text=I%20just%20became%20a%20founding%20member%20of%20Career%20Forward!%20Join%20me%20for%202%20free%20months%20of%20premium%3A%20${encodeURIComponent(referralLink)}" style="display: inline-block; background-color: #1da1f2; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: 500; margin: 0 8px;">Share on Twitter</a>
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(referralLink)}" style="display: inline-block; background-color: #0077b5; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: 500; margin: 0 8px;">Share on LinkedIn</a>
+  </div>
+
+  <p>We're launching soon and can't wait to have you on board. Keep an eye on your inbox for your exclusive beta invite!</p>
+
+  <p style="color: #6b7280;">Welcome to the family,<br><strong>The Career Forward Team</strong></p>
+
+  <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
+
+  <p style="color: #9ca3af; font-size: 12px; text-align: center;">
+    Career Forward - Your pathway to career success<br>
+    &copy; ${new Date().getFullYear()} Career Forward. All rights reserved.
+  </p>
+</body>
+</html>
+      `,
+      text: `
+Welcome, ${firstName}! You're a Founding Member
+
+You're officially part of something special. As a founding member of Career Forward, you're helping shape the future of career development - and we're rewarding you for it.
+
+YOUR FOUNDING MEMBER PERKS:
+- 2 Months Free Premium - Full access to all features when we launch
+- Exclusive Founding Member Badge - Displayed on your profile forever
+- Shape the Product - Direct input on features we build next
+- Raffle Entry - One lucky winner gets 6 months free premium!
+
+WHAT YOU'LL GET ACCESS TO:
+- AI-powered resume builder with 100-point scoring
+- Personalized 5-stage career pathway
+- Smart job board with salary insights
+- Compass - Your AI career coach
+- Interview prep with video training
+
+INVITE FRIENDS, GET EVEN MORE
+
+Share your unique referral link with friends. When they join, you both get recognition as early supporters!
+
+Your Referral Link: ${referralLink}
+
+We're launching soon and can't wait to have you on board. Keep an eye on your inbox for your exclusive beta invite!
+
+Welcome to the family,
+The Career Forward Team
+      `.trim(),
+    });
+
+    if (error) {
+      console.error("Resend error:", error);
+      return { success: false, error: error.message };
+    }
+
+    return { success: true, messageId: data?.id };
+  } catch (error) {
+    console.error("Email send error:", error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Failed to send email",
+    };
+  }
+}
