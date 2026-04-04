@@ -112,9 +112,9 @@ export default function WaitlistPage() {
             <Image
               src="/career-forward-logo.png"
               alt="Career Forward"
-              width={180}
-              height={40}
-              className="h-8 w-auto"
+              width={360}
+              height={80}
+              className="h-16 w-auto"
             />
           </Link>
           <Link href="/">
@@ -125,7 +125,7 @@ export default function WaitlistPage() {
         </div>
       </header>
 
-      <main className="pt-20">
+      <main className="pt-28">
         {/* Hero Section - Centered, Minimal */}
         <section className="min-h-[calc(100vh-80px)] flex items-center justify-center px-6 py-16">
           <div className="max-w-4xl mx-auto text-center">
@@ -418,7 +418,6 @@ export default function WaitlistPage() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="relative"
               >
                 <div className="bg-gray-900 rounded-2xl p-2 shadow-2xl">
                   <div className="flex items-center gap-2 px-4 py-3">
@@ -444,42 +443,44 @@ export default function WaitlistPage() {
                   </div>
                 </div>
 
-                {/* Floating Stats */}
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.3 }}
-                  className="absolute -left-4 md:left-8 top-1/2 -translate-y-1/2 bg-white rounded-xl p-4 shadow-lg border border-gray-100 hidden lg:block"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-[#2B8A8A] flex items-center justify-center">
-                      <Briefcase className="w-5 h-5 text-white" />
+                {/* Stats Below Video */}
+                <div className="flex justify-center gap-4 mt-6">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3 }}
+                    className="bg-white rounded-xl px-5 py-4 shadow-lg border border-gray-100"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-[#2B8A8A] flex items-center justify-center">
+                        <Briefcase className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <p className="text-2xl font-bold text-gray-900">2,847</p>
+                        <p className="text-xs text-gray-500">Jobs Tracked</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-2xl font-bold text-gray-900">2,847</p>
-                      <p className="text-xs text-gray-500">Jobs Tracked</p>
-                    </div>
-                  </div>
-                </motion.div>
+                  </motion.div>
 
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.4 }}
-                  className="absolute -right-4 md:right-8 top-1/3 bg-white rounded-xl p-4 shadow-lg border border-gray-100 hidden lg:block"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-green-500 flex items-center justify-center">
-                      <CheckCircle2 className="w-5 h-5 text-white" />
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.4 }}
+                    className="bg-white rounded-xl px-5 py-4 shadow-lg border border-gray-100"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-green-500 flex items-center justify-center">
+                        <CheckCircle2 className="w-5 h-5 text-white" />
+                      </div>
+                      <div>
+                        <p className="text-2xl font-bold text-gray-900">94%</p>
+                        <p className="text-xs text-gray-500">Success Rate</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-2xl font-bold text-gray-900">94%</p>
-                      <p className="text-xs text-gray-500">Success Rate</p>
-                    </div>
-                  </div>
-                </motion.div>
+                  </motion.div>
+                </div>
               </motion.div>
             </div>
           </section>
