@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
@@ -14,18 +13,32 @@ import {
   Copy,
   Check,
   Loader2,
-  Users,
   AlertCircle,
   Briefcase,
-  ChevronDown,
-  Star,
+  Mail,
+  MessageCircle,
+  Facebook,
+  Linkedin,
 } from "lucide-react";
 import { US_REGIONS } from "@/lib/validations/waitlist";
 
-export default function WaitlistPage() {
-  const searchParams = useSearchParams();
-  const referredBy = searchParams.get("ref");
+// Seed names for social proof (will blend with real signups)
+const SEED_SIGNUPS = [
+  { name: "Jordan", region: "northwest", daysAgo: 0 },
+  { name: "Taylor", region: "southwest", daysAgo: 0 },
+  { name: "Morgan", region: "midwest", daysAgo: 1 },
+  { name: "Casey", region: "northeast", daysAgo: 1 },
+  { name: "Riley", region: "southeast", daysAgo: 2 },
+  { name: "Alex", region: "south", daysAgo: 2 },
+  { name: "Jamie", region: "mountain", daysAgo: 3 },
+  { name: "Quinn", region: "northwest", daysAgo: 3 },
+];
 
+// Share link and text
+const SHARE_URL = "https://careerforward.io/waitlist";
+const SHARE_TEXT = "I've registered for Career Forward's beta waitlist. Learn about what Career Forward is doing today:";
+
+export default function WaitlistPage() {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -35,18 +48,73 @@ export default function WaitlistPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [referralLink, setReferralLink] = useState("");
   const [copied, setCopied] = useState(false);
-  const [waitlistCount, setWaitlistCount] = useState<number | null>(null);
-  const [alreadyExists, setAlreadyExists] = useState(false);
+  const [waitlistCount, setWaitlistCount] = useState<number>(SEED_SIGNUPS.length);
+  const [displaySignups, setDisplaySignups] = useState<Array<{ name: string; region: string; timeAgo: string }>>([]);
 
-  // Fetch waitlist count on mount
+  // Format time ago
+  const formatTimeAgo = (daysAgo: number): string => {
+    if (daysAgo === 0) return "today";
+    if (daysAgo === 1) return "yesterday";
+    return `${daysAgo}d ago`;
+  };
+
+  // Fetch waitlist count and merge with seed data
   useEffect(() => {
     fetch("/api/waitlist")
       .then((res) => res.json())
-      .then((data) => setWaitlistCount(data.count))
-      .catch(() => {});
+      .then((data) => {
+        // Merge real signups with seed data
+        const realSignups = (data.recent || []).map((s: { name: string; region: string; joinedAt: string }) => ({
+          name: s.name,
+          region: s.region,
+          timeAgo: getTimeAgo(new Date(s.joinedAt)),
+        }));
+
+        // Add seed signups if we need more
+        const seedFormatted = SEED_SIGNUPS.map((s) => ({
+          name: s.name,
+          region: s.region,
+          timeAgo: formatTimeAgo(s.daysAgo),
+        }));
+
+        // Combine: real first, then seed to fill
+        const combined = [...realSignups];
+        let seedIndex = 0;
+        while (combined.length < 5 && seedIndex < seedFormatted.length) {
+          // Only add seed if name doesn't already exist
+          if (!combined.find((c) => c.name.toLowerCase() === seedFormatted[seedIndex].name.toLowerCase())) {
+            combined.push(seedFormatted[seedIndex]);
+          }
+          seedIndex++;
+        }
+
+        setDisplaySignups(combined.slice(0, 5));
+        setWaitlistCount(Math.max(data.count || 0, SEED_SIGNUPS.length) + (data.count || 0));
+      })
+      .catch(() => {
+        // On error, show seed data
+        setDisplaySignups(
+          SEED_SIGNUPS.slice(0, 5).map((s) => ({
+            name: s.name,
+            region: s.region,
+            timeAgo: formatTimeAgo(s.daysAgo),
+          }))
+        );
+      });
   }, []);
+
+  const getTimeAgo = (date: Date): string => {
+    const seconds = Math.floor((new Date().getTime() - date.getTime()) / 1000);
+    if (seconds < 60) return "just now";
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) return `${minutes}m ago`;
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return `${hours}h ago`;
+    const days = Math.floor(hours / 24);
+    if (days === 1) return "yesterday";
+    return `${days}d ago`;
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,18 +125,13 @@ export default function WaitlistPage() {
       const response = await fetch("/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          referredBy: referredBy || undefined,
-        }),
+        body: JSON.stringify(formData),
       });
 
       const data = await response.json();
 
       if (data.success) {
-        setReferralLink(data.referralLink);
         setIsSuccess(true);
-        setAlreadyExists(data.alreadyExists || false);
       } else {
         setError(data.message || "Something went wrong. Please try again.");
       }
@@ -79,14 +142,14 @@ export default function WaitlistPage() {
     }
   };
 
-  const handleCopy = async () => {
+  const handleCopyLink = async () => {
     try {
-      await navigator.clipboard.writeText(referralLink);
+      await navigator.clipboard.writeText(SHARE_URL);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
       const textArea = document.createElement("textarea");
-      textArea.value = referralLink;
+      textArea.value = SHARE_URL;
       document.body.appendChild(textArea);
       textArea.select();
       document.execCommand("copy");
@@ -96,12 +159,32 @@ export default function WaitlistPage() {
     }
   };
 
+  // Share URLs for different platforms
+  const shareUrls = {
+    twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(SHARE_TEXT)}&url=${encodeURIComponent(SHARE_URL)}`,
+    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(SHARE_URL)}`,
+    facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SHARE_URL)}&quote=${encodeURIComponent(SHARE_TEXT)}`,
+    whatsapp: `https://wa.me/?text=${encodeURIComponent(`${SHARE_TEXT} ${SHARE_URL}`)}`,
+    email: `mailto:?subject=${encodeURIComponent("Check out Career Forward!")}&body=${encodeURIComponent(`${SHARE_TEXT}\n\n${SHARE_URL}`)}`,
+    sms: `sms:?body=${encodeURIComponent(`${SHARE_TEXT} ${SHARE_URL}`)}`,
+  };
+
   const benefits = [
     "2 months free premium access",
     "Exclusive founding member badge",
     "Shape the product roadmap",
     "Early access to new features",
   ];
+
+  const regionNames: Record<string, string> = {
+    northwest: "Northwest",
+    southwest: "Southwest",
+    midwest: "Midwest",
+    northeast: "Northeast",
+    southeast: "Southeast",
+    south: "South",
+    mountain: "Mountain",
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -126,8 +209,8 @@ export default function WaitlistPage() {
       </header>
 
       <main className="pt-28">
-        {/* Hero Section - Centered, Minimal */}
-        <section className="min-h-[calc(100vh-80px)] flex items-center justify-center px-6 py-16">
+        {/* Hero Section */}
+        <section className="min-h-[calc(100vh-112px)] flex items-center justify-center px-6 py-16">
           <div className="max-w-4xl mx-auto text-center">
             <AnimatePresence mode="wait">
               {!isSuccess ? (
@@ -260,15 +343,15 @@ export default function WaitlistPage() {
                     transition={{ delay: 0.5 }}
                     className="flex flex-col items-center gap-4"
                   >
-                    {waitlistCount !== null && waitlistCount > 0 && (
+                    {waitlistCount > 0 && (
                       <div className="flex items-center gap-2 text-gray-500">
                         <div className="flex -space-x-2">
-                          {[...Array(3)].map((_, i) => (
+                          {displaySignups.slice(0, 3).map((signup, i) => (
                             <div
                               key={i}
                               className="w-8 h-8 rounded-full bg-gradient-to-br from-[#2B8A8A] to-teal-600 border-2 border-white flex items-center justify-center text-white text-xs font-medium"
                             >
-                              {String.fromCharCode(65 + i)}
+                              {signup.name.charAt(0).toUpperCase()}
                             </div>
                           ))}
                         </div>
@@ -277,15 +360,10 @@ export default function WaitlistPage() {
                         </span>
                       </div>
                     )}
-
-                    {referredBy && (
-                      <div className="text-sm text-[#2B8A8A] bg-[#2B8A8A]/5 px-4 py-2 rounded-full">
-                        You were referred by a friend!
-                      </div>
-                    )}
                   </motion.div>
                 </motion.div>
               ) : (
+                /* Success State */
                 <motion.div
                   key="success"
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -301,54 +379,115 @@ export default function WaitlistPage() {
                     <CheckCircle2 className="w-10 h-10 text-green-600" />
                   </motion.div>
 
-                  <h2 className="text-3xl font-bold text-gray-900 mb-3">
-                    {alreadyExists ? "Welcome back!" : "You're on the list!"}
+                  <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                    You're officially registered!
                   </h2>
-                  <p className="text-gray-600 mb-8">
-                    {alreadyExists
-                      ? "You're already on the waitlist. Here's your referral link."
-                      : "We'll notify you when it's your turn. Share your link to move up!"}
-                  </p>
 
-                  <div className="bg-gray-50 rounded-2xl p-6 mb-6">
-                    <p className="text-xs text-gray-500 uppercase tracking-wide font-medium mb-3">
-                      Your Referral Link
+                  <div className="text-gray-600 mb-8 space-y-4">
+                    <p>
+                      Thank you for joining the Career Forward waitlist. Please keep an eye on your email over the next one to two months, as you may be selected to participate in the Career Forward beta test.
                     </p>
-                    <div className="flex items-center gap-2">
+                    <p>
+                      We look forward to formally launching in early to mid-2027.
+                    </p>
+                    <p className="text-sm">
+                      If you have any questions, please email{" "}
+                      <a href="mailto:support@martinbuiltstrategies.com" className="text-[#2B8A8A] hover:underline">
+                        support@martinbuiltstrategies.com
+                      </a>
+                    </p>
+                  </div>
+
+                  {/* Share Section */}
+                  <div className="bg-gray-50 rounded-2xl p-6 mb-6">
+                    <p className="text-sm font-medium text-gray-900 mb-4">
+                      Know someone who's job searching? Share the opportunity:
+                    </p>
+
+                    {/* Copy Link */}
+                    <div className="flex items-center gap-2 mb-4">
                       <input
                         type="text"
                         readOnly
-                        value={referralLink}
-                        className="flex-1 bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700 font-mono"
+                        value={SHARE_URL}
+                        className="flex-1 bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm text-gray-700"
                       />
                       <Button
-                        onClick={handleCopy}
-                        className={`h-12 px-5 rounded-xl ${
-                          copied ? "bg-green-500" : "bg-[#2B8A8A]"
+                        onClick={handleCopyLink}
+                        className={`h-12 px-4 rounded-xl transition-colors ${
+                          copied ? "bg-green-500 hover:bg-green-600" : "bg-[#2B8A8A] hover:bg-[#237070]"
                         }`}
                       >
                         {copied ? <Check className="w-5 h-5" /> : <Copy className="w-5 h-5" />}
                       </Button>
                     </div>
-                  </div>
 
-                  <div className="flex justify-center gap-3">
-                    <a
-                      href={`https://twitter.com/intent/tweet?text=I%20just%20joined%20Career%20Forward!%20Join%20me%3A%20${encodeURIComponent(referralLink)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-5 py-2.5 bg-black text-white rounded-xl text-sm font-medium hover:bg-gray-800 transition-colors"
-                    >
-                      Share on X
-                    </a>
-                    <a
-                      href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(referralLink)}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-5 py-2.5 bg-[#0077b5] text-white rounded-xl text-sm font-medium hover:bg-[#006699] transition-colors"
-                    >
-                      Share on LinkedIn
-                    </a>
+                    {/* Share Buttons Grid */}
+                    <div className="grid grid-cols-3 gap-2">
+                      {/* Twitter/X */}
+                      <a
+                        href={shareUrls.twitter}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-2 px-4 py-3 bg-black text-white rounded-xl text-sm font-medium hover:bg-gray-800 transition-colors"
+                      >
+                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                        </svg>
+                        X
+                      </a>
+
+                      {/* LinkedIn */}
+                      <a
+                        href={shareUrls.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-2 px-4 py-3 bg-[#0077b5] text-white rounded-xl text-sm font-medium hover:bg-[#006699] transition-colors"
+                      >
+                        <Linkedin className="w-4 h-4" />
+                        LinkedIn
+                      </a>
+
+                      {/* Facebook */}
+                      <a
+                        href={shareUrls.facebook}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-2 px-4 py-3 bg-[#1877f2] text-white rounded-xl text-sm font-medium hover:bg-[#166fe5] transition-colors"
+                      >
+                        <Facebook className="w-4 h-4" />
+                        Facebook
+                      </a>
+
+                      {/* WhatsApp */}
+                      <a
+                        href={shareUrls.whatsapp}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-2 px-4 py-3 bg-[#25D366] text-white rounded-xl text-sm font-medium hover:bg-[#20bd5a] transition-colors"
+                      >
+                        <MessageCircle className="w-4 h-4" />
+                        WhatsApp
+                      </a>
+
+                      {/* Email */}
+                      <a
+                        href={shareUrls.email}
+                        className="flex items-center justify-center gap-2 px-4 py-3 bg-gray-600 text-white rounded-xl text-sm font-medium hover:bg-gray-700 transition-colors"
+                      >
+                        <Mail className="w-4 h-4" />
+                        Email
+                      </a>
+
+                      {/* SMS */}
+                      <a
+                        href={shareUrls.sms}
+                        className="flex items-center justify-center gap-2 px-4 py-3 bg-gray-600 text-white rounded-xl text-sm font-medium hover:bg-gray-700 transition-colors"
+                      >
+                        <MessageCircle className="w-4 h-4" />
+                        Text
+                      </a>
+                    </div>
                   </div>
                 </motion.div>
               )}
@@ -356,7 +495,7 @@ export default function WaitlistPage() {
           </div>
         </section>
 
-        {/* Benefits Section - Clean Cards */}
+        {/* Benefits Section */}
         {!isSuccess && (
           <section className="py-20 px-6 bg-gray-50">
             <div className="max-w-5xl mx-auto">
@@ -395,7 +534,7 @@ export default function WaitlistPage() {
           </section>
         )}
 
-        {/* Product Preview - Clean */}
+        {/* Product Preview */}
         {!isSuccess && (
           <section className="py-20 px-6">
             <div className="max-w-5xl mx-auto">
@@ -413,7 +552,6 @@ export default function WaitlistPage() {
                 </p>
               </motion.div>
 
-              {/* App Preview */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
