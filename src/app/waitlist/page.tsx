@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -107,11 +108,14 @@ export default function WaitlistPage() {
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="w-9 h-9 rounded-lg bg-[#2B8A8A] flex items-center justify-center">
-              <Sparkles className="w-4 h-4 text-white" />
-            </div>
-            <span className="text-lg font-semibold text-gray-900">Career Forward</span>
+          <Link href="/" className="flex items-center">
+            <Image
+              src="/career-forward-logo.png"
+              alt="Career Forward"
+              width={180}
+              height={40}
+              className="h-8 w-auto"
+            />
           </Link>
           <Link href="/">
             <Button variant="ghost" size="sm" className="text-gray-600">
@@ -510,9 +514,20 @@ export default function WaitlistPage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-gray-100 py-8 px-6">
-        <div className="max-w-6xl mx-auto text-center text-gray-500 text-sm">
-          <p>&copy; {new Date().getFullYear()} Career Forward. All rights reserved.</p>
+      <footer className="border-t border-gray-100 py-12 px-6">
+        <div className="max-w-6xl mx-auto flex flex-col items-center gap-4">
+          <Link href="/">
+            <Image
+              src="/career-forward-logo.png"
+              alt="Career Forward"
+              width={150}
+              height={35}
+              className="h-7 w-auto opacity-70 hover:opacity-100 transition-opacity"
+            />
+          </Link>
+          <p className="text-gray-400 text-sm">
+            &copy; {new Date().getFullYear()} Career Forward. All rights reserved.
+          </p>
         </div>
       </footer>
     </div>
