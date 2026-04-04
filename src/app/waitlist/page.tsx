@@ -199,6 +199,12 @@ export default function WaitlistPage() {
 
   const features = [
     {
+      icon: Briefcase,
+      title: "Job Tracker",
+      description: "Track every application in one place",
+      highlight: true,
+    },
+    {
       icon: FileText,
       title: "AI Resume Builder",
       description: "100-point scoring system",
@@ -212,11 +218,6 @@ export default function WaitlistPage() {
       icon: MessageSquare,
       title: "AI Career Coach",
       description: "24/7 guidance & support",
-    },
-    {
-      icon: Briefcase,
-      title: "Application Tracker",
-      description: "Stay organized & focused",
     },
   ];
 
@@ -475,37 +476,29 @@ export default function WaitlistPage() {
                   </div>
                 </div>
 
-                {/* Floating Feature Cards */}
+                {/* Stats Cards Below Video */}
                 <motion.div
-                  initial={{ opacity: 0, x: -30 }}
-                  animate={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1 }}
-                  className="absolute -left-8 top-1/4 bg-white rounded-xl p-3 shadow-xl border border-gray-100"
+                  className="flex justify-center gap-3 mt-6"
                 >
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center">
-                      <CheckCircle2 className="w-4 h-4 text-green-600" />
+                  <div className="bg-white rounded-xl px-4 py-3 shadow-lg border border-gray-100 flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#2B8A8A] to-teal-600 flex items-center justify-center">
+                      <Briefcase className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <p className="text-xs font-semibold text-gray-900">Resume Score</p>
-                      <p className="text-lg font-bold text-green-600">94/100</p>
+                      <p className="text-xs text-gray-500">Applications Tracked</p>
+                      <p className="text-lg font-bold text-gray-900">2,847</p>
                     </div>
                   </div>
-                </motion.div>
-
-                <motion.div
-                  initial={{ opacity: 0, x: 30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 1.2 }}
-                  className="absolute -right-4 bottom-1/4 bg-white rounded-xl p-3 shadow-xl border border-gray-100"
-                >
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center">
-                      <Target className="w-4 h-4 text-purple-600" />
+                  <div className="bg-white rounded-xl px-4 py-3 shadow-lg border border-gray-100 flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
+                      <CheckCircle2 className="w-5 h-5 text-white" />
                     </div>
                     <div>
-                      <p className="text-xs font-semibold text-gray-900">Jobs Matched</p>
-                      <p className="text-lg font-bold text-purple-600">127</p>
+                      <p className="text-xs text-gray-500">Offers Received</p>
+                      <p className="text-lg font-bold text-gray-900">312</p>
                     </div>
                   </div>
                 </motion.div>
@@ -567,8 +560,53 @@ export default function WaitlistPage() {
             >
               {/* Features Grid */}
               <h3 className="text-2xl font-bold text-gray-900 mb-6">What You'll Get Access To</h3>
-              <div className="grid grid-cols-2 gap-4 mb-8">
-                {features.map((feature, index) => (
+
+              {/* Highlighted Job Tracker Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.02 }}
+                className="group relative p-6 rounded-2xl bg-gradient-to-br from-[#2B8A8A] to-teal-600 text-white mb-4 shadow-xl shadow-[#2B8A8A]/25 overflow-hidden"
+              >
+                {/* Background pattern */}
+                <div className="absolute inset-0 opacity-10">
+                  <div className="absolute top-0 right-0 w-40 h-40 bg-white rounded-full blur-3xl" />
+                  <div className="absolute bottom-0 left-0 w-32 h-32 bg-white rounded-full blur-2xl" />
+                </div>
+                <div className="relative flex items-start gap-4">
+                  <div className="w-14 h-14 rounded-xl bg-white/20 backdrop-blur flex items-center justify-center flex-shrink-0">
+                    <Briefcase className="w-7 h-7 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-1">
+                      <h4 className="font-bold text-lg">Job Tracker</h4>
+                      <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full">Most Popular</span>
+                    </div>
+                    <p className="text-white/90 text-sm mb-3">
+                      Track every job application in one powerful dashboard. See status at a glance with our stoplight system - green for active, yellow for pending, red for closed.
+                    </p>
+                    <div className="flex gap-4 text-sm">
+                      <div className="flex items-center gap-1">
+                        <div className="w-2 h-2 rounded-full bg-green-400" />
+                        <span className="text-white/80">Active</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <div className="w-2 h-2 rounded-full bg-yellow-400" />
+                        <span className="text-white/80">Pending</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <div className="w-2 h-2 rounded-full bg-red-400" />
+                        <span className="text-white/80">Closed</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Other Features Grid */}
+              <div className="grid grid-cols-3 gap-3 mb-8">
+                {features.filter(f => !f.highlight).map((feature, index) => (
                   <motion.div
                     key={feature.title}
                     initial={{ opacity: 0, y: 20 }}
@@ -576,15 +614,13 @@ export default function WaitlistPage() {
                     viewport={{ once: true }}
                     transition={{ delay: index * 0.1 }}
                     whileHover={{ scale: 1.03 }}
-                    className="group flex items-start gap-3 p-4 rounded-2xl bg-white border border-gray-100 hover:border-[#2B8A8A]/30 hover:shadow-lg transition-all duration-300"
+                    className="group flex flex-col items-center text-center p-4 rounded-2xl bg-white border border-gray-100 hover:border-[#2B8A8A]/30 hover:shadow-lg transition-all duration-300"
                   >
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#2B8A8A]/10 to-[#2B8A8A]/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                      <feature.icon className="w-5 h-5 text-[#2B8A8A]" />
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#2B8A8A]/10 to-[#2B8A8A]/20 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+                      <feature.icon className="w-6 h-6 text-[#2B8A8A]" />
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-900">{feature.title}</h4>
-                      <p className="text-sm text-gray-500">{feature.description}</p>
-                    </div>
+                    <h4 className="font-semibold text-gray-900 text-sm">{feature.title}</h4>
+                    <p className="text-xs text-gray-500 mt-1">{feature.description}</p>
                   </motion.div>
                 ))}
               </div>
