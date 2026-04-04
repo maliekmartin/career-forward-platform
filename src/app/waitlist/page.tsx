@@ -165,7 +165,7 @@ export default function WaitlistPage() {
     linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(SHARE_URL)}`,
     facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(SHARE_URL)}&quote=${encodeURIComponent(SHARE_TEXT)}`,
     whatsapp: `https://wa.me/?text=${encodeURIComponent(`${SHARE_TEXT} ${SHARE_URL}`)}`,
-    email: `mailto:?subject=${encodeURIComponent("Check out Career Forward!")}&body=${encodeURIComponent(`${SHARE_TEXT}\n\n${SHARE_URL}`)}`,
+    email: `mailto:?subject=${encodeURIComponent("Job hunting just got smarter")}&body=${encodeURIComponent(`${SHARE_TEXT}\n\n${SHARE_URL}`)}`,
     sms: `sms:?body=${encodeURIComponent(`${SHARE_TEXT} ${SHARE_URL}`)}`,
   };
 
