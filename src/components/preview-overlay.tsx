@@ -80,6 +80,7 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
   const [audience, setAudience] = useState<"seekers" | "organizations">("seekers");
 
   // Check if current route is public (bypass password protection)
+  // This must be checked early to avoid flashing the password screen
   const isPublicRoute = PUBLIC_ROUTES.some(route => pathname === route || pathname?.startsWith(`${route}/`));
 
   useEffect(() => {
@@ -89,6 +90,11 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
     }
     setIsLoading(false);
   }, []);
+
+  // If on a public route, render children immediately without any protection or loading
+  if (isPublicRoute) {
+    return <>{children}</>;
+  }
 
   const accentColor = audience === "seekers" ? "#2B8A8A" : "#374151";
   const currentContent = heroContent[audience];
@@ -113,11 +119,6 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
         <div className="w-8 h-8 border-2 border-[#2B8A8A] border-t-transparent rounded-full animate-spin" />
       </div>
     );
-  }
-
-  // If on a public route, render children immediately without protection
-  if (isPublicRoute) {
-    return <>{children}</>;
   }
 
   if (isUnlocked) {
