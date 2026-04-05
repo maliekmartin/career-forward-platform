@@ -28,36 +28,8 @@ export default function CoachLayout({
   const [isChecking, setIsChecking] = useState(true);
 
   useEffect(() => {
-    async function checkAccess() {
-      try {
-        const res = await fetch("/api/user");
-        if (!res.ok) {
-          // Not logged in - redirect to signin
-          router.replace("/signin?type=coach");
-          return;
-        }
-
-        const data = await res.json();
-        const userRole = data.user?.role;
-
-        // Only COACH and ADMIN roles can access the coach section
-        if (userRole === "COACH" || userRole === "ADMIN") {
-          setIsAuthorized(true);
-        } else {
-          setIsAuthorized(false);
-          // Redirect job seekers to their dashboard
-          setTimeout(() => {
-            router.replace("/dashboard");
-          }, 2000);
-        }
-      } catch {
-        router.replace("/signin?type=coach");
-      } finally {
-        setIsChecking(false);
-      }
-    }
-
-    checkAccess();
+    // Coach portal temporarily disabled - redirect all users to job seeker dashboard
+    router.replace("/dashboard");
   }, [router]);
 
   // Show loading state while checking authorization

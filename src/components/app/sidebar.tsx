@@ -27,7 +27,7 @@ import { useTheme } from "@/lib/theme-context";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
-  { name: "Messages", href: "/messages", icon: Mail },
+  { name: "Messages", href: "/messages", icon: Mail, comingSoon: true },
   { name: "Job Board", href: "/job-board", icon: Search },
 ];
 
@@ -174,21 +174,33 @@ export function Sidebar() {
         <ul className="space-y-1" role="list">
           {navigation.map((item) => {
             const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
+            const navItem = item as typeof item & { comingSoon?: boolean };
             return (
               <li key={item.name}>
                 <Link
-                  href={item.href}
+                  href={navItem.comingSoon ? "#" : item.href}
+                  onClick={navItem.comingSoon ? (e) => e.preventDefault() : undefined}
                   className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
-                    isActive
+                    navItem.comingSoon
+                      ? isDark
+                        ? "text-gray-500 cursor-not-allowed"
+                        : "text-gray-400 cursor-not-allowed"
+                      : isActive
                       ? "bg-[#2B8A8A] dark:bg-[#4FD1C5] text-white dark:text-gray-900"
                       : isDark
                       ? "text-gray-400 hover:bg-gray-800 hover:text-white"
                       : "text-gray-600 hover:bg-gray-50"
                   }`}
                   aria-current={isActive ? "page" : undefined}
+                  aria-disabled={navItem.comingSoon}
                 >
                   <item.icon className="h-5 w-5" aria-hidden="true" />
                   {item.name}
+                  {navItem.comingSoon && (
+                    <span className="ml-auto text-[10px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400">
+                      Soon
+                    </span>
+                  )}
                 </Link>
               </li>
             );

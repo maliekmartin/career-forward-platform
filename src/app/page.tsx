@@ -40,12 +40,6 @@ const seekerStats = [
   { value: "Free", label: "For Job Seekers" },
 ];
 
-const orgStats = [
-  { value: "25%", label: "Faster Placements" },
-  { value: "60%", label: "Admin Time Saved" },
-  { value: "85%", label: "Client Retention" },
-];
-
 
 // Animated section wrapper
 function AnimatedSection({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
@@ -300,9 +294,9 @@ const seekerFeatures = [
     color: "#2B8A8A",
   },
   {
-    icon: Users,
-    title: "Coach Connection",
-    description: "Link with your career coach for real-time feedback, accountability, and personalized guidance.",
+    icon: Sparkles,
+    title: "AI Career Coach",
+    description: "Get personalized guidance from our AI-powered career coach. Available 24/7 to answer questions and keep you on track.",
     color: "#374151",
   },
   {
@@ -383,7 +377,7 @@ const seekerSteps = [
   {
     number: "04",
     title: "Land the Job",
-    description: "Get coach feedback, ace interviews, and celebrate your success.",
+    description: "Ace interviews, get the offer, and celebrate your success.",
     icon: Award,
   },
 ];
@@ -425,7 +419,7 @@ const seekerTestimonials = [
     avatar: "M",
   },
   {
-    quote: "The resume builder alone was worth it. My coach helped me highlight skills I didn't even know I had.",
+    quote: "The resume builder alone was worth it. It helped me highlight skills I didn't even know I had.",
     name: "Elena K.",
     role: "Registered Nurse",
     avatar: "E",
@@ -474,7 +468,8 @@ interface SuccessStoryData {
 export default function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showStickyCTA, setShowStickyCTA] = useState(false);
-  const [audience, setAudience] = useState<"seekers" | "organizations">("seekers");
+  // Audience fixed to job seekers (organization portal coming later)
+  const audience = "seekers" as const;
   const [dynamicStories, setDynamicStories] = useState<SuccessStoryData[]>([]);
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -549,16 +544,11 @@ export default function LandingPage() {
             <Link href="/faq" className="text-sm text-gray-600 hover:text-[#2B8A8A] transition-colors font-medium">
               FAQ
             </Link>
-            {audience === "organizations" && (
-              <Link href="/pricing" className="text-sm text-gray-600 hover:text-[#2B8A8A] transition-colors font-medium">
-                Pricing
-              </Link>
-            )}
           </div>
 
           <div className="flex items-center gap-3">
             <Button variant="ghost" size="sm" asChild className="text-gray-600 hover:text-[#2B8A8A] font-medium">
-              <Link href={`/signin?type=${audience === "seekers" ? "seeker" : "coach"}`}>
+              <Link href="/signin">
                 Sign In
               </Link>
             </Button>
@@ -592,84 +582,18 @@ export default function LandingPage() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left Side - Content */}
             <div className="text-center lg:text-left">
-              {/* Premium Audience Selector */}
+              {/* Badge */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1, duration: 0.5 }}
                 className="flex items-center justify-center lg:justify-start mb-8"
               >
-              <div className="relative bg-white rounded-2xl p-1.5 shadow-xl shadow-gray-200/50 border border-gray-100">
-                {/* Animated sliding background */}
-                <motion.div
-                  className="absolute top-1.5 bottom-1.5 rounded-xl"
-                  initial={false}
-                  animate={{
-                    x: audience === "seekers" ? 0 : "100%",
-                    backgroundColor: accentColor,
-                  }}
-                  transition={{ type: "spring", stiffness: 400, damping: 35 }}
-                  style={{ width: "calc(50% - 3px)", left: "6px" }}
-                />
-
-                <div className="relative flex">
-                  {/* Job Seeker Option */}
-                  <button
-                    onClick={() => setAudience("seekers")}
-                    className="relative z-10 group"
-                    role="tab"
-                    aria-selected={audience === "seekers"}
-                  >
-                    <div className="flex items-center gap-3 px-6 py-4">
-                      <Target className={`w-5 h-5 transition-colors duration-300 ${
-                        audience === "seekers" ? "text-white" : "text-gray-400"
-                      }`} />
-                      <div className="text-left">
-                        <p className={`font-bold transition-colors duration-300 ${
-                          audience === "seekers" ? "text-white" : "text-gray-700"
-                        }`}>
-                          Job Seeker
-                        </p>
-                        <p className={`text-xs font-medium transition-colors duration-300 ${
-                          audience === "seekers" ? "text-white/80" : "text-gray-400"
-                        }`}>
-                          Free Forever
-                        </p>
-                      </div>
-                    </div>
-                  </button>
-
-                  {/* Divider */}
-                  <div className="w-px bg-gray-200 my-3" />
-
-                  {/* Organization Option */}
-                  <button
-                    onClick={() => setAudience("organizations")}
-                    className="relative z-10 group"
-                    role="tab"
-                    aria-selected={audience === "organizations"}
-                  >
-                    <div className="flex items-center gap-3 px-6 py-4">
-                      <Building2 className={`w-5 h-5 transition-colors duration-300 ${
-                        audience === "organizations" ? "text-white" : "text-gray-400"
-                      }`} />
-                      <div className="text-left">
-                        <p className={`font-bold transition-colors duration-300 ${
-                          audience === "organizations" ? "text-white" : "text-gray-700"
-                        }`}>
-                          Organization
-                        </p>
-                        <p className={`text-xs font-medium transition-colors duration-300 ${
-                          audience === "organizations" ? "text-white/80" : "text-gray-400"
-                        }`}>
-                          Workforce Partner
-                        </p>
-                      </div>
-                    </div>
-                  </button>
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-lg shadow-gray-200/50 border border-gray-100">
+                  <Sparkles className="h-4 w-4 text-[#2B8A8A]" />
+                  <span className="text-sm font-medium text-gray-700">100% Free for Job Seekers</span>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
 
             {/* Headline */}
             <motion.div
@@ -973,7 +897,7 @@ export default function LandingPage() {
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               {audience === "seekers"
-                ? "A complete career toolkit designed with coaches and HR professionals to help you land your next role."
+                ? "A complete career toolkit designed by HR professionals to help you land your next role."
                 : "Equip your team with the visibility and tools they need to support job seekers effectively."}
             </p>
           </AnimatedSection>
@@ -1600,22 +1524,22 @@ export default function LandingPage() {
               {audience === "seekers" ? (
                 <>
                   <div className="inline-flex items-center gap-2 bg-[#2B8A8A]/10 rounded-full px-5 py-2.5 mb-8">
-                    <Users className="h-4 w-4 text-[#2B8A8A]" />
-                    <span className="text-sm font-semibold text-[#2B8A8A]">Expert Guidance</span>
+                    <Sparkles className="h-4 w-4 text-[#2B8A8A]" />
+                    <span className="text-sm font-semibold text-[#2B8A8A]">AI-Powered Guidance</span>
                   </div>
                   <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-8 leading-tight">
-                    Connect with a career coach
+                    Your personal AI career coach
                   </h2>
                   <p className="text-xl text-gray-600 mb-10 leading-relaxed">
-                    Working with a workforce organization? Link your account to share your progress with your coach. Get personalized feedback, stay accountable, and celebrate wins together.
+                    Meet Compass, your AI career coach. Get personalized guidance, resume feedback, and interview tips available 24/7 to help you succeed in your job search.
                   </p>
 
                   <ul className="space-y-5 mb-10">
                     {[
-                      "Share your progress with your assigned coach",
-                      "Get real-time feedback on resumes and applications",
-                      "Stay accountable with milestone tracking",
-                      "You control what your coach can see",
+                      "Get instant feedback on your resume",
+                      "Practice interview questions anytime",
+                      "Receive personalized job search strategies",
+                      "Track your progress with smart insights",
                     ].map((item, index) => (
                       <motion.li
                         key={`seeker-feature-${index}`}
@@ -1701,7 +1625,7 @@ export default function LandingPage() {
                     <div className="flex items-center justify-between p-6 border-b border-gray-100">
                       <h3 className="font-bold text-gray-900 text-xl">Your Progress</h3>
                       <span className="text-sm bg-[#2B8A8A]/10 text-[#2B8A8A] px-4 py-1.5 rounded-full font-semibold">
-                        Shared with Coach
+                        Track Your Journey
                       </span>
                     </div>
 
@@ -1742,11 +1666,11 @@ export default function LandingPage() {
                     <div className="p-6 bg-gray-50 border-t border-gray-100">
                       <div className="flex items-center gap-4">
                         <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#2B8A8A] to-[#374151] flex items-center justify-center text-white font-bold">
-                          JD
+                          <Sparkles className="h-5 w-5" />
                         </div>
                         <div>
-                          <p className="font-medium text-gray-900">Jane Davis, Coach</p>
-                          <p className="text-sm text-gray-500">Viewing your progress</p>
+                          <p className="font-medium text-gray-900">AI Career Coach</p>
+                          <p className="text-sm text-gray-500">Available 24/7 to help you succeed</p>
                         </div>
                       </div>
                     </div>

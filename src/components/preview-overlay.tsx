@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
@@ -66,13 +67,20 @@ const heroContent = {
   },
 };
 
+// Routes that should bypass password protection
+const PUBLIC_ROUTES = ["/waitlist"];
+
 export function PreviewOverlay({ children }: PreviewOverlayProps) {
+  const pathname = usePathname();
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [audience, setAudience] = useState<"seekers" | "organizations">("seekers");
+
+  // Check if current route is public (bypass password protection)
+  const isPublicRoute = PUBLIC_ROUTES.some(route => pathname === route || pathname?.startsWith(`${route}/`));
 
   useEffect(() => {
     const unlocked = sessionStorage.getItem("cf_preview_unlocked");
@@ -105,6 +113,11 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
         <div className="w-8 h-8 border-2 border-[#2B8A8A] border-t-transparent rounded-full animate-spin" />
       </div>
     );
+  }
+
+  // If on a public route, render children immediately without protection
+  if (isPublicRoute) {
+    return <>{children}</>;
   }
 
   if (isUnlocked) {

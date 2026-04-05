@@ -3,7 +3,7 @@
 import { useState, Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,8 +15,6 @@ import {
   AlertCircle,
   Eye,
   EyeOff,
-  Users,
-  Target,
   ArrowRight,
   Sparkles,
   CheckCircle2
@@ -24,12 +22,6 @@ import {
 
 function SignInForm() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const typeParam = searchParams.get("type");
-
-  const [loginType, setLoginType] = useState<"seeker" | "coach">(
-    typeParam === "coach" ? "coach" : "seeker"
-  );
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
@@ -59,10 +51,8 @@ function SignInForm() {
         return;
       }
 
-      const userRole = data.user.role;
-      if (userRole === "COACH" || userRole === "ADMIN") {
-        router.push("/coach/dashboard");
-      } else if (data.user.profileCompleted) {
+      // All users go to job seeker dashboard (coach portal disabled)
+      if (data.user.profileCompleted) {
         router.push("/dashboard");
       } else {
         router.push("/onboarding");
@@ -73,8 +63,6 @@ function SignInForm() {
       setIsLoading(false);
     }
   };
-
-  const accentColor = loginType === "seeker" ? "#2B8A8A" : "#2B8A8A";
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-[#FAFBFC]">
@@ -120,32 +108,19 @@ function SignInForm() {
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-lg shadow-gray-200/50 border border-gray-100 mb-8">
                 <Sparkles className="h-4 w-4 text-[#2B8A8A]" />
                 <span className="text-sm font-medium text-gray-700">
-                  {loginType === "seeker" ? "100% Free for Job Seekers" : "For Workforce Partners"}
+                  100% Free for Job Seekers
                 </span>
               </div>
 
               {/* Headline */}
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] text-gray-900 mb-6">
-                {loginType === "seeker" ? (
-                  <>
-                    Your career journey
-                    <br />
-                    <span className="text-[#2B8A8A]">continues here</span>
-                  </>
-                ) : (
-                  <>
-                    Empower your
-                    <br />
-                    <span className="text-[#2B8A8A]">team today</span>
-                  </>
-                )}
+                Your career journey
+                <br />
+                <span className="text-[#2B8A8A]">continues here</span>
               </h1>
 
               <p className="text-xl text-gray-600 leading-relaxed mb-8 max-w-md">
-                {loginType === "seeker"
-                  ? "Access your personalized dashboard, track applications, and take the next step toward your dream job."
-                  : "Monitor job seeker progress, track outcomes, and drive results with real-time insights."
-                }
+                Access your personalized dashboard, track applications, and take the next step toward your dream job.
               </p>
 
               {/* Trust indicators */}
@@ -172,34 +147,6 @@ function SignInForm() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="w-full max-w-md mx-auto lg:mx-0"
             >
-              {/* Login Type Toggle */}
-              <div className="flex bg-white rounded-xl p-1 shadow-sm border border-gray-100 mb-6">
-                <button
-                  type="button"
-                  onClick={() => setLoginType("seeker")}
-                  className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg text-sm font-medium transition-all ${
-                    loginType === "seeker"
-                      ? "bg-[#2B8A8A] text-white shadow-md"
-                      : "text-gray-600 hover:text-gray-900"
-                  }`}
-                >
-                  <Target className="h-4 w-4" />
-                  Job Seeker
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setLoginType("coach")}
-                  className={`flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-lg text-sm font-medium transition-all ${
-                    loginType === "coach"
-                      ? "bg-[#2B8A8A] text-white shadow-md"
-                      : "text-gray-600 hover:text-gray-900"
-                  }`}
-                >
-                  <Users className="h-4 w-4" />
-                  Coach
-                </button>
-              </div>
-
               {/* Form Card */}
               <div className="bg-white rounded-2xl p-8 shadow-xl shadow-gray-200/50 border border-gray-100">
                 {/* Mobile Logo */}
@@ -219,10 +166,7 @@ function SignInForm() {
                 <div className="text-center mb-6">
                   <h2 className="text-2xl font-bold text-gray-900">Welcome Back</h2>
                   <p className="text-gray-500 mt-1">
-                    {loginType === "seeker"
-                      ? "Sign in to continue your journey"
-                      : "Access your coach dashboard"
-                    }
+                    Sign in to continue your journey
                   </p>
                 </div>
 
@@ -334,7 +278,7 @@ function SignInForm() {
                   <p className="text-gray-500">
                     Don&apos;t have an account?{" "}
                     <Link
-                      href={loginType === "seeker" ? "/register/seeker" : "/register/coach"}
+                      href="/register/seeker"
                       className="text-[#2B8A8A] font-medium hover:underline"
                     >
                       Create one here
