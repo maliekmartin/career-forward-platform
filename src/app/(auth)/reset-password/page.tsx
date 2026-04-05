@@ -116,7 +116,7 @@ function ResetPasswordForm() {
     return (
       <div className="relative min-h-screen overflow-hidden bg-[#FAFBFC] flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-8 h-8 animate-spin text-[#2B8A8A] mx-auto mb-4" />
+          <Loader2 className="w-8 h-8 animate-spin text-[#0D9488] mx-auto mb-4" />
           <p className="text-gray-600">Verifying reset link...</p>
         </div>
       </div>
@@ -127,8 +127,8 @@ function ResetPasswordForm() {
     <div className="relative min-h-screen overflow-hidden bg-[#FAFBFC]">
       {/* Gradient Background */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-3xl opacity-20 bg-[#2B8A8A]" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full blur-3xl opacity-10 bg-[#2B8A8A]" />
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-3xl opacity-20 bg-[#0D9488]" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full blur-3xl opacity-10 bg-[#0D9488]" />
       </div>
 
       {/* Navigation */}
@@ -167,12 +167,12 @@ function ResetPasswordForm() {
                 <div className="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
                   <XCircle className="w-8 h-8 text-red-600" />
                 </div>
-                <h1 className="text-2xl font-bold text-gray-900 mb-2">
+                <h1 className="text-2xl font-bold text-[#0F172A] mb-2">
                   Invalid Reset Link
                 </h1>
                 <p className="text-gray-600 mb-6">{error}</p>
                 <Link href="/forgot-password">
-                  <Button className="w-full bg-[#2B8A8A] hover:bg-[#237070]">
+                  <Button className="w-full bg-[#F59E0B] hover:bg-[#D97706]">
                     Request New Reset Link
                   </Button>
                 </Link>
@@ -183,10 +183,10 @@ function ResetPasswordForm() {
             {tokenValid && !success && (
               <>
                 <div className="text-center mb-8">
-                  <div className="mx-auto w-16 h-16 bg-[#2B8A8A]/10 rounded-full flex items-center justify-center mb-4">
-                    <Lock className="w-8 h-8 text-[#2B8A8A]" />
+                  <div className="mx-auto w-16 h-16 bg-[#0D9488]/10 rounded-full flex items-center justify-center mb-4">
+                    <Lock className="w-8 h-8 text-[#0D9488]" />
                   </div>
-                  <h1 className="text-2xl font-bold text-gray-900">
+                  <h1 className="text-2xl font-bold text-[#0F172A]">
                     Create new password
                   </h1>
                   <p className="text-gray-600 mt-2">
@@ -291,7 +291,7 @@ function ResetPasswordForm() {
                   <Button
                     type="submit"
                     disabled={isLoading || !canSubmit}
-                    className="w-full h-12 bg-[#2B8A8A] hover:bg-[#237070] text-white font-medium"
+                    className="w-full h-12 bg-[#F59E0B] hover:bg-[#D97706] text-white font-medium"
                   >
                     {isLoading ? (
                       <>
@@ -312,7 +312,7 @@ function ResetPasswordForm() {
                 <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
                   <CheckCircle2 className="w-8 h-8 text-green-600" />
                 </div>
-                <h1 className="text-2xl font-bold text-gray-900 mb-2">
+                <h1 className="text-2xl font-bold text-[#0F172A] mb-2">
                   Password Reset!
                 </h1>
                 <p className="text-gray-600 mb-6">
@@ -321,7 +321,7 @@ function ResetPasswordForm() {
                 </p>
                 <Button
                   onClick={() => router.push("/signin")}
-                  className="w-full bg-[#2B8A8A] hover:bg-[#237070]"
+                  className="w-full bg-[#F59E0B] hover:bg-[#D97706]"
                 >
                   Sign In
                   <ArrowRight className="w-4 h-4 ml-2" />
@@ -340,7 +340,7 @@ export default function ResetPasswordPage() {
     <Suspense
       fallback={
         <div className="min-h-screen flex items-center justify-center">
-          <Loader2 className="w-8 h-8 animate-spin text-[#2B8A8A]" />
+          <Loader2 className="w-8 h-8 animate-spin text-[#0D9488]" />
         </div>
       }
     >

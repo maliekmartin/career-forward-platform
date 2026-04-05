@@ -436,9 +436,9 @@ export default function OnboardingPage() {
                     <div
                       className={`flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 ${
                         isActive
-                          ? "bg-[#2B8A8A] text-white"
+                          ? "bg-[#0D9488] text-white"
                           : isCompleted
-                          ? "bg-[#2B8A8A]/20 text-[#2B8A8A]"
+                          ? "bg-[#0D9488]/20 text-[#0D9488]"
                           : isDark
                           ? "bg-gray-800 text-gray-500"
                           : "bg-gray-200 text-gray-400"
@@ -449,7 +449,7 @@ export default function OnboardingPage() {
                     {index < steps.length - 1 && (
                       <div
                         className={`w-12 h-1 mx-2 rounded transition-all duration-300 ${
-                          isCompleted ? "bg-[#2B8A8A]" : isDark ? "bg-gray-800" : "bg-gray-200"
+                          isCompleted ? "bg-[#0D9488]" : isDark ? "bg-gray-800" : "bg-gray-200"
                         }`}
                       />
                     )}
@@ -478,10 +478,10 @@ export default function OnboardingPage() {
             {/* Welcome Step */}
             {currentStep === "welcome" && (
               <div className="text-center">
-                <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-[#2B8A8A]/10 flex items-center justify-center">
-                  <Sparkles className="w-10 h-10 text-[#2B8A8A]" />
+                <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-[#0D9488]/10 flex items-center justify-center">
+                  <Sparkles className="w-10 h-10 text-[#0D9488]" />
                 </div>
-                <h1 className={`text-3xl font-bold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>
+                <h1 className={`text-3xl font-bold mb-4 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   Welcome to Career Forward!
                 </h1>
                 <p className={`text-lg mb-8 ${isDark ? "text-gray-300" : "text-gray-600"}`}>
@@ -491,7 +491,7 @@ export default function OnboardingPage() {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button
                     onClick={nextStep}
-                    className="bg-[#2B8A8A] hover:bg-[#237070] text-white px-8 py-6 text-lg rounded-xl"
+                    className="bg-[#F59E0B] hover:bg-[#D97706] text-white px-8 py-6 text-lg rounded-xl"
                   >
                     <Upload className="w-5 h-5 mr-2" />
                     Upload Resume (Quick)
@@ -511,7 +511,7 @@ export default function OnboardingPage() {
             {/* Upload Step */}
             {currentStep === "upload" && (
               <div>
-                <h2 className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+                <h2 className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   Upload Your Resume
                 </h2>
                 <p className={`mb-6 ${isDark ? "text-gray-400" : "text-gray-600"}`}>
@@ -526,7 +526,7 @@ export default function OnboardingPage() {
                   onDrop={handleDrop}
                   className={`relative border-2 border-dashed rounded-xl p-12 text-center transition-all duration-300 ${
                     dragActive
-                      ? "border-[#2B8A8A] bg-[#2B8A8A]/5"
+                      ? "border-[#0D9488] bg-[#0D9488]/5"
                       : isDark
                       ? "border-gray-700 hover:border-gray-600"
                       : "border-gray-300 hover:border-gray-400"
@@ -534,8 +534,8 @@ export default function OnboardingPage() {
                 >
                   {isUploading || isParsing ? (
                     <div className="flex flex-col items-center">
-                      <Loader2 className="w-12 h-12 text-[#2B8A8A] animate-spin mb-4" />
-                      <p className={`text-lg font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                      <Loader2 className="w-12 h-12 text-[#0D9488] animate-spin mb-4" />
+                      <p className={`text-lg font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                         {isUploading ? "Uploading..." : "Analyzing your resume..."}
                       </p>
                       <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -544,10 +544,10 @@ export default function OnboardingPage() {
                     </div>
                   ) : uploadedFile ? (
                     <div className="flex flex-col items-center">
-                      <div className="w-16 h-16 rounded-xl bg-[#2B8A8A]/10 flex items-center justify-center mb-4">
-                        <FileText className="w-8 h-8 text-[#2B8A8A]" />
+                      <div className="w-16 h-16 rounded-xl bg-[#0D9488]/10 flex items-center justify-center mb-4">
+                        <FileText className="w-8 h-8 text-[#0D9488]" />
                       </div>
-                      <p className={`text-lg font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                      <p className={`text-lg font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                         {uploadedFile.name}
                       </p>
                       <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -564,10 +564,10 @@ export default function OnboardingPage() {
                     </div>
                   ) : (
                     <div className="flex flex-col items-center">
-                      <div className="w-16 h-16 rounded-xl bg-[#2B8A8A]/10 flex items-center justify-center mb-4">
-                        <Upload className="w-8 h-8 text-[#2B8A8A]" />
+                      <div className="w-16 h-16 rounded-xl bg-[#0D9488]/10 flex items-center justify-center mb-4">
+                        <Upload className="w-8 h-8 text-[#0D9488]" />
                       </div>
-                      <p className={`text-lg font-medium mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+                      <p className={`text-lg font-medium mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                         Drag and drop your resume here
                       </p>
                       <p className={`text-sm mb-4 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -605,7 +605,7 @@ export default function OnboardingPage() {
             {/* Personal Info Step */}
             {currentStep === "personal" && (
               <div>
-                <h2 className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+                <h2 className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   Personal Information
                 </h2>
                 <p className={`mb-6 ${isDark ? "text-gray-400" : "text-gray-600"}`}>
@@ -685,7 +685,7 @@ export default function OnboardingPage() {
                   <Button
                     onClick={nextStep}
                     disabled={!profileData.firstName || !profileData.lastName}
-                    className="bg-[#2B8A8A] hover:bg-[#237070] text-white rounded-xl"
+                    className="bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-xl"
                   >
                     Continue
                     <ChevronRight className="w-4 h-4 ml-1" />
@@ -697,7 +697,7 @@ export default function OnboardingPage() {
             {/* Experience Step */}
             {currentStep === "experience" && (
               <div>
-                <h2 className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+                <h2 className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   Work Experience
                 </h2>
                 <p className={`mb-6 ${isDark ? "text-gray-400" : "text-gray-600"}`}>
@@ -711,7 +711,7 @@ export default function OnboardingPage() {
                       className={`p-6 rounded-xl border ${isDark ? "border-gray-700 bg-gray-800/50" : "border-gray-200 bg-gray-50"}`}
                     >
                       <div className="flex justify-between items-start mb-4">
-                        <h3 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+                        <h3 className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                           Position {index + 1}
                         </h3>
                         <Button
@@ -804,7 +804,7 @@ export default function OnboardingPage() {
                   </Button>
                   <Button
                     onClick={nextStep}
-                    className="bg-[#2B8A8A] hover:bg-[#237070] text-white rounded-xl"
+                    className="bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-xl"
                   >
                     Continue
                     <ChevronRight className="w-4 h-4 ml-1" />
@@ -816,7 +816,7 @@ export default function OnboardingPage() {
             {/* Education Step */}
             {currentStep === "education" && (
               <div>
-                <h2 className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+                <h2 className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   Education
                 </h2>
                 <p className={`mb-6 ${isDark ? "text-gray-400" : "text-gray-600"}`}>
@@ -830,7 +830,7 @@ export default function OnboardingPage() {
                       className={`p-6 rounded-xl border ${isDark ? "border-gray-700 bg-gray-800/50" : "border-gray-200 bg-gray-50"}`}
                     >
                       <div className="flex justify-between items-start mb-4">
-                        <h3 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+                        <h3 className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                           Education {index + 1}
                         </h3>
                         <Button
@@ -910,7 +910,7 @@ export default function OnboardingPage() {
                   </Button>
                   <Button
                     onClick={nextStep}
-                    className="bg-[#2B8A8A] hover:bg-[#237070] text-white rounded-xl"
+                    className="bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-xl"
                   >
                     Continue
                     <ChevronRight className="w-4 h-4 ml-1" />
@@ -922,7 +922,7 @@ export default function OnboardingPage() {
             {/* Skills Step */}
             {currentStep === "skills" && (
               <div>
-                <h2 className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+                <h2 className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   Skills
                 </h2>
                 <p className={`mb-6 ${isDark ? "text-gray-400" : "text-gray-600"}`}>
@@ -943,7 +943,7 @@ export default function OnboardingPage() {
                       placeholder="Type a skill and press Enter"
                       className="flex-1"
                     />
-                    <Button onClick={addSkill} className="bg-[#2B8A8A] hover:bg-[#237070] text-white rounded-xl">
+                    <Button onClick={addSkill} className="bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-xl">
                       <Plus className="w-5 h-5" />
                     </Button>
                   </div>
@@ -955,8 +955,8 @@ export default function OnboardingPage() {
                       key={skill}
                       className={`inline-flex items-center px-3 py-1.5 rounded-full text-sm ${
                         isDark
-                          ? "bg-[#2B8A8A]/20 text-[#4ECDC4]"
-                          : "bg-[#2B8A8A]/10 text-[#2B8A8A]"
+                          ? "bg-[#0D9488]/20 text-[#4ECDC4]"
+                          : "bg-[#0D9488]/10 text-[#0D9488]"
                       }`}
                     >
                       {skill}
@@ -982,7 +982,7 @@ export default function OnboardingPage() {
                   </Button>
                   <Button
                     onClick={nextStep}
-                    className="bg-[#2B8A8A] hover:bg-[#237070] text-white rounded-xl"
+                    className="bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-xl"
                   >
                     Continue
                     <ChevronRight className="w-4 h-4 ml-1" />
@@ -994,7 +994,7 @@ export default function OnboardingPage() {
             {/* Goals Step */}
             {currentStep === "goals" && (
               <div>
-                <h2 className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+                <h2 className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   Career Goals
                 </h2>
                 <p className={`mb-6 ${isDark ? "text-gray-400" : "text-gray-600"}`}>
@@ -1052,13 +1052,13 @@ export default function OnboardingPage() {
                           })}
                           className={`p-4 rounded-xl border-2 text-left transition-all ${
                             profileData.careerGoal === option.value
-                              ? "border-[#2B8A8A] bg-[#2B8A8A]/5"
+                              ? "border-[#0D9488] bg-[#0D9488]/5"
                               : isDark
                               ? "border-gray-700 hover:border-gray-600"
                               : "border-gray-200 hover:border-gray-300"
                           }`}
                         >
-                          <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                          <p className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                             {option.label}
                           </p>
                           <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -1078,7 +1078,7 @@ export default function OnboardingPage() {
                   <Button
                     onClick={saveProfile}
                     disabled={isSaving}
-                    className="bg-[#2B8A8A] hover:bg-[#237070] text-white rounded-xl"
+                    className="bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-xl"
                   >
                     {isSaving ? (
                       <>
@@ -1107,14 +1107,14 @@ export default function OnboardingPage() {
                 >
                   <Check className="w-10 h-10 text-green-500" />
                 </motion.div>
-                <h2 className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+                <h2 className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   Profile Complete!
                 </h2>
                 <p className={`mb-6 ${isDark ? "text-gray-400" : "text-gray-600"}`}>
                   Great job! Your profile is all set up. Redirecting you to your dashboard...
                 </p>
                 <div className="flex justify-center">
-                  <Loader2 className="w-6 h-6 text-[#2B8A8A] animate-spin" />
+                  <Loader2 className="w-6 h-6 text-[#0D9488] animate-spin" />
                 </div>
               </div>
             )}

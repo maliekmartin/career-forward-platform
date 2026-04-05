@@ -114,7 +114,7 @@ export function ProfilePictureSelector({
       {/* Current Photo Display */}
       <button
         onClick={() => setIsOpen(true)}
-        className={`relative ${sizeClasses[size]} rounded-full overflow-hidden group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2B8A8A] focus-visible:ring-offset-2`}
+        className={`relative ${sizeClasses[size]} rounded-full overflow-hidden group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0D9488] focus-visible:ring-offset-2`}
       >
         {currentPhotoUrl ? (
           <img
@@ -170,7 +170,7 @@ export function ProfilePictureSelector({
               >
                 <h2
                   className={`text-lg font-semibold ${
-                    isDark ? "text-white" : "text-gray-900"
+                    isDark ? "text-white" : "text-[#0F172A]"
                   }`}
                 >
                   Choose Profile Picture
@@ -260,9 +260,9 @@ export function ProfilePictureSelector({
                         key={preset.id}
                         onClick={() => handlePresetSelect(preset.url)}
                         disabled={uploading}
-                        className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2B8A8A] ${
+                        className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[#0D9488] ${
                           currentPhotoUrl === preset.url
-                            ? "border-[#2B8A8A] ring-2 ring-[#2B8A8A]/20"
+                            ? "border-[#0D9488] ring-2 ring-[#0D9488]/20"
                             : isDark
                             ? "border-gray-700 hover:border-gray-600"
                             : "border-gray-200 hover:border-gray-300"
@@ -274,12 +274,12 @@ export function ProfilePictureSelector({
                           className="w-full h-full object-cover"
                         />
                         {selectedPreset === preset.url && (
-                          <div className="absolute inset-0 bg-[#2B8A8A]/20 flex items-center justify-center">
-                            <Loader2 className="w-6 h-6 text-[#2B8A8A] animate-spin" />
+                          <div className="absolute inset-0 bg-[#0D9488]/20 flex items-center justify-center">
+                            <Loader2 className="w-6 h-6 text-[#0D9488] animate-spin" />
                           </div>
                         )}
                         {currentPhotoUrl === preset.url && !selectedPreset && (
-                          <div className="absolute bottom-1 right-1 w-5 h-5 rounded-full bg-[#2B8A8A] flex items-center justify-center">
+                          <div className="absolute bottom-1 right-1 w-5 h-5 rounded-full bg-[#0D9488] flex items-center justify-center">
                             <Check className="w-3 h-3 text-white" />
                           </div>
                         )}

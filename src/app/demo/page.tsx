@@ -117,8 +117,8 @@ export default function DemoPage() {
     <div className="relative min-h-screen overflow-hidden bg-[#FAFBFC]">
       {/* Gradient Background */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-3xl opacity-20 bg-[#2B8A8A]" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-3xl opacity-10 bg-[#2B8A8A]" />
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-3xl opacity-20 bg-[#0D9488]" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-3xl opacity-10 bg-[#0D9488]" />
       </div>
 
       {/* Navigation */}
@@ -141,13 +141,13 @@ export default function DemoPage() {
           <div className="flex items-center gap-4">
             <Link
               href="/pricing"
-              className="text-sm text-gray-600 hover:text-[#2B8A8A] transition-colors hidden sm:block"
+              className="text-sm text-gray-600 hover:text-[#0D9488] transition-colors hidden sm:block"
             >
               Pricing
             </Link>
             <Link
               href="/faq"
-              className="text-sm text-gray-600 hover:text-[#2B8A8A] transition-colors hidden sm:block"
+              className="text-sm text-gray-600 hover:text-[#0D9488] transition-colors hidden sm:block"
             >
               FAQ
             </Link>
@@ -173,15 +173,15 @@ export default function DemoPage() {
             >
               {/* Badge */}
               <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-lg shadow-gray-200/50 border border-gray-100 mb-6">
-                <PlayCircle className="h-4 w-4 text-[#2B8A8A]" />
+                <PlayCircle className="h-4 w-4 text-[#0D9488]" />
                 <span className="text-sm font-medium text-gray-700">See Career Forward in Action</span>
               </div>
 
               {/* Headline */}
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] text-gray-900 mb-6">
+              <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] text-[#0F172A] mb-6">
                 Transform how you
                 <br />
-                <span className="text-[#2B8A8A]">serve job seekers</span>
+                <span className="text-[#0D9488]">serve job seekers</span>
               </h1>
 
               <p className="text-xl text-gray-600 leading-relaxed mb-8 max-w-lg">
@@ -198,11 +198,11 @@ export default function DemoPage() {
                     transition={{ delay: 0.1 * i, duration: 0.4 }}
                     className="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-100 shadow-sm"
                   >
-                    <div className="w-10 h-10 bg-[#2B8A8A]/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <benefit.icon className="h-5 w-5 text-[#2B8A8A]" />
+                    <div className="w-10 h-10 bg-[#0D9488]/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <benefit.icon className="h-5 w-5 text-[#0D9488]" />
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900 text-sm">{benefit.title}</h3>
+                      <h3 className="font-semibold text-[#0F172A] text-sm">{benefit.title}</h3>
                       <p className="text-xs text-gray-500 mt-0.5">{benefit.description}</p>
                     </div>
                   </motion.div>
@@ -224,8 +224,8 @@ export default function DemoPage() {
               {/* Progress indicator */}
               {formStep < 3 && (
                 <div className="flex items-center gap-2 mb-6">
-                  <div className={`h-2 flex-1 rounded-full ${formStep >= 1 ? "bg-[#2B8A8A]" : "bg-gray-200"}`} />
-                  <div className={`h-2 flex-1 rounded-full ${formStep >= 2 ? "bg-[#2B8A8A]" : "bg-gray-200"}`} />
+                  <div className={`h-2 flex-1 rounded-full ${formStep >= 1 ? "bg-[#0D9488]" : "bg-gray-200"}`} />
+                  <div className={`h-2 flex-1 rounded-full ${formStep >= 2 ? "bg-[#0D9488]" : "bg-gray-200"}`} />
                 </div>
               )}
 
@@ -239,7 +239,7 @@ export default function DemoPage() {
                       exit={{ opacity: 0, x: -20 }}
                     >
                       <div className="text-center mb-6">
-                        <h2 className="text-2xl font-bold text-gray-900">Request a Demo</h2>
+                        <h2 className="text-2xl font-bold text-[#0F172A]">Request a Demo</h2>
                         <p className="text-gray-500 mt-1">Tell us about yourself</p>
                       </div>
 
@@ -306,7 +306,7 @@ export default function DemoPage() {
 
                         <Button
                           type="submit"
-                          className="w-full h-12 bg-[#2B8A8A] hover:bg-[#237070] text-white font-semibold shadow-lg shadow-[#2B8A8A]/25 mt-6"
+                          className="w-full h-12 bg-[#F59E0B] hover:bg-[#D97706] text-white font-semibold shadow-lg shadow-[#F59E0B]/25 mt-6"
                         >
                           Continue
                           <ArrowRight className="ml-2 h-5 w-5" />
@@ -332,7 +332,7 @@ export default function DemoPage() {
                       </button>
 
                       <div className="text-center mb-6">
-                        <h2 className="text-2xl font-bold text-gray-900">About Your Organization</h2>
+                        <h2 className="text-2xl font-bold text-[#0F172A]">About Your Organization</h2>
                         <p className="text-gray-500 mt-1">Help us prepare a tailored demo</p>
                       </div>
 
@@ -414,13 +414,13 @@ export default function DemoPage() {
                             placeholder="Tell us about your current challenges or goals..."
                             value={formData.message}
                             onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                            className="w-full h-24 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] resize-none"
+                            className="w-full h-24 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-[#0F172A] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] resize-none"
                           />
                         </div>
 
                         <Button
                           type="submit"
-                          className="w-full h-12 bg-[#2B8A8A] hover:bg-[#237070] text-white font-semibold shadow-lg shadow-[#2B8A8A]/25 mt-4"
+                          className="w-full h-12 bg-[#F59E0B] hover:bg-[#D97706] text-white font-semibold shadow-lg shadow-[#F59E0B]/25 mt-4"
                           disabled={isSubmitting}
                         >
                           {isSubmitting ? (
@@ -446,10 +446,10 @@ export default function DemoPage() {
                       animate={{ opacity: 1, scale: 1 }}
                       className="text-center py-8"
                     >
-                      <div className="w-16 h-16 bg-[#2B8A8A]/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <CheckCircle2 className="h-8 w-8 text-[#2B8A8A]" />
+                      <div className="w-16 h-16 bg-[#0D9488]/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <CheckCircle2 className="h-8 w-8 text-[#0D9488]" />
                       </div>
-                      <h2 className="text-2xl font-bold text-gray-900 mb-2">You're All Set!</h2>
+                      <h2 className="text-2xl font-bold text-[#0F172A] mb-2">You're All Set!</h2>
                       <p className="text-gray-600 mb-6 max-w-sm mx-auto">
                         Thanks for your interest in Career Forward. A member of our team will reach out within one business day to schedule your personalized demo.
                       </p>
@@ -468,7 +468,7 @@ export default function DemoPage() {
                           </Button>
                         </Link>
                         <Link href="/pricing">
-                          <Button className="bg-[#2B8A8A] hover:bg-[#237070]">
+                          <Button className="bg-[#F59E0B] hover:bg-[#D97706]">
                             View Pricing
                             <ArrowRight className="ml-2 h-4 w-4" />
                           </Button>
@@ -495,13 +495,13 @@ export default function DemoPage() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-4">
             <div className="flex items-center gap-6">
-              <Link href="/" className="text-sm text-gray-500 hover:text-[#2B8A8A] transition-colors">
+              <Link href="/" className="text-sm text-gray-500 hover:text-[#0D9488] transition-colors">
                 Home
               </Link>
-              <Link href="/faq" className="text-sm text-gray-500 hover:text-[#2B8A8A] transition-colors">
+              <Link href="/faq" className="text-sm text-gray-500 hover:text-[#0D9488] transition-colors">
                 FAQ
               </Link>
-              <Link href="/privacy" className="text-sm text-gray-500 hover:text-[#2B8A8A] transition-colors">
+              <Link href="/privacy" className="text-sm text-gray-500 hover:text-[#0D9488] transition-colors">
                 Privacy Policy
               </Link>
             </div>

@@ -262,7 +262,7 @@ export function GuidedResumeFlow({
                 className="space-y-6"
               >
                 <div className="text-center">
-                  <h2 className={cn("text-2xl font-bold mb-2", isDark ? "text-white" : "text-gray-900")}>
+                  <h2 className={cn("text-2xl font-bold mb-2", isDark ? "text-white" : "text-[#0F172A]")}>
                     Here&apos;s your current resume
                   </h2>
                   <p className={cn("text-sm", isDark ? "text-gray-400" : "text-gray-600")}>
@@ -308,7 +308,7 @@ export function GuidedResumeFlow({
                     className={cn(
                       "px-8 py-3 rounded-xl text-base",
                       isDark
-                        ? "bg-teal-500 hover:bg-teal-400 text-gray-900"
+                        ? "bg-teal-500 hover:bg-teal-400 text-[#0F172A]"
                         : "bg-teal-600 hover:bg-teal-500 text-white"
                     )}
                   >
@@ -329,7 +329,7 @@ export function GuidedResumeFlow({
                 className="space-y-6"
               >
                 <div className="text-center">
-                  <h2 className={cn("text-2xl font-bold mb-2", isDark ? "text-white" : "text-gray-900")}>
+                  <h2 className={cn("text-2xl font-bold mb-2", isDark ? "text-white" : "text-[#0F172A]")}>
                     What would you like to do?
                   </h2>
                   <p className={cn("text-sm", isDark ? "text-gray-400" : "text-gray-600")}>
@@ -369,7 +369,7 @@ export function GuidedResumeFlow({
                   <Button
                     variant="ghost"
                     onClick={() => setCurrentFlowStep("preview")}
-                    className={isDark ? "text-gray-400 hover:text-white" : "text-gray-600 hover:text-gray-900"}
+                    className={isDark ? "text-gray-400 hover:text-white" : "text-gray-600 hover:text-[#0F172A]"}
                   >
                     Back
                   </Button>
@@ -379,7 +379,7 @@ export function GuidedResumeFlow({
                     className={cn(
                       "px-8 rounded-xl",
                       isDark
-                        ? "bg-teal-500 hover:bg-teal-400 text-gray-900 disabled:bg-gray-700 disabled:text-gray-500"
+                        ? "bg-teal-500 hover:bg-teal-400 text-[#0F172A] disabled:bg-gray-700 disabled:text-gray-500"
                         : "bg-teal-600 hover:bg-teal-500 text-white disabled:bg-gray-200 disabled:text-gray-400"
                     )}
                   >
@@ -400,7 +400,7 @@ export function GuidedResumeFlow({
                 className="space-y-6"
               >
                 <div className="text-center">
-                  <h2 className={cn("text-2xl font-bold mb-2", isDark ? "text-white" : "text-gray-900")}>
+                  <h2 className={cn("text-2xl font-bold mb-2", isDark ? "text-white" : "text-[#0F172A]")}>
                     What&apos;s your experience with resume building?
                   </h2>
                   <p className={cn("text-sm", isDark ? "text-gray-400" : "text-gray-600")}>
@@ -449,7 +449,7 @@ export function GuidedResumeFlow({
                   <Button
                     variant="ghost"
                     onClick={() => setCurrentFlowStep("intent")}
-                    className={isDark ? "text-gray-400 hover:text-white" : "text-gray-600 hover:text-gray-900"}
+                    className={isDark ? "text-gray-400 hover:text-white" : "text-gray-600 hover:text-[#0F172A]"}
                   >
                     Back
                   </Button>
@@ -459,7 +459,7 @@ export function GuidedResumeFlow({
                     className={cn(
                       "px-8 rounded-xl",
                       isDark
-                        ? "bg-teal-500 hover:bg-teal-400 text-gray-900 disabled:bg-gray-700 disabled:text-gray-500"
+                        ? "bg-teal-500 hover:bg-teal-400 text-[#0F172A] disabled:bg-gray-700 disabled:text-gray-500"
                         : "bg-teal-600 hover:bg-teal-500 text-white disabled:bg-gray-200 disabled:text-gray-400"
                     )}
                   >
@@ -480,7 +480,7 @@ export function GuidedResumeFlow({
                 className="space-y-6"
               >
                 <div className="text-center">
-                  <h2 className={cn("text-2xl font-bold mb-2", isDark ? "text-white" : "text-gray-900")}>
+                  <h2 className={cn("text-2xl font-bold mb-2", isDark ? "text-white" : "text-[#0F172A]")}>
                     Which section would you like to edit?
                   </h2>
                   <p className={cn("text-sm", isDark ? "text-gray-400" : "text-gray-600")}>
@@ -522,7 +522,7 @@ export function GuidedResumeFlow({
                             )} />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <div className={cn("font-medium text-sm", isDark ? "text-white" : "text-gray-900")}>
+                            <div className={cn("font-medium text-sm", isDark ? "text-white" : "text-[#0F172A]")}>
                               {step.label}
                             </div>
                             {hasContent && (
@@ -563,14 +563,14 @@ export function GuidedResumeFlow({
                         setCurrentFlowStep("experience-level");
                       }
                     }}
-                    className={isDark ? "text-gray-400 hover:text-white" : "text-gray-600 hover:text-gray-900"}
+                    className={isDark ? "text-gray-400 hover:text-white" : "text-gray-600 hover:text-[#0F172A]"}
                   >
                     Back
                   </Button>
                   <Button
                     variant="ghost"
                     onClick={onDismiss}
-                    className={isDark ? "text-gray-400 hover:text-white" : "text-gray-600 hover:text-gray-900"}
+                    className={isDark ? "text-gray-400 hover:text-white" : "text-gray-600 hover:text-[#0F172A]"}
                   >
                     Cancel
                   </Button>
@@ -588,7 +588,7 @@ export function GuidedResumeFlow({
                 className="space-y-6"
               >
                 <div className="text-center">
-                  <h2 className={cn("text-2xl font-bold mb-2", isDark ? "text-white" : "text-gray-900")}>
+                  <h2 className={cn("text-2xl font-bold mb-2", isDark ? "text-white" : "text-[#0F172A]")}>
                     How would you like to start?
                   </h2>
                   <p className={cn("text-sm", isDark ? "text-gray-400" : "text-gray-600")}>
@@ -620,7 +620,7 @@ export function GuidedResumeFlow({
                   <Button
                     variant="ghost"
                     onClick={() => setCurrentFlowStep("intent")}
-                    className={isDark ? "text-gray-400 hover:text-white" : "text-gray-600 hover:text-gray-900"}
+                    className={isDark ? "text-gray-400 hover:text-white" : "text-gray-600 hover:text-[#0F172A]"}
                   >
                     Back
                   </Button>
@@ -703,7 +703,7 @@ function IntentOption({
       {recommended && (
         <span className={cn(
           "absolute -top-2 right-4 text-xs px-2 py-0.5 rounded-full",
-          isDark ? "bg-teal-500 text-gray-900" : "bg-teal-500 text-white"
+          isDark ? "bg-teal-500 text-[#0F172A]" : "bg-teal-500 text-white"
         )}>
           Recommended
         </span>
@@ -725,7 +725,7 @@ function IntentOption({
         <div className="flex-1">
           <h3 className={cn(
             "font-semibold mb-1",
-            isDark ? "text-white" : "text-gray-900"
+            isDark ? "text-white" : "text-[#0F172A]"
           )}>
             {title}
           </h3>
@@ -795,7 +795,7 @@ function ExperienceOption({
         <div className="flex-1">
           <h3 className={cn(
             "font-semibold mb-1",
-            isDark ? "text-white" : "text-gray-900"
+            isDark ? "text-white" : "text-[#0F172A]"
           )}>
             {title}
           </h3>

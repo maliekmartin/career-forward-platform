@@ -174,8 +174,8 @@ export function RealtimeScore() {
     <div className="space-y-4">
       {/* Header */}
       <div className="flex items-center gap-2">
-        <TrendingUp className={cn("w-5 h-5", isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]")} />
-        <h3 className={cn("font-semibold", isDark ? "text-white" : "text-gray-900")}>
+        <TrendingUp className={cn("w-5 h-5", isDark ? "text-[#4FD1C5]" : "text-[#0D9488]")} />
+        <h3 className={cn("font-semibold", isDark ? "text-white" : "text-[#0F172A]")}>
           Resume Score
         </h3>
       </div>
@@ -188,7 +188,7 @@ export function RealtimeScore() {
               cx="48"
               cy="48"
               r="40"
-              stroke={isDark ? "#374151" : "#e5e7eb"}
+              stroke={isDark ? "#0F172A" : "#e5e7eb"}
               strokeWidth="8"
               fill="none"
             />
@@ -225,7 +225,7 @@ export function RealtimeScore() {
             <div className="flex items-center justify-between mb-1">
               <div className="flex items-center gap-2">
                 {getStatusIcon(item.status)}
-                <span className={cn("text-sm font-medium", isDark ? "text-white" : "text-gray-900")}>
+                <span className={cn("text-sm font-medium", isDark ? "text-white" : "text-[#0F172A]")}>
                   {item.category}
                 </span>
               </div>

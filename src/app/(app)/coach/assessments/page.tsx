@@ -80,7 +80,7 @@ const assessments: Assessment[] = [
     duration: "10 min",
     questions: 20,
     icon: Compass,
-    color: "#2B8A8A",
+    color: "#0D9488",
     link: "https://www.mynextmove.org/explore/ip",
     category: "values",
   },
@@ -98,7 +98,7 @@ export default function CoachAssessmentsPage() {
 
   // Stats for the dashboard-within-dashboard feel
   const stats = [
-    { label: "Available", value: assessments.length, icon: FileText, color: "#2B8A8A" },
+    { label: "Available", value: assessments.length, icon: FileText, color: "#0D9488" },
     { label: "Job Seekers", value: demoClients.length, icon: Users, color: "#805AD5" },
     { label: "Assigned This Week", value: 8, icon: ListTodo, color: "#D69E2E" },
     { label: "Completions", value: 14, icon: TrendingUp, color: "#38A169" },
@@ -182,7 +182,7 @@ export default function CoachAssessmentsPage() {
             >
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <h3 className={`font-semibold text-lg ${isDark ? "text-white" : "text-gray-900"}`}>
+                  <h3 className={`font-semibold text-lg ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                     Share Assessment
                   </h3>
                   <p className={`text-sm mt-1 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -213,11 +213,11 @@ export default function CoachAssessmentsPage() {
                         : "border-gray-200 hover:bg-gray-50 hover:border-gray-300"
                     }`}
                   >
-                    <div className={`p-2 rounded-lg ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#2B8A8A]/10"}`}>
-                      <MessageSquare className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} />
+                    <div className={`p-2 rounded-lg ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#0D9488]/10"}`}>
+                      <MessageSquare className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} />
                     </div>
                     <div className="text-left">
-                      <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                      <p className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                         Send via Message
                       </p>
                       <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -237,7 +237,7 @@ export default function CoachAssessmentsPage() {
                       <ListTodo className={`h-5 w-5 ${isDark ? "text-purple-400" : "text-purple-600"}`} />
                     </div>
                     <div className="text-left">
-                      <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                      <p className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                         Assign as Task
                       </p>
                       <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -257,7 +257,7 @@ export default function CoachAssessmentsPage() {
                         setShareMethod(null);
                         setSelectedClient(null);
                       }}
-                      className={`text-sm ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"} hover:underline`}
+                      className={`text-sm ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"} hover:underline`}
                     >
                       Back
                     </button>
@@ -278,7 +278,7 @@ export default function CoachAssessmentsPage() {
                           selectedClient === client.id
                             ? isDark
                               ? "bg-[#4FD1C5]/20 border-[#4FD1C5] border"
-                              : "bg-[#2B8A8A]/10 border-[#2B8A8A] border"
+                              : "bg-[#0D9488]/10 border-[#0D9488] border"
                             : isDark
                             ? "border border-gray-700 hover:bg-gray-700"
                             : "border border-gray-200 hover:bg-gray-50"
@@ -290,7 +290,7 @@ export default function CoachAssessmentsPage() {
                           className="w-10 h-10 rounded-full object-cover"
                         />
                         <div className="text-left flex-1">
-                          <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                          <p className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                             {client.firstName} {client.lastName}
                           </p>
                           <p className={`text-xs ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -298,7 +298,7 @@ export default function CoachAssessmentsPage() {
                           </p>
                         </div>
                         {selectedClient === client.id && (
-                          <CheckCircle2 className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} />
+                          <CheckCircle2 className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} />
                         )}
                       </button>
                     ))}
@@ -308,7 +308,7 @@ export default function CoachAssessmentsPage() {
                     disabled={!selectedClient}
                     className={`w-full mt-4 rounded-xl ${
                       selectedClient
-                        ? "bg-[#2B8A8A] hover:bg-[#237070] text-white"
+                        ? "bg-[#F59E0B] hover:bg-[#D97706] text-white"
                         : isDark
                         ? "bg-gray-700 text-gray-500"
                         : "bg-gray-200 text-gray-400"
@@ -329,7 +329,7 @@ export default function CoachAssessmentsPage() {
         animate={{ opacity: 1, y: 0 }}
         className="mb-6"
       >
-        <h1 className={`text-3xl font-bold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+        <h1 className={`text-3xl font-bold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
           Assessments
         </h1>
         <p className={isDark ? "text-gray-400" : "text-gray-600"}>
@@ -359,7 +359,7 @@ export default function CoachAssessmentsPage() {
                 <stat.icon className="h-5 w-5" style={{ color: stat.color }} />
               </div>
             </div>
-            <p className={`text-3xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
+            <p className={`text-3xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
               {stat.value}
             </p>
             <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -377,15 +377,15 @@ export default function CoachAssessmentsPage() {
         className={`rounded-2xl p-6 mb-6 ${
           isDark
             ? "bg-gradient-to-r from-[#4FD1C5]/20 to-[#805AD5]/20 border border-[#4FD1C5]/30"
-            : "bg-gradient-to-r from-[#2B8A8A]/10 to-purple-100 border border-[#2B8A8A]/20"
+            : "bg-gradient-to-r from-[#0D9488]/10 to-purple-100 border border-[#0D9488]/20"
         }`}
       >
         <div className="flex items-start gap-4">
-          <div className={`p-3 rounded-xl ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#2B8A8A]/20"}`}>
-            <Sparkles className={`h-6 w-6 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} />
+          <div className={`p-3 rounded-xl ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#0D9488]/20"}`}>
+            <Sparkles className={`h-6 w-6 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} />
           </div>
           <div>
-            <h3 className={`font-semibold mb-1 ${isDark ? "text-white" : "text-gray-900"}`}>
+            <h3 className={`font-semibold mb-1 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
               How Assessments Help
             </h3>
             <p className={`text-sm ${isDark ? "text-gray-300" : "text-gray-600"}`}>
@@ -424,7 +424,7 @@ export default function CoachAssessmentsPage() {
               <div className="flex-1">
                 <div className="flex items-start justify-between mb-2">
                   <div>
-                    <h3 className={`text-lg font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+                    <h3 className={`text-lg font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                       {assessment.name}
                     </h3>
                     <span className={`text-xs px-2 py-0.5 rounded-full ${
@@ -469,7 +469,7 @@ export default function CoachAssessmentsPage() {
                 className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
                   isDark
                     ? "text-[#4FD1C5] hover:bg-[#4FD1C5]/10 border border-gray-700 hover:border-[#4FD1C5]/50"
-                    : "text-[#2B8A8A] hover:bg-[#2B8A8A]/10 border border-gray-200 hover:border-[#2B8A8A]/50"
+                    : "text-[#0D9488] hover:bg-[#0D9488]/10 border border-gray-200 hover:border-[#0D9488]/50"
                 }`}
               >
                 <Share2 className="h-4 w-4" />
@@ -489,7 +489,7 @@ export default function CoachAssessmentsPage() {
           isDark ? "bg-gray-800 border border-gray-700" : "bg-white border border-gray-100"
         }`}
       >
-        <h3 className={`font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>
+        <h3 className={`font-semibold mb-4 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
           Recently Active Job Seekers
         </h3>
         <p className={`text-sm mb-4 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -511,7 +511,7 @@ export default function CoachAssessmentsPage() {
                   alt={`${client.firstName} ${client.lastName}`}
                   className="w-12 h-12 rounded-full object-cover mx-auto mb-2"
                 />
-                <p className={`text-sm font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                <p className={`text-sm font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   {client.firstName}
                 </p>
                 <p className={`text-xs ${isDark ? "text-gray-400" : "text-gray-500"}`}>

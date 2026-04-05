@@ -76,7 +76,7 @@ export function BulletEnhancer({ bullet, jobTitle, onAccept, onClose }: BulletEn
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <Sparkles className={cn("w-4 h-4", isDark ? "text-purple-400" : "text-purple-600")} />
-          <span className={cn("text-sm font-medium", isDark ? "text-white" : "text-gray-900")}>
+          <span className={cn("text-sm font-medium", isDark ? "text-white" : "text-[#0F172A]")}>
             Enhance Bullet
           </span>
         </div>
@@ -146,7 +146,7 @@ export function BulletEnhancer({ bullet, jobTitle, onAccept, onClose }: BulletEn
                       : "bg-purple-600 text-white"
                     : isDark
                     ? "text-gray-400 hover:text-white"
-                    : "text-gray-600 hover:text-gray-900"
+                    : "text-gray-600 hover:text-[#0F172A]"
                 )}
               >
                 {level.label}
@@ -166,7 +166,7 @@ export function BulletEnhancer({ bullet, jobTitle, onAccept, onClose }: BulletEn
             <span className={cn("text-xs block mb-1", isDark ? "text-purple-400" : "text-purple-600")}>
               Enhanced ({levels.find((l) => l.key === selectedLevel)?.description}):
             </span>
-            <span className={cn("text-sm", isDark ? "text-white" : "text-gray-900")}>
+            <span className={cn("text-sm", isDark ? "text-white" : "text-[#0F172A]")}>
               {enhancements[selectedLevel]}
             </span>
           </div>
@@ -188,8 +188,8 @@ export function BulletEnhancer({ bullet, jobTitle, onAccept, onClose }: BulletEn
               className={cn(
                 "flex-1",
                 isDark
-                  ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900"
-                  : "bg-[#2B8A8A] hover:bg-[#237070] text-white"
+                  ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]"
+                  : "bg-[#F59E0B] hover:bg-[#D97706] text-white"
               )}
             >
               <Check className="w-3 h-3 mr-1" />

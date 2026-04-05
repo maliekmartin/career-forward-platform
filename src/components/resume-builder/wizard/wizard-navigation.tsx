@@ -58,7 +58,7 @@ export function WizardNavigation({ onDownload }: WizardNavigationProps) {
               "gap-2",
               isDark
                 ? "text-gray-300 hover:text-white hover:bg-gray-800"
-                : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                : "text-gray-600 hover:text-[#0F172A] hover:bg-gray-100"
             )}
           >
             <ChevronLeft className="w-4 h-4" />
@@ -71,7 +71,7 @@ export function WizardNavigation({ onDownload }: WizardNavigationProps) {
             className={cn(
               isDark
                 ? "text-gray-400 hover:text-white hover:bg-gray-800"
-                : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
+                : "text-gray-500 hover:text-[#0F172A] hover:bg-gray-100"
             )}
           >
             Cancel
@@ -124,8 +124,8 @@ export function WizardNavigation({ onDownload }: WizardNavigationProps) {
           className={cn(
             "gap-2",
             isDark
-              ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900"
-              : "bg-[#2B8A8A] hover:bg-[#237070] text-white"
+              ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]"
+              : "bg-[#F59E0B] hover:bg-[#D97706] text-white"
           )}
         >
           {isLastStep ? (

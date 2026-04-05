@@ -285,8 +285,8 @@ export default function TermsOfServicePage() {
     <div className="min-h-screen bg-[#FAFBFC]">
       {/* Gradient Background */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-3xl opacity-20 bg-[#2B8A8A]" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-3xl opacity-10 bg-[#2B8A8A]" />
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-3xl opacity-20 bg-[#0D9488]" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-3xl opacity-10 bg-[#0D9488]" />
       </div>
 
       {/* Navigation */}
@@ -301,9 +301,9 @@ export default function TermsOfServicePage() {
               priority
             />
           </Link>
-          <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#2B8A8A]/10 to-[#2B8A8A]/5 rounded-full border border-[#2B8A8A]/20">
-            <Sparkles className="h-4 w-4 text-[#2B8A8A]" />
-            <span className="text-[#2B8A8A] text-sm font-semibold">Launching Q3 2026</span>
+          <div className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#0D9488]/10 to-[#0D9488]/5 rounded-full border border-[#0D9488]/20">
+            <Sparkles className="h-4 w-4 text-[#0D9488]" />
+            <span className="text-[#0D9488] text-sm font-semibold">Launching Q3 2026</span>
           </div>
         </div>
       </nav>
@@ -317,7 +317,7 @@ export default function TermsOfServicePage() {
             transition={{ duration: 0.5 }}
             className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-lg shadow-gray-200/50 border border-gray-100 mb-6"
           >
-            <FileText className="h-4 w-4 text-[#2B8A8A]" />
+            <FileText className="h-4 w-4 text-[#0D9488]" />
             <span className="text-sm font-medium text-gray-700">Legal</span>
           </motion.div>
 
@@ -325,7 +325,7 @@ export default function TermsOfServicePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
+            className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-6"
           >
             Terms of Service
           </motion.h1>
@@ -364,7 +364,7 @@ export default function TermsOfServicePage() {
                 className={`px-3 py-1.5 text-sm rounded-full border transition-all hover:shadow-md ${
                   section.highlight
                     ? "bg-amber-50 border-amber-200 text-amber-700 hover:bg-amber-100"
-                    : "bg-white border-gray-200 text-gray-600 hover:border-[#2B8A8A] hover:text-[#2B8A8A]"
+                    : "bg-white border-gray-200 text-gray-600 hover:border-[#0D9488] hover:text-[#0D9488]"
                 }`}
               >
                 {section.title}
@@ -394,12 +394,12 @@ export default function TermsOfServicePage() {
               <div className="flex items-start gap-4 mb-6">
                 {section.icon && (
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 ${
-                    section.highlight ? "bg-amber-100" : "bg-[#2B8A8A]/10"
+                    section.highlight ? "bg-amber-100" : "bg-[#0D9488]/10"
                   }`}>
-                    <section.icon className={`h-6 w-6 ${section.highlight ? "text-amber-600" : "text-[#2B8A8A]"}`} />
+                    <section.icon className={`h-6 w-6 ${section.highlight ? "text-amber-600" : "text-[#0D9488]"}`} />
                   </div>
                 )}
-                <h2 className={`text-2xl font-bold ${section.highlight ? "text-amber-900" : "text-gray-900"}`}>
+                <h2 className={`text-2xl font-bold ${section.highlight ? "text-amber-900" : "text-[#0F172A]"}`}>
                   {section.title}
                 </h2>
               </div>
@@ -407,7 +407,7 @@ export default function TermsOfServicePage() {
                 {section.content.split('\n\n').map((paragraph, i) => (
                   <p key={i} className="mb-4 text-gray-600 leading-relaxed whitespace-pre-line">
                     {paragraph.split('**').map((part, j) =>
-                      j % 2 === 1 ? <strong key={j} className={section.highlight ? "text-amber-900" : "text-gray-900"}>{part}</strong> : part
+                      j % 2 === 1 ? <strong key={j} className={section.highlight ? "text-amber-900" : "text-[#0F172A]"}>{part}</strong> : part
                     )}
                   </p>
                 ))}
@@ -420,21 +420,21 @@ export default function TermsOfServicePage() {
       {/* CTA Section */}
       <section className="py-16 px-6 bg-white border-t border-gray-100">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Have Questions?</h2>
+          <h2 className="text-2xl font-bold text-[#0F172A] mb-4">Have Questions?</h2>
           <p className="text-gray-600 mb-8">
             If you have any questions about these Terms of Service, please don&apos;t hesitate to contact us.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/privacy"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 rounded-full text-gray-700 font-medium hover:border-[#2B8A8A] hover:text-[#2B8A8A] transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 rounded-full text-gray-700 font-medium hover:border-[#0D9488] hover:text-[#0D9488] transition-all"
             >
               View Privacy Policy
               <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
               href="/faq"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-[#2B8A8A] rounded-full text-white font-medium hover:bg-[#237070] transition-all shadow-lg shadow-[#2B8A8A]/25"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-[#0D9488] rounded-full text-white font-medium hover:bg-[#237070] transition-all shadow-lg shadow-[#F59E0B]/25"
             >
               View FAQ
               <ArrowRight className="h-4 w-4" />

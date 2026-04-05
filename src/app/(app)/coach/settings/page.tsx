@@ -73,7 +73,7 @@ export default function CoachSettingsPage() {
     >
       {/* Header */}
       <motion.div variants={itemVariants} className="mb-8">
-        <h1 className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+        <h1 className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
           Coach Settings
         </h1>
         <p className={isDark ? "text-gray-400" : "text-gray-600"}>
@@ -95,8 +95,8 @@ export default function CoachSettingsPage() {
             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
               activeTab === tab.id
                 ? isDark
-                  ? "bg-[#4FD1C5] text-gray-900"
-                  : "bg-[#2B8A8A] text-white"
+                  ? "bg-[#4FD1C5] text-[#0F172A]"
+                  : "bg-[#0D9488] text-white"
                 : isDark
                 ? "bg-gray-800 text-gray-400 hover:bg-gray-700 hover:text-white"
                 : "bg-gray-100 text-gray-600 hover:bg-gray-200"
@@ -131,14 +131,14 @@ export default function CoachSettingsPage() {
                   className="w-24 h-24 rounded-full object-cover"
                 />
                 <button
-                  className={`absolute bottom-0 right-0 w-8 h-8 rounded-full flex items-center justify-center hover:opacity-90 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${isDark ? "bg-[#4FD1C5] text-gray-900" : "bg-[#2B8A8A] text-white"}`}
+                  className={`absolute bottom-0 right-0 w-8 h-8 rounded-full flex items-center justify-center hover:opacity-90 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${isDark ? "bg-[#4FD1C5] text-[#0F172A]" : "bg-[#0D9488] text-white"}`}
                   aria-label="Change profile photo"
                 >
                   <Camera className="h-4 w-4" aria-hidden="true" />
                 </button>
               </div>
               <div>
-                <h3 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>Profile Photo</h3>
+                <h3 className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>Profile Photo</h3>
                 <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
                   Recommended: Square image, at least 200x200px
                 </p>
@@ -147,7 +147,7 @@ export default function CoachSettingsPage() {
 
             {/* Personal Info */}
             <fieldset>
-              <legend className={`font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>
+              <legend className={`font-semibold mb-4 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                 Personal Information
               </legend>
               <div className="grid grid-cols-2 gap-4">
@@ -162,7 +162,7 @@ export default function CoachSettingsPage() {
                     className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary ${
                       isDark
                         ? "bg-gray-800 border-gray-700 text-white"
-                        : "bg-white border-gray-200 text-gray-900"
+                        : "bg-white border-gray-200 text-[#0F172A]"
                     }`}
                   />
                 </div>
@@ -177,7 +177,7 @@ export default function CoachSettingsPage() {
                     className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary ${
                       isDark
                         ? "bg-gray-800 border-gray-700 text-white"
-                        : "bg-white border-gray-200 text-gray-900"
+                        : "bg-white border-gray-200 text-[#0F172A]"
                     }`}
                   />
                 </div>
@@ -193,7 +193,7 @@ export default function CoachSettingsPage() {
                     className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary ${
                       isDark
                         ? "bg-gray-800 border-gray-700 text-white"
-                        : "bg-white border-gray-200 text-gray-900"
+                        : "bg-white border-gray-200 text-[#0F172A]"
                     }`}
                   />
                 </div>
@@ -209,7 +209,7 @@ export default function CoachSettingsPage() {
                     className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary ${
                       isDark
                         ? "bg-gray-800 border-gray-700 text-white"
-                        : "bg-white border-gray-200 text-gray-900"
+                        : "bg-white border-gray-200 text-[#0F172A]"
                     }`}
                   />
                 </div>
@@ -218,7 +218,7 @@ export default function CoachSettingsPage() {
 
             {/* Organization */}
             <fieldset>
-              <legend className={`font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>
+              <legend className={`font-semibold mb-4 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                 Organization
               </legend>
               <div className="grid grid-cols-2 gap-4">
@@ -234,7 +234,7 @@ export default function CoachSettingsPage() {
                     className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary ${
                       isDark
                         ? "bg-gray-800 border-gray-700 text-white"
-                        : "bg-white border-gray-200 text-gray-900"
+                        : "bg-white border-gray-200 text-[#0F172A]"
                     }`}
                   />
                 </div>
@@ -248,7 +248,7 @@ export default function CoachSettingsPage() {
                     className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary ${
                       isDark
                         ? "bg-gray-800 border-gray-700 text-white"
-                        : "bg-white border-gray-200 text-gray-900"
+                        : "bg-white border-gray-200 text-[#0F172A]"
                     }`}
                   >
                     <option>Spokane County</option>
@@ -262,7 +262,7 @@ export default function CoachSettingsPage() {
 
             {/* Fun Fact */}
             <fieldset>
-              <legend className={`font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>
+              <legend className={`font-semibold mb-4 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                 Fun Fact (visible to clients)
               </legend>
               <div className="grid grid-cols-3 gap-4">
@@ -271,7 +271,7 @@ export default function CoachSettingsPage() {
                   className={`px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary ${
                     isDark
                       ? "bg-gray-800 border-gray-700 text-white"
-                      : "bg-white border-gray-200 text-gray-900"
+                      : "bg-white border-gray-200 text-[#0F172A]"
                   }`}
                 >
                   <option>{demoCoach.quirkyFact.prompt}</option>
@@ -286,7 +286,7 @@ export default function CoachSettingsPage() {
                   className={`col-span-2 px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary ${
                     isDark
                       ? "bg-gray-800 border-gray-700 text-white"
-                      : "bg-white border-gray-200 text-gray-900"
+                      : "bg-white border-gray-200 text-[#0F172A]"
                   }`}
                 />
               </div>
@@ -298,7 +298,7 @@ export default function CoachSettingsPage() {
         {activeTab === "notifications" && (
           <div className="space-y-6">
             <fieldset>
-              <legend className={`font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>
+              <legend className={`font-semibold mb-4 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                 Email Notifications
               </legend>
               <div className="space-y-4" role="group" aria-label="Email notification preferences">
@@ -314,7 +314,7 @@ export default function CoachSettingsPage() {
                     className={`flex items-center justify-between p-4 rounded-xl ${isDark ? "bg-gray-800" : "bg-gray-50"}`}
                   >
                     <div>
-                      <label htmlFor={item.id} className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                      <label htmlFor={item.id} className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                         {item.label}
                       </label>
                       <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>{item.description}</p>
@@ -329,7 +329,7 @@ export default function CoachSettingsPage() {
                       <label
                         htmlFor={item.id}
                         className={`block w-11 h-6 rounded-full cursor-pointer transition-colors peer-focus-visible:ring-2 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-2 ${
-                          isDark ? "bg-gray-700 peer-checked:bg-[#4FD1C5]" : "bg-gray-200 peer-checked:bg-[#2B8A8A]"
+                          isDark ? "bg-gray-700 peer-checked:bg-[#4FD1C5]" : "bg-gray-200 peer-checked:bg-[#0D9488]"
                         }`}
                       >
                         <span className="block w-5 h-5 bg-white rounded-full shadow transform transition-transform translate-x-0.5 translate-y-0.5 peer-checked:translate-x-5" />
@@ -341,7 +341,7 @@ export default function CoachSettingsPage() {
             </fieldset>
 
             <fieldset>
-              <legend className={`font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>
+              <legend className={`font-semibold mb-4 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                 Inactivity Alerts
               </legend>
               <p className={`text-sm mb-4 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -355,8 +355,8 @@ export default function CoachSettingsPage() {
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                       inactivityAlert === option
                         ? isDark
-                          ? "bg-[#4FD1C5] text-gray-900"
-                          : "bg-[#2B8A8A] text-white"
+                          ? "bg-[#4FD1C5] text-[#0F172A]"
+                          : "bg-[#0D9488] text-white"
                         : isDark
                         ? "bg-gray-800 text-gray-400 hover:bg-gray-700"
                         : "bg-gray-100 text-gray-600 hover:bg-gray-200"
@@ -376,13 +376,13 @@ export default function CoachSettingsPage() {
         {activeTab === "caseload" && (
           <div className="space-y-6">
             <div>
-              <h3 className={`font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>
+              <h3 className={`font-semibold mb-4 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                 Caseload Capacity
               </h3>
               <div className={`p-4 rounded-xl ${isDark ? "bg-gray-800" : "bg-gray-50"}`}>
                 <div className="flex items-center justify-between mb-2">
                   <span className={`text-sm ${isDark ? "text-gray-400" : "text-gray-600"}`}>Current Clients</span>
-                  <span className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+                  <span className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                     {demoCoach.clientCount} / {demoCoach.maxClients}
                   </span>
                 </div>
@@ -395,7 +395,7 @@ export default function CoachSettingsPage() {
                   aria-label="Caseload capacity"
                 >
                   <motion.div
-                    className={`h-full rounded-full ${isDark ? "bg-[#4FD1C5]" : "bg-[#2B8A8A]"}`}
+                    className={`h-full rounded-full ${isDark ? "bg-[#4FD1C5]" : "bg-[#0D9488]"}`}
                     initial={{ width: 0 }}
                     animate={{ width: `${(demoCoach.clientCount / demoCoach.maxClients) * 100}%` }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
@@ -405,7 +405,7 @@ export default function CoachSettingsPage() {
             </div>
 
             <div>
-              <label htmlFor="maxClients" className={`font-semibold block mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>
+              <label htmlFor="maxClients" className={`font-semibold block mb-4 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                 Maximum Clients
               </label>
               <select
@@ -414,7 +414,7 @@ export default function CoachSettingsPage() {
                 className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary ${
                   isDark
                     ? "bg-gray-800 border-gray-700 text-white"
-                    : "bg-white border-gray-200 text-gray-900"
+                    : "bg-white border-gray-200 text-[#0F172A]"
                 }`}
               >
                 <option>15 clients</option>
@@ -429,10 +429,10 @@ export default function CoachSettingsPage() {
             </div>
 
             <div>
-              <h3 className={`font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>Auto-Assignment</h3>
+              <h3 className={`font-semibold mb-4 ${isDark ? "text-white" : "text-[#0F172A]"}`}>Auto-Assignment</h3>
               <div className={`flex items-center justify-between p-4 rounded-xl ${isDark ? "bg-gray-800" : "bg-gray-50"}`}>
                 <div>
-                  <label htmlFor="autoAssign" className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                  <label htmlFor="autoAssign" className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                     Accept new client assignments
                   </label>
                   <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -449,7 +449,7 @@ export default function CoachSettingsPage() {
                   <label
                     htmlFor="autoAssign"
                     className={`block w-11 h-6 rounded-full cursor-pointer transition-colors peer-focus-visible:ring-2 peer-focus-visible:ring-primary peer-focus-visible:ring-offset-2 ${
-                      isDark ? "bg-gray-700 peer-checked:bg-[#4FD1C5]" : "bg-gray-200 peer-checked:bg-[#2B8A8A]"
+                      isDark ? "bg-gray-700 peer-checked:bg-[#4FD1C5]" : "bg-gray-200 peer-checked:bg-[#0D9488]"
                     }`}
                   >
                     <span className="block w-5 h-5 bg-white rounded-full shadow transform transition-transform translate-x-0.5 translate-y-0.5 peer-checked:translate-x-5" />
@@ -459,7 +459,7 @@ export default function CoachSettingsPage() {
             </div>
 
             <fieldset>
-              <legend className={`font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>
+              <legend className={`font-semibold mb-4 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                 Default Notification Settings for New Clients
               </legend>
               <div className="grid grid-cols-2 gap-4">
@@ -472,7 +472,7 @@ export default function CoachSettingsPage() {
                       type="checkbox"
                       id="emailMilestone"
                       defaultChecked
-                      className="h-4 w-4 text-[#2B8A8A] rounded focus:ring-primary"
+                      className="h-4 w-4 text-[#0D9488] rounded focus:ring-primary"
                     />
                   </div>
                 </div>
@@ -486,7 +486,7 @@ export default function CoachSettingsPage() {
                     className={`w-full px-3 py-2 border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary ${
                       isDark
                         ? "bg-gray-900 border-gray-700 text-white"
-                        : "bg-white border-gray-200 text-gray-900"
+                        : "bg-white border-gray-200 text-[#0F172A]"
                     }`}
                   >
                     <option>1 day</option>
@@ -503,7 +503,7 @@ export default function CoachSettingsPage() {
         {activeTab === "appearance" && (
           <div className="space-y-6">
             <div>
-              <h3 className={`font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>Theme</h3>
+              <h3 className={`font-semibold mb-4 ${isDark ? "text-white" : "text-[#0F172A]"}`}>Theme</h3>
               <p className={`text-sm mb-4 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
                 Choose how Career Forward looks for you
               </p>
@@ -519,7 +519,7 @@ export default function CoachSettingsPage() {
                       onClick={() => setTheme(option.id)}
                       className={`p-4 rounded-xl border-2 text-left transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                         isSelected
-                          ? isDark ? "border-[#4FD1C5]" : "border-[#2B8A8A]"
+                          ? isDark ? "border-[#4FD1C5]" : "border-[#0D9488]"
                           : isDark
                           ? "border-gray-700 hover:border-gray-600"
                           : "border-gray-200 hover:border-gray-300"
@@ -529,27 +529,27 @@ export default function CoachSettingsPage() {
                     >
                       <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-3 ${
                         isSelected
-                          ? isDark ? "bg-[#4FD1C5]/20" : "bg-[#2B8A8A]/10"
+                          ? isDark ? "bg-[#4FD1C5]/20" : "bg-[#0D9488]/10"
                           : isDark
                           ? "bg-gray-800"
                           : "bg-gray-100"
                       }`}>
                         <Icon className={`h-5 w-5 ${
                           isSelected
-                            ? isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"
+                            ? isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"
                             : isDark
                             ? "text-gray-400"
                             : "text-gray-500"
                         }`} aria-hidden="true" />
                       </div>
-                      <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>{option.name}</p>
+                      <p className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>{option.name}</p>
                       <p className={`text-sm mt-1 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
                         {option.description}
                       </p>
                       {isSelected && (
                         <motion.div
                           layoutId="theme-indicator"
-                          className={`mt-3 flex items-center gap-1 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`}
+                          className={`mt-3 flex items-center gap-1 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`}
                         >
                           <CheckCircle2 className="h-4 w-4" aria-hidden="true" />
                           <span className="text-sm font-medium">Active</span>
@@ -562,7 +562,7 @@ export default function CoachSettingsPage() {
             </div>
 
             <div className={`p-4 rounded-xl ${isDark ? "bg-gray-800" : "bg-gray-50"}`}>
-              <h4 className={`font-medium mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>Preview</h4>
+              <h4 className={`font-medium mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>Preview</h4>
               <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
                 Your current theme is <span className="font-medium capitalize">{theme}</span>
                 {theme === "system" && ` (currently ${resolvedTheme})`}
@@ -594,7 +594,7 @@ export default function CoachSettingsPage() {
           </Button>
           <Button
             onClick={handleSave}
-            className={`gap-2 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"}`}
+            className={`gap-2 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"}`}
           >
             <Save className="h-4 w-4" aria-hidden="true" />
             Save Changes

@@ -115,8 +115,8 @@ export function VersionHistoryPanel({ onCreateTailored }: VersionHistoryPanelPro
           )}
         >
           <div className="flex items-center gap-2">
-            <History className={cn("w-4 h-4", isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]")} />
-            <span className={cn("text-sm font-medium", isDark ? "text-white" : "text-gray-900")}>
+            <History className={cn("w-4 h-4", isDark ? "text-[#4FD1C5]" : "text-[#0D9488]")} />
+            <span className={cn("text-sm font-medium", isDark ? "text-white" : "text-[#0F172A]")}>
               Version History
             </span>
             <span
@@ -164,7 +164,7 @@ export function VersionHistoryPanel({ onCreateTailored }: VersionHistoryPanelPro
                           index === 0
                             ? isDark
                               ? "bg-[#4FD1C5]/20 text-[#4FD1C5]"
-                              : "bg-[#2B8A8A]/20 text-[#2B8A8A]"
+                              : "bg-[#0D9488]/20 text-[#0D9488]"
                             : isDark
                             ? "bg-gray-800 text-gray-500"
                             : "bg-gray-100 text-gray-400"
@@ -176,7 +176,7 @@ export function VersionHistoryPanel({ onCreateTailored }: VersionHistoryPanelPro
                         <p
                           className={cn(
                             "text-xs font-medium",
-                            isDark ? "text-white" : "text-gray-900"
+                            isDark ? "text-white" : "text-[#0F172A]"
                           )}
                         >
                           {version.versionLabel || `Version ${version.versionNumber}`}
@@ -231,7 +231,7 @@ export function VersionHistoryPanel({ onCreateTailored }: VersionHistoryPanelPro
         >
           <div className="flex items-center gap-2">
             <GitBranch className={cn("w-4 h-4", isDark ? "text-purple-400" : "text-purple-600")} />
-            <span className={cn("text-sm font-medium", isDark ? "text-white" : "text-gray-900")}>
+            <span className={cn("text-sm font-medium", isDark ? "text-white" : "text-[#0F172A]")}>
               Tailored Versions
             </span>
             <span
@@ -302,7 +302,7 @@ export function VersionHistoryPanel({ onCreateTailored }: VersionHistoryPanelPro
                         <p
                           className={cn(
                             "text-xs font-medium",
-                            isDark ? "text-white" : "text-gray-900"
+                            isDark ? "text-white" : "text-[#0F172A]"
                           )}
                         >
                           {tailored.name}

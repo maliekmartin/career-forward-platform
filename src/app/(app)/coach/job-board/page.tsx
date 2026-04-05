@@ -212,7 +212,7 @@ export default function CoachJobBoardPage() {
             >
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <h3 className={`font-semibold text-lg ${isDark ? "text-white" : "text-gray-900"}`}>
+                  <h3 className={`font-semibold text-lg ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                     Share Job
                   </h3>
                   <p className={`text-sm mt-1 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -243,11 +243,11 @@ export default function CoachJobBoardPage() {
                         : "border-gray-200 hover:bg-gray-50 hover:border-gray-300"
                     }`}
                   >
-                    <div className={`p-2 rounded-lg ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#2B8A8A]/10"}`}>
-                      <MessageSquare className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} />
+                    <div className={`p-2 rounded-lg ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#0D9488]/10"}`}>
+                      <MessageSquare className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} />
                     </div>
                     <div className="text-left">
-                      <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                      <p className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                         Send via Message
                       </p>
                       <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -267,7 +267,7 @@ export default function CoachJobBoardPage() {
                       <Briefcase className={`h-5 w-5 ${isDark ? "text-purple-400" : "text-purple-600"}`} />
                     </div>
                     <div className="text-left">
-                      <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                      <p className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                         Assign as Task
                       </p>
                       <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -287,7 +287,7 @@ export default function CoachJobBoardPage() {
                         setShareMethod(null);
                         setSelectedClient(null);
                       }}
-                      className={`text-sm ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"} hover:underline`}
+                      className={`text-sm ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"} hover:underline`}
                     >
                       Back
                     </button>
@@ -308,7 +308,7 @@ export default function CoachJobBoardPage() {
                           selectedClient === client.id
                             ? isDark
                               ? "bg-[#4FD1C5]/20 border-[#4FD1C5] border"
-                              : "bg-[#2B8A8A]/10 border-[#2B8A8A] border"
+                              : "bg-[#0D9488]/10 border-[#0D9488] border"
                             : isDark
                             ? "border border-gray-700 hover:bg-gray-700"
                             : "border border-gray-200 hover:bg-gray-50"
@@ -320,7 +320,7 @@ export default function CoachJobBoardPage() {
                           className="w-10 h-10 rounded-full object-cover"
                         />
                         <div className="text-left flex-1">
-                          <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                          <p className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                             {client.firstName} {client.lastName}
                           </p>
                           <p className={`text-xs ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -328,7 +328,7 @@ export default function CoachJobBoardPage() {
                           </p>
                         </div>
                         {selectedClient === client.id && (
-                          <CheckCircle2 className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} />
+                          <CheckCircle2 className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} />
                         )}
                       </button>
                     ))}
@@ -338,7 +338,7 @@ export default function CoachJobBoardPage() {
                     disabled={!selectedClient}
                     className={`w-full mt-4 rounded-xl ${
                       selectedClient
-                        ? "bg-[#2B8A8A] hover:bg-[#237070] text-white"
+                        ? "bg-[#F59E0B] hover:bg-[#D97706] text-white"
                         : isDark
                         ? "bg-gray-700 text-gray-500"
                         : "bg-gray-200 text-gray-400"
@@ -361,7 +361,7 @@ export default function CoachJobBoardPage() {
       >
         <div className="flex items-center justify-between mb-2">
           <div>
-            <h1 className={`text-3xl font-bold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+            <h1 className={`text-3xl font-bold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
               Job Board
             </h1>
             <p className={isDark ? "text-gray-400" : "text-gray-600"}>
@@ -405,7 +405,7 @@ export default function CoachJobBoardPage() {
               <Briefcase className={`h-5 w-5 ${isDark ? "text-blue-400" : "text-blue-600"}`} />
             </div>
             <div>
-              <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
+              <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                 {mockJobs.length}
               </p>
               <p className={`text-xs ${isDark ? "text-gray-400" : "text-gray-500"}`}>Total Jobs</p>
@@ -414,11 +414,11 @@ export default function CoachJobBoardPage() {
         </div>
         <div className={`rounded-xl p-4 ${isDark ? "bg-gray-800" : "bg-white border border-gray-100"}`}>
           <div className="flex items-center gap-3">
-            <div className={`p-2 rounded-lg ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#2B8A8A]/10"}`}>
-              <Users className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} />
+            <div className={`p-2 rounded-lg ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#0D9488]/10"}`}>
+              <Users className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} />
             </div>
             <div>
-              <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
+              <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                 {demoClients.length}
               </p>
               <p className={`text-xs ${isDark ? "text-gray-400" : "text-gray-500"}`}>Job Seekers</p>
@@ -431,7 +431,7 @@ export default function CoachJobBoardPage() {
               <Laptop className={`h-5 w-5 ${isDark ? "text-green-400" : "text-green-600"}`} />
             </div>
             <div>
-              <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
+              <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                 {mockJobs.filter((j) => j.remote).length}
               </p>
               <p className={`text-xs ${isDark ? "text-gray-400" : "text-gray-500"}`}>Remote Jobs</p>
@@ -444,7 +444,7 @@ export default function CoachJobBoardPage() {
               <Share2 className={`h-5 w-5 ${isDark ? "text-purple-400" : "text-purple-600"}`} />
             </div>
             <div>
-              <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
+              <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                 12
               </p>
               <p className={`text-xs ${isDark ? "text-gray-400" : "text-gray-500"}`}>Shared This Week</p>
@@ -476,7 +476,7 @@ export default function CoachJobBoardPage() {
               className={`w-full pl-12 pr-4 py-3 rounded-xl text-lg transition-colors ${
                 isDark
                   ? "bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:ring-[#4FD1C5]/30 focus:border-[#4FD1C5]"
-                  : "bg-gray-50 border-gray-200 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A]"
+                  : "bg-gray-50 border-gray-200 focus:ring-[#0D9488]/20 focus:border-[#0D9488]"
               } border focus:outline-none focus:ring-2`}
             />
           </div>
@@ -487,7 +487,7 @@ export default function CoachJobBoardPage() {
               showFilters
                 ? isDark
                   ? "bg-[#4FD1C5]/20 border-[#4FD1C5] text-[#4FD1C5]"
-                  : "bg-[#2B8A8A]/10 border-[#2B8A8A] text-[#2B8A8A]"
+                  : "bg-[#0D9488]/10 border-[#0D9488] text-[#0D9488]"
                 : isDark
                 ? "border-gray-600 text-gray-300 hover:bg-gray-700"
                 : ""
@@ -496,7 +496,7 @@ export default function CoachJobBoardPage() {
             <Filter className="h-4 w-4 mr-2" />
             Filters
             {hasActiveFilters && (
-              <span className={`ml-2 w-2 h-2 rounded-full ${isDark ? "bg-[#4FD1C5]" : "bg-[#2B8A8A]"}`} />
+              <span className={`ml-2 w-2 h-2 rounded-full ${isDark ? "bg-[#4FD1C5]" : "bg-[#0D9488]"}`} />
             )}
           </Button>
         </div>
@@ -523,9 +523,9 @@ export default function CoachJobBoardPage() {
                       className={`w-full px-3 py-2 rounded-lg border transition-colors ${
                         isDark
                           ? "bg-gray-700 border-gray-600 text-white focus:border-[#4FD1C5]"
-                          : "bg-gray-50 border-gray-200 focus:border-[#2B8A8A]"
+                          : "bg-gray-50 border-gray-200 focus:border-[#0D9488]"
                       } focus:outline-none focus:ring-2 ${
-                        isDark ? "focus:ring-[#4FD1C5]/30" : "focus:ring-[#2B8A8A]/20"
+                        isDark ? "focus:ring-[#4FD1C5]/30" : "focus:ring-[#0D9488]/20"
                       }`}
                     >
                       {categoryOptions.map((opt) => (
@@ -547,9 +547,9 @@ export default function CoachJobBoardPage() {
                       className={`w-full px-3 py-2 rounded-lg border transition-colors ${
                         isDark
                           ? "bg-gray-700 border-gray-600 text-white focus:border-[#4FD1C5]"
-                          : "bg-gray-50 border-gray-200 focus:border-[#2B8A8A]"
+                          : "bg-gray-50 border-gray-200 focus:border-[#0D9488]"
                       } focus:outline-none focus:ring-2 ${
-                        isDark ? "focus:ring-[#4FD1C5]/30" : "focus:ring-[#2B8A8A]/20"
+                        isDark ? "focus:ring-[#4FD1C5]/30" : "focus:ring-[#0D9488]/20"
                       }`}
                     >
                       {sourceOptions.map((opt) => (
@@ -571,9 +571,9 @@ export default function CoachJobBoardPage() {
                       className={`w-full px-3 py-2 rounded-lg border transition-colors ${
                         isDark
                           ? "bg-gray-700 border-gray-600 text-white focus:border-[#4FD1C5]"
-                          : "bg-gray-50 border-gray-200 focus:border-[#2B8A8A]"
+                          : "bg-gray-50 border-gray-200 focus:border-[#0D9488]"
                       } focus:outline-none focus:ring-2 ${
-                        isDark ? "focus:ring-[#4FD1C5]/30" : "focus:ring-[#2B8A8A]/20"
+                        isDark ? "focus:ring-[#4FD1C5]/30" : "focus:ring-[#0D9488]/20"
                       }`}
                     >
                       {hoursOptions.map((opt) => (
@@ -595,9 +595,9 @@ export default function CoachJobBoardPage() {
                       className={`w-full px-3 py-2 rounded-lg border transition-colors ${
                         isDark
                           ? "bg-gray-700 border-gray-600 text-white focus:border-[#4FD1C5]"
-                          : "bg-gray-50 border-gray-200 focus:border-[#2B8A8A]"
+                          : "bg-gray-50 border-gray-200 focus:border-[#0D9488]"
                       } focus:outline-none focus:ring-2 ${
-                        isDark ? "focus:ring-[#4FD1C5]/30" : "focus:ring-[#2B8A8A]/20"
+                        isDark ? "focus:ring-[#4FD1C5]/30" : "focus:ring-[#0D9488]/20"
                       }`}
                     >
                       <option value="newest">Newest First</option>
@@ -616,8 +616,8 @@ export default function CoachJobBoardPage() {
                       className={`w-full px-3 py-2 rounded-lg border flex items-center justify-center gap-2 transition-all ${
                         remoteOnly
                           ? isDark
-                            ? "bg-[#4FD1C5] text-gray-900 border-[#4FD1C5]"
-                            : "bg-[#2B8A8A] text-white border-[#2B8A8A]"
+                            ? "bg-[#4FD1C5] text-[#0F172A] border-[#4FD1C5]"
+                            : "bg-[#0D9488] text-white border-[#0D9488]"
                           : isDark
                           ? "bg-gray-700 text-gray-300 border-gray-600 hover:border-gray-500"
                           : "bg-gray-50 text-gray-600 border-gray-200 hover:border-gray-300"
@@ -638,7 +638,7 @@ export default function CoachJobBoardPage() {
                     <button
                       onClick={clearFilters}
                       className={`text-sm flex items-center gap-1 hover:underline ${
-                        isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"
+                        isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"
                       }`}
                     >
                       <X className="h-3 w-3" />
@@ -691,7 +691,7 @@ export default function CoachJobBoardPage() {
                       <h3 className={`text-lg font-semibold transition-colors ${
                         isDark
                           ? "text-white group-hover:text-[#4FD1C5]"
-                          : "text-gray-900 group-hover:text-[#2B8A8A]"
+                          : "text-[#0F172A] group-hover:text-[#0D9488]"
                       }`}>
                         {job.title}
                       </h3>
@@ -731,7 +731,7 @@ export default function CoachJobBoardPage() {
                       {formatJobDate(job.datePosted)}
                     </span>
                     {job.remote && (
-                      <span className={`flex items-center gap-1 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`}>
+                      <span className={`flex items-center gap-1 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`}>
                         <Laptop className="h-4 w-4" />
                         Remote
                       </span>
@@ -772,7 +772,7 @@ export default function CoachJobBoardPage() {
                     className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all ${
                       isDark
                         ? "text-[#4FD1C5] hover:bg-[#4FD1C5]/10 border border-gray-700 hover:border-[#4FD1C5]/50"
-                        : "text-[#2B8A8A] hover:bg-[#2B8A8A]/10 border border-gray-200 hover:border-[#2B8A8A]/50"
+                        : "text-[#0D9488] hover:bg-[#0D9488]/10 border border-gray-200 hover:border-[#0D9488]/50"
                     }`}
                   >
                     <Share2 className="h-4 w-4" />
@@ -799,7 +799,7 @@ export default function CoachJobBoardPage() {
           }`}>
             <Search className={`h-8 w-8 ${isDark ? "text-gray-500" : "text-gray-400"}`} />
           </div>
-          <h3 className={`font-semibold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+          <h3 className={`font-semibold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
             No jobs found
           </h3>
           <p className={`mb-4 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -807,7 +807,7 @@ export default function CoachJobBoardPage() {
           </p>
           <Button
             onClick={clearFilters}
-            className="bg-[#2B8A8A] hover:bg-[#237070] text-white rounded-full"
+            className="bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-full"
           >
             Clear all filters
           </Button>

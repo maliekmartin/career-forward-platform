@@ -91,7 +91,7 @@ export function FeaturesPanel() {
             isDark ? "border-gray-800" : "border-gray-200"
           )}
         >
-          <h3 className={cn("font-semibold", isDark ? "text-white" : "text-gray-900")}>
+          <h3 className={cn("font-semibold", isDark ? "text-white" : "text-[#0F172A]")}>
             {features.find((f) => f.id === activePanel)?.name}
           </h3>
           <Button
@@ -112,7 +112,7 @@ export function FeaturesPanel() {
 
   return (
     <div className="p-4 space-y-3">
-      <h3 className={cn("font-semibold text-sm mb-4", isDark ? "text-white" : "text-gray-900")}>
+      <h3 className={cn("font-semibold text-sm mb-4", isDark ? "text-white" : "text-[#0F172A]")}>
         AI Tools & Features
       </h3>
 
@@ -134,7 +134,7 @@ export function FeaturesPanel() {
             <feature.icon className="w-4 h-4" style={{ color: feature.color }} />
           </div>
           <div className="flex-1 min-w-0">
-            <p className={cn("text-sm font-medium", isDark ? "text-white" : "text-gray-900")}>
+            <p className={cn("text-sm font-medium", isDark ? "text-white" : "text-[#0F172A]")}>
               {feature.name}
             </p>
             <p className={cn("text-xs truncate", isDark ? "text-gray-500" : "text-gray-400")}>

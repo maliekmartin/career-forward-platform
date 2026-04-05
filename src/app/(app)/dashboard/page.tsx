@@ -59,7 +59,7 @@ const demoJobSeeker = {
 };
 
 const questStages = [
-  { id: "discover", name: "Discover", color: "#2B8A8A", progress: 100, description: "Explore careers and assess skills" },
+  { id: "discover", name: "Discover", color: "#0D9488", progress: 100, description: "Explore careers and assess skills" },
   { id: "prepare", name: "Prepare", color: "#38A169", progress: 60, description: "Build resume and enhance skills" },
   { id: "search", name: "Search", color: "#D69E2E", progress: 0, description: "Find and apply to opportunities" },
   { id: "interview", name: "Interview", color: "#E53E3E", progress: 0, description: "Ace your interviews" },
@@ -74,7 +74,7 @@ const recentApplications = [
 
 const upcomingEvents = [
   { time: "09:00", title: "Interview: Tech Corp", color: "border-l-purple-500", bg: "bg-purple-500/10" },
-  { time: "14:00", title: "Resume Review", color: "border-l-[#2B8A8A]", bg: "bg-[#2B8A8A]/10" },
+  { time: "14:00", title: "Resume Review", color: "border-l-[#0D9488]", bg: "bg-[#0D9488]/10" },
 ];
 
 const formatTime = (t: string) => {
@@ -112,22 +112,22 @@ export default function DashboardPage() {
         >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className={`w-12 h-12 rounded-full flex items-center justify-center relative ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#2B8A8A]/10"}`}>
+              <div className={`w-12 h-12 rounded-full flex items-center justify-center relative ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#0D9488]/10"}`}>
                 <svg className="w-12 h-12 -rotate-90">
-                  <circle cx="24" cy="24" r="20" fill="none" stroke={isDark ? "#374151" : "#e5e7eb"} strokeWidth="3" />
+                  <circle cx="24" cy="24" r="20" fill="none" stroke={isDark ? "#0F172A" : "#e5e7eb"} strokeWidth="3" />
                   <motion.circle
                     cx="24" cy="24" r="20" fill="none"
-                    stroke={isDark ? "#4FD1C5" : "#2B8A8A"}
+                    stroke={isDark ? "#4FD1C5" : "#0D9488"}
                     strokeWidth="3" strokeLinecap="round"
                     initial={{ strokeDasharray: "0 126" }}
                     animate={{ strokeDasharray: `${(demoJobSeeker.questProgress / 100) * 126} 126` }}
                     transition={{ duration: 1, ease: "easeOut" }}
                   />
                 </svg>
-                <Target className={`h-4 w-4 absolute ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} />
+                <Target className={`h-4 w-4 absolute ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} />
               </div>
               <div>
-                <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>{demoJobSeeker.questProgress}%</p>
+                <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>{demoJobSeeker.questProgress}%</p>
                 <p className={`text-xs ${isDark ? "text-gray-400" : "text-gray-500"}`}>Quest Progress</p>
               </div>
             </div>
@@ -150,7 +150,7 @@ export default function DashboardPage() {
                 <Briefcase className={`h-5 w-5 ${isDark ? "text-blue-400" : "text-blue-600"}`} />
               </div>
               <div>
-                <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>{demoJobSeeker.stats.applied}</p>
+                <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>{demoJobSeeker.stats.applied}</p>
                 <p className={`text-xs ${isDark ? "text-gray-400" : "text-gray-500"}`}>Applications</p>
               </div>
             </div>
@@ -174,7 +174,7 @@ export default function DashboardPage() {
                   <Calendar className={`h-5 w-5 ${isDark ? "text-purple-400" : "text-purple-600"}`} />
                 </div>
                 <div>
-                  <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>{demoJobSeeker.stats.interviewing}</p>
+                  <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>{demoJobSeeker.stats.interviewing}</p>
                   <p className={`text-xs ${isDark ? "text-gray-400" : "text-gray-500"}`}>Interviews</p>
                 </div>
               </div>
@@ -201,13 +201,13 @@ export default function DashboardPage() {
           <div className={`rounded-xl border shadow-sm overflow-hidden ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}>
             <div className={`flex items-center justify-between px-4 py-3 border-b ${isDark ? "border-gray-800" : "border-gray-100"}`}>
               <div className="flex items-center gap-2">
-                <div className={`p-1.5 rounded-lg ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#2B8A8A]/10"}`}>
-                  <Target className={`h-4 w-4 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} />
+                <div className={`p-1.5 rounded-lg ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#0D9488]/10"}`}>
+                  <Target className={`h-4 w-4 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} />
                 </div>
-                <h2 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>Your Career Forward</h2>
+                <h2 className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>Your Career Forward</h2>
               </div>
               <Link href="/achievements">
-                <Button variant="ghost" size="sm" className={`text-xs h-7 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`}>
+                <Button variant="ghost" size="sm" className={`text-xs h-7 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`}>
                   View Journey <ChevronRight className="h-3 w-3 ml-1" />
                 </Button>
               </Link>
@@ -256,12 +256,12 @@ export default function DashboardPage() {
                     <Play className="h-4 w-4" style={{ color: currentStage.color }} />
                   </div>
                   <div>
-                    <p className={`text-sm font-medium ${isDark ? "text-white" : "text-gray-900"}`}>Continue: {currentStage.name}</p>
+                    <p className={`text-sm font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>Continue: {currentStage.name}</p>
                     <p className={`text-xs ${isDark ? "text-gray-400" : "text-gray-500"}`}>{currentStage.description}</p>
                   </div>
                 </div>
                 <Link href={currentStageIndex === 1 ? "/resume-builder" : "/job-board"}>
-                  <Button size="sm" className={`h-8 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"}`}>
+                  <Button size="sm" className={`h-8 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"}`}>
                     Continue <ArrowRight className="h-3 w-3 ml-1" />
                   </Button>
                 </Link>
@@ -276,10 +276,10 @@ export default function DashboardPage() {
                 <div className={`p-1.5 rounded-lg ${isDark ? "bg-blue-900/30" : "bg-blue-100"}`}>
                   <Briefcase className={`h-4 w-4 ${isDark ? "text-blue-400" : "text-blue-600"}`} />
                 </div>
-                <h2 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>Recent Applications</h2>
+                <h2 className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>Recent Applications</h2>
               </div>
               <Link href="/job-tracker">
-                <Button variant="ghost" size="sm" className={`text-xs h-7 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`}>
+                <Button variant="ghost" size="sm" className={`text-xs h-7 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`}>
                   View All <ChevronRight className="h-3 w-3 ml-1" />
                 </Button>
               </Link>
@@ -293,7 +293,7 @@ export default function DashboardPage() {
                       {app.logo}
                     </div>
                     <div>
-                      <p className={`text-sm font-medium ${isDark ? "text-white" : "text-gray-900"}`}>{app.position}</p>
+                      <p className={`text-sm font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>{app.position}</p>
                       <p className={`text-xs ${isDark ? "text-gray-500" : "text-gray-500"}`}>{app.company} · {app.date}</p>
                     </div>
                   </div>
@@ -321,11 +321,11 @@ export default function DashboardPage() {
         {/* Right Column - Sidebar */}
         <div className="space-y-4">
           {/* Motivation Card with Streak */}
-          <div className={`rounded-xl p-4 ${isDark ? "bg-gradient-to-br from-[#4FD1C5]/20 to-[#4FD1C5]/5 border border-[#4FD1C5]/20" : "bg-gradient-to-br from-[#2B8A8A]/10 to-[#2B8A8A]/5 border border-[#2B8A8A]/20"}`}>
+          <div className={`rounded-xl p-4 ${isDark ? "bg-gradient-to-br from-[#4FD1C5]/20 to-[#4FD1C5]/5 border border-[#4FD1C5]/20" : "bg-gradient-to-br from-[#0D9488]/10 to-[#0D9488]/5 border border-[#0D9488]/20"}`}>
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
-                <Play className={`h-4 w-4 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} />
-                <h3 className={`font-semibold text-sm ${isDark ? "text-white" : "text-gray-900"}`}>Keep the momentum!</h3>
+                <Play className={`h-4 w-4 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} />
+                <h3 className={`font-semibold text-sm ${isDark ? "text-white" : "text-[#0F172A]"}`}>Keep the momentum!</h3>
               </div>
               <div className="flex items-center gap-1">
                 <Flame className={`h-4 w-4 ${isDark ? "text-orange-400" : "text-orange-500"}`} />
@@ -336,7 +336,7 @@ export default function DashboardPage() {
               You're in the {currentStage.name} phase. {currentStage.description}.
             </p>
             <Link href={currentStageIndex === 1 ? "/resume-builder" : "/job-board"}>
-              <Button size="sm" className={`w-full h-8 gap-1.5 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"}`}>
+              <Button size="sm" className={`w-full h-8 gap-1.5 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"}`}>
                 Continue Quest <ArrowRight className="h-3 w-3" />
               </Button>
             </Link>
@@ -345,7 +345,7 @@ export default function DashboardPage() {
           {/* Calendar + Schedule Combined */}
           <div className={`rounded-xl border shadow-sm overflow-hidden ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}>
             <div className={`px-3 py-2 border-b flex items-center justify-between ${isDark ? "border-gray-800" : "border-gray-100"}`}>
-              <h3 className={`font-semibold text-sm ${isDark ? "text-white" : "text-gray-900"}`}>
+              <h3 className={`font-semibold text-sm ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                 {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
               </h3>
               <div className="flex gap-0.5">
@@ -375,12 +375,12 @@ export default function DashboardPage() {
                   return (
                     <button key={day} onClick={() => setSelectedDate(day)}
                       className={`h-6 w-6 rounded text-xs font-medium transition-colors relative mx-auto ${
-                        isSelected ? (isDark ? "bg-[#4FD1C5] text-gray-900" : "bg-[#2B8A8A] text-white")
-                          : isToday ? (isDark ? "bg-gray-800 text-white" : "bg-gray-100 text-gray-900")
+                        isSelected ? (isDark ? "bg-[#4FD1C5] text-[#0F172A]" : "bg-[#0D9488] text-white")
+                          : isToday ? (isDark ? "bg-gray-800 text-white" : "bg-gray-100 text-[#0F172A]")
                           : isDark ? "text-gray-400 hover:bg-gray-800" : "text-gray-600 hover:bg-gray-50"
                       }`}>
                       {day}
-                      {hasEvent && !isSelected && <div className={`absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full ${isDark ? "bg-[#4FD1C5]" : "bg-[#2B8A8A]"}`} />}
+                      {hasEvent && !isSelected && <div className={`absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full ${isDark ? "bg-[#4FD1C5]" : "bg-[#0D9488]"}`} />}
                     </button>
                   );
                 })}
@@ -392,7 +392,7 @@ export default function DashboardPage() {
               <p className={`text-xs font-medium ${isDark ? "text-gray-400" : "text-gray-500"}`}>Today</p>
               {upcomingEvents.map((e, i) => (
                 <div key={i} className={`p-2 rounded-lg border-l-2 ${e.color} ${isDark ? "bg-gray-800/50" : e.bg}`}>
-                  <p className={`text-xs font-medium ${isDark ? "text-white" : "text-gray-900"}`}>{e.title}</p>
+                  <p className={`text-xs font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>{e.title}</p>
                   <p className={`text-[10px] ${isDark ? "text-gray-400" : "text-gray-500"}`}>{formatTime(e.time)}</p>
                 </div>
               ))}
@@ -406,7 +406,7 @@ export default function DashboardPage() {
               <div className="flex items-center gap-3">
                 <img src={demoCoach.avatar} alt={`${demoCoach.firstName}`} className="w-10 h-10 rounded-full object-cover" />
                 <div className="flex-1 min-w-0">
-                  <p className={`text-sm font-medium ${isDark ? "text-white" : "text-gray-900"}`}>{demoCoach.firstName} {demoCoach.lastName}</p>
+                  <p className={`text-sm font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>{demoCoach.firstName} {demoCoach.lastName}</p>
                   <div className="flex items-center gap-1">
                     <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
                     <span className={`text-[10px] ${isDark ? "text-gray-400" : "text-gray-500"}`}>Available</span>

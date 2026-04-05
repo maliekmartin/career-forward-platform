@@ -407,7 +407,7 @@ export default function ResourcesPage() {
     >
       {/* Header */}
       <div className="mb-8">
-        <h1 className={`text-3xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>Local Resources</h1>
+        <h1 className={`text-3xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>Local Resources</h1>
         <p className={`mt-2 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
           Find job centers, training programs, and community resources in Spokane County
         </p>
@@ -419,7 +419,7 @@ export default function ResourcesPage() {
           onClick={() => setActiveTab("resources")}
           className={`pb-3 text-sm font-medium border-b-2 transition-colors ${
             activeTab === "resources"
-              ? "border-[#2B8A8A] text-[#2B8A8A]"
+              ? "border-[#0D9488] text-[#0D9488]"
               : isDark
                 ? "border-transparent text-gray-500 hover:text-gray-300"
                 : "border-transparent text-gray-500 hover:text-gray-700"
@@ -431,7 +431,7 @@ export default function ResourcesPage() {
           onClick={() => setActiveTab("events")}
           className={`pb-3 text-sm font-medium border-b-2 transition-colors ${
             activeTab === "events"
-              ? "border-[#2B8A8A] text-[#2B8A8A]"
+              ? "border-[#0D9488] text-[#0D9488]"
               : isDark
                 ? "border-transparent text-gray-500 hover:text-gray-300"
                 : "border-transparent text-gray-500 hover:text-gray-700"
@@ -457,10 +457,10 @@ export default function ResourcesPage() {
                 placeholder="Search resources, certifications, training programs..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className={`w-full pl-12 pr-4 py-3 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-[#2B8A8A] focus:border-transparent ${
+                className={`w-full pl-12 pr-4 py-3 rounded-xl border text-sm focus:outline-none focus:ring-2 focus:ring-[#0D9488] focus:border-transparent ${
                   isDark
                     ? "bg-gray-800 border-gray-700 text-white placeholder-gray-500"
-                    : "bg-white border-gray-200 text-gray-900 placeholder-gray-400"
+                    : "bg-white border-gray-200 text-[#0F172A] placeholder-gray-400"
                 }`}
               />
             </div>
@@ -475,7 +475,7 @@ export default function ResourcesPage() {
                     onClick={() => setSelectedCategory(category.id)}
                     className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                       selectedCategory === category.id
-                        ? "bg-[#2B8A8A] text-white"
+                        ? "bg-[#0D9488] text-white"
                         : isDark
                           ? "bg-gray-800 text-gray-300 hover:bg-gray-700"
                           : "bg-gray-100 text-gray-600 hover:bg-gray-200"
@@ -497,7 +497,7 @@ export default function ResourcesPage() {
                   onClick={() => setSelectedIndustry(industry.id)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                     selectedIndustry === industry.id
-                      ? "bg-[#2B8A8A]/10 text-[#2B8A8A] ring-1 ring-[#2B8A8A]"
+                      ? "bg-[#0D9488]/10 text-[#0D9488] ring-1 ring-[#0D9488]"
                       : isDark
                         ? "bg-gray-800 text-gray-400 hover:bg-gray-700"
                         : "bg-gray-50 text-gray-600 hover:bg-gray-100"
@@ -511,8 +511,8 @@ export default function ResourcesPage() {
             {/* Featured Resources */}
             {selectedCategory === "all" && selectedIndustry === "all" && searchQuery === "" && (
               <div className="mb-8">
-                <h2 className={`text-lg font-semibold mb-4 flex items-center gap-2 ${isDark ? "text-white" : "text-gray-900"}`}>
-                  <Compass className="h-5 w-5 text-[#2B8A8A]" />
+                <h2 className={`text-lg font-semibold mb-4 flex items-center gap-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
+                  <Compass className="h-5 w-5 text-[#0D9488]" />
                   Featured Resources
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -522,25 +522,25 @@ export default function ResourcesPage() {
                       <motion.div
                         key={resource.id}
                         whileHover={{ scale: 1.02 }}
-                        className={`p-5 rounded-xl border-2 border-[#2B8A8A]/20 ${
+                        className={`p-5 rounded-xl border-2 border-[#0D9488]/20 ${
                           isDark
-                            ? "bg-gradient-to-br from-[#2B8A8A]/10 to-transparent"
-                            : "bg-gradient-to-br from-[#2B8A8A]/5 to-transparent"
+                            ? "bg-gradient-to-br from-[#0D9488]/10 to-transparent"
+                            : "bg-gradient-to-br from-[#0D9488]/5 to-transparent"
                         }`}
                       >
                         <div className="flex items-start gap-4">
-                          <div className="p-3 rounded-xl bg-[#2B8A8A]/10">
-                            <Icon className="h-6 w-6 text-[#2B8A8A]" />
+                          <div className="p-3 rounded-xl bg-[#0D9488]/10">
+                            <Icon className="h-6 w-6 text-[#0D9488]" />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <h3 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>{resource.name}</h3>
+                            <h3 className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>{resource.name}</h3>
                             <p className={`text-sm mt-1 line-clamp-2 ${isDark ? "text-gray-400" : "text-gray-500"}`}>{resource.description}</p>
                             {resource.website && (
                               <a
                                 href={resource.website}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 text-sm text-[#2B8A8A] hover:underline mt-2"
+                                className="inline-flex items-center gap-1 text-sm text-[#0D9488] hover:underline mt-2"
                               >
                                 Visit Website
                                 <ExternalLink className="h-3 w-3" />
@@ -557,7 +557,7 @@ export default function ResourcesPage() {
 
             {/* Resource List */}
             <div className="space-y-4">
-              <h2 className={`text-lg font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+              <h2 className={`text-lg font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                 {selectedCategory === "all" ? "All Resources" : categories.find(c => c.id === selectedCategory)?.label}
                 <span className={`text-sm font-normal ml-2 ${isDark ? "text-gray-400" : "text-gray-500"}`}>({filteredResources.length})</span>
               </h2>
@@ -568,7 +568,7 @@ export default function ResourcesPage() {
                   <p>No resources found matching your criteria.</p>
                   <button
                     onClick={() => { setSelectedCategory("all"); setSelectedIndustry("all"); setSearchQuery(""); }}
-                    className="mt-3 text-[#2B8A8A] hover:underline"
+                    className="mt-3 text-[#0D9488] hover:underline"
                   >
                     Clear filters
                   </button>
@@ -585,7 +585,7 @@ export default function ResourcesPage() {
                         className={`p-5 rounded-xl border transition-all ${
                           isDark
                             ? "bg-gray-900 border-gray-800 hover:border-[#4FD1C5]/30"
-                            : "bg-white border-gray-200 hover:border-[#2B8A8A]/30 hover:shadow-sm"
+                            : "bg-white border-gray-200 hover:border-[#0D9488]/30 hover:shadow-sm"
                         }`}
                       >
                         <div className="flex items-start gap-4">
@@ -593,7 +593,7 @@ export default function ResourcesPage() {
                             <Icon className={`h-6 w-6 ${isDark ? "text-gray-400" : "text-gray-600"}`} />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <h3 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>{resource.name}</h3>
+                            <h3 className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>{resource.name}</h3>
                             {resource.address && (
                               <p className={`text-sm flex items-center gap-1 mt-1 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
                                 <MapPin className="h-3.5 w-3.5" />
@@ -604,7 +604,7 @@ export default function ResourcesPage() {
                               {resource.phone && (
                                 <a
                                   href={`tel:${resource.phone}`}
-                                  className={`text-sm hover:underline flex items-center gap-1 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`}
+                                  className={`text-sm hover:underline flex items-center gap-1 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`}
                                 >
                                   <Phone className="h-3.5 w-3.5" />
                                   {resource.phone}
@@ -615,7 +615,7 @@ export default function ResourcesPage() {
                                   href={resource.website}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className={`text-sm hover:underline flex items-center gap-1 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`}
+                                  className={`text-sm hover:underline flex items-center gap-1 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`}
                                 >
                                   <ExternalLink className="h-3.5 w-3.5" />
                                   Website
@@ -661,15 +661,15 @@ export default function ResourcesPage() {
                   className={`p-5 rounded-xl border transition-all ${
                     isDark
                       ? "bg-gray-900 border-gray-800 hover:border-[#4FD1C5]/30"
-                      : "bg-white border-gray-200 hover:border-[#2B8A8A]/30 hover:shadow-sm"
+                      : "bg-white border-gray-200 hover:border-[#0D9488]/30 hover:shadow-sm"
                   }`}
                 >
                   <div className="flex items-start gap-4">
-                    <div className="p-3 rounded-xl bg-[#2B8A8A]/10 text-center min-w-[60px]">
-                      <p className="text-xs text-[#2B8A8A] font-medium">
+                    <div className="p-3 rounded-xl bg-[#0D9488]/10 text-center min-w-[60px]">
+                      <p className="text-xs text-[#0D9488] font-medium">
                         {event.date.toLocaleDateString([], { month: "short" })}
                       </p>
-                      <p className="text-xl font-bold text-[#2B8A8A]">
+                      <p className="text-xl font-bold text-[#0D9488]">
                         {event.date.getDate()}
                       </p>
                     </div>
@@ -688,7 +688,7 @@ export default function ResourcesPage() {
                         </span>
                         <span className={`text-xs ${isDark ? "text-gray-500" : "text-gray-400"}`}>{formatEventDate(event.date)}</span>
                       </div>
-                      <h3 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>{event.title}</h3>
+                      <h3 className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>{event.title}</h3>
                       <p className={`text-sm mt-1 ${isDark ? "text-gray-400" : "text-gray-500"}`}>{event.description}</p>
                       <div className={`flex flex-wrap items-center gap-4 mt-3 text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
                         <span className="flex items-center gap-1">
@@ -703,8 +703,8 @@ export default function ResourcesPage() {
                     </div>
                     <button className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                       isDark
-                        ? "bg-[#4FD1C5] text-gray-900 hover:bg-[#3DBDB0]"
-                        : "bg-[#2B8A8A] text-white hover:bg-[#237070]"
+                        ? "bg-[#4FD1C5] text-[#0F172A] hover:bg-[#3DBDB0]"
+                        : "bg-[#0D9488] text-white hover:bg-[#237070]"
                     }`}>
                       RSVP
                     </button>

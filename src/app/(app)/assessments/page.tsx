@@ -64,7 +64,7 @@ const assessments = [
     questions: 20,
     completed: false,
     icon: Compass,
-    color: "#2B8A8A",
+    color: "#0D9488",
     link: "https://www.mynextmove.org/explore/ip",
   },
 ];
@@ -98,7 +98,7 @@ export default function AssessmentsPage() {
   // Stats for the dashboard-within-dashboard feel
   const stats = [
     { label: "Completed", value: completedCount, icon: CheckCircle2, color: "#38A169" },
-    { label: "Available", value: assessments.length, icon: FileText, color: "#2B8A8A" },
+    { label: "Available", value: assessments.length, icon: FileText, color: "#0D9488" },
     { label: "Suggested Careers", value: 6, icon: Target, color: "#805AD5" },
     { label: "Skills Identified", value: 8, icon: Sparkles, color: "#D69E2E" },
   ];
@@ -127,7 +127,7 @@ export default function AssessmentsPage() {
                 <stat.icon className="h-5 w-5" style={{ color: stat.color }} />
               </div>
             </div>
-            <p className={`text-3xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
+            <p className={`text-3xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
               {stat.value}
             </p>
             <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -144,8 +144,8 @@ export default function AssessmentsPage() {
         transition={{ delay: 0.1 }}
         className={`rounded-2xl p-8 mb-6 ${
           isDark
-            ? "bg-gradient-to-r from-[#4FD1C5] to-[#2B8A8A] text-gray-900"
-            : "bg-gradient-to-r from-[#2B8A8A] to-[#1a5a5a] text-white"
+            ? "bg-gradient-to-r from-[#4FD1C5] to-[#0D9488] text-[#0F172A]"
+            : "bg-gradient-to-r from-[#0D9488] to-[#1a5a5a] text-white"
         }`}
       >
         <div className="flex items-center justify-between">
@@ -153,7 +153,7 @@ export default function AssessmentsPage() {
             <h2 className="text-xl font-bold mb-2">
               {completedCount} of {assessments.length} Assessments Complete
             </h2>
-            <p className={isDark ? "text-gray-900/80" : "text-white/80"}>
+            <p className={isDark ? "text-[#0F172A]/80" : "text-white/80"}>
               Complete all assessments to unlock personalized career
               recommendations
             </p>
@@ -185,7 +185,7 @@ export default function AssessmentsPage() {
               className={`rounded-2xl border p-6 transition-all ${
                 isDark
                   ? "bg-gray-900 border-gray-800 hover:border-[#4FD1C5]/30"
-                  : "bg-white border-gray-100 hover:shadow-lg hover:border-[#2B8A8A]/30"
+                  : "bg-white border-gray-100 hover:shadow-lg hover:border-[#0D9488]/30"
               }`}
             >
               <div className="flex gap-6">
@@ -200,7 +200,7 @@ export default function AssessmentsPage() {
                 </div>
                 <div className="flex-1">
                   <div className="flex items-start justify-between mb-2">
-                    <h3 className={`text-lg font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+                    <h3 className={`text-lg font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                       {assessment.name}
                     </h3>
                     {assessment.completed && (
@@ -233,7 +233,7 @@ export default function AssessmentsPage() {
                         className={
                           assessment.completed
                             ? isDark ? "border-gray-700 text-gray-300 hover:bg-gray-800" : ""
-                            : isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"
+                            : isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"
                         }
                       >
                         {assessment.completed ? "Retake" : "Start Assessment"}
@@ -258,8 +258,8 @@ export default function AssessmentsPage() {
             }`}
           >
             <div className="flex items-center gap-2 mb-4">
-              <Sparkles className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} />
-              <h3 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>Your Results</h3>
+              <Sparkles className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} />
+              <h3 className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>Your Results</h3>
             </div>
 
             {completedResults.map((result, index) => (
@@ -281,7 +281,7 @@ export default function AssessmentsPage() {
                         <span
                           key={interest}
                           className={`text-xs px-2 py-1 rounded-full ${
-                            isDark ? "bg-[#4FD1C5]/20 text-[#4FD1C5]" : "bg-[#2B8A8A]/10 text-[#2B8A8A]"
+                            isDark ? "bg-[#4FD1C5]/20 text-[#4FD1C5]" : "bg-[#0D9488]/10 text-[#0D9488]"
                           }`}
                         >
                           {interest}
@@ -336,7 +336,7 @@ export default function AssessmentsPage() {
               isDark ? "bg-gray-800" : "bg-gray-50"
             }`}
           >
-            <h3 className={`font-semibold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+            <h3 className={`font-semibold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
               Need Help Interpreting Results?
             </h3>
             <p className={`text-sm mb-4 ${isDark ? "text-gray-400" : "text-gray-600"}`}>
@@ -347,8 +347,8 @@ export default function AssessmentsPage() {
               variant="outline"
               className={`w-full ${
                 isDark
-                  ? "border-[#4FD1C5] text-[#4FD1C5] hover:bg-[#4FD1C5] hover:text-gray-900"
-                  : "border-[#2B8A8A] text-[#2B8A8A] hover:bg-[#2B8A8A] hover:text-white"
+                  ? "border-[#4FD1C5] text-[#4FD1C5] hover:bg-[#4FD1C5] hover:text-[#0F172A]"
+                  : "border-[#0D9488] text-[#0D9488] hover:bg-[#0D9488] hover:text-white"
               }`}
             >
               Talk to a Coach

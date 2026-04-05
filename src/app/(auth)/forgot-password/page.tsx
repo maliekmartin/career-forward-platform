@@ -53,8 +53,8 @@ export default function ForgotPasswordPage() {
     <div className="relative min-h-screen overflow-hidden bg-[#FAFBFC]">
       {/* Gradient Background */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-3xl opacity-20 bg-[#2B8A8A]" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full blur-3xl opacity-10 bg-[#2B8A8A]" />
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-3xl opacity-20 bg-[#0D9488]" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full blur-3xl opacity-10 bg-[#0D9488]" />
       </div>
 
       {/* Navigation */}
@@ -76,7 +76,7 @@ export default function ForgotPasswordPage() {
             />
           </Link>
           <Link href="/signin">
-            <Button variant="ghost" className="text-gray-600 hover:text-gray-900">
+            <Button variant="ghost" className="text-gray-600 hover:text-[#0F172A]">
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Sign In
             </Button>
@@ -96,10 +96,10 @@ export default function ForgotPasswordPage() {
             {!success ? (
               <>
                 <div className="text-center mb-8">
-                  <div className="mx-auto w-16 h-16 bg-[#2B8A8A]/10 rounded-full flex items-center justify-center mb-4">
-                    <Mail className="w-8 h-8 text-[#2B8A8A]" />
+                  <div className="mx-auto w-16 h-16 bg-[#0D9488]/10 rounded-full flex items-center justify-center mb-4">
+                    <Mail className="w-8 h-8 text-[#0D9488]" />
                   </div>
-                  <h1 className="text-2xl font-bold text-gray-900">
+                  <h1 className="text-2xl font-bold text-[#0F172A]">
                     Forgot your password?
                   </h1>
                   <p className="text-gray-600 mt-2">
@@ -132,7 +132,7 @@ export default function ForgotPasswordPage() {
                   <Button
                     type="submit"
                     disabled={isLoading || !email}
-                    className="w-full h-12 bg-[#2B8A8A] hover:bg-[#237070] text-white font-medium"
+                    className="w-full h-12 bg-[#F59E0B] hover:bg-[#D97706] text-white font-medium"
                   >
                     {isLoading ? (
                       <>
@@ -150,7 +150,7 @@ export default function ForgotPasswordPage() {
                 <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
                   <CheckCircle2 className="w-8 h-8 text-green-600" />
                 </div>
-                <h1 className="text-2xl font-bold text-gray-900 mb-2">
+                <h1 className="text-2xl font-bold text-[#0F172A] mb-2">
                   Check your email
                 </h1>
                 <p className="text-gray-600 mb-6">
@@ -174,7 +174,7 @@ export default function ForgotPasswordPage() {
                   <Link href="/signin">
                     <Button
                       variant="ghost"
-                      className="w-full text-[#2B8A8A] hover:text-[#237070]"
+                      className="w-full text-[#0D9488] hover:text-[#237070]"
                     >
                       Back to Sign In
                     </Button>

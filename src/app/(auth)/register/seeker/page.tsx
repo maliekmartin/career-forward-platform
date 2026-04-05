@@ -198,7 +198,7 @@ export default function SeekerRegisterPage() {
           </Link>
 
           {/* Headline */}
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl font-bold text-[#0F172A] mb-2">
             Land your dream job, faster
           </h1>
           <p className="text-gray-600 mb-8">
@@ -262,7 +262,7 @@ export default function SeekerRegisterPage() {
                   onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                   required
                   disabled={isLoading}
-                  className="h-12 rounded-xl border-gray-200 bg-white placeholder:text-gray-400 focus:border-[#2B8A8A] focus:ring-[#2B8A8A]"
+                  className="h-12 rounded-xl border-gray-200 bg-white placeholder:text-gray-400 focus:border-[#0D9488] focus:ring-[#0D9488]"
                 />
               </div>
               <div className="space-y-2">
@@ -274,7 +274,7 @@ export default function SeekerRegisterPage() {
                   onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                   required
                   disabled={isLoading}
-                  className="h-12 rounded-xl border-gray-200 bg-white placeholder:text-gray-400 focus:border-[#2B8A8A] focus:ring-[#2B8A8A]"
+                  className="h-12 rounded-xl border-gray-200 bg-white placeholder:text-gray-400 focus:border-[#0D9488] focus:ring-[#0D9488]"
                 />
               </div>
             </div>
@@ -289,7 +289,7 @@ export default function SeekerRegisterPage() {
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 required
                 disabled={isLoading}
-                className="h-12 rounded-xl border-gray-200 bg-white placeholder:text-gray-400 focus:border-[#2B8A8A] focus:ring-[#2B8A8A]"
+                className="h-12 rounded-xl border-gray-200 bg-white placeholder:text-gray-400 focus:border-[#0D9488] focus:ring-[#0D9488]"
               />
             </div>
 
@@ -304,7 +304,7 @@ export default function SeekerRegisterPage() {
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                   required
                   disabled={isLoading}
-                  className="h-12 rounded-xl border-gray-200 bg-white placeholder:text-gray-400 focus:border-[#2B8A8A] focus:ring-[#2B8A8A] pr-10"
+                  className="h-12 rounded-xl border-gray-200 bg-white placeholder:text-gray-400 focus:border-[#0D9488] focus:ring-[#0D9488] pr-10"
                 />
                 <button
                   type="button"
@@ -330,7 +330,7 @@ export default function SeekerRegisterPage() {
                   onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
                   required
                   disabled={isLoading}
-                  className="h-12 rounded-xl border-gray-200 bg-white placeholder:text-gray-400 focus:border-[#2B8A8A] focus:ring-[#2B8A8A] pr-10"
+                  className="h-12 rounded-xl border-gray-200 bg-white placeholder:text-gray-400 focus:border-[#0D9488] focus:ring-[#0D9488] pr-10"
                 />
                 <button
                   type="button"
@@ -352,7 +352,7 @@ export default function SeekerRegisterPage() {
                 value={formData.targetRole}
                 onChange={(e) => setFormData({ ...formData, targetRole: e.target.value })}
                 disabled={isLoading}
-                className="h-12 rounded-xl border-gray-200 bg-white placeholder:text-gray-400 focus:border-[#2B8A8A] focus:ring-[#2B8A8A]"
+                className="h-12 rounded-xl border-gray-200 bg-white placeholder:text-gray-400 focus:border-[#0D9488] focus:ring-[#0D9488]"
               />
             </div>
 
@@ -406,14 +406,14 @@ export default function SeekerRegisterPage() {
                 disabled={isLoading || formData.acceptTerms}
                 className={`w-full p-4 rounded-xl border-2 text-left transition-all ${
                   formData.acceptTerms
-                    ? "border-[#2B8A8A] bg-[#2B8A8A]/5"
-                    : "border-gray-200 hover:border-[#2B8A8A]/50 hover:bg-gray-50"
+                    ? "border-[#0D9488] bg-[#0D9488]/5"
+                    : "border-gray-200 hover:border-[#0D9488]/50 hover:bg-gray-50"
                 }`}
               >
                 <div className="flex items-center gap-3">
                   <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${
                     formData.acceptTerms
-                      ? "border-[#2B8A8A] bg-[#2B8A8A]"
+                      ? "border-[#0D9488] bg-[#0D9488]"
                       : "border-gray-300"
                   }`}>
                     {formData.acceptTerms && (
@@ -422,15 +422,15 @@ export default function SeekerRegisterPage() {
                   </div>
                   <div className="flex-1">
                     {formData.acceptTerms ? (
-                      <span className="text-sm font-medium text-[#2B8A8A]">
+                      <span className="text-sm font-medium text-[#0D9488]">
                         Terms of Service and Privacy Policy accepted
                       </span>
                     ) : (
                       <span className="text-sm text-gray-600">
                         Click to review and accept the{" "}
-                        <span className="text-[#2B8A8A] font-medium">Terms of Service</span>
+                        <span className="text-[#0D9488] font-medium">Terms of Service</span>
                         {" "}and{" "}
-                        <span className="text-[#2B8A8A] font-medium">Privacy Policy</span>
+                        <span className="text-[#0D9488] font-medium">Privacy Policy</span>
                       </span>
                     )}
                   </div>
@@ -443,7 +443,7 @@ export default function SeekerRegisterPage() {
 
             <Button
               type="submit"
-              className="w-full bg-[#2B8A8A] hover:bg-[#237070] text-white rounded-xl h-12 font-semibold shadow-lg shadow-[#2B8A8A]/25 transition-all"
+              className="w-full bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-xl h-12 font-semibold shadow-lg shadow-[#F59E0B]/25 transition-all"
               disabled={isLoading}
             >
               {isLoading ? (
@@ -462,7 +462,7 @@ export default function SeekerRegisterPage() {
 
           <p className="text-center text-sm text-gray-500 mt-6">
             Already have an account?{" "}
-            <Link href="/signin" className="text-[#2B8A8A] hover:underline font-medium">
+            <Link href="/signin" className="text-[#0D9488] hover:underline font-medium">
               Sign in
             </Link>
           </p>
@@ -470,7 +470,7 @@ export default function SeekerRegisterPage() {
       </div>
 
       {/* Right side - Value props (hidden on mobile) */}
-      <div className="hidden lg:flex flex-1 bg-gradient-to-br from-[#2B8A8A] to-[#1E6B6B] items-center justify-center p-12">
+      <div className="hidden lg:flex flex-1 bg-gradient-to-br from-[#0D9488] to-[#1E6B6B] items-center justify-center p-12">
         <div className="max-w-md text-white">
           <motion.div
             initial={{ opacity: 0, x: 20 }}

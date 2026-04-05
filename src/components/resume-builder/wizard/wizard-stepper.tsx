@@ -41,8 +41,8 @@ export function WizardStepper() {
               disabled={status === "upcoming"}
               className={cn(
                 "flex-1 h-2 rounded-full transition-all",
-                status === "completed" && (isDark ? "bg-[#4FD1C5]" : "bg-[#2B8A8A]"),
-                status === "current" && (isDark ? "bg-[#4FD1C5]" : "bg-[#2B8A8A]"),
+                status === "completed" && (isDark ? "bg-[#4FD1C5]" : "bg-[#0D9488]"),
+                status === "current" && (isDark ? "bg-[#4FD1C5]" : "bg-[#0D9488]"),
                 status === "upcoming" && (isDark ? "bg-gray-700" : "bg-gray-200")
               )}
               aria-label={`${step.label} - ${status}`}
@@ -71,7 +71,7 @@ export function WizardStepper() {
                     status === "current" &&
                       (isDark
                         ? "bg-[#4FD1C5]/10 border border-[#4FD1C5]/30"
-                        : "bg-[#2B8A8A]/10 border border-[#2B8A8A]/30"),
+                        : "bg-[#0D9488]/10 border border-[#0D9488]/30"),
                     status === "completed" &&
                       (isDark
                         ? "hover:bg-gray-800"
@@ -87,12 +87,12 @@ export function WizardStepper() {
                       "flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium transition-colors",
                       status === "completed" &&
                         (isDark
-                          ? "bg-[#4FD1C5] text-gray-900"
-                          : "bg-[#2B8A8A] text-white"),
+                          ? "bg-[#4FD1C5] text-[#0F172A]"
+                          : "bg-[#0D9488] text-white"),
                       status === "current" &&
                         (isDark
                           ? "bg-[#4FD1C5]/20 text-[#4FD1C5] border-2 border-[#4FD1C5]"
-                          : "bg-[#2B8A8A]/20 text-[#2B8A8A] border-2 border-[#2B8A8A]"),
+                          : "bg-[#0D9488]/20 text-[#0D9488] border-2 border-[#0D9488]"),
                       status === "upcoming" &&
                         (isDark
                           ? "bg-gray-700 text-gray-400"
@@ -112,9 +112,9 @@ export function WizardStepper() {
                       className={cn(
                         "text-sm font-medium truncate",
                         status === "current" &&
-                          (isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"),
+                          (isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"),
                         status === "completed" &&
-                          (isDark ? "text-white" : "text-gray-900"),
+                          (isDark ? "text-white" : "text-[#0F172A]"),
                         status === "upcoming" &&
                           (isDark ? "text-gray-400" : "text-gray-500")
                       )}

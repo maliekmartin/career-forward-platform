@@ -316,8 +316,8 @@ export default function PrivacyPage() {
     <div className="relative min-h-screen overflow-hidden bg-[#FAFBFC]">
       {/* Gradient Background */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-3xl opacity-20 bg-[#2B8A8A]" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-3xl opacity-10 bg-[#2B8A8A]" />
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-3xl opacity-20 bg-[#0D9488]" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-3xl opacity-10 bg-[#0D9488]" />
       </div>
 
       {/* Navigation */}
@@ -340,19 +340,19 @@ export default function PrivacyPage() {
           <div className="flex items-center gap-6">
             <Link
               href="/"
-              className="text-sm text-gray-600 hover:text-[#2B8A8A] transition-colors"
+              className="text-sm text-gray-600 hover:text-[#0D9488] transition-colors"
             >
               Home
             </Link>
             <Link
               href="/faq"
-              className="text-sm text-gray-600 hover:text-[#2B8A8A] transition-colors"
+              className="text-sm text-gray-600 hover:text-[#0D9488] transition-colors"
             >
               FAQ
             </Link>
             <Link
               href="/signin"
-              className="px-4 py-2 bg-[#2B8A8A] text-white text-sm font-medium rounded-lg hover:bg-[#237070] transition-colors"
+              className="px-4 py-2 bg-[#0D9488] text-white text-sm font-medium rounded-lg hover:bg-[#237070] transition-colors"
             >
               Sign In
             </Link>
@@ -370,13 +370,13 @@ export default function PrivacyPage() {
           className="text-center mb-12"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-lg shadow-gray-200/50 border border-gray-100 mb-6">
-            <Shield className="h-4 w-4 text-[#2B8A8A]" />
+            <Shield className="h-4 w-4 text-[#0D9488]" />
             <span className="text-sm font-medium text-gray-700">
               Your Privacy Matters
             </span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Privacy <span className="text-[#2B8A8A]">Policy</span>
+          <h1 className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-4">
+            Privacy <span className="text-[#0D9488]">Policy</span>
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-4">
             How we collect, use, and protect your information
@@ -393,7 +393,7 @@ export default function PrivacyPage() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100 p-6 mb-10"
         >
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">
+          <h2 className="text-lg font-semibold text-[#0F172A] mb-4">
             Table of Contents
           </h2>
           <nav className="grid md:grid-cols-2 gap-2">
@@ -401,9 +401,9 @@ export default function PrivacyPage() {
               <a
                 key={section.id}
                 href={`#${section.id}`}
-                className="flex items-center gap-2 text-gray-600 hover:text-[#2B8A8A] transition-colors py-1"
+                className="flex items-center gap-2 text-gray-600 hover:text-[#0D9488] transition-colors py-1"
               >
-                <span className="text-sm text-[#2B8A8A] font-medium w-6">
+                <span className="text-sm text-[#0D9488] font-medium w-6">
                   {index + 1}.
                 </span>
                 <span className="text-sm">{section.title}</span>
@@ -423,8 +423,8 @@ export default function PrivacyPage() {
               transition={{ duration: 0.5, delay: 0.1 + index * 0.02 }}
               className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100 p-6 md:p-8"
             >
-              <h2 className="text-xl font-bold text-gray-900 mb-4 flex items-center gap-3">
-                <span className="flex items-center justify-center w-8 h-8 bg-[#2B8A8A]/10 rounded-lg text-[#2B8A8A] text-sm font-semibold">
+              <h2 className="text-xl font-bold text-[#0F172A] mb-4 flex items-center gap-3">
+                <span className="flex items-center justify-center w-8 h-8 bg-[#0D9488]/10 rounded-lg text-[#0D9488] text-sm font-semibold">
                   {index + 1}
                 </span>
                 {section.title}
@@ -439,7 +439,7 @@ export default function PrivacyPage() {
                             return (
                               <h3
                                 key={lIndex}
-                                className="font-semibold text-gray-900 mt-4 mb-2"
+                                className="font-semibold text-[#0F172A] mt-4 mb-2"
                               >
                                 {line.replace(/\*\*/g, "")}
                               </h3>
@@ -484,9 +484,9 @@ export default function PrivacyPage() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="mt-12 text-center"
         >
-          <div className="bg-gradient-to-br from-[#2B8A8A]/5 to-[#2B8A8A]/10 rounded-2xl p-8 border border-[#2B8A8A]/20">
-            <Sparkles className="h-8 w-8 text-[#2B8A8A] mx-auto mb-4" />
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+          <div className="bg-gradient-to-br from-[#0D9488]/5 to-[#0D9488]/10 rounded-2xl p-8 border border-[#0D9488]/20">
+            <Sparkles className="h-8 w-8 text-[#0D9488] mx-auto mb-4" />
+            <h2 className="text-2xl font-bold text-[#0F172A] mb-2">
               Questions about your privacy?
             </h2>
             <p className="text-gray-600 mb-6">
@@ -495,7 +495,7 @@ export default function PrivacyPage() {
             </p>
             <a
               href="mailto:support@martinbuiltstrategies.com"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#2B8A8A] text-white font-semibold rounded-xl shadow-lg shadow-[#2B8A8A]/25 hover:bg-[#237070] transition-all"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#0D9488] text-white font-semibold rounded-xl shadow-lg shadow-[#F59E0B]/25 hover:bg-[#237070] transition-all"
             >
               Contact Privacy Team
               <ArrowRight className="h-5 w-5" />
@@ -511,25 +511,25 @@ export default function PrivacyPage() {
             <div className="flex items-center gap-6">
               <Link
                 href="/"
-                className="text-sm text-gray-500 hover:text-[#2B8A8A]"
+                className="text-sm text-gray-500 hover:text-[#0D9488]"
               >
                 Home
               </Link>
               <Link
                 href="/pricing"
-                className="text-sm text-gray-500 hover:text-[#2B8A8A]"
+                className="text-sm text-gray-500 hover:text-[#0D9488]"
               >
                 Pricing
               </Link>
               <Link
                 href="/faq"
-                className="text-sm text-gray-500 hover:text-[#2B8A8A]"
+                className="text-sm text-gray-500 hover:text-[#0D9488]"
               >
                 FAQ
               </Link>
               <Link
                 href="/privacy"
-                className="text-sm text-[#2B8A8A] font-medium"
+                className="text-sm text-[#0D9488] font-medium"
               >
                 Privacy Policy
               </Link>

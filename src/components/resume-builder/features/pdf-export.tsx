@@ -124,11 +124,11 @@ export function PDFExport() {
       {/* Export UI */}
       <div className={cn("p-4 rounded-xl", isDark ? "bg-gray-900" : "bg-white border border-gray-200")}>
         <div className="flex items-center gap-3 mb-3">
-          <div className={cn("p-2 rounded-lg", isDark ? "bg-[#4FD1C5]/10" : "bg-[#2B8A8A]/10")}>
-            <FileText className={cn("w-5 h-5", isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]")} />
+          <div className={cn("p-2 rounded-lg", isDark ? "bg-[#4FD1C5]/10" : "bg-[#0D9488]/10")}>
+            <FileText className={cn("w-5 h-5", isDark ? "text-[#4FD1C5]" : "text-[#0D9488]")} />
           </div>
           <div>
-            <h4 className={cn("font-medium text-sm", isDark ? "text-white" : "text-gray-900")}>
+            <h4 className={cn("font-medium text-sm", isDark ? "text-white" : "text-[#0F172A]")}>
               Download Resume
             </h4>
             <p className={cn("text-xs", isDark ? "text-gray-500" : "text-gray-400")}>
@@ -145,8 +145,8 @@ export function PDFExport() {
             exportSuccess
               ? "bg-green-600 hover:bg-green-700 text-white"
               : isDark
-              ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900"
-              : "bg-[#2B8A8A] hover:bg-[#237070] text-white"
+              ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]"
+              : "bg-[#F59E0B] hover:bg-[#D97706] text-white"
           )}
         >
           {isExporting ? (

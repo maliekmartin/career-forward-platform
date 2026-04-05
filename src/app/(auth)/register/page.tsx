@@ -23,7 +23,7 @@ export default function RegisterPage() {
               priority
             />
           </Link>
-          <h1 className="text-4xl font-bold text-gray-900 mb-3">Get Started</h1>
+          <h1 className="text-4xl font-bold text-[#0F172A] mb-3">Get Started</h1>
           <p className="text-gray-600 text-lg">Start your journey to career success</p>
         </div>
 
@@ -32,22 +32,22 @@ export default function RegisterPage() {
           <motion.div
             whileHover={{ scale: 1.02, y: -4 }}
             whileTap={{ scale: 0.98 }}
-            className="bg-white rounded-2xl p-8 border-2 border-gray-100 hover:border-[#2B8A8A] text-left transition-all shadow-sm hover:shadow-xl group cursor-pointer relative overflow-hidden"
+            className="bg-white rounded-2xl p-8 border-2 border-gray-100 hover:border-[#0D9488] text-left transition-all shadow-sm hover:shadow-xl group cursor-pointer relative overflow-hidden"
           >
             {/* Free badge */}
-            <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-[#2B8A8A]/10 text-[#2B8A8A] text-xs font-semibold px-3 py-1 rounded-full">
+            <div className="absolute top-4 right-4 flex items-center gap-1.5 bg-[#0D9488]/10 text-[#0D9488] text-xs font-semibold px-3 py-1 rounded-full">
               <Sparkles className="h-3 w-3" />
               Free Forever
             </div>
 
-            <div className="w-14 h-14 bg-[#2B8A8A]/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#2B8A8A] transition-colors">
-              <Target className="h-7 w-7 text-[#2B8A8A] group-hover:text-white transition-colors" />
+            <div className="w-14 h-14 bg-[#0D9488]/10 rounded-xl flex items-center justify-center mb-6 group-hover:bg-[#0D9488] transition-colors">
+              <Target className="h-7 w-7 text-[#0D9488] group-hover:text-white transition-colors" />
             </div>
-            <h2 className="text-xl font-bold text-gray-900 mb-2">Create Your Account</h2>
+            <h2 className="text-xl font-bold text-[#0F172A] mb-2">Create Your Account</h2>
             <p className="text-gray-600 text-sm mb-6 leading-relaxed">
               Build resumes, track applications, and land your dream job. All the tools you need, completely free.
             </p>
-            <div className="flex items-center text-[#2B8A8A] font-semibold text-sm">
+            <div className="flex items-center text-[#0D9488] font-semibold text-sm">
               Get started free
               <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
             </div>
@@ -56,7 +56,7 @@ export default function RegisterPage() {
 
         <p className="text-center text-sm text-gray-500 mt-10">
           Already have an account?{" "}
-          <Link href="/signin" className="text-[#2B8A8A] hover:underline font-medium">
+          <Link href="/signin" className="text-[#0D9488] hover:underline font-medium">
             Sign in
           </Link>
         </p>

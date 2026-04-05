@@ -88,7 +88,7 @@ export default function JobTrackerPage() {
 
   // Stats for the dashboard-within-dashboard feel
   const stats = [
-    { label: "Total Applied", value: applications.length, icon: Briefcase, color: "#2B8A8A" },
+    { label: "Total Applied", value: applications.length, icon: Briefcase, color: "#0D9488" },
     { label: "Interviewing", value: applications.filter(a => ["phone-screen", "first-interview", "final-interview"].includes(a.status)).length, icon: Users, color: "#805AD5" },
     { label: "Offers", value: applications.filter(a => a.status === "offered").length, icon: Target, color: "#38A169" },
     { label: "Hired", value: applications.filter(a => a.status === "hired").length, icon: PartyPopper, color: "#D69E2E" },
@@ -240,7 +240,7 @@ export default function JobTrackerPage() {
                 <stat.icon className="h-5 w-5" style={{ color: stat.color }} />
               </div>
             </div>
-            <p className={`text-3xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
+            <p className={`text-3xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
               {stat.value}
             </p>
             <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -277,15 +277,15 @@ export default function JobTrackerPage() {
                 }}
                 className="text-8xl mb-6"
               >
-                <PartyPopper className={`h-24 w-24 mx-auto ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} />
+                <PartyPopper className={`h-24 w-24 mx-auto ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} />
               </motion.div>
-              <h2 className={`text-3xl font-bold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+              <h2 className={`text-3xl font-bold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                 Quest Complete!
               </h2>
               <p className={`text-xl mb-4 ${isDark ? "text-gray-300" : "text-gray-600"}`}>
                 Congratulations on landing the job!
               </p>
-              <p className={`font-semibold ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`}>
+              <p className={`font-semibold ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`}>
                 {recentlyHiredApp?.job.title} at {recentlyHiredApp?.job.company}
               </p>
               <div className="flex justify-center gap-2 mt-6">
@@ -301,7 +301,7 @@ export default function JobTrackerPage() {
                       repeatType: "reverse",
                     }}
                     className="w-4 h-4 rounded-full"
-                    style={{ backgroundColor: ["#2B8A8A", "#F59E0B", "#10B981", "#8B5CF6", "#EF4444"][i] }}
+                    style={{ backgroundColor: ["#0D9488", "#F59E0B", "#10B981", "#8B5CF6", "#EF4444"][i] }}
                   />
                 ))}
               </div>
@@ -326,7 +326,7 @@ export default function JobTrackerPage() {
               className={`rounded-2xl p-8 max-w-md w-full ${isDark ? "bg-gray-900" : "bg-white"}`}
             >
               <div className="flex items-center justify-between mb-6">
-                <h3 className={`text-xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
+                <h3 className={`text-xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   Congratulations! Tell us about your new job
                 </h3>
                 <button
@@ -348,8 +348,8 @@ export default function JobTrackerPage() {
                     onChange={(e) =>
                       setHiredFormData({ ...hiredFormData, jobTitle: e.target.value })
                     }
-                    className={`w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] ${
-                      isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-gray-900"
+                    className={`w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] ${
+                      isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-[#0F172A]"
                     }`}
                   />
                 </div>
@@ -365,8 +365,8 @@ export default function JobTrackerPage() {
                       setHiredFormData({ ...hiredFormData, hourlyWage: e.target.value })
                     }
                     placeholder="e.g. 22.50"
-                    className={`w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] ${
-                      isDark ? "bg-gray-800 border-gray-700 text-white placeholder-gray-500" : "bg-white border-gray-200 text-gray-900"
+                    className={`w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] ${
+                      isDark ? "bg-gray-800 border-gray-700 text-white placeholder-gray-500" : "bg-white border-gray-200 text-[#0F172A]"
                     }`}
                   />
                 </div>
@@ -381,8 +381,8 @@ export default function JobTrackerPage() {
                     onChange={(e) =>
                       setHiredFormData({ ...hiredFormData, hoursPerWeek: e.target.value })
                     }
-                    className={`w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] ${
-                      isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-gray-900"
+                    className={`w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] ${
+                      isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-[#0F172A]"
                     }`}
                   />
                 </div>
@@ -397,8 +397,8 @@ export default function JobTrackerPage() {
                     onChange={(e) =>
                       setHiredFormData({ ...hiredFormData, startDate: e.target.value })
                     }
-                    className={`w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] ${
-                      isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-gray-900"
+                    className={`w-full px-4 py-2 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] ${
+                      isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-[#0F172A]"
                     }`}
                   />
                 </div>
@@ -414,7 +414,7 @@ export default function JobTrackerPage() {
                 </Button>
                 <Button
                   onClick={() => handleHiredSubmit(showHiredModal)}
-                  className={`flex-1 rounded-xl ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"}`}
+                  className={`flex-1 rounded-xl ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"}`}
                 >
                   Complete Quest!
                 </Button>
@@ -439,7 +439,7 @@ export default function JobTrackerPage() {
               exit={{ scale: 0.95, opacity: 0 }}
               className={`rounded-2xl p-8 max-w-lg w-full ${isDark ? "bg-gray-900" : "bg-white"}`}
             >
-              <h3 className={`text-xl font-bold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+              <h3 className={`text-xl font-bold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                 Share Your Success Story!
               </h3>
               <p className={`mb-6 ${isDark ? "text-gray-400" : "text-gray-600"}`}>
@@ -451,8 +451,8 @@ export default function JobTrackerPage() {
                 onChange={(e) => setSuccessStory(e.target.value)}
                 placeholder="Tell us about your journey... What challenges did you overcome? What advice do you have for others?"
                 rows={6}
-                className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] resize-none ${
-                  isDark ? "bg-gray-800 border-gray-700 text-white placeholder-gray-500" : "bg-white border-gray-200 text-gray-900"
+                className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] resize-none ${
+                  isDark ? "bg-gray-800 border-gray-700 text-white placeholder-gray-500" : "bg-white border-gray-200 text-[#0F172A]"
                 }`}
               />
 
@@ -471,7 +471,7 @@ export default function JobTrackerPage() {
                 <Button
                   onClick={handleSuccessStorySubmit}
                   disabled={!successStory.trim()}
-                  className={`flex-1 rounded-xl disabled:opacity-50 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"}`}
+                  className={`flex-1 rounded-xl disabled:opacity-50 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"}`}
                 >
                   Share Story
                 </Button>
@@ -488,12 +488,12 @@ export default function JobTrackerPage() {
         className="flex items-center justify-between mb-6"
       >
         <div>
-          <h2 className={`text-xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>Your Applications</h2>
+          <h2 className={`text-xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>Your Applications</h2>
           <p className={isDark ? "text-gray-400" : "text-gray-600"}>
             Track and manage your job applications
           </p>
         </div>
-        <Button className={`rounded-xl px-6 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"}`}>
+        <Button className={`rounded-xl px-6 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"}`}>
           <Plus className="h-4 w-4 mr-2" />
           Add Application
         </Button>
@@ -537,7 +537,7 @@ export default function JobTrackerPage() {
                     {status.label}
                   </span>
                 </div>
-                <div className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
+                <div className={`text-2xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   {status.count}
                 </div>
                 {index < statusSummary.length - 1 && (
@@ -565,8 +565,8 @@ export default function JobTrackerPage() {
             placeholder="Search applications..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className={`w-full pl-10 pr-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] ${
-              isDark ? "bg-gray-900 border-gray-800 text-white placeholder-gray-500" : "bg-white border-gray-200 text-gray-900"
+            className={`w-full pl-10 pr-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] ${
+              isDark ? "bg-gray-900 border-gray-800 text-white placeholder-gray-500" : "bg-white border-gray-200 text-[#0F172A]"
             }`}
           />
         </div>
@@ -579,7 +579,7 @@ export default function JobTrackerPage() {
             onClick={() => setView("list")}
             className={`px-3 py-1.5 rounded text-sm ${
               view === "list"
-                ? isDark ? "bg-gray-700 shadow-sm text-white" : "bg-white shadow-sm text-gray-900"
+                ? isDark ? "bg-gray-700 shadow-sm text-white" : "bg-white shadow-sm text-[#0F172A]"
                 : isDark ? "text-gray-400" : "text-gray-600"
             }`}
           >
@@ -589,7 +589,7 @@ export default function JobTrackerPage() {
             onClick={() => setView("board")}
             className={`px-3 py-1.5 rounded text-sm ${
               view === "board"
-                ? isDark ? "bg-gray-700 shadow-sm text-white" : "bg-white shadow-sm text-gray-900"
+                ? isDark ? "bg-gray-700 shadow-sm text-white" : "bg-white shadow-sm text-[#0F172A]"
                 : isDark ? "text-gray-400" : "text-gray-600"
             }`}
           >
@@ -634,7 +634,7 @@ export default function JobTrackerPage() {
 
                   {/* Job Info */}
                   <div className="flex-1 min-w-0">
-                    <h3 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>{app.job.title}</h3>
+                    <h3 className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>{app.job.title}</h3>
                     <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>{app.job.company}</p>
                   </div>
 
@@ -680,19 +680,19 @@ export default function JobTrackerPage() {
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                         <div>
                           <p className={`text-xs mb-1 ${isDark ? "text-gray-500" : "text-gray-500"}`}>Pay Range</p>
-                          <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                          <p className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                             {formatPay(app.job)}
                           </p>
                         </div>
                         <div>
                           <p className={`text-xs mb-1 ${isDark ? "text-gray-500" : "text-gray-500"}`}>Job Type</p>
-                          <p className={`font-medium capitalize ${isDark ? "text-white" : "text-gray-900"}`}>
+                          <p className={`font-medium capitalize ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                             {app.job.hoursType}
                           </p>
                         </div>
                         <div>
                           <p className={`text-xs mb-1 ${isDark ? "text-gray-500" : "text-gray-500"}`}>Last Updated</p>
-                          <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                          <p className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                             {app.lastUpdated}
                           </p>
                         </div>
@@ -703,7 +703,7 @@ export default function JobTrackerPage() {
                             target="_blank"
                             rel="noopener noreferrer"
                             className={`font-medium hover:underline inline-flex items-center gap-1 ${
-                              isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"
+                              isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"
                             }`}
                           >
                             View Posting
@@ -804,7 +804,7 @@ export default function JobTrackerPage() {
           }`}>
             <Briefcase className={`h-8 w-8 ${isDark ? "text-gray-500" : "text-gray-400"}`} />
           </div>
-          <h3 className={`font-semibold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+          <h3 className={`font-semibold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
             No applications found
           </h3>
           <p className={`mb-4 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -812,7 +812,7 @@ export default function JobTrackerPage() {
               ? "Try adjusting your filters"
               : "Start applying to jobs from the Job Board"}
           </p>
-          <Button className={`rounded-full ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"}`}>
+          <Button className={`rounded-full ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"}`}>
             Browse Job Board
           </Button>
         </div>

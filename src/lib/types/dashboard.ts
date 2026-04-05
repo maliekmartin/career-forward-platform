@@ -50,7 +50,7 @@ export const COACH_METRICS: Record<CoachMetricId, MetricDefinition> = {
     description: 'Total number of active job seekers in your caseload',
     icon: 'Users',
     color: 'teal',
-    gradient: { from: '#2B8A8A', to: '#38A169' },
+    gradient: { from: '#0D9488', to: '#38A169' },
     valueType: 'number',
   },
   tasks_due_today: {
@@ -145,7 +145,7 @@ export const JOB_SEEKER_METRICS: Record<JobSeekerMetricId, MetricDefinition> = {
     description: 'Your overall career readiness score',
     icon: 'Sparkles',
     color: 'teal',
-    gradient: { from: '#2B8A8A', to: '#38A169' },
+    gradient: { from: '#0D9488', to: '#38A169' },
     valueType: 'number',
   },
   applications_sent: {

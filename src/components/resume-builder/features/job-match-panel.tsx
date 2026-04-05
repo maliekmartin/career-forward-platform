@@ -110,8 +110,8 @@ export function JobMatchPanel() {
     <div className="space-y-4">
       {/* Header */}
       <div className="flex items-center gap-2">
-        <Target className={cn("w-5 h-5", isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]")} />
-        <h3 className={cn("font-semibold", isDark ? "text-white" : "text-gray-900")}>
+        <Target className={cn("w-5 h-5", isDark ? "text-[#4FD1C5]" : "text-[#0D9488]")} />
+        <h3 className={cn("font-semibold", isDark ? "text-white" : "text-[#0F172A]")}>
           Job Description Matching
         </h3>
       </div>
@@ -127,7 +127,7 @@ export function JobMatchPanel() {
             "w-full p-3 rounded-xl resize-none text-sm",
             isDark
               ? "bg-gray-800 border-gray-700 text-white placeholder:text-gray-500"
-              : "bg-white border-gray-200 text-gray-900 placeholder:text-gray-400"
+              : "bg-white border-gray-200 text-[#0F172A] placeholder:text-gray-400"
           )}
         />
         <Button
@@ -136,8 +136,8 @@ export function JobMatchPanel() {
           className={cn(
             "w-full mt-2 gap-2",
             isDark
-              ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900"
-              : "bg-[#2B8A8A] hover:bg-[#237070] text-white"
+              ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]"
+              : "bg-[#F59E0B] hover:bg-[#D97706] text-white"
           )}
         >
           {isAnalyzing ? (
@@ -243,7 +243,7 @@ export function JobMatchPanel() {
             <ul className="space-y-2">
               {analysis.quickWins.map((win, i) => (
                 <li key={i} className={cn("text-sm flex gap-2", isDark ? "text-gray-300" : "text-gray-700")}>
-                  <TrendingUp className={cn("w-4 h-4 flex-shrink-0 mt-0.5", isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]")} />
+                  <TrendingUp className={cn("w-4 h-4 flex-shrink-0 mt-0.5", isDark ? "text-[#4FD1C5]" : "text-[#0D9488]")} />
                   {win}
                 </li>
               ))}
@@ -288,7 +288,7 @@ export function JobMatchPanel() {
                       "text-xs px-2 py-1 rounded-full flex items-center gap-1 transition-colors",
                       isDark
                         ? "bg-gray-800 text-gray-300 hover:bg-[#4FD1C5]/20 hover:text-[#4FD1C5]"
-                        : "bg-gray-100 text-gray-700 hover:bg-[#2B8A8A]/10 hover:text-[#2B8A8A]"
+                        : "bg-gray-100 text-gray-700 hover:bg-[#0D9488]/10 hover:text-[#0D9488]"
                     )}
                   >
                     + {skill}
@@ -365,10 +365,10 @@ function CollapsibleSection({
         )}
       >
         <div className="flex items-center gap-2">
-          <span className={variant === "warning" ? (isDark ? "text-yellow-400" : "text-yellow-600") : isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}>
+          <span className={variant === "warning" ? (isDark ? "text-yellow-400" : "text-yellow-600") : isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}>
             {icon}
           </span>
-          <span className={cn("text-sm font-medium", isDark ? "text-white" : "text-gray-900")}>
+          <span className={cn("text-sm font-medium", isDark ? "text-white" : "text-[#0F172A]")}>
             {title}
           </span>
           {badge !== undefined && (

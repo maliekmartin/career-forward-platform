@@ -105,8 +105,8 @@ export function ATSScannerPanel() {
     <div className="space-y-4">
       {/* Header */}
       <div className="flex items-center gap-2">
-        <Scan className={cn("w-5 h-5", isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]")} />
-        <h3 className={cn("font-semibold", isDark ? "text-white" : "text-gray-900")}>
+        <Scan className={cn("w-5 h-5", isDark ? "text-[#4FD1C5]" : "text-[#0D9488]")} />
+        <h3 className={cn("font-semibold", isDark ? "text-white" : "text-[#0F172A]")}>
           ATS Compatibility Scanner
         </h3>
       </div>
@@ -121,8 +121,8 @@ export function ATSScannerPanel() {
         className={cn(
           "w-full gap-2",
           isDark
-            ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900"
-            : "bg-[#2B8A8A] hover:bg-[#237070] text-white"
+            ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]"
+            : "bg-[#F59E0B] hover:bg-[#D97706] text-white"
         )}
       >
         {isScanning ? (
@@ -160,8 +160,8 @@ export function ATSScannerPanel() {
           {/* ATS Compatibility by System */}
           <div className={cn("p-4 rounded-xl", isDark ? "bg-gray-900" : "bg-white border border-gray-200")}>
             <div className="flex items-center gap-2 mb-3">
-              <Shield className={cn("w-4 h-4", isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]")} />
-              <span className={cn("text-sm font-medium", isDark ? "text-white" : "text-gray-900")}>
+              <Shield className={cn("w-4 h-4", isDark ? "text-[#4FD1C5]" : "text-[#0D9488]")} />
+              <span className={cn("text-sm font-medium", isDark ? "text-white" : "text-[#0F172A]")}>
                 Compatibility by ATS System
               </span>
             </div>
@@ -192,7 +192,7 @@ export function ATSScannerPanel() {
 
           {/* Parsed Data Preview */}
           <div className={cn("p-4 rounded-xl", isDark ? "bg-gray-900" : "bg-white border border-gray-200")}>
-            <p className={cn("text-sm font-medium mb-3", isDark ? "text-white" : "text-gray-900")}>
+            <p className={cn("text-sm font-medium mb-3", isDark ? "text-white" : "text-[#0F172A]")}>
               How ATS Sees Your Resume
             </p>
             <div className="space-y-2 text-sm">
@@ -215,7 +215,7 @@ export function ATSScannerPanel() {
           {/* Issues */}
           {analysis.issues.length > 0 && (
             <div className={cn("p-4 rounded-xl", isDark ? "bg-gray-900" : "bg-white border border-gray-200")}>
-              <p className={cn("text-sm font-medium mb-3", isDark ? "text-white" : "text-gray-900")}>
+              <p className={cn("text-sm font-medium mb-3", isDark ? "text-white" : "text-[#0F172A]")}>
                 Issues Found ({analysis.issues.length})
               </p>
               <div className="space-y-3">
@@ -240,13 +240,13 @@ export function ATSScannerPanel() {
                     <div className="flex items-start gap-2">
                       {getSeverityIcon(issue.severity)}
                       <div className="flex-1">
-                        <p className={cn("text-sm font-medium", isDark ? "text-white" : "text-gray-900")}>
+                        <p className={cn("text-sm font-medium", isDark ? "text-white" : "text-[#0F172A]")}>
                           {issue.section}
                         </p>
                         <p className={cn("text-sm mt-0.5", isDark ? "text-gray-400" : "text-gray-600")}>
                           {issue.issue}
                         </p>
-                        <p className={cn("text-xs mt-1", isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]")}>
+                        <p className={cn("text-xs mt-1", isDark ? "text-[#4FD1C5]" : "text-[#0D9488]")}>
                           Fix: {issue.fix}
                         </p>
                       </div>
@@ -260,7 +260,7 @@ export function ATSScannerPanel() {
           {/* Formatting Feedback */}
           <div className={cn("p-4 rounded-xl", isDark ? "bg-gray-900" : "bg-white border border-gray-200")}>
             <div className="flex items-center justify-between mb-3">
-              <span className={cn("text-sm font-medium", isDark ? "text-white" : "text-gray-900")}>
+              <span className={cn("text-sm font-medium", isDark ? "text-white" : "text-[#0F172A]")}>
                 Formatting Score
               </span>
               <span className={cn("font-bold", getScoreColor(analysis.formatting.score))}>
@@ -295,7 +295,7 @@ export function ATSScannerPanel() {
 
           {/* Keywords */}
           <div className={cn("p-4 rounded-xl", isDark ? "bg-gray-900" : "bg-white border border-gray-200")}>
-            <p className={cn("text-sm font-medium mb-2", isDark ? "text-white" : "text-gray-900")}>
+            <p className={cn("text-sm font-medium mb-2", isDark ? "text-white" : "text-[#0F172A]")}>
               Keywords Detected
             </p>
             <div className="flex flex-wrap gap-1.5">

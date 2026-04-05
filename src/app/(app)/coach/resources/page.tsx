@@ -461,7 +461,7 @@ export default function CoachResourcesPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
+          <h1 className={`text-2xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
             Local Resources
           </h1>
           <p className={`text-sm mt-1 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -476,7 +476,7 @@ export default function CoachResourcesPage() {
           onClick={() => setActiveTab("resources")}
           className={`pb-3 text-sm font-medium border-b-2 transition-colors ${
             activeTab === "resources"
-              ? isDark ? "border-[#4FD1C5] text-[#4FD1C5]" : "border-[#2B8A8A] text-[#2B8A8A]"
+              ? isDark ? "border-[#4FD1C5] text-[#4FD1C5]" : "border-[#0D9488] text-[#0D9488]"
               : isDark ? "border-transparent text-gray-500 hover:text-gray-300" : "border-transparent text-gray-500 hover:text-gray-700"
           }`}
         >
@@ -486,7 +486,7 @@ export default function CoachResourcesPage() {
           onClick={() => setActiveTab("events")}
           className={`pb-3 text-sm font-medium border-b-2 transition-colors ${
             activeTab === "events"
-              ? isDark ? "border-[#4FD1C5] text-[#4FD1C5]" : "border-[#2B8A8A] text-[#2B8A8A]"
+              ? isDark ? "border-[#4FD1C5] text-[#4FD1C5]" : "border-[#0D9488] text-[#0D9488]"
               : isDark ? "border-transparent text-gray-500 hover:text-gray-300" : "border-transparent text-gray-500 hover:text-gray-700"
           }`}
         >
@@ -513,7 +513,7 @@ export default function CoachResourcesPage() {
                 className={`w-full pl-12 pr-4 py-3 rounded-xl border text-sm focus:outline-none focus:ring-2 ${
                   isDark
                     ? "bg-gray-900 border-gray-800 text-white placeholder-gray-500 focus:ring-[#4FD1C5]"
-                    : "bg-white border-gray-200 text-gray-900 placeholder-gray-400 focus:ring-[#2B8A8A]"
+                    : "bg-white border-gray-200 text-[#0F172A] placeholder-gray-400 focus:ring-[#0D9488]"
                 }`}
               />
             </div>
@@ -528,7 +528,7 @@ export default function CoachResourcesPage() {
                     onClick={() => setSelectedCategory(category.id)}
                     className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                       selectedCategory === category.id
-                        ? isDark ? "bg-[#4FD1C5] text-gray-900" : "bg-[#2B8A8A] text-white"
+                        ? isDark ? "bg-[#4FD1C5] text-[#0F172A]" : "bg-[#0D9488] text-white"
                         : isDark ? "bg-gray-800 text-gray-400 hover:bg-gray-700" : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                     }`}
                   >
@@ -548,7 +548,7 @@ export default function CoachResourcesPage() {
                   onClick={() => setSelectedIndustry(industry.id)}
                   className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
                     selectedIndustry === industry.id
-                      ? isDark ? "bg-[#4FD1C5]/10 text-[#4FD1C5] ring-1 ring-[#4FD1C5]" : "bg-[#2B8A8A]/10 text-[#2B8A8A] ring-1 ring-[#2B8A8A]"
+                      ? isDark ? "bg-[#4FD1C5]/10 text-[#4FD1C5] ring-1 ring-[#4FD1C5]" : "bg-[#0D9488]/10 text-[#0D9488] ring-1 ring-[#0D9488]"
                       : isDark ? "bg-gray-800 text-gray-400 hover:bg-gray-700" : "bg-gray-50 text-gray-600 hover:bg-gray-100"
                   }`}
                 >
@@ -560,8 +560,8 @@ export default function CoachResourcesPage() {
             {/* Featured Resources */}
             {selectedCategory === "all" && selectedIndustry === "all" && searchQuery === "" && (
               <div className="mb-8">
-                <h2 className={`text-lg font-semibold mb-4 flex items-center gap-2 ${isDark ? "text-white" : "text-gray-900"}`}>
-                  <Compass className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} />
+                <h2 className={`text-lg font-semibold mb-4 flex items-center gap-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
+                  <Compass className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} />
                   Featured Resources
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -574,15 +574,15 @@ export default function CoachResourcesPage() {
                         className={`p-5 rounded-xl border-2 ${
                           isDark
                             ? "border-[#4FD1C5]/20 bg-gradient-to-br from-[#4FD1C5]/5 to-transparent"
-                            : "border-[#2B8A8A]/20 bg-gradient-to-br from-[#2B8A8A]/5 to-transparent"
+                            : "border-[#0D9488]/20 bg-gradient-to-br from-[#0D9488]/5 to-transparent"
                         }`}
                       >
                         <div className="flex items-start gap-4">
-                          <div className={`p-3 rounded-xl ${isDark ? "bg-[#4FD1C5]/10" : "bg-[#2B8A8A]/10"}`}>
-                            <Icon className={`h-6 w-6 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} />
+                          <div className={`p-3 rounded-xl ${isDark ? "bg-[#4FD1C5]/10" : "bg-[#0D9488]/10"}`}>
+                            <Icon className={`h-6 w-6 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <h3 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>{resource.name}</h3>
+                            <h3 className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>{resource.name}</h3>
                             <p className={`text-sm mt-1 line-clamp-2 ${isDark ? "text-gray-400" : "text-gray-500"}`}>{resource.description}</p>
                             <div className="flex items-center gap-2 mt-2">
                               {resource.website && (
@@ -590,7 +590,7 @@ export default function CoachResourcesPage() {
                                   href={resource.website}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className={`inline-flex items-center gap-1 text-sm hover:underline ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`}
+                                  className={`inline-flex items-center gap-1 text-sm hover:underline ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`}
                                 >
                                   Visit
                                   <ExternalLink className="h-3 w-3" />
@@ -598,7 +598,7 @@ export default function CoachResourcesPage() {
                               )}
                               <button
                                 onClick={() => openShareModal(resource)}
-                                className={`inline-flex items-center gap-1 text-sm hover:underline ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`}
+                                className={`inline-flex items-center gap-1 text-sm hover:underline ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`}
                               >
                                 <MessageSquare className="h-3 w-3" />
                                 Share
@@ -615,7 +615,7 @@ export default function CoachResourcesPage() {
 
             {/* Resource List */}
             <div className="space-y-4">
-              <h2 className={`text-lg font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+              <h2 className={`text-lg font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                 {selectedCategory === "all" ? "All Resources" : categories.find(c => c.id === selectedCategory)?.label}
                 <span className={`text-sm font-normal ml-2 ${isDark ? "text-gray-500" : "text-gray-500"}`}>({filteredResources.length})</span>
               </h2>
@@ -626,7 +626,7 @@ export default function CoachResourcesPage() {
                   <p>No resources found matching your criteria.</p>
                   <button
                     onClick={() => { setSelectedCategory("all"); setSelectedIndustry("all"); setSearchQuery(""); }}
-                    className={`mt-3 hover:underline ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`}
+                    className={`mt-3 hover:underline ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`}
                   >
                     Clear filters
                   </button>
@@ -643,7 +643,7 @@ export default function CoachResourcesPage() {
                         className={`p-5 rounded-xl border transition-all ${
                           isDark
                             ? "border-gray-800 bg-gray-900 hover:border-[#4FD1C5]/30"
-                            : "border-gray-200 bg-white hover:border-[#2B8A8A]/30 hover:shadow-sm"
+                            : "border-gray-200 bg-white hover:border-[#0D9488]/30 hover:shadow-sm"
                         }`}
                       >
                         <div className="flex items-start gap-4">
@@ -651,7 +651,7 @@ export default function CoachResourcesPage() {
                             <Icon className={`h-6 w-6 ${isDark ? "text-gray-400" : "text-gray-600"}`} />
                           </div>
                           <div className="flex-1 min-w-0">
-                            <h3 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>{resource.name}</h3>
+                            <h3 className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>{resource.name}</h3>
                             {resource.address && (
                               <p className={`text-sm flex items-center gap-1 mt-1 ${isDark ? "text-gray-500" : "text-gray-500"}`}>
                                 <MapPin className="h-3.5 w-3.5" />
@@ -662,7 +662,7 @@ export default function CoachResourcesPage() {
                               {resource.phone && (
                                 <a
                                   href={`tel:${resource.phone}`}
-                                  className={`text-sm hover:underline flex items-center gap-1 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`}
+                                  className={`text-sm hover:underline flex items-center gap-1 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`}
                                 >
                                   <Phone className="h-3.5 w-3.5" />
                                   {resource.phone}
@@ -673,7 +673,7 @@ export default function CoachResourcesPage() {
                                   href={resource.website}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className={`text-sm hover:underline flex items-center gap-1 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`}
+                                  className={`text-sm hover:underline flex items-center gap-1 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`}
                                 >
                                   <ExternalLink className="h-3.5 w-3.5" />
                                   Website
@@ -699,7 +699,7 @@ export default function CoachResourcesPage() {
                               className={`px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-colors ${
                                 isDark
                                   ? "bg-[#4FD1C5]/10 text-[#4FD1C5] hover:bg-[#4FD1C5]/20"
-                                  : "bg-[#2B8A8A]/10 text-[#2B8A8A] hover:bg-[#2B8A8A]/20"
+                                  : "bg-[#0D9488]/10 text-[#0D9488] hover:bg-[#0D9488]/20"
                               }`}
                               title="Share with job seeker via message"
                             >
@@ -732,15 +732,15 @@ export default function CoachResourcesPage() {
                   className={`p-5 rounded-xl border transition-all ${
                     isDark
                       ? "border-gray-800 bg-gray-900 hover:border-[#4FD1C5]/30"
-                      : "border-gray-200 bg-white hover:border-[#2B8A8A]/30 hover:shadow-sm"
+                      : "border-gray-200 bg-white hover:border-[#0D9488]/30 hover:shadow-sm"
                   }`}
                 >
                   <div className="flex items-start gap-4">
-                    <div className={`p-3 rounded-xl text-center min-w-[60px] ${isDark ? "bg-[#4FD1C5]/10" : "bg-[#2B8A8A]/10"}`}>
-                      <p className={`text-xs font-medium ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`}>
+                    <div className={`p-3 rounded-xl text-center min-w-[60px] ${isDark ? "bg-[#4FD1C5]/10" : "bg-[#0D9488]/10"}`}>
+                      <p className={`text-xs font-medium ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`}>
                         {event.date.toLocaleDateString([], { month: "short" })}
                       </p>
-                      <p className={`text-xl font-bold ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`}>
+                      <p className={`text-xl font-bold ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`}>
                         {event.date.getDate()}
                       </p>
                     </div>
@@ -756,7 +756,7 @@ export default function CoachResourcesPage() {
                         </span>
                         <span className={`text-xs ${isDark ? "text-gray-500" : "text-gray-400"}`}>{formatEventDate(event.date)}</span>
                       </div>
-                      <h3 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>{event.title}</h3>
+                      <h3 className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>{event.title}</h3>
                       <p className={`text-sm mt-1 ${isDark ? "text-gray-400" : "text-gray-500"}`}>{event.description}</p>
                       <div className={`flex flex-wrap items-center gap-4 mt-3 text-sm ${isDark ? "text-gray-500" : "text-gray-500"}`}>
                         <span className="flex items-center gap-1">
@@ -770,7 +770,7 @@ export default function CoachResourcesPage() {
                       </div>
                     </div>
                     <Button
-                      className={isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"}
+                      className={isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"}
                     >
                       Share
                     </Button>
@@ -816,10 +816,10 @@ export default function CoachResourcesPage() {
                 isDark ? "border-gray-800" : "border-gray-100"
               }`}>
                 <div className="flex items-center gap-3">
-                  <div className={`p-2 rounded-lg ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#2B8A8A]/10"}`}>
-                    <Share2 className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} />
+                  <div className={`p-2 rounded-lg ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#0D9488]/10"}`}>
+                    <Share2 className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} />
                   </div>
-                  <h2 className={`text-lg font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+                  <h2 className={`text-lg font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                     Share Resource
                   </h2>
                 </div>
@@ -848,7 +848,7 @@ export default function CoachResourcesPage() {
                     }`}>
                       <Check className={`h-8 w-8 ${isDark ? "text-green-400" : "text-green-600"}`} />
                     </div>
-                    <h3 className={`text-lg font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+                    <h3 className={`text-lg font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                       Message Sent!
                     </h3>
                     <p className={`text-sm mt-2 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -859,7 +859,7 @@ export default function CoachResourcesPage() {
                   <>
                     {/* Resource Preview */}
                     <div className={`p-4 rounded-xl border ${isDark ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-200"}`}>
-                      <h3 className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                      <h3 className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                         {resourceToShare.name}
                       </h3>
                       <p className={`text-sm mt-1 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -888,7 +888,7 @@ export default function CoachResourcesPage() {
                             key={client.id}
                             className={`flex items-center gap-3 p-3 rounded-lg cursor-pointer transition-colors ${
                               selectedJobSeekers.includes(client.id)
-                                ? isDark ? "bg-[#4FD1C5]/10 ring-1 ring-[#4FD1C5]" : "bg-[#2B8A8A]/10 ring-1 ring-[#2B8A8A]"
+                                ? isDark ? "bg-[#4FD1C5]/10 ring-1 ring-[#4FD1C5]" : "bg-[#0D9488]/10 ring-1 ring-[#0D9488]"
                                 : isDark ? "bg-gray-800 hover:bg-gray-750" : "bg-gray-50 hover:bg-gray-100"
                             }`}
                           >
@@ -904,7 +904,7 @@ export default function CoachResourcesPage() {
                               className="w-10 h-10 rounded-full object-cover"
                             />
                             <div className="flex-1">
-                              <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                              <p className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                                 {client.firstName} {client.lastName}
                               </p>
                               <p className={`text-xs ${isDark ? "text-gray-500" : "text-gray-400"}`}>
@@ -912,7 +912,7 @@ export default function CoachResourcesPage() {
                               </p>
                             </div>
                             {selectedJobSeekers.includes(client.id) && (
-                              <Check className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} />
+                              <Check className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} />
                             )}
                           </label>
                         ))}
@@ -931,7 +931,7 @@ export default function CoachResourcesPage() {
                         className={`w-full px-4 py-3 rounded-lg border text-sm resize-none transition-colors focus:outline-none focus:ring-2 ${
                           isDark
                             ? "bg-gray-800 border-gray-700 text-white placeholder-gray-500 focus:ring-[#4FD1C5]"
-                            : "bg-white border-gray-200 text-gray-900 placeholder-gray-400 focus:ring-[#2B8A8A]"
+                            : "bg-white border-gray-200 text-[#0F172A] placeholder-gray-400 focus:ring-[#0D9488]"
                         }`}
                       />
                     </div>
@@ -952,7 +952,7 @@ export default function CoachResourcesPage() {
                   <Button
                     onClick={handleSendShare}
                     disabled={selectedJobSeekers.length === 0}
-                    className={`flex-1 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"}`}
+                    className={`flex-1 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"}`}
                   >
                     <Send className="h-4 w-4 mr-2" />
                     Send Message

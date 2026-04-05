@@ -9,14 +9,14 @@ import { cn } from "@/lib/utils";
 
 // Predefined color schemes
 const COLOR_SCHEMES = [
-  { id: "teal", name: "Teal", primary: "#2B8A8A", secondary: "#4FD1C5" },
+  { id: "teal", name: "Teal", primary: "#0D9488", secondary: "#4FD1C5" },
   { id: "blue", name: "Blue", primary: "#1e40af", secondary: "#3b82f6" },
   { id: "purple", name: "Purple", primary: "#7c3aed", secondary: "#a78bfa" },
   { id: "green", name: "Green", primary: "#059669", secondary: "#34d399" },
   { id: "red", name: "Red", primary: "#dc2626", secondary: "#f87171" },
   { id: "orange", name: "Orange", primary: "#ea580c", secondary: "#fb923c" },
-  { id: "gray", name: "Gray", primary: "#374151", secondary: "#6b7280" },
-  { id: "black", name: "Black", primary: "#111827", secondary: "#374151" },
+  { id: "gray", name: "Gray", primary: "#0F172A", secondary: "#6b7280" },
+  { id: "black", name: "Black", primary: "#111827", secondary: "#0F172A" },
 ];
 
 // Font families (ATS-safe)
@@ -57,10 +57,10 @@ export function TemplateCustomizer() {
               activeTab === tab.id
                 ? isDark
                   ? "bg-gray-700 text-white"
-                  : "bg-white text-gray-900 shadow-sm"
+                  : "bg-white text-[#0F172A] shadow-sm"
                 : isDark
                 ? "text-gray-400 hover:text-white"
-                : "text-gray-600 hover:text-gray-900"
+                : "text-gray-600 hover:text-[#0F172A]"
             )}
           >
             <tab.icon className="w-3.5 h-3.5" />
@@ -81,7 +81,7 @@ export function TemplateCustomizer() {
                 state.templateId === template.id
                   ? isDark
                     ? "border-[#4FD1C5] bg-[#4FD1C5]/10"
-                    : "border-[#2B8A8A] bg-[#2B8A8A]/10"
+                    : "border-[#0D9488] bg-[#0D9488]/10"
                   : isDark
                   ? "border-gray-800 hover:border-gray-700"
                   : "border-gray-200 hover:border-gray-300"
@@ -93,7 +93,7 @@ export function TemplateCustomizer() {
                   <Check
                     className={cn(
                       "w-4 h-4",
-                      isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"
+                      isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"
                     )}
                   />
                 )}
@@ -101,7 +101,7 @@ export function TemplateCustomizer() {
               <p
                 className={cn(
                   "text-sm font-medium",
-                  isDark ? "text-white" : "text-gray-900"
+                  isDark ? "text-white" : "text-[#0F172A]"
                 )}
               >
                 {template.name}
@@ -160,7 +160,7 @@ export function TemplateCustomizer() {
                       isDark ? "bg-white" : "bg-gray-900"
                     )}
                   >
-                    <Check className={cn("w-2.5 h-2.5", isDark ? "text-gray-900" : "text-white")} />
+                    <Check className={cn("w-2.5 h-2.5", isDark ? "text-[#0F172A]" : "text-white")} />
                   </div>
                 )}
               </button>
@@ -187,7 +187,7 @@ export function TemplateCustomizer() {
                 selectedFont.id === font.id
                   ? isDark
                     ? "border-[#4FD1C5] bg-[#4FD1C5]/10"
-                    : "border-[#2B8A8A] bg-[#2B8A8A]/10"
+                    : "border-[#0D9488] bg-[#0D9488]/10"
                   : isDark
                   ? "border-gray-800 hover:border-gray-700"
                   : "border-gray-200 hover:border-gray-300"
@@ -195,7 +195,7 @@ export function TemplateCustomizer() {
             >
               <span
                 style={{ fontFamily: font.family }}
-                className={cn("text-sm", isDark ? "text-white" : "text-gray-900")}
+                className={cn("text-sm", isDark ? "text-white" : "text-[#0F172A]")}
               >
                 {font.name}
               </span>
@@ -203,7 +203,7 @@ export function TemplateCustomizer() {
                 <Check
                   className={cn(
                     "w-4 h-4",
-                    isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"
+                    isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"
                   )}
                 />
               )}

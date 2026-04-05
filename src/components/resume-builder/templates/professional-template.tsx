@@ -27,7 +27,7 @@ export function ProfessionalTemplate({ data, accentColor = "#1e40af" }: Professi
 
   return (
     <div
-      className="min-h-full bg-white text-gray-900"
+      className="min-h-full bg-white text-[#0F172A]"
       style={{
         fontFamily: "Calibri, Arial, sans-serif",
         fontSize: "11pt",

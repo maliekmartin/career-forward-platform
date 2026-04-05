@@ -187,7 +187,7 @@ export function CoachHeader({ onOpenCustomize }: CoachHeaderProps) {
       isDark ? "bg-gray-950 border-gray-800" : "bg-[#F5F5F5] border-gray-200"
     }`}>
       <div className="flex items-center justify-between">
-        <h1 className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
+        <h1 className={`text-2xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
           {pageTitle}
         </h1>
 
@@ -235,13 +235,13 @@ export function CoachHeader({ onOpenCustomize }: CoachHeaderProps) {
                     <div className={`px-4 py-3 border-b flex items-center justify-between ${
                       isDark ? "border-gray-800" : "border-gray-100"
                     }`}>
-                      <h3 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+                      <h3 className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                         Notifications
                       </h3>
                       {unreadCount > 0 && (
                         <button
                           onClick={markAllNotificationsAsRead}
-                          className={`text-xs font-medium ${isDark ? "text-[#4FD1C5] hover:text-[#3DBDB0]" : "text-[#2B8A8A] hover:text-[#237070]"}`}
+                          className={`text-xs font-medium ${isDark ? "text-[#4FD1C5] hover:text-[#3DBDB0]" : "text-[#0D9488] hover:text-[#237070]"}`}
                         >
                           Mark all as read
                         </button>
@@ -274,7 +274,7 @@ export function CoachHeader({ onOpenCustomize }: CoachHeaderProps) {
                                 <p className={`text-sm font-medium ${
                                   notif.read
                                     ? isDark ? "text-gray-400" : "text-gray-500"
-                                    : isDark ? "text-white" : "text-gray-900"
+                                    : isDark ? "text-white" : "text-[#0F172A]"
                                 }`}>
                                   {notif.title}
                                 </p>
@@ -298,7 +298,7 @@ export function CoachHeader({ onOpenCustomize }: CoachHeaderProps) {
                     <div className={`px-4 py-3 border-t ${isDark ? "border-gray-800" : "border-gray-100"}`}>
                       <a
                         href="/coach/notifications"
-                        className={`text-sm font-medium ${isDark ? "text-[#4FD1C5] hover:text-[#3DBDB0]" : "text-[#2B8A8A] hover:text-[#237070]"}`}
+                        className={`text-sm font-medium ${isDark ? "text-[#4FD1C5] hover:text-[#3DBDB0]" : "text-[#0D9488] hover:text-[#237070]"}`}
                       >
                         View all notifications
                       </a>
@@ -326,7 +326,7 @@ export function CoachHeader({ onOpenCustomize }: CoachHeaderProps) {
             >
               <MessageSquare className="h-5 w-5" aria-hidden="true" />
               {unreadMessagesCount > 0 && (
-                <span className="absolute top-1 right-1 w-4 h-4 bg-[#2B8A8A] rounded-full text-[10px] font-bold text-white flex items-center justify-center">
+                <span className="absolute top-1 right-1 w-4 h-4 bg-[#0D9488] rounded-full text-[10px] font-bold text-white flex items-center justify-center">
                   {unreadMessagesCount}
                 </span>
               )}
@@ -355,12 +355,12 @@ export function CoachHeader({ onOpenCustomize }: CoachHeaderProps) {
                     <div className={`px-4 py-3 border-b flex items-center justify-between ${
                       isDark ? "border-gray-800" : "border-gray-100"
                     }`}>
-                      <h3 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+                      <h3 className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                         Messages
                       </h3>
                       {unreadMessagesCount > 0 && (
                         <span className={`text-xs px-2 py-0.5 rounded-full ${
-                          isDark ? "bg-[#4FD1C5]/20 text-[#4FD1C5]" : "bg-[#2B8A8A]/10 text-[#2B8A8A]"
+                          isDark ? "bg-[#4FD1C5]/20 text-[#4FD1C5]" : "bg-[#0D9488]/10 text-[#0D9488]"
                         }`}>
                           {unreadMessagesCount} new
                         </span>
@@ -381,7 +381,7 @@ export function CoachHeader({ onOpenCustomize }: CoachHeaderProps) {
                             onClick={() => handleMessageClick(conv.participant.id)}
                             className={`w-full text-left px-4 py-3 transition-colors border-b last:border-b-0 ${
                               conv.unread > 0
-                                ? isDark ? "bg-gray-800/50 border-gray-800" : "bg-[#2B8A8A]/5 border-gray-50"
+                                ? isDark ? "bg-gray-800/50 border-gray-800" : "bg-[#0D9488]/5 border-gray-50"
                                 : isDark ? "border-gray-800" : "border-gray-50"
                             } ${isDark ? "hover:bg-gray-800" : "hover:bg-gray-50"}`}
                           >
@@ -396,7 +396,7 @@ export function CoachHeader({ onOpenCustomize }: CoachHeaderProps) {
                                   <span className={`absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 ${isDark ? "border-gray-900" : "border-white"}`} />
                                 )}
                                 {conv.unread > 0 && (
-                                  <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#2B8A8A] rounded-full text-[10px] font-bold text-white flex items-center justify-center">
+                                  <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-[#0D9488] rounded-full text-[10px] font-bold text-white flex items-center justify-center">
                                     {conv.unread}
                                   </span>
                                 )}
@@ -405,7 +405,7 @@ export function CoachHeader({ onOpenCustomize }: CoachHeaderProps) {
                                 <div className="flex items-center justify-between gap-2">
                                   <p className={`text-sm font-medium truncate ${
                                     conv.unread > 0
-                                      ? isDark ? "text-white" : "text-gray-900"
+                                      ? isDark ? "text-white" : "text-[#0F172A]"
                                       : isDark ? "text-gray-400" : "text-gray-600"
                                   }`}>
                                     {conv.participant.name}
@@ -432,7 +432,7 @@ export function CoachHeader({ onOpenCustomize }: CoachHeaderProps) {
                     <div className={`px-4 py-3 border-t ${isDark ? "border-gray-800" : "border-gray-100"}`}>
                       <a
                         href="/coach/messages"
-                        className={`text-sm font-medium ${isDark ? "text-[#4FD1C5] hover:text-[#3DBDB0]" : "text-[#2B8A8A] hover:text-[#237070]"}`}
+                        className={`text-sm font-medium ${isDark ? "text-[#4FD1C5] hover:text-[#3DBDB0]" : "text-[#0D9488] hover:text-[#237070]"}`}
                       >
                         View all messages
                       </a>
@@ -452,7 +452,7 @@ export function CoachHeader({ onOpenCustomize }: CoachHeaderProps) {
               className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
                 isDark
                   ? "bg-gradient-to-r from-[#4FD1C5]/20 to-purple-500/20 text-[#4FD1C5] hover:from-[#4FD1C5]/30 hover:to-purple-500/30 border border-[#4FD1C5]/30"
-                  : "bg-gradient-to-r from-[#2B8A8A]/10 to-purple-500/10 text-[#2B8A8A] hover:from-[#2B8A8A]/20 hover:to-purple-500/20 border border-[#2B8A8A]/30"
+                  : "bg-gradient-to-r from-[#0D9488]/10 to-purple-500/10 text-[#0D9488] hover:from-[#0D9488]/20 hover:to-purple-500/20 border border-[#0D9488]/30"
               }`}
               aria-label="Customize dashboard"
             >
@@ -474,8 +474,8 @@ export function CoachHeader({ onOpenCustomize }: CoachHeaderProps) {
                 aria-hidden="true"
               />
             ) : (
-              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#2B8A8A]/10"}`}>
-                <User className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} />
+              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#0D9488]/10"}`}>
+                <User className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} />
               </div>
             )}
             <div className="flex flex-col">
@@ -483,7 +483,7 @@ export function CoachHeader({ onOpenCustomize }: CoachHeaderProps) {
                 {user ? `${user.firstName} ${user.lastName}` : "Loading..."}
               </span>
               {isPremium && (
-                <span className={`text-[10px] font-semibold ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`}>
+                <span className={`text-[10px] font-semibold ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`}>
                   PREMIUM
                 </span>
               )}

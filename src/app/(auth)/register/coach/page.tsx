@@ -170,7 +170,7 @@ export default function CoachRegisterPage() {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
-            className="mx-auto mb-8 h-20 w-20 rounded-full bg-[#374151] flex items-center justify-center shadow-lg shadow-[#374151]/30"
+            className="mx-auto mb-8 h-20 w-20 rounded-full bg-[#0F172A] flex items-center justify-center shadow-lg shadow-[#0F172A]/30"
           >
             <motion.div
               initial={{ scale: 0 }}
@@ -186,7 +186,7 @@ export default function CoachRegisterPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
           >
-            <h1 className="text-3xl font-bold text-gray-900 mb-3">
+            <h1 className="text-3xl font-bold text-[#0F172A] mb-3">
               You're all set!
             </h1>
             <p className="text-gray-600 text-lg mb-2">
@@ -201,19 +201,19 @@ export default function CoachRegisterPage() {
             transition={{ delay: 0.5 }}
             className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 mb-8 mt-8"
           >
-            <div className="bg-[#374151]/5 rounded-xl p-6 mb-6">
+            <div className="bg-[#0F172A]/5 rounded-xl p-6 mb-6">
               <p className="text-gray-700 leading-relaxed">
                 Career Forward looks forward to supporting your job seekers! A member of our team will be in contact with you in{" "}
-                <span className="font-semibold text-[#374151]">one business day</span>.
+                <span className="font-semibold text-[#0F172A]">one business day</span>.
               </p>
             </div>
 
-            <h3 className="font-semibold text-gray-900 mb-4 text-left">While you wait:</h3>
+            <h3 className="font-semibold text-[#0F172A] mb-4 text-left">While you wait:</h3>
             <div className="space-y-4">
               {[
-                { icon: Play, text: "Watch a 2-minute platform demo", color: "#374151" },
-                { icon: Calendar, text: "Check your calendar for our call", color: "#2B8A8A" },
-                { icon: Users, text: "Think about which coaches to onboard first", color: "#374151" },
+                { icon: Play, text: "Watch a 2-minute platform demo", color: "#0F172A" },
+                { icon: Calendar, text: "Check your calendar for our call", color: "#0D9488" },
+                { icon: Users, text: "Think about which coaches to onboard first", color: "#0F172A" },
               ].map((item, index) => (
                 <motion.div
                   key={index}
@@ -254,7 +254,7 @@ export default function CoachRegisterPage() {
               <p className="text-sm text-gray-500 mb-2">Need immediate assistance?</p>
               <a
                 href="mailto:support@martinbuiltstrategies.com"
-                className="inline-flex items-center gap-2 text-[#2B8A8A] font-medium hover:underline"
+                className="inline-flex items-center gap-2 text-[#0D9488] font-medium hover:underline"
               >
                 <Mail className="h-4 w-4" />
                 support@martinbuiltstrategies.com
@@ -297,7 +297,7 @@ export default function CoachRegisterPage() {
           </Link>
 
           {/* Headline */}
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-3xl font-bold text-[#0F172A] mb-2">
             Get started with Career Forward
           </h1>
           <p className="text-gray-600 mb-8">
@@ -313,7 +313,7 @@ export default function CoachRegisterPage() {
                     <div
                       className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
                         currentStep >= step.id
-                          ? "bg-[#374151] text-white"
+                          ? "bg-[#0F172A] text-white"
                           : "bg-gray-100 text-gray-400"
                       }`}
                     >
@@ -325,7 +325,7 @@ export default function CoachRegisterPage() {
                     </div>
                     <span
                       className={`text-xs mt-2 font-medium ${
-                        currentStep >= step.id ? "text-gray-900" : "text-gray-400"
+                        currentStep >= step.id ? "text-[#0F172A]" : "text-gray-400"
                       }`}
                     >
                       {step.name}
@@ -334,7 +334,7 @@ export default function CoachRegisterPage() {
                   {index < steps.length - 1 && (
                     <div
                       className={`w-16 h-0.5 mx-2 mb-6 transition-all duration-300 ${
-                        currentStep > step.id ? "bg-[#374151]" : "bg-gray-200"
+                        currentStep > step.id ? "bg-[#0F172A]" : "bg-gray-200"
                       }`}
                     />
                   )}
@@ -383,7 +383,7 @@ export default function CoachRegisterPage() {
                       onChange={(e) =>
                         setFormData({ ...formData, organizationName: e.target.value })
                       }
-                      className="h-12 rounded-xl border-gray-200 bg-white text-gray-900 placeholder:text-gray-400 focus:border-[#374151] focus:ring-[#374151]"
+                      className="h-12 rounded-xl border-gray-200 bg-white text-[#0F172A] placeholder:text-gray-400 focus:border-[#0F172A] focus:ring-[#0F172A]"
                     />
                   </div>
 
@@ -397,7 +397,7 @@ export default function CoachRegisterPage() {
                         setFormData({ ...formData, coachCount: value })
                       }
                     >
-                      <SelectTrigger id="coachCount" className="h-12 rounded-xl border-gray-200 bg-white text-gray-900">
+                      <SelectTrigger id="coachCount" className="h-12 rounded-xl border-gray-200 bg-white text-[#0F172A]">
                         <SelectValue placeholder="Select team size" />
                       </SelectTrigger>
                       <SelectContent>
@@ -412,7 +412,7 @@ export default function CoachRegisterPage() {
                   <Button
                     type="button"
                     onClick={nextStep}
-                    className="w-full bg-[#374151] hover:bg-[#1F2937] text-white rounded-xl h-12 font-semibold mt-4"
+                    className="w-full bg-[#0F172A] hover:bg-[#1F2937] text-white rounded-xl h-12 font-semibold mt-4"
                   >
                     Continue
                     <ArrowRight className="ml-2 h-4 w-4" />
@@ -442,7 +442,7 @@ export default function CoachRegisterPage() {
                         onChange={(e) =>
                           setFormData({ ...formData, firstName: e.target.value })
                         }
-                        className="h-12 rounded-xl border-gray-200 bg-white text-gray-900 placeholder:text-gray-400 focus:border-[#374151] focus:ring-[#374151]"
+                        className="h-12 rounded-xl border-gray-200 bg-white text-[#0F172A] placeholder:text-gray-400 focus:border-[#0F172A] focus:ring-[#0F172A]"
                       />
                     </div>
                     <div className="space-y-2">
@@ -456,7 +456,7 @@ export default function CoachRegisterPage() {
                         onChange={(e) =>
                           setFormData({ ...formData, lastName: e.target.value })
                         }
-                        className="h-12 rounded-xl border-gray-200 bg-white text-gray-900 placeholder:text-gray-400 focus:border-[#374151] focus:ring-[#374151]"
+                        className="h-12 rounded-xl border-gray-200 bg-white text-[#0F172A] placeholder:text-gray-400 focus:border-[#0F172A] focus:ring-[#0F172A]"
                       />
                     </div>
                   </div>
@@ -473,7 +473,7 @@ export default function CoachRegisterPage() {
                       onChange={(e) =>
                         setFormData({ ...formData, email: e.target.value })
                       }
-                      className="h-12 rounded-xl border-gray-200 bg-white text-gray-900 placeholder:text-gray-400 focus:border-[#374151] focus:ring-[#374151]"
+                      className="h-12 rounded-xl border-gray-200 bg-white text-[#0F172A] placeholder:text-gray-400 focus:border-[#0F172A] focus:ring-[#0F172A]"
                     />
                   </div>
 
@@ -490,7 +490,7 @@ export default function CoachRegisterPage() {
                         onChange={(e) =>
                           setFormData({ ...formData, phone: e.target.value })
                         }
-                        className="h-12 rounded-xl border-gray-200 bg-white text-gray-900 placeholder:text-gray-400 focus:border-[#374151] focus:ring-[#374151]"
+                        className="h-12 rounded-xl border-gray-200 bg-white text-[#0F172A] placeholder:text-gray-400 focus:border-[#0F172A] focus:ring-[#0F172A]"
                       />
                     </div>
                     <div className="space-y-2">
@@ -504,7 +504,7 @@ export default function CoachRegisterPage() {
                         onChange={(e) =>
                           setFormData({ ...formData, jobTitle: e.target.value })
                         }
-                        className="h-12 rounded-xl border-gray-200 bg-white text-gray-900 placeholder:text-gray-400 focus:border-[#374151] focus:ring-[#374151]"
+                        className="h-12 rounded-xl border-gray-200 bg-white text-[#0F172A] placeholder:text-gray-400 focus:border-[#0F172A] focus:ring-[#0F172A]"
                       />
                     </div>
                   </div>
@@ -522,7 +522,7 @@ export default function CoachRegisterPage() {
                     <Button
                       type="button"
                       onClick={nextStep}
-                      className="flex-1 bg-[#374151] hover:bg-[#1F2937] text-white rounded-xl h-12 font-semibold"
+                      className="flex-1 bg-[#0F172A] hover:bg-[#1F2937] text-white rounded-xl h-12 font-semibold"
                     >
                       Continue
                       <ArrowRight className="ml-2 h-4 w-4" />
@@ -551,7 +551,7 @@ export default function CoachRegisterPage() {
                         setFormData({ ...formData, hearAbout: value })
                       }
                     >
-                      <SelectTrigger id="hearAbout" className="h-12 rounded-xl border-gray-200 bg-white text-gray-900">
+                      <SelectTrigger id="hearAbout" className="h-12 rounded-xl border-gray-200 bg-white text-[#0F172A]">
                         <SelectValue placeholder="Select an option" />
                       </SelectTrigger>
                       <SelectContent>
@@ -577,7 +577,7 @@ export default function CoachRegisterPage() {
                         setFormData({ ...formData, message: e.target.value })
                       }
                       rows={3}
-                      className="rounded-xl border-gray-200 bg-white text-gray-900 placeholder:text-gray-400 focus:border-[#374151] focus:ring-[#374151] resize-none"
+                      className="rounded-xl border-gray-200 bg-white text-[#0F172A] placeholder:text-gray-400 focus:border-[#0F172A] focus:ring-[#0F172A] resize-none"
                     />
                   </div>
 
@@ -588,14 +588,14 @@ export default function CoachRegisterPage() {
                       disabled={isLoading || formData.acceptTerms}
                       className={`w-full p-4 rounded-xl border-2 text-left transition-all ${
                         formData.acceptTerms
-                          ? "border-[#374151] bg-[#374151]/5"
-                          : "border-gray-200 hover:border-[#374151]/50 hover:bg-gray-50"
+                          ? "border-[#0F172A] bg-[#0F172A]/5"
+                          : "border-gray-200 hover:border-[#0F172A]/50 hover:bg-gray-50"
                       }`}
                     >
                       <div className="flex items-center gap-3">
                         <div className={`w-5 h-5 rounded border-2 flex items-center justify-center transition-all ${
                           formData.acceptTerms
-                            ? "border-[#374151] bg-[#374151]"
+                            ? "border-[#0F172A] bg-[#0F172A]"
                             : "border-gray-300"
                         }`}>
                           {formData.acceptTerms && (
@@ -604,15 +604,15 @@ export default function CoachRegisterPage() {
                         </div>
                         <div className="flex-1">
                           {formData.acceptTerms ? (
-                            <span className="text-sm font-medium text-[#374151]">
+                            <span className="text-sm font-medium text-[#0F172A]">
                               Terms of Service and Privacy Policy accepted
                             </span>
                           ) : (
                             <span className="text-sm text-gray-600">
                               Click to review and accept the{" "}
-                              <span className="text-[#374151] font-medium">Terms of Service</span>
+                              <span className="text-[#0F172A] font-medium">Terms of Service</span>
                               {" "}and{" "}
-                              <span className="text-[#374151] font-medium">Privacy Policy</span>
+                              <span className="text-[#0F172A] font-medium">Privacy Policy</span>
                             </span>
                           )}
                         </div>
@@ -636,7 +636,7 @@ export default function CoachRegisterPage() {
                     </Button>
                     <Button
                       type="submit"
-                      className="flex-1 bg-[#374151] hover:bg-[#1F2937] text-white rounded-xl h-12 font-semibold shadow-lg shadow-[#374151]/25"
+                      className="flex-1 bg-[#0F172A] hover:bg-[#1F2937] text-white rounded-xl h-12 font-semibold shadow-lg shadow-[#0F172A]/25"
                       disabled={isLoading}
                     >
                       {isLoading ? (
@@ -659,7 +659,7 @@ export default function CoachRegisterPage() {
 
           <p className="text-center text-sm text-gray-500 mt-8">
             Already have an account?{" "}
-            <Link href="/signin" className="text-[#2B8A8A] hover:underline font-medium">
+            <Link href="/signin" className="text-[#0D9488] hover:underline font-medium">
               Sign in
             </Link>
           </p>
@@ -667,7 +667,7 @@ export default function CoachRegisterPage() {
       </div>
 
       {/* Right side - Value props (hidden on mobile) */}
-      <div className="hidden lg:flex flex-1 bg-gradient-to-br from-[#374151] to-[#1F2937] items-center justify-center p-12">
+      <div className="hidden lg:flex flex-1 bg-gradient-to-br from-[#0F172A] to-[#1F2937] items-center justify-center p-12">
         <div className="max-w-md text-white">
           <motion.div
             initial={{ opacity: 0, x: 20 }}
@@ -709,7 +709,7 @@ export default function CoachRegisterPage() {
 
             <div className="mt-10 pt-8 border-t border-white/30">
               <div className="flex items-center gap-3">
-                <div className="text-4xl font-bold text-[#2B8A8A]">$10</div>
+                <div className="text-4xl font-bold text-[#0D9488]">$10</div>
                 <div className="text-white/90 text-sm">
                   per coach/month<br />
                   Job seekers always free

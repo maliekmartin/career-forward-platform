@@ -147,7 +147,7 @@ const formatTimeTo12Hour = (time24: string): string => {
 
 // Demo schedule data (stored in 24-hour, displayed in 12-hour)
 const todaySchedule = [
-  { time: "09:00", endTime: "10:00", name: "Marcus Robinson", type: "Check-in", color: "border-l-[#2B8A8A]", lightBg: "bg-[#2B8A8A]/10", darkBg: "bg-[#4FD1C5]/20" },
+  { time: "09:00", endTime: "10:00", name: "Marcus Robinson", type: "Check-in", color: "border-l-[#0D9488]", lightBg: "bg-[#0D9488]/10", darkBg: "bg-[#4FD1C5]/20" },
   { time: "11:00", endTime: "11:30", name: "Aisha Patel", type: "Resume Review", color: "border-l-purple-500", lightBg: "bg-purple-50", darkBg: "bg-purple-900/30" },
   { time: "14:00", endTime: "15:00", name: "Diana Okonkwo", type: "Offer Discussion", color: "border-l-emerald-500", lightBg: "bg-emerald-50", darkBg: "bg-emerald-900/30" },
   { time: "16:00", endTime: "16:30", name: "Robert Kim", type: "Interview Prep", color: "border-l-amber-500", lightBg: "bg-amber-50", darkBg: "bg-amber-900/30" },
@@ -621,7 +621,7 @@ export default function CoachDashboardPage() {
         }`}>
           {/* Table Header */}
           <div className={`flex items-center justify-between px-5 py-4 border-b ${isDark ? "border-gray-800" : "border-gray-100"}`}>
-            <h2 className={`text-lg font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-lg font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
               Caseload
             </h2>
             <div className="flex items-center gap-3">
@@ -636,8 +636,8 @@ export default function CoachDashboardPage() {
                 }}
                 className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                   isDark
-                    ? "bg-[#4FD1C5] text-gray-900 hover:bg-[#3DBDB0]"
-                    : "bg-[#2B8A8A] text-white hover:bg-[#237070]"
+                    ? "bg-[#4FD1C5] text-[#0F172A] hover:bg-[#3DBDB0]"
+                    : "bg-[#0D9488] text-white hover:bg-[#237070]"
                 }`}
               >
                 <UserPlus className="h-4 w-4" aria-hidden="true" />
@@ -724,7 +724,7 @@ export default function CoachDashboardPage() {
                             )}
                           </div>
                           <div>
-                            <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                            <p className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                               {client.firstName} {client.lastName}
                             </p>
                             <p className={`text-sm ${isDark ? "text-gray-500" : "text-gray-500"}`}>99201</p>
@@ -756,7 +756,7 @@ export default function CoachDashboardPage() {
                             className={`p-2 rounded-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                               isDark
                                 ? "text-gray-500 hover:text-[#4FD1C5] hover:bg-[#4FD1C5]/10"
-                                : "text-gray-400 hover:text-[#2B8A8A] hover:bg-[#2B8A8A]/10"
+                                : "text-gray-400 hover:text-[#0D9488] hover:bg-[#0D9488]/10"
                             }`}
                             aria-label={`Send message to ${client.firstName} ${client.lastName}`}
                           >
@@ -768,7 +768,7 @@ export default function CoachDashboardPage() {
                             className={`p-2 rounded-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                               isDark
                                 ? "text-gray-500 hover:text-[#4FD1C5] hover:bg-[#4FD1C5]/10"
-                                : "text-gray-400 hover:text-[#2B8A8A] hover:bg-[#2B8A8A]/10"
+                                : "text-gray-400 hover:text-[#0D9488] hover:bg-[#0D9488]/10"
                             }`}
                             aria-label={`View resume for ${client.firstName} ${client.lastName}`}
                           >
@@ -781,7 +781,7 @@ export default function CoachDashboardPage() {
                             className={`p-2 rounded-lg transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                               isDark
                                 ? "text-gray-500 hover:text-[#4FD1C5] hover:bg-[#4FD1C5]/10"
-                                : "text-gray-400 hover:text-[#2B8A8A] hover:bg-[#2B8A8A]/10"
+                                : "text-gray-400 hover:text-[#0D9488] hover:bg-[#0D9488]/10"
                             }`}
                             aria-label={`View notes for ${client.firstName} ${client.lastName}`}
                           >
@@ -906,8 +906,8 @@ export default function CoachDashboardPage() {
                   className={`w-8 h-8 rounded-lg text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                     currentPage === page
                       ? isDark
-                        ? "bg-[#4FD1C5] text-gray-900"
-                        : "bg-[#2B8A8A] text-white"
+                        ? "bg-[#4FD1C5] text-[#0F172A]"
+                        : "bg-[#0D9488] text-white"
                       : isDark
                       ? "text-gray-400 hover:bg-gray-800"
                       : "text-gray-600 hover:bg-gray-100"
@@ -937,13 +937,13 @@ export default function CoachDashboardPage() {
           {/* Quick Tasks Preview */}
           <div className={`px-5 py-4 border-t ${isDark ? "border-gray-800" : "border-gray-100"}`}>
             <div className="flex items-center justify-between mb-3">
-              <h3 className={`text-sm font-semibold flex items-center gap-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+              <h3 className={`text-sm font-semibold flex items-center gap-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                 <ListTodo className="h-4 w-4" aria-hidden="true" />
                 Tasks Overview
               </h3>
               <a
                 href="/coach/tasks"
-                className={`text-xs font-medium hover:underline ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`}
+                className={`text-xs font-medium hover:underline ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`}
               >
                 View All Tasks
               </a>
@@ -961,7 +961,7 @@ export default function CoachDashboardPage() {
                   <Clock className={`h-4 w-4 ${isDark ? "text-blue-400" : "text-blue-500"}`} aria-hidden="true" />
                   <span className={`text-xs font-medium ${isDark ? "text-gray-400" : "text-gray-500"}`}>Due Today</span>
                 </div>
-                <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>{tasksDueToday.length}</p>
+                <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>{tasksDueToday.length}</p>
               </a>
 
               {/* Overdue */}
@@ -977,7 +977,7 @@ export default function CoachDashboardPage() {
                   <AlertTriangle className={`h-4 w-4 ${overdueTasks.length > 0 ? (isDark ? "text-red-400" : "text-red-500") : (isDark ? "text-gray-500" : "text-gray-400")}`} aria-hidden="true" />
                   <span className={`text-xs font-medium ${overdueTasks.length > 0 ? (isDark ? "text-red-400" : "text-red-500") : (isDark ? "text-gray-400" : "text-gray-500")}`}>Overdue</span>
                 </div>
-                <p className={`text-2xl font-bold ${overdueTasks.length > 0 ? (isDark ? "text-red-400" : "text-red-600") : (isDark ? "text-white" : "text-gray-900")}`}>{overdueTasks.length}</p>
+                <p className={`text-2xl font-bold ${overdueTasks.length > 0 ? (isDark ? "text-red-400" : "text-red-600") : (isDark ? "text-white" : "text-[#0F172A]")}`}>{overdueTasks.length}</p>
               </a>
 
               {/* Upcoming */}
@@ -991,7 +991,7 @@ export default function CoachDashboardPage() {
                   <Calendar className={`h-4 w-4 ${isDark ? "text-green-400" : "text-green-500"}`} aria-hidden="true" />
                   <span className={`text-xs font-medium ${isDark ? "text-gray-400" : "text-gray-500"}`}>Upcoming</span>
                 </div>
-                <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>{upcomingTasks.length}</p>
+                <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>{upcomingTasks.length}</p>
               </a>
             </div>
 
@@ -1072,7 +1072,7 @@ export default function CoachDashboardPage() {
               >
                 <ChevronLeft className={`h-5 w-5 ${isDark ? "text-gray-400" : "text-gray-400"}`} aria-hidden="true" />
               </motion.button>
-              <h3 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+              <h3 className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                 {monthNames[currentMonth.getMonth()]} {currentMonth.getFullYear()}
               </h3>
               <motion.button
@@ -1121,12 +1121,12 @@ export default function CoachDashboardPage() {
                     className={`aspect-square rounded-full flex items-center justify-center text-sm transition-all relative focus:outline-none focus-visible:ring-2 focus-visible:ring-primary ${
                       isSelected
                         ? isDark
-                          ? "bg-[#4FD1C5] text-gray-900 font-medium"
-                          : "bg-[#2B8A8A] text-white font-medium"
+                          ? "bg-[#4FD1C5] text-[#0F172A] font-medium"
+                          : "bg-[#0D9488] text-white font-medium"
                         : isToday
                         ? isDark
                           ? "bg-[#4FD1C5]/20 text-[#4FD1C5] font-medium"
-                          : "bg-[#2B8A8A]/10 text-[#2B8A8A] font-medium"
+                          : "bg-[#0D9488]/10 text-[#0D9488] font-medium"
                         : isDark
                         ? "text-gray-300 hover:bg-gray-800"
                         : "text-gray-700 hover:bg-gray-100"
@@ -1137,7 +1137,7 @@ export default function CoachDashboardPage() {
                   >
                     {day}
                     {hasEvent && !isSelected && (
-                      <span className={`absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full ${isDark ? "bg-[#4FD1C5]" : "bg-[#2B8A8A]"}`} aria-hidden="true" />
+                      <span className={`absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full ${isDark ? "bg-[#4FD1C5]" : "bg-[#0D9488]"}`} aria-hidden="true" />
                     )}
                   </motion.button>
                 );
@@ -1156,7 +1156,7 @@ export default function CoachDashboardPage() {
             role="region"
             aria-label="Today's schedule"
           >
-            <h3 className={`font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>Today's Schedule</h3>
+            <h3 className={`font-semibold mb-4 ${isDark ? "text-white" : "text-[#0F172A]"}`}>Today's Schedule</h3>
             <ul className="space-y-3" role="list">
               {todaySchedule.map((item, i) => (
                 <motion.li
@@ -1168,7 +1168,7 @@ export default function CoachDashboardPage() {
                 >
                   <div className="flex items-start justify-between">
                     <div>
-                      <p className={`text-sm font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                      <p className={`text-sm font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                         {formatTimeTo12Hour(item.time)} - {formatTimeTo12Hour(item.endTime)}
                       </p>
                       <p className={`text-sm mt-0.5 ${isDark ? "text-gray-300" : "text-gray-700"}`}>{item.name}</p>
@@ -1247,7 +1247,7 @@ export default function CoachDashboardPage() {
                   <PartyPopper className="h-10 w-10 text-white" aria-hidden="true" />
                 </motion.div>
 
-                <h2 id="hired-modal-title" className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+                <h2 id="hired-modal-title" className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   Placement Success!
                 </h2>
 
@@ -1258,7 +1258,7 @@ export default function CoachDashboardPage() {
                     className="w-12 h-12 rounded-full object-cover border-2 border-yellow-400"
                   />
                   <div className="text-left">
-                    <p className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+                    <p className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                       {hiredClient.firstName} {hiredClient.lastName}
                     </p>
                     <p className={`text-sm font-medium flex items-center gap-1 ${isDark ? "text-green-400" : "text-green-600"}`}>
@@ -1275,7 +1275,7 @@ export default function CoachDashboardPage() {
                 <div className={`rounded-xl p-4 mb-6 border ${isDark ? "bg-yellow-900/20 border-yellow-700" : "bg-gradient-to-r from-yellow-50 to-orange-50 border-yellow-200"}`}>
                   <div className="flex items-center justify-center gap-2 mb-2">
                     <Trophy className={`h-5 w-5 ${isDark ? "text-yellow-400" : "text-yellow-600"}`} aria-hidden="true" />
-                    <span className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>Milestones Achieved</span>
+                    <span className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>Milestones Achieved</span>
                   </div>
                   <div className="flex justify-center gap-2">
                     <span className={`px-3 py-1 rounded-full text-sm border ${isDark ? "bg-gray-800 border-yellow-600 text-yellow-300" : "bg-white border-yellow-300 text-yellow-700"}`}>
@@ -1303,7 +1303,7 @@ export default function CoachDashboardPage() {
                     Close
                   </Button>
                   <Button
-                    className={`flex-1 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"}`}
+                    className={`flex-1 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"}`}
                     onClick={() => {
                       handleOpenChat(hiredClient);
                       setShowHiredModal(false);
@@ -1346,7 +1346,7 @@ export default function CoachDashboardPage() {
               <div className={`sticky top-0 z-10 px-6 py-4 border-b flex items-center justify-between ${
                 isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"
               }`}>
-                <h2 id="profile-modal-title" className={`text-xl font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+                <h2 id="profile-modal-title" className={`text-xl font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   Job Seeker Profile
                 </h2>
                 <motion.button
@@ -1382,7 +1382,7 @@ export default function CoachDashboardPage() {
                     )}
                   </div>
                   <div className="flex-1">
-                    <h3 className={`text-2xl font-bold mb-1 ${isDark ? "text-white" : "text-gray-900"}`}>
+                    <h3 className={`text-2xl font-bold mb-1 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                       {profileClient.firstName} {profileClient.lastName}
                     </h3>
                     <div className="flex items-center gap-4 text-sm">
@@ -1423,7 +1423,7 @@ export default function CoachDashboardPage() {
                       handleOpenChat(profileClient);
                       setShowProfileModal(false);
                     }}
-                    className={`flex-1 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"}`}
+                    className={`flex-1 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"}`}
                   >
                     <MessageSquare className="h-4 w-4 mr-2" aria-hidden="true" />
                     Send Message
@@ -1455,10 +1455,10 @@ export default function CoachDashboardPage() {
                     className={`p-4 rounded-xl border ${isDark ? "bg-gray-800/50 border-gray-800" : "bg-gray-50 border-gray-100"}`}
                   >
                     <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>Program Progress</p>
-                    <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>{profileClient.questProgress}%</p>
+                    <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>{profileClient.questProgress}%</p>
                     <div className={`mt-2 h-2 rounded-full overflow-hidden ${isDark ? "bg-gray-700" : "bg-gray-200"}`}>
                       <motion.div
-                        className={`h-full rounded-full ${isDark ? "bg-[#4FD1C5]" : "bg-[#2B8A8A]"}`}
+                        className={`h-full rounded-full ${isDark ? "bg-[#4FD1C5]" : "bg-[#0D9488]"}`}
                         initial={{ width: 0 }}
                         animate={{ width: `${profileClient.questProgress}%` }}
                         transition={{ duration: 0.5, delay: 0.2 }}
@@ -1470,21 +1470,21 @@ export default function CoachDashboardPage() {
                     className={`p-4 rounded-xl border ${isDark ? "bg-gray-800/50 border-gray-800" : "bg-gray-50 border-gray-100"}`}
                   >
                     <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>Applications</p>
-                    <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>{profileClient.stats.applicationsSubmitted}</p>
+                    <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>{profileClient.stats.applicationsSubmitted}</p>
                   </motion.div>
                   <motion.div
                     whileHover={{ scale: 1.02 }}
                     className={`p-4 rounded-xl border ${isDark ? "bg-gray-800/50 border-gray-800" : "bg-gray-50 border-gray-100"}`}
                   >
                     <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>Interviews</p>
-                    <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>{profileClient.stats.interviewsScheduled}</p>
+                    <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>{profileClient.stats.interviewsScheduled}</p>
                   </motion.div>
                   <motion.div
                     whileHover={{ scale: 1.02 }}
                     className={`p-4 rounded-xl border ${isDark ? "bg-gray-800/50 border-gray-800" : "bg-gray-50 border-gray-100"}`}
                   >
                     <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>Day Streak</p>
-                    <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>{profileClient.stats.loginStreak}</p>
+                    <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>{profileClient.stats.loginStreak}</p>
                   </motion.div>
                 </div>
 
@@ -1492,8 +1492,8 @@ export default function CoachDashboardPage() {
                 <div className="grid grid-cols-2 gap-6">
                   {/* Career Info */}
                   <div className={`p-5 rounded-xl border ${isDark ? "border-gray-800" : "border-gray-100"}`}>
-                    <h4 className={`font-semibold mb-4 flex items-center gap-2 ${isDark ? "text-white" : "text-gray-900"}`}>
-                      <Briefcase className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} aria-hidden="true" />
+                    <h4 className={`font-semibold mb-4 flex items-center gap-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
+                      <Briefcase className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} aria-hidden="true" />
                       Career Information
                     </h4>
                     <div className="space-y-3">
@@ -1514,8 +1514,8 @@ export default function CoachDashboardPage() {
 
                   {/* Education & Skills */}
                   <div className={`p-5 rounded-xl border ${isDark ? "border-gray-800" : "border-gray-100"}`}>
-                    <h4 className={`font-semibold mb-4 flex items-center gap-2 ${isDark ? "text-white" : "text-gray-900"}`}>
-                      <GraduationCap className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} aria-hidden="true" />
+                    <h4 className={`font-semibold mb-4 flex items-center gap-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
+                      <GraduationCap className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} aria-hidden="true" />
                       Skills & Education
                     </h4>
                     <div className="space-y-3">
@@ -1546,8 +1546,8 @@ export default function CoachDashboardPage() {
 
                 {/* Milestones */}
                 <div className={`mt-6 p-5 rounded-xl border ${isDark ? "border-gray-800" : "border-gray-100"}`}>
-                  <h4 className={`font-semibold mb-4 flex items-center gap-2 ${isDark ? "text-white" : "text-gray-900"}`}>
-                    <Target className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} aria-hidden="true" />
+                  <h4 className={`font-semibold mb-4 flex items-center gap-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
+                    <Target className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} aria-hidden="true" />
                     Completed Milestones
                   </h4>
                   <div className="flex flex-wrap gap-2">
@@ -1569,8 +1569,8 @@ export default function CoachDashboardPage() {
 
                 {/* Coach Notes */}
                 <div className={`mt-6 p-5 rounded-xl border ${isDark ? "border-gray-800" : "border-gray-100"}`}>
-                  <h4 className={`font-semibold mb-4 flex items-center gap-2 ${isDark ? "text-white" : "text-gray-900"}`}>
-                    <StickyNote className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} aria-hidden="true" />
+                  <h4 className={`font-semibold mb-4 flex items-center gap-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
+                    <StickyNote className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} aria-hidden="true" />
                     Coach Notes
                     <span className={`ml-auto text-xs font-normal ${isDark ? "text-gray-500" : "text-gray-400"}`}>
                       {(clientNotes[profileClient.id] || []).length} notes
@@ -1588,7 +1588,7 @@ export default function CoachDashboardPage() {
                         className={`flex-1 px-3 py-2 rounded-lg border text-sm resize-none transition-colors focus:outline-none focus:ring-2 ${
                           isDark
                             ? "bg-gray-800 border-gray-700 text-white placeholder-gray-500 focus:ring-[#4FD1C5]"
-                            : "bg-white border-gray-200 text-gray-900 placeholder-gray-400 focus:ring-[#2B8A8A]"
+                            : "bg-white border-gray-200 text-[#0F172A] placeholder-gray-400 focus:ring-[#0D9488]"
                         }`}
                       />
                       <motion.button
@@ -1598,8 +1598,8 @@ export default function CoachDashboardPage() {
                         disabled={!newNoteText.trim()}
                         className={`px-4 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
                           isDark
-                            ? "bg-[#4FD1C5] text-gray-900 hover:bg-[#3DBDB0]"
-                            : "bg-[#2B8A8A] text-white hover:bg-[#237070]"
+                            ? "bg-[#4FD1C5] text-[#0F172A] hover:bg-[#3DBDB0]"
+                            : "bg-[#0D9488] text-white hover:bg-[#237070]"
                         }`}
                       >
                         <Plus className="h-5 w-5" aria-hidden="true" />
@@ -1672,11 +1672,11 @@ export default function CoachDashboardPage() {
                 isDark ? "border-gray-800" : "border-gray-100"
               }`}>
                 <div className="flex items-center gap-3">
-                  <div className={`p-2 rounded-lg ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#2B8A8A]/10"}`}>
-                    <FileSpreadsheet className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} aria-hidden="true" />
+                  <div className={`p-2 rounded-lg ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#0D9488]/10"}`}>
+                    <FileSpreadsheet className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} aria-hidden="true" />
                   </div>
                   <div>
-                    <h2 id="export-modal-title" className={`text-lg font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+                    <h2 id="export-modal-title" className={`text-lg font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                       Export Job Tracker Log
                     </h2>
                     <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -1718,7 +1718,7 @@ export default function CoachDashboardPage() {
                         className={`w-full px-3 py-2.5 rounded-lg border text-sm transition-colors focus:outline-none focus:ring-2 ${
                           isDark
                             ? "bg-gray-800 border-gray-700 text-white focus:ring-[#4FD1C5]"
-                            : "bg-white border-gray-200 text-gray-900 focus:ring-[#2B8A8A]"
+                            : "bg-white border-gray-200 text-[#0F172A] focus:ring-[#0D9488]"
                         }`}
                       />
                     </div>
@@ -1734,7 +1734,7 @@ export default function CoachDashboardPage() {
                         className={`w-full px-3 py-2.5 rounded-lg border text-sm transition-colors focus:outline-none focus:ring-2 ${
                           isDark
                             ? "bg-gray-800 border-gray-700 text-white focus:ring-[#4FD1C5]"
-                            : "bg-white border-gray-200 text-gray-900 focus:ring-[#2B8A8A]"
+                            : "bg-white border-gray-200 text-[#0F172A] focus:ring-[#0D9488]"
                         }`}
                       />
                     </div>
@@ -1751,7 +1751,7 @@ export default function CoachDashboardPage() {
                   >
                     <div className={`mt-0.5 p-0.5 rounded transition-colors ${
                       includeJobOutcomes
-                        ? isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"
+                        ? isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"
                         : isDark ? "text-gray-600" : "text-gray-400"
                     }`}>
                       {includeJobOutcomes ? (
@@ -1761,7 +1761,7 @@ export default function CoachDashboardPage() {
                       )}
                     </div>
                     <div>
-                      <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                      <p className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                         Include Application Outcomes
                       </p>
                       <p className={`text-sm mt-0.5 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -1795,7 +1795,7 @@ export default function CoachDashboardPage() {
                 </Button>
                 <Button
                   onClick={handleExport}
-                  className={`flex-1 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"}`}
+                  className={`flex-1 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"}`}
                 >
                   <FileSpreadsheet className="h-4 w-4 mr-2" aria-hidden="true" />
                   Export to Excel
@@ -1834,11 +1834,11 @@ export default function CoachDashboardPage() {
                 isDark ? "border-gray-800" : "border-gray-100"
               }`}>
                 <div className="flex items-center gap-3">
-                  <div className={`p-2 rounded-lg ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#2B8A8A]/10"}`}>
-                    <UserPlus className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} aria-hidden="true" />
+                  <div className={`p-2 rounded-lg ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#0D9488]/10"}`}>
+                    <UserPlus className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} aria-hidden="true" />
                   </div>
                   <div>
-                    <h2 id="add-job-seeker-modal-title" className={`text-lg font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+                    <h2 id="add-job-seeker-modal-title" className={`text-lg font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                       Add Job Seeker
                     </h2>
                     <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -1883,14 +1883,14 @@ export default function CoachDashboardPage() {
                         className={`w-full pl-10 pr-4 py-2.5 rounded-lg border text-sm transition-colors focus:outline-none focus:ring-2 ${
                           isDark
                             ? "bg-gray-800 border-gray-700 text-white placeholder-gray-500 focus:ring-[#4FD1C5]"
-                            : "bg-white border-gray-200 text-gray-900 placeholder-gray-400 focus:ring-[#2B8A8A]"
+                            : "bg-white border-gray-200 text-[#0F172A] placeholder-gray-400 focus:ring-[#0D9488]"
                         }`}
                       />
                     </div>
                     <Button
                       onClick={handleSearchEmail}
                       disabled={!searchEmail.trim() || inviteStatus === "searching"}
-                      className={`px-4 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"}`}
+                      className={`px-4 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"}`}
                     >
                       {inviteStatus === "searching" ? (
                         <motion.div
@@ -1926,7 +1926,7 @@ export default function CoachDashboardPage() {
                             </span>
                           </div>
                           <div>
-                            <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                            <p className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                               {searchResult.name}
                             </p>
                             <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -1940,7 +1940,7 @@ export default function CoachDashboardPage() {
                       <div className="flex items-center gap-3">
                         <AlertCircle className={`h-5 w-5 ${isDark ? "text-red-400" : "text-red-500"}`} aria-hidden="true" />
                         <div>
-                          <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                          <p className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                             No account found
                           </p>
                           <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -1957,14 +1957,14 @@ export default function CoachDashboardPage() {
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className={`p-4 rounded-xl border ${isDark ? "border-[#4FD1C5]/30 bg-[#4FD1C5]/10" : "border-[#2B8A8A]/30 bg-[#2B8A8A]/10"}`}
+                    className={`p-4 rounded-xl border ${isDark ? "border-[#4FD1C5]/30 bg-[#4FD1C5]/10" : "border-[#0D9488]/30 bg-[#0D9488]/10"}`}
                   >
                     <div className="flex items-start gap-3">
-                      <div className={`p-2 rounded-full ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#2B8A8A]/20"}`}>
-                        <CheckCircle className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} aria-hidden="true" />
+                      <div className={`p-2 rounded-full ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#0D9488]/20"}`}>
+                        <CheckCircle className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} aria-hidden="true" />
                       </div>
                       <div>
-                        <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                        <p className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                           Invitation Sent!
                         </p>
                         <p className={`text-sm mt-1 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -1987,7 +1987,7 @@ export default function CoachDashboardPage() {
 
                 {/* Info Box */}
                 <div className={`p-4 rounded-xl border ${isDark ? "border-gray-800 bg-gray-800/30" : "border-gray-100 bg-gray-50"}`}>
-                  <h4 className={`text-sm font-medium mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+                  <h4 className={`text-sm font-medium mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                     How invitations work
                   </h4>
                   <ul className={`text-sm space-y-2 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -2020,7 +2020,7 @@ export default function CoachDashboardPage() {
                   <Button
                     onClick={handleSendInvite}
                     disabled={!searchResult?.found || inviteStatus === "sending"}
-                    className={`flex-1 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"}`}
+                    className={`flex-1 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"}`}
                   >
                     {inviteStatus === "sending" ? (
                       <>
@@ -2075,11 +2075,11 @@ export default function CoachDashboardPage() {
                 isDark ? "border-gray-800" : "border-gray-100"
               }`}>
                 <div className="flex items-center gap-3">
-                  <div className={`p-2 rounded-lg ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#2B8A8A]/10"}`}>
-                    <StickyNote className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} aria-hidden="true" />
+                  <div className={`p-2 rounded-lg ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#0D9488]/10"}`}>
+                    <StickyNote className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} aria-hidden="true" />
                   </div>
                   <div>
-                    <h2 id="notes-modal-title" className={`text-lg font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+                    <h2 id="notes-modal-title" className={`text-lg font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                       Coach Notes
                     </h2>
                     <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -2116,7 +2116,7 @@ export default function CoachDashboardPage() {
                       className={`flex-1 px-3 py-2 rounded-lg border text-sm resize-none transition-colors focus:outline-none focus:ring-2 ${
                         isDark
                           ? "bg-gray-800 border-gray-700 text-white placeholder-gray-500 focus:ring-[#4FD1C5]"
-                          : "bg-white border-gray-200 text-gray-900 placeholder-gray-400 focus:ring-[#2B8A8A]"
+                          : "bg-white border-gray-200 text-[#0F172A] placeholder-gray-400 focus:ring-[#0D9488]"
                       }`}
                     />
                     <motion.button
@@ -2126,8 +2126,8 @@ export default function CoachDashboardPage() {
                       disabled={!newNoteText.trim()}
                       className={`px-4 rounded-lg font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
                         isDark
-                          ? "bg-[#4FD1C5] text-gray-900 hover:bg-[#3DBDB0]"
-                          : "bg-[#2B8A8A] text-white hover:bg-[#237070]"
+                          ? "bg-[#4FD1C5] text-[#0F172A] hover:bg-[#3DBDB0]"
+                          : "bg-[#0D9488] text-white hover:bg-[#237070]"
                       }`}
                     >
                       <Plus className="h-5 w-5" aria-hidden="true" />
@@ -2178,7 +2178,7 @@ export default function CoachDashboardPage() {
 
                 {/* Export Section */}
                 <div className={`p-4 rounded-xl border ${isDark ? "border-gray-800 bg-gray-800/30" : "border-gray-100 bg-gray-50"}`}>
-                  <h4 className={`text-sm font-medium mb-3 flex items-center gap-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+                  <h4 className={`text-sm font-medium mb-3 flex items-center gap-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                     <Download className="h-4 w-4" aria-hidden="true" />
                     Export Notes
                   </h4>
@@ -2197,7 +2197,7 @@ export default function CoachDashboardPage() {
                         className={`w-full px-3 py-2 rounded-lg border text-sm transition-colors focus:outline-none focus:ring-2 ${
                           isDark
                             ? "bg-gray-800 border-gray-700 text-white focus:ring-[#4FD1C5]"
-                            : "bg-white border-gray-200 text-gray-900 focus:ring-[#2B8A8A]"
+                            : "bg-white border-gray-200 text-[#0F172A] focus:ring-[#0D9488]"
                         }`}
                       />
                     </div>
@@ -2213,7 +2213,7 @@ export default function CoachDashboardPage() {
                         className={`w-full px-3 py-2 rounded-lg border text-sm transition-colors focus:outline-none focus:ring-2 ${
                           isDark
                             ? "bg-gray-800 border-gray-700 text-white focus:ring-[#4FD1C5]"
-                            : "bg-white border-gray-200 text-gray-900 focus:ring-[#2B8A8A]"
+                            : "bg-white border-gray-200 text-[#0F172A] focus:ring-[#0D9488]"
                         }`}
                       />
                     </div>
@@ -2226,7 +2226,7 @@ export default function CoachDashboardPage() {
                   <Button
                     onClick={handleExportNotes}
                     disabled={(clientNotes[notesClient.id] || []).length === 0}
-                    className={`w-full ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"}`}
+                    className={`w-full ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"}`}
                   >
                     <FileSpreadsheet className="h-4 w-4 mr-2" aria-hidden="true" />
                     Export to Excel

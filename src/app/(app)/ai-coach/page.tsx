@@ -192,7 +192,7 @@ export default function AICoachPage() {
   if (checkingSubscription) {
     return (
       <div className="flex items-center justify-center h-[calc(100vh-200px)]">
-        <Loader2 className="w-8 h-8 animate-spin text-[#2B8A8A]" />
+        <Loader2 className="w-8 h-8 animate-spin text-[#0D9488]" />
       </div>
     );
   }
@@ -203,7 +203,7 @@ export default function AICoachPage() {
         <div className={`rounded-2xl p-8 text-center ${isDark ? "bg-gray-900/50" : "bg-white"} shadow-sm border ${isDark ? "border-gray-800" : "border-gray-100"}`}>
           {/* Compass Avatar */}
           <div className="relative w-24 h-24 mx-auto mb-6">
-            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#2B8A8A] to-[#4ECDC4] flex items-center justify-center shadow-lg">
+            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#0D9488] to-[#4ECDC4] flex items-center justify-center shadow-lg">
               <svg className="w-12 h-12 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <circle cx="12" cy="12" r="10" />
                 <polygon points="12,2 14.5,9.5 12,12 9.5,9.5" fill="currentColor" />
@@ -215,7 +215,7 @@ export default function AICoachPage() {
             </div>
           </div>
 
-          <h1 className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+          <h1 className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
             Meet Compass
           </h1>
           <p className={`text-sm mb-6 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -231,7 +231,7 @@ export default function AICoachPage() {
 
           <Button
             onClick={handleSubscribe}
-            className="w-full bg-[#2B8A8A] hover:bg-[#237070] text-white font-medium py-5"
+            className="w-full bg-[#F59E0B] hover:bg-[#D97706] text-white font-medium py-5"
           >
             Chat with Compass - $4.99/mo
             <ArrowRight className="w-4 h-4 ml-2" />
@@ -254,7 +254,7 @@ export default function AICoachPage() {
   const getScoreColor = (score: number, max: number) => {
     const pct = (score / max) * 100;
     if (pct >= 80) return "text-green-500";
-    if (pct >= 60) return "text-[#2B8A8A]";
+    if (pct >= 60) return "text-[#0D9488]";
     if (pct >= 40) return "text-amber-500";
     return "text-red-500";
   };
@@ -262,7 +262,7 @@ export default function AICoachPage() {
   const getScoreBg = (score: number, max: number) => {
     const pct = (score / max) * 100;
     if (pct >= 80) return "bg-green-500";
-    if (pct >= 60) return "bg-[#2B8A8A]";
+    if (pct >= 60) return "bg-[#0D9488]";
     if (pct >= 40) return "bg-amber-500";
     return "bg-red-500";
   };
@@ -274,7 +274,7 @@ export default function AICoachPage() {
   return (
     <div className="flex gap-6 h-[calc(100vh-150px)]">
       {/* Left Panel - Context */}
-      <div className={`w-80 flex-shrink-0 flex flex-col gap-4 overflow-y-auto ${isDark ? "text-white" : "text-gray-900"}`}>
+      <div className={`w-80 flex-shrink-0 flex flex-col gap-4 overflow-y-auto ${isDark ? "text-white" : "text-[#0F172A]"}`}>
         {/* Score Overview */}
         {scores && (
           <div className={`rounded-xl p-5 ${isDark ? "bg-gray-900/50" : "bg-white"} border ${isDark ? "border-gray-800" : "border-gray-100"}`}>
@@ -320,7 +320,7 @@ export default function AICoachPage() {
             {scores.marketDemandLevel && (
               <div className={`mt-4 pt-4 border-t ${isDark ? "border-gray-800" : "border-gray-100"}`}>
                 <div className="flex items-center gap-2">
-                  <Target className="w-4 h-4 text-[#2B8A8A]" />
+                  <Target className="w-4 h-4 text-[#0D9488]" />
                   <span className="text-xs">
                     <span className={isDark ? "text-gray-400" : "text-gray-500"}>Market demand: </span>
                     <span className={`font-medium capitalize ${
@@ -400,7 +400,7 @@ export default function AICoachPage() {
         {/* Chat Header */}
         <div className={`flex items-center gap-3 pb-4 border-b ${isDark ? "border-gray-800" : "border-gray-200"}`}>
           <div className="relative">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#2B8A8A] to-[#4ECDC4] flex items-center justify-center">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#0D9488] to-[#4ECDC4] flex items-center justify-center">
               <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <circle cx="12" cy="12" r="10" />
                 <polygon points="12,2 14.5,9.5 12,12 9.5,9.5" fill="currentColor" />
@@ -410,7 +410,7 @@ export default function AICoachPage() {
             <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-green-500 rounded-full border-2 border-white dark:border-gray-900" />
           </div>
           <div>
-            <h2 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>Compass</h2>
+            <h2 className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>Compass</h2>
             <p className={`text-xs ${isDark ? "text-green-400" : "text-green-600"}`}>Online</p>
           </div>
         </div>
@@ -419,7 +419,7 @@ export default function AICoachPage() {
         <div className="flex-1 overflow-y-auto py-4 space-y-4">
           {/* Welcome */}
           <div className="flex gap-3">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#2B8A8A] to-[#4ECDC4] flex items-center justify-center flex-shrink-0">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#0D9488] to-[#4ECDC4] flex items-center justify-center flex-shrink-0">
               <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <circle cx="12" cy="12" r="10" />
                 <polygon points="12,2 14,10 12,12 10,10" fill="currentColor" />
@@ -443,7 +443,7 @@ export default function AICoachPage() {
                 className={`flex gap-3 ${message.role === "user" ? "flex-row-reverse" : ""}`}
               >
                 {message.role === "assistant" && (
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#2B8A8A] to-[#4ECDC4] flex items-center justify-center flex-shrink-0">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#0D9488] to-[#4ECDC4] flex items-center justify-center flex-shrink-0">
                     <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <circle cx="12" cy="12" r="10" />
                       <polygon points="12,2 14,10 12,12 10,10" fill="currentColor" />
@@ -453,7 +453,7 @@ export default function AICoachPage() {
                 <div
                   className={`max-w-[85%] rounded-2xl px-4 py-2.5 ${
                     message.role === "user"
-                      ? "bg-[#2B8A8A] text-white rounded-tr-sm"
+                      ? "bg-[#0D9488] text-white rounded-tr-sm"
                       : isDark
                       ? "bg-gray-800 text-gray-100 rounded-tl-sm"
                       : "bg-gray-100 text-gray-800 rounded-tl-sm"
@@ -468,7 +468,7 @@ export default function AICoachPage() {
           {/* Typing */}
           {isLoading && (
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-3">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#2B8A8A] to-[#4ECDC4] flex items-center justify-center flex-shrink-0">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#0D9488] to-[#4ECDC4] flex items-center justify-center flex-shrink-0">
                 <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <circle cx="12" cy="12" r="10" />
                   <polygon points="12,2 14,10 12,12 10,10" fill="currentColor" />
@@ -498,7 +498,7 @@ export default function AICoachPage() {
               onKeyDown={handleKeyDown}
               placeholder="Message Compass..."
               className={`flex-1 px-4 py-2 bg-transparent text-sm focus:outline-none ${
-                isDark ? "text-white placeholder-gray-500" : "text-gray-900 placeholder-gray-400"
+                isDark ? "text-white placeholder-gray-500" : "text-[#0F172A] placeholder-gray-400"
               }`}
               disabled={isLoading}
             />
@@ -507,7 +507,7 @@ export default function AICoachPage() {
               disabled={!input.trim() || isLoading}
               className={`w-9 h-9 rounded-full flex items-center justify-center transition-all ${
                 input.trim() && !isLoading
-                  ? "bg-[#2B8A8A] text-white"
+                  ? "bg-[#0D9488] text-white"
                   : isDark
                   ? "bg-gray-700 text-gray-500"
                   : "bg-gray-200 text-gray-400"

@@ -80,7 +80,7 @@ export default function CoachReportsPage() {
       {/* Header */}
       <motion.div variants={itemVariants} className="flex items-center justify-between mb-8">
         <div>
-          <h1 className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+          <h1 className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
             Reports & Analytics
           </h1>
           <p className={isDark ? "text-gray-400" : "text-gray-600"}>
@@ -101,10 +101,10 @@ export default function CoachReportsPage() {
                   timeRange === range
                     ? isDark
                       ? "bg-gray-700 shadow text-white"
-                      : "bg-white shadow text-gray-900"
+                      : "bg-white shadow text-[#0F172A]"
                     : isDark
                     ? "text-gray-400 hover:text-white"
-                    : "text-gray-600 hover:text-gray-900"
+                    : "text-gray-600 hover:text-[#0F172A]"
                 }`}
                 role="tab"
                 aria-selected={timeRange === range}
@@ -136,15 +136,15 @@ export default function CoachReportsPage() {
           className={`rounded-xl p-5 border ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}
         >
           <div className="flex items-center justify-between mb-3">
-            <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#2B8A8A]/10"}`}>
-              <Users className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} aria-hidden="true" />
+            <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#0D9488]/10"}`}>
+              <Users className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} aria-hidden="true" />
             </div>
             <span className={`flex items-center gap-1 text-xs font-medium ${isDark ? "text-green-400" : "text-green-600"}`}>
               <TrendingUp className="h-3 w-3" aria-hidden="true" />
               +2
             </span>
           </div>
-          <div className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
+          <div className={`text-2xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
             {activeClients}/{totalClients}
           </div>
           <div className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>Active Clients</div>
@@ -163,7 +163,7 @@ export default function CoachReportsPage() {
               +12
             </span>
           </div>
-          <div className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>{totalApplications}</div>
+          <div className={`text-2xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>{totalApplications}</div>
           <div className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>Total Applications</div>
         </motion.div>
 
@@ -180,7 +180,7 @@ export default function CoachReportsPage() {
               +3
             </span>
           </div>
-          <div className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>{totalInterviews}</div>
+          <div className={`text-2xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>{totalInterviews}</div>
           <div className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>Interviews Scheduled</div>
         </motion.div>
 
@@ -193,7 +193,7 @@ export default function CoachReportsPage() {
               <Trophy className={`h-5 w-5 ${isDark ? "text-green-400" : "text-green-600"}`} aria-hidden="true" />
             </div>
           </div>
-          <div className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>{clientsWithOffers}</div>
+          <div className={`text-2xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>{clientsWithOffers}</div>
           <div className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>Offers Received</div>
         </motion.div>
       </motion.div>
@@ -207,7 +207,7 @@ export default function CoachReportsPage() {
             className={`rounded-xl p-6 border ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}
           >
             <div className="flex items-center justify-between mb-6">
-              <h2 className={`text-lg font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+              <h2 className={`text-lg font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                 Client Progress Distribution
               </h2>
               <div className={`flex items-center gap-2 text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -220,7 +220,7 @@ export default function CoachReportsPage() {
                 <div key={range} role="listitem">
                   <div className="flex items-center justify-between text-sm mb-1">
                     <span className={isDark ? "text-gray-400" : "text-gray-600"}>{range}</span>
-                    <span className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                    <span className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                       {count} clients
                     </span>
                   </div>
@@ -233,7 +233,7 @@ export default function CoachReportsPage() {
                     aria-label={`${range}: ${count} clients`}
                   >
                     <motion.div
-                      className={`h-full rounded-full ${isDark ? "bg-[#4FD1C5]" : "bg-[#2B8A8A]"}`}
+                      className={`h-full rounded-full ${isDark ? "bg-[#4FD1C5]" : "bg-[#0D9488]"}`}
                       initial={{ width: 0 }}
                       animate={{ width: `${(count / totalClients) * 100}%` }}
                       transition={{ duration: 0.8, ease: "easeOut" }}
@@ -244,7 +244,7 @@ export default function CoachReportsPage() {
             </div>
             <div className={`mt-6 pt-4 border-t flex items-center justify-between ${isDark ? "border-gray-800" : "border-gray-100"}`}>
               <span className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>Average Quest Progress</span>
-              <span className={`text-2xl font-bold ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`}>{avgQuestProgress}%</span>
+              <span className={`text-2xl font-bold ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`}>{avgQuestProgress}%</span>
             </div>
           </motion.div>
 
@@ -254,7 +254,7 @@ export default function CoachReportsPage() {
             className={`rounded-xl p-6 border ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}
           >
             <div className="flex items-center justify-between mb-6">
-              <h2 className={`text-lg font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+              <h2 className={`text-lg font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                 Milestone Completion
               </h2>
               <div className={`flex items-center gap-2 text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -277,7 +277,7 @@ export default function CoachReportsPage() {
                   </div>
                   <div>
                     <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-600"}`}>{milestone.name}</p>
-                    <p className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+                    <p className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                       {milestone.count}/{totalClients}
                     </p>
                   </div>
@@ -298,7 +298,7 @@ export default function CoachReportsPage() {
           >
             <div className="flex items-center gap-2 mb-4">
               <AlertTriangle className="h-5 w-5 text-amber-500" aria-hidden="true" />
-              <h3 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>Needs Attention</h3>
+              <h3 className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>Needs Attention</h3>
             </div>
             {clientsNeedingAttention > 0 ? (
               <>
@@ -320,7 +320,7 @@ export default function CoachReportsPage() {
                         className="w-8 h-8 rounded-full object-cover"
                       />
                       <div className="flex-1 min-w-0">
-                        <p className={`text-sm font-medium truncate ${isDark ? "text-white" : "text-gray-900"}`}>
+                        <p className={`text-sm font-medium truncate ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                           {client.firstName} {client.lastName}
                         </p>
                         <p className={`text-xs ${isDark ? "text-amber-400" : "text-amber-600"}`}>
@@ -344,23 +344,23 @@ export default function CoachReportsPage() {
             variants={itemVariants}
             className={`rounded-xl p-6 border ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}
           >
-            <h3 className={`font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>Quick Stats</h3>
+            <h3 className={`font-semibold mb-4 ${isDark ? "text-white" : "text-[#0F172A]"}`}>Quick Stats</h3>
             <dl className="space-y-4">
               <div className="flex items-center justify-between">
                 <dt className={`text-sm ${isDark ? "text-gray-400" : "text-gray-600"}`}>Avg. Applications/Client</dt>
-                <dd className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+                <dd className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   {(totalApplications / totalClients).toFixed(1)}
                 </dd>
               </div>
               <div className="flex items-center justify-between">
                 <dt className={`text-sm ${isDark ? "text-gray-400" : "text-gray-600"}`}>Interview Conversion</dt>
-                <dd className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+                <dd className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   {totalApplications > 0 ? Math.round((totalInterviews / totalApplications) * 100) : 0}%
                 </dd>
               </div>
               <div className="flex items-center justify-between">
                 <dt className={`text-sm ${isDark ? "text-gray-400" : "text-gray-600"}`}>Avg. Days Active</dt>
-                <dd className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+                <dd className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   {Math.round(demoClients.reduce((sum, c) => sum + c.stats.daysActive, 0) / totalClients)}
                 </dd>
               </div>
@@ -376,7 +376,7 @@ export default function CoachReportsPage() {
             variants={itemVariants}
             className={`rounded-xl p-6 border ${isDark ? "bg-gray-800 border-gray-700" : "bg-gray-50 border-gray-100"}`}
           >
-            <h3 className={`font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>Export Reports</h3>
+            <h3 className={`font-semibold mb-4 ${isDark ? "text-white" : "text-[#0F172A]"}`}>Export Reports</h3>
             <div className="space-y-2">
               <Button
                 variant="outline"

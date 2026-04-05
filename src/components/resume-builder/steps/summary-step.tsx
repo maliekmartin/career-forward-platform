@@ -66,7 +66,7 @@ export function SummaryStep() {
         <h2
           className={cn(
             "text-2xl font-bold mb-2",
-            isDark ? "text-white" : "text-gray-900"
+            isDark ? "text-white" : "text-[#0F172A]"
           )}
         >
           Professional Summary
@@ -132,7 +132,7 @@ export function SummaryStep() {
             "w-full p-4 rounded-xl resize-none transition-colors",
             isDark
               ? "bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 focus:border-[#4FD1C5] focus:ring-[#4FD1C5]/20"
-              : "bg-white border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-[#2B8A8A] focus:ring-[#2B8A8A]/20",
+              : "bg-white border-gray-200 text-[#0F172A] placeholder:text-gray-400 focus:border-[#0D9488] focus:ring-[#0D9488]/20",
             isOverLimit && "border-red-500 focus:border-red-500 focus:ring-red-500/20"
           )}
         />
@@ -199,13 +199,13 @@ export function SummaryStep() {
       <div
         className={cn(
           "p-4 rounded-xl",
-          isDark ? "bg-[#4FD1C5]/5 border border-[#4FD1C5]/20" : "bg-[#2B8A8A]/5 border border-[#2B8A8A]/20"
+          isDark ? "bg-[#4FD1C5]/5 border border-[#4FD1C5]/20" : "bg-[#0D9488]/5 border border-[#0D9488]/20"
         )}
       >
         <h4
           className={cn(
             "font-medium mb-2 text-sm",
-            isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"
+            isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"
           )}
         >
           Tips for a Strong Summary

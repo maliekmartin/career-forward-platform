@@ -147,7 +147,7 @@ export function SkillsStep() {
     "h-11 rounded-xl transition-colors flex-1",
     isDark
       ? "bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 focus:border-[#4FD1C5] focus:ring-[#4FD1C5]/20"
-      : "bg-white border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-[#2B8A8A] focus:ring-[#2B8A8A]/20"
+      : "bg-white border-gray-200 text-[#0F172A] placeholder:text-gray-400 focus:border-[#0D9488] focus:ring-[#0D9488]/20"
   );
 
   return (
@@ -157,7 +157,7 @@ export function SkillsStep() {
         <h2
           className={cn(
             "text-2xl font-bold mb-2",
-            isDark ? "text-white" : "text-gray-900"
+            isDark ? "text-white" : "text-[#0F172A]"
           )}
         >
           Skills
@@ -209,8 +209,8 @@ export function SkillsStep() {
           className={cn(
             "h-11 px-6",
             isDark
-              ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900"
-              : "bg-[#2B8A8A] hover:bg-[#237070] text-white"
+              ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]"
+              : "bg-[#F59E0B] hover:bg-[#D97706] text-white"
           )}
         >
           <Plus className="w-4 h-4" />
@@ -227,7 +227,7 @@ export function SkillsStep() {
                 "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-colors",
                 isDark
                   ? "bg-[#4FD1C5]/10 text-[#4FD1C5] border border-[#4FD1C5]/20"
-                  : "bg-[#2B8A8A]/10 text-[#2B8A8A] border border-[#2B8A8A]/20"
+                  : "bg-[#0D9488]/10 text-[#0D9488] border border-[#0D9488]/20"
               )}
             >
               {skill}
@@ -237,7 +237,7 @@ export function SkillsStep() {
                   "p-0.5 rounded-full transition-colors",
                   isDark
                     ? "hover:bg-[#4FD1C5]/20"
-                    : "hover:bg-[#2B8A8A]/20"
+                    : "hover:bg-[#0D9488]/20"
                 )}
               >
                 <X className="w-3.5 h-3.5" />
@@ -307,8 +307,8 @@ export function SkillsStep() {
                 "px-3 py-1.5 rounded-lg text-sm font-medium transition-colors",
                 selectedCategory === category
                   ? isDark
-                    ? "bg-[#4FD1C5] text-gray-900"
-                    : "bg-[#2B8A8A] text-white"
+                    ? "bg-[#4FD1C5] text-[#0F172A]"
+                    : "bg-[#0D9488] text-white"
                   : isDark
                   ? "bg-gray-800 text-gray-300 hover:bg-gray-700"
                   : "bg-white text-gray-600 hover:bg-gray-100 border border-gray-200"
@@ -355,13 +355,13 @@ export function SkillsStep() {
       <div
         className={cn(
           "p-4 rounded-xl",
-          isDark ? "bg-[#4FD1C5]/5 border border-[#4FD1C5]/20" : "bg-[#2B8A8A]/5 border border-[#2B8A8A]/20"
+          isDark ? "bg-[#4FD1C5]/5 border border-[#4FD1C5]/20" : "bg-[#0D9488]/5 border border-[#0D9488]/20"
         )}
       >
         <h4
           className={cn(
             "font-medium mb-2 text-sm",
-            isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"
+            isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"
           )}
         >
           Tips for Skills

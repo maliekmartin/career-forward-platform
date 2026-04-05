@@ -226,7 +226,7 @@ export default function WaitlistPage() {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.1 }}
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-[#2B8A8A]/10 rounded-full text-[#2B8A8A] text-sm font-medium mb-8"
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-[#F59E0B]/10 rounded-full text-[#F59E0B] text-sm font-medium mb-8"
                   >
                     <Sparkles className="w-4 h-4" />
                     Launching Soon
@@ -237,11 +237,11 @@ export default function WaitlistPage() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2 }}
-                    className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 tracking-tight mb-6"
+                    className="text-5xl md:text-6xl lg:text-7xl font-bold text-[#0F172A] tracking-tight mb-6"
                   >
                     Land your dream job
                     <br />
-                    <span className="text-[#2B8A8A]">faster.</span>
+                    <span className="text-[#F59E0B]">faster.</span>
                   </motion.h1>
 
                   {/* Subheadline */}
@@ -272,7 +272,7 @@ export default function WaitlistPage() {
                           value={formData.firstName}
                           onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                           placeholder="First name"
-                          className="h-12 rounded-xl border-gray-200 focus:border-[#2B8A8A] focus:ring-[#2B8A8A]/20"
+                          className="h-12 rounded-xl border-gray-200 focus:border-[#0D9488] focus:ring-[#0D9488]/20"
                         />
                         <Input
                           type="text"
@@ -280,7 +280,7 @@ export default function WaitlistPage() {
                           value={formData.lastName}
                           onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                           placeholder="Last name"
-                          className="h-12 rounded-xl border-gray-200 focus:border-[#2B8A8A] focus:ring-[#2B8A8A]/20"
+                          className="h-12 rounded-xl border-gray-200 focus:border-[#0D9488] focus:ring-[#0D9488]/20"
                         />
                       </div>
                       <Input
@@ -289,13 +289,13 @@ export default function WaitlistPage() {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="Enter your email"
-                        className="h-12 rounded-xl border-gray-200 focus:border-[#2B8A8A] focus:ring-[#2B8A8A]/20"
+                        className="h-12 rounded-xl border-gray-200 focus:border-[#0D9488] focus:ring-[#0D9488]/20"
                       />
                       <select
                         required
                         value={formData.region}
                         onChange={(e) => setFormData({ ...formData, region: e.target.value })}
-                        className="w-full h-12 px-4 rounded-xl border border-gray-200 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A]"
+                        className="w-full h-12 px-4 rounded-xl border border-gray-200 bg-white text-[#0F172A] focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488]"
                       >
                         <option value="">Select your region</option>
                         {US_REGIONS.map((region) => (
@@ -319,7 +319,7 @@ export default function WaitlistPage() {
                       <Button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full h-12 bg-[#2B8A8A] hover:bg-[#237070] text-white rounded-xl font-medium text-base transition-all duration-200"
+                        className="w-full h-12 bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-xl font-medium text-base transition-all duration-200 shadow-lg shadow-[#F59E0B]/25"
                       >
                         {isSubmitting ? (
                           <>
@@ -349,14 +349,14 @@ export default function WaitlistPage() {
                           {displaySignups.slice(0, 3).map((signup, i) => (
                             <div
                               key={i}
-                              className="w-8 h-8 rounded-full bg-gradient-to-br from-[#2B8A8A] to-teal-600 border-2 border-white flex items-center justify-center text-white text-xs font-medium"
+                              className="w-8 h-8 rounded-full bg-gradient-to-br from-[#0F172A] to-[#0D9488] border-2 border-white flex items-center justify-center text-white text-xs font-medium"
                             >
                               {signup.name.charAt(0).toUpperCase()}
                             </div>
                           ))}
                         </div>
                         <span className="text-sm">
-                          <strong className="text-gray-900">{waitlistCount.toLocaleString()}</strong> people already joined
+                          <strong className="text-[#0F172A]">{waitlistCount.toLocaleString()}</strong> people already joined
                         </span>
                       </div>
                     )}
@@ -379,7 +379,7 @@ export default function WaitlistPage() {
                     <CheckCircle2 className="w-10 h-10 text-green-600" />
                   </motion.div>
 
-                  <h2 className="text-3xl font-bold text-gray-900 mb-4">
+                  <h2 className="text-3xl font-bold text-[#0F172A] mb-4">
                     You're officially registered!
                   </h2>
 
@@ -392,7 +392,7 @@ export default function WaitlistPage() {
                     </p>
                     <p className="text-sm">
                       If you have any questions, please email{" "}
-                      <a href="mailto:support@martinbuiltstrategies.com" className="text-[#2B8A8A] hover:underline">
+                      <a href="mailto:support@martinbuiltstrategies.com" className="text-[#0D9488] hover:underline">
                         support@martinbuiltstrategies.com
                       </a>
                     </p>
@@ -400,7 +400,7 @@ export default function WaitlistPage() {
 
                   {/* Share Section */}
                   <div className="bg-gray-50 rounded-2xl p-6 mb-6">
-                    <p className="text-sm font-medium text-gray-900 mb-4">
+                    <p className="text-sm font-medium text-[#0F172A] mb-4">
                       Know someone who's job searching? Share the opportunity:
                     </p>
 
@@ -415,7 +415,7 @@ export default function WaitlistPage() {
                       <Button
                         onClick={handleCopyLink}
                         className={`h-12 px-4 rounded-xl transition-colors ${
-                          copied ? "bg-green-500 hover:bg-green-600" : "bg-[#2B8A8A] hover:bg-[#237070]"
+                          copied ? "bg-green-500 hover:bg-green-600" : "bg-[#F59E0B] hover:bg-[#D97706]"
                         }`}
                       >
                         {copied ? <Check className="w-5 h-5" /> : <Copy className="w-5 h-5" />}
@@ -505,7 +505,7 @@ export default function WaitlistPage() {
                 viewport={{ once: true }}
                 className="text-center mb-12"
               >
-                <h2 className="text-3xl font-bold text-gray-900 mb-3">
+                <h2 className="text-3xl font-bold text-[#0F172A] mb-3">
                   Founding member perks
                 </h2>
                 <p className="text-gray-600">
@@ -523,10 +523,10 @@ export default function WaitlistPage() {
                     transition={{ delay: index * 0.1 }}
                     className="bg-white rounded-2xl p-6 border border-gray-100"
                   >
-                    <div className="w-10 h-10 rounded-xl bg-[#2B8A8A]/10 flex items-center justify-center mb-4">
-                      <CheckCircle2 className="w-5 h-5 text-[#2B8A8A]" />
+                    <div className="w-10 h-10 rounded-xl bg-[#F59E0B]/10 flex items-center justify-center mb-4">
+                      <CheckCircle2 className="w-5 h-5 text-[#F59E0B]" />
                     </div>
-                    <p className="font-medium text-gray-900">{benefit}</p>
+                    <p className="font-medium text-[#0F172A]">{benefit}</p>
                   </motion.div>
                 ))}
               </div>
@@ -544,7 +544,7 @@ export default function WaitlistPage() {
                 viewport={{ once: true }}
                 className="text-center mb-12"
               >
-                <h2 className="text-3xl font-bold text-gray-900 mb-3">
+                <h2 className="text-3xl font-bold text-[#0F172A] mb-3">
                   Your job search, simplified
                 </h2>
                 <p className="text-gray-600">
@@ -557,7 +557,7 @@ export default function WaitlistPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
-                <div className="bg-gray-900 rounded-2xl p-2 shadow-2xl">
+                <div className="bg-[#0F172A] rounded-2xl p-2 shadow-2xl">
                   <div className="flex items-center gap-2 px-4 py-3">
                     <div className="flex gap-1.5">
                       <div className="w-3 h-3 rounded-full bg-red-500" />
@@ -591,11 +591,11 @@ export default function WaitlistPage() {
                     className="bg-white rounded-xl px-5 py-4 shadow-lg border border-gray-100"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-[#2B8A8A] flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-lg bg-[#0D9488] flex items-center justify-center">
                         <Briefcase className="w-5 h-5 text-white" />
                       </div>
                       <div>
-                        <p className="text-2xl font-bold text-gray-900">2,847</p>
+                        <p className="text-2xl font-bold text-[#0F172A]">2,847</p>
                         <p className="text-xs text-gray-500">Jobs Tracked</p>
                       </div>
                     </div>
@@ -613,7 +613,7 @@ export default function WaitlistPage() {
                         <CheckCircle2 className="w-5 h-5 text-white" />
                       </div>
                       <div>
-                        <p className="text-2xl font-bold text-gray-900">94%</p>
+                        <p className="text-2xl font-bold text-[#0F172A]">94%</p>
                         <p className="text-xs text-gray-500">Success Rate</p>
                       </div>
                     </div>
@@ -626,7 +626,7 @@ export default function WaitlistPage() {
 
         {/* Final CTA */}
         {!isSuccess && (
-          <section className="py-20 px-6 bg-[#2B8A8A]">
+          <section className="py-20 px-6 bg-[#020617]">
             <div className="max-w-2xl mx-auto text-center">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -636,12 +636,12 @@ export default function WaitlistPage() {
                 <h2 className="text-3xl font-bold text-white mb-4">
                   Ready to transform your job search?
                 </h2>
-                <p className="text-white/80 mb-8">
+                <p className="text-white/70 mb-8">
                   Join the waitlist and be the first to know when we launch.
                 </p>
                 <Button
                   onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                  className="bg-white text-[#2B8A8A] hover:bg-gray-100 h-12 px-8 rounded-xl font-medium"
+                  className="bg-[#F59E0B] text-white hover:bg-[#D97706] h-12 px-8 rounded-xl font-medium shadow-lg shadow-[#F59E0B]/25"
                 >
                   Join the Waitlist
                   <ArrowRight className="w-4 h-4 ml-2" />
@@ -659,9 +659,9 @@ export default function WaitlistPage() {
             <Image
               src="/career-forward-logo.png"
               alt="Career Forward"
-              width={150}
-              height={35}
-              className="h-7 w-auto opacity-70 hover:opacity-100 transition-opacity"
+              width={600}
+              height={140}
+              className="h-28 w-auto opacity-70 hover:opacity-100 transition-opacity"
             />
           </Link>
           <p className="text-gray-400 text-sm">

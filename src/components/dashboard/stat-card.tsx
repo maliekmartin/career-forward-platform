@@ -232,7 +232,7 @@ export function StatCard({
         </div>
 
         {/* Value */}
-        <div className={`mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+        <div className={`mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
           <AnimatedNumber value={value} valueType={valueType} />
         </div>
 

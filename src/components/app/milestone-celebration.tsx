@@ -47,7 +47,7 @@ const milestoneConfig: Record<MilestoneType, {
 }> = {
   "phone-screen": {
     icon: Phone,
-    color: "#2B8A8A",
+    color: "#0D9488",
     heading: "Phone Screen Scheduled!",
     message: "Great progress! You're moving forward in your job search.",
     celebrationLevel: "medium",
@@ -82,7 +82,7 @@ const milestoneConfig: Record<MilestoneType, {
   },
   "assessment-complete": {
     icon: FileText,
-    color: "#2B8A8A",
+    color: "#0D9488",
     heading: "Assessment Complete!",
     message: "You've finished another step toward your career goals.",
     celebrationLevel: "medium",
@@ -202,7 +202,7 @@ export function MilestoneCelebration({
             </motion.div>
 
             {/* Heading */}
-            <h2 className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`text-2xl font-bold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
               {title || config.heading}
             </h2>
 
@@ -215,12 +215,12 @@ export function MilestoneCelebration({
             {details && (
               <div className={`rounded-xl p-4 mb-6 ${isDark ? "bg-gray-800" : "bg-gray-50"}`}>
                 {details.company && (
-                  <p className={`font-semibold ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`}>
+                  <p className={`font-semibold ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`}>
                     {details.position || "Position"} at {details.company}
                   </p>
                 )}
                 {details.assessmentName && (
-                  <p className={`font-semibold ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`}>
+                  <p className={`font-semibold ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`}>
                     {details.assessmentName}
                   </p>
                 )}
@@ -248,7 +248,7 @@ export function MilestoneCelebration({
                     }}
                     className="w-3 h-3 rounded-full"
                     style={{
-                      backgroundColor: ["#2B8A8A", "#F59E0B", "#10B981", "#8B5CF6", "#EF4444"][i]
+                      backgroundColor: ["#0D9488", "#F59E0B", "#10B981", "#8B5CF6", "#EF4444"][i]
                     }}
                   />
                 ))}
@@ -294,8 +294,8 @@ export function MilestoneCelebration({
               onClick={onClose}
               className={`w-full rounded-xl ${
                 isDark
-                  ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900"
-                  : "bg-[#2B8A8A] hover:bg-[#237070] text-white"
+                  ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]"
+                  : "bg-[#F59E0B] hover:bg-[#D97706] text-white"
               }`}
             >
               {isFullCelebration ? "View Your Achievement" : "Continue Your Quest"}

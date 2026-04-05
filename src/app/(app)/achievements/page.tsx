@@ -485,7 +485,7 @@ export default function AchievementsPage() {
         animate={{ opacity: 1, y: 0 }}
         className="mb-8"
       >
-        <h1 className={`text-3xl font-bold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>Achievements</h1>
+        <h1 className={`text-3xl font-bold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>Achievements</h1>
         <p className={isDark ? "text-gray-400" : "text-gray-600"}>
           Prove your dedication and unlock prestigious badges
         </p>
@@ -500,28 +500,28 @@ export default function AchievementsPage() {
       >
         <div className={`rounded-2xl p-6 text-white ${
           isDark
-            ? "bg-gradient-to-br from-[#4FD1C5] to-[#2B8A8A]"
-            : "bg-gradient-to-br from-[#2B8A8A] to-[#1a6363]"
+            ? "bg-gradient-to-br from-[#4FD1C5] to-[#0D9488]"
+            : "bg-gradient-to-br from-[#0D9488] to-[#1a6363]"
         }`}>
-          <Trophy className={`h-8 w-8 mb-3 opacity-90 ${isDark ? "text-gray-900" : "text-white"}`} />
-          <div className={`text-3xl font-bold mb-1 ${isDark ? "text-gray-900" : "text-white"}`}>{earnedCount}</div>
-          <div className={`text-sm ${isDark ? "text-gray-900/70" : "text-white/70"}`}>Badges Earned</div>
+          <Trophy className={`h-8 w-8 mb-3 opacity-90 ${isDark ? "text-[#0F172A]" : "text-white"}`} />
+          <div className={`text-3xl font-bold mb-1 ${isDark ? "text-[#0F172A]" : "text-white"}`}>{earnedCount}</div>
+          <div className={`text-sm ${isDark ? "text-[#0F172A]/70" : "text-white/70"}`}>Badges Earned</div>
         </div>
         <div className={`rounded-2xl p-6 border ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}>
           <Target className="h-8 w-8 text-gray-400 mb-3" />
-          <div className={`text-3xl font-bold mb-1 ${isDark ? "text-white" : "text-gray-900"}`}>
+          <div className={`text-3xl font-bold mb-1 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
             {totalCount - earnedCount}
           </div>
           <div className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>Yet to Unlock</div>
         </div>
         <div className={`rounded-2xl p-6 border ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}>
           <Flame className="h-8 w-8 text-orange-500 mb-3" />
-          <div className={`text-3xl font-bold mb-1 ${isDark ? "text-white" : "text-gray-900"}`}>{streak}</div>
+          <div className={`text-3xl font-bold mb-1 ${isDark ? "text-white" : "text-[#0F172A]"}`}>{streak}</div>
           <div className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>Day Streak</div>
         </div>
         <div className={`rounded-2xl p-6 border ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}>
           <Star className="h-8 w-8 text-amber-500 mb-3" />
-          <div className={`text-3xl font-bold mb-1 ${isDark ? "text-white" : "text-gray-900"}`}>
+          <div className={`text-3xl font-bold mb-1 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
             {Math.round((earnedCount / totalCount) * 100)}%
           </div>
           <div className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>Completion</div>
@@ -535,7 +535,7 @@ export default function AchievementsPage() {
         transition={{ delay: 0.15 }}
         className={`rounded-2xl border p-6 mb-8 ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}
       >
-        <h2 className={`font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>Collection Progress</h2>
+        <h2 className={`font-semibold mb-4 ${isDark ? "text-white" : "text-[#0F172A]"}`}>Collection Progress</h2>
         <div className="grid grid-cols-5 gap-4">
           {(Object.keys(rarityConfig) as Array<keyof typeof rarityConfig>).map((rarity) => {
             const config = rarityConfig[rarity];
@@ -559,7 +559,7 @@ export default function AchievementsPage() {
                 <p className={`text-sm font-medium ${config.textColor}`}>
                   {config.label}
                 </p>
-                <p className={`text-lg font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
+                <p className={`text-lg font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   {earned}/{total}
                 </p>
               </button>
@@ -581,7 +581,7 @@ export default function AchievementsPage() {
             onClick={() => setSelectedCategory(cat)}
             className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
               cat === selectedCategory
-                ? "bg-[#2B8A8A] text-white"
+                ? "bg-[#0D9488] text-white"
                 : isDark
                   ? "bg-gray-800 text-gray-300 hover:bg-gray-700"
                   : "bg-gray-100 text-gray-600 hover:bg-gray-200"
@@ -654,7 +654,7 @@ export default function AchievementsPage() {
 
                 {/* Content */}
                 <div className="flex-1 min-w-0">
-                  <h3 className={`font-bold mb-1 pr-16 ${isDark ? "text-white" : "text-gray-900"}`}>
+                  <h3 className={`font-bold mb-1 pr-16 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                     {achievement.name}
                   </h3>
                   <p className={`text-sm mb-2 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -700,7 +700,7 @@ export default function AchievementsPage() {
           isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"
         }`}>
           <Trophy className={`h-12 w-12 mx-auto mb-4 ${isDark ? "text-gray-600" : "text-gray-300"}`} />
-          <h3 className={`font-semibold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+          <h3 className={`font-semibold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
             No achievements found
           </h3>
           <p className={isDark ? "text-gray-400" : "text-gray-500"}>

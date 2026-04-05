@@ -83,7 +83,7 @@ export function CoachSidebar() {
             width={180}
             height={45}
           />
-          <span className={`mt-1 text-xs font-semibold tracking-wide ${isDark ? "text-[#4FD1C5]" : "text-[#374151]"}`}>
+          <span className={`mt-1 text-xs font-semibold tracking-wide ${isDark ? "text-[#4FD1C5]" : "text-[#0F172A]"}`}>
             Coach Portal
           </span>
         </Link>
@@ -98,7 +98,7 @@ export function CoachSidebar() {
             className="w-10 h-10 rounded-full object-cover"
           />
           <div className="flex-1 min-w-0">
-            <p className={`font-medium truncate ${isDark ? "text-white" : "text-gray-900"}`}>
+            <p className={`font-medium truncate ${isDark ? "text-white" : "text-[#0F172A]"}`}>
               {demoCoach.firstName} {demoCoach.lastName}
             </p>
             <p className={`text-xs truncate ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -122,7 +122,7 @@ export function CoachSidebar() {
             aria-label={`Caseload: ${demoCoach.clientCount} of ${demoCoach.maxClients} job seekers`}
           >
             <motion.div
-              className="h-full bg-[#2B8A8A] dark:bg-[#4FD1C5] rounded-full"
+              className="h-full bg-[#0D9488] dark:bg-[#4FD1C5] rounded-full"
               initial={{ width: 0 }}
               animate={{ width: `${(demoCoach.clientCount / demoCoach.maxClients) * 100}%` }}
               transition={{ duration: 0.8, ease: "easeOut" }}
@@ -142,7 +142,7 @@ export function CoachSidebar() {
                   href={item.href}
                   className={`flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
                     isActive
-                      ? "bg-[#2B8A8A] dark:bg-[#4FD1C5] text-white dark:text-gray-900"
+                      ? "bg-[#0D9488] dark:bg-[#4FD1C5] text-white dark:text-[#0F172A]"
                       : isDark
                       ? "text-gray-400 hover:bg-gray-800 hover:text-white"
                       : "text-gray-600 hover:bg-gray-50"
@@ -176,7 +176,7 @@ export function CoachSidebar() {
                     href={item.href}
                     className={`flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
                       isActive
-                        ? "bg-[#2B8A8A] dark:bg-[#4FD1C5] text-white dark:text-gray-900"
+                        ? "bg-[#0D9488] dark:bg-[#4FD1C5] text-white dark:text-[#0F172A]"
                         : isDark
                         ? "text-gray-400 hover:bg-gray-800 hover:text-white"
                         : "text-gray-600 hover:bg-gray-50"

@@ -144,13 +144,13 @@ export function ResumeWizard() {
               <div
                 className={cn(
                   "p-2 rounded-xl",
-                  isDark ? "bg-[#4FD1C5]/10" : "bg-[#2B8A8A]/10"
+                  isDark ? "bg-[#4FD1C5]/10" : "bg-[#0D9488]/10"
                 )}
               >
                 <FileText
                   className={cn(
                     "w-5 h-5",
-                    isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"
+                    isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"
                   )}
                 />
               </div>
@@ -167,7 +167,7 @@ export function ResumeWizard() {
                       "w-full text-sm font-semibold px-2 py-1 rounded border outline-none",
                       isDark
                         ? "bg-gray-800 border-gray-700 text-white focus:border-[#4FD1C5]"
-                        : "bg-gray-50 border-gray-300 text-gray-900 focus:border-[#2B8A8A]"
+                        : "bg-gray-50 border-gray-300 text-[#0F172A] focus:border-[#0D9488]"
                     )}
                   />
                 ) : (
@@ -175,7 +175,7 @@ export function ResumeWizard() {
                     onClick={() => setIsEditingName(true)}
                     className={cn(
                       "text-sm font-semibold truncate block w-full text-left hover:underline",
-                      isDark ? "text-white" : "text-gray-900"
+                      isDark ? "text-white" : "text-[#0F172A]"
                     )}
                     title="Click to rename"
                   >
@@ -207,7 +207,7 @@ export function ResumeWizard() {
                   sidebarTab === "steps"
                     ? isDark
                       ? "border-[#4FD1C5] text-[#4FD1C5]"
-                      : "border-[#2B8A8A] text-[#2B8A8A]"
+                      : "border-[#0D9488] text-[#0D9488]"
                     : isDark
                     ? "border-transparent text-gray-500 hover:text-gray-300"
                     : "border-transparent text-gray-400 hover:text-gray-600"
@@ -223,7 +223,7 @@ export function ResumeWizard() {
                   sidebarTab === "tools"
                     ? isDark
                       ? "border-[#4FD1C5] text-[#4FD1C5]"
-                      : "border-[#2B8A8A] text-[#2B8A8A]"
+                      : "border-[#0D9488] text-[#0D9488]"
                     : isDark
                     ? "border-transparent text-gray-500 hover:text-gray-300"
                     : "border-transparent text-gray-400 hover:text-gray-600"
@@ -280,13 +280,13 @@ export function ResumeWizard() {
                 <FileText
                   className={cn(
                     "w-5 h-5",
-                    isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"
+                    isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"
                   )}
                 />
                 <span
                   className={cn(
                     "font-semibold truncate",
-                    isDark ? "text-white" : "text-gray-900"
+                    isDark ? "text-white" : "text-[#0F172A]"
                   )}
                 >
                   {state.resumeName}

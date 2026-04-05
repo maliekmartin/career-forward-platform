@@ -339,7 +339,7 @@ function ResumeBuilderContent() {
       label: "Resumes Created",
       value: resumes.length,
       icon: FileText,
-      color: "#2B8A8A",
+      color: "#0D9488",
     },
     {
       label: "Templates Available",
@@ -395,7 +395,7 @@ function ResumeBuilderContent() {
               </div>
             </div>
             <p
-              className={`text-3xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}
+              className={`text-3xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}
             >
               {stat.value}
             </p>
@@ -414,7 +414,7 @@ function ResumeBuilderContent() {
       >
         <div>
           <h2
-            className={`text-xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}
+            className={`text-xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}
           >
             Your Resumes
           </h2>
@@ -429,7 +429,7 @@ function ResumeBuilderContent() {
               isUploading ? "opacity-50 cursor-not-allowed" : "",
               isDark
                 ? "bg-gray-800 hover:bg-gray-700 text-white border border-gray-700"
-                : "bg-white hover:bg-gray-50 text-gray-900 border border-gray-200"
+                : "bg-white hover:bg-gray-50 text-[#0F172A] border border-gray-200"
             )}
           >
             {isUploading ? (
@@ -451,8 +451,8 @@ function ResumeBuilderContent() {
             className={cn(
               "rounded-xl px-6",
               isDark
-                ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900"
-                : "bg-[#2B8A8A] hover:bg-[#237070] text-white"
+                ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]"
+                : "bg-[#F59E0B] hover:bg-[#D97706] text-white"
             )}
           >
             <Plus className="h-4 w-4 mr-2" />
@@ -474,10 +474,10 @@ function ResumeBuilderContent() {
             activeTab === "resumes"
               ? isDark
                 ? "bg-gray-700 text-white shadow-sm"
-                : "bg-white text-gray-900 shadow-sm"
+                : "bg-white text-[#0F172A] shadow-sm"
               : isDark
               ? "text-gray-400 hover:text-white"
-              : "text-gray-600 hover:text-gray-900"
+              : "text-gray-600 hover:text-[#0F172A]"
           }`}
         >
           My Resumes
@@ -488,10 +488,10 @@ function ResumeBuilderContent() {
             activeTab === "templates"
               ? isDark
                 ? "bg-gray-700 text-white shadow-sm"
-                : "bg-white text-gray-900 shadow-sm"
+                : "bg-white text-[#0F172A] shadow-sm"
               : isDark
               ? "text-gray-400 hover:text-white"
-              : "text-gray-600 hover:text-gray-900"
+              : "text-gray-600 hover:text-[#0F172A]"
           }`}
         >
           Templates
@@ -507,7 +507,7 @@ function ResumeBuilderContent() {
           {/* Loading state */}
           {isLoading && (
             <div className="flex items-center justify-center py-12">
-              <Loader2 className={cn("w-8 h-8 animate-spin", isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]")} />
+              <Loader2 className={cn("w-8 h-8 animate-spin", isDark ? "text-[#4FD1C5]" : "text-[#0D9488]")} />
             </div>
           )}
 
@@ -536,22 +536,22 @@ function ResumeBuilderContent() {
                 className={`rounded-2xl border-2 border-dashed p-8 flex flex-col items-center justify-center text-center transition-all cursor-pointer group min-h-[300px] ${
                   isDark
                     ? "border-gray-700 hover:border-[#4FD1C5] hover:bg-[#4FD1C5]/5"
-                    : "border-gray-200 hover:border-[#2B8A8A] hover:bg-[#2B8A8A]/5"
+                    : "border-gray-200 hover:border-[#0D9488] hover:bg-[#0D9488]/5"
                 }`}
               >
                 <div
                   className={`w-16 h-16 rounded-2xl flex items-center justify-center mb-4 transition-colors ${
                     isDark
                       ? "bg-gray-800 group-hover:bg-[#4FD1C5]/10"
-                      : "bg-gray-100 group-hover:bg-[#2B8A8A]/10"
+                      : "bg-gray-100 group-hover:bg-[#0D9488]/10"
                   }`}
                 >
                   <Plus
-                    className={`h-8 w-8 ${isDark ? "text-gray-500 group-hover:text-[#4FD1C5]" : "text-gray-400 group-hover:text-[#2B8A8A]"}`}
+                    className={`h-8 w-8 ${isDark ? "text-gray-500 group-hover:text-[#4FD1C5]" : "text-gray-400 group-hover:text-[#0D9488]"}`}
                   />
                 </div>
                 <h3
-                  className={`font-semibold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}
+                  className={`font-semibold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}
                 >
                   Create New Resume
                 </h3>
@@ -569,7 +569,7 @@ function ResumeBuilderContent() {
                   className={`rounded-2xl border overflow-hidden transition-all group ${
                     isDark
                       ? "bg-gray-900 border-gray-800 hover:border-[#4FD1C5]/30"
-                      : "bg-white border-gray-100 hover:shadow-lg hover:border-[#2B8A8A]/30"
+                      : "bg-white border-gray-100 hover:shadow-lg hover:border-[#0D9488]/30"
                   }`}
                 >
                   {/* Preview */}
@@ -602,7 +602,7 @@ function ResumeBuilderContent() {
                       <Button
                         size="sm"
                         onClick={() => handleEditResume(resume.id)}
-                        className="bg-white text-gray-900 hover:bg-gray-100"
+                        className="bg-white text-[#0F172A] hover:bg-gray-100"
                       >
                         <Pencil className="h-4 w-4 mr-1" />
                         Edit
@@ -622,7 +622,7 @@ function ResumeBuilderContent() {
                     <div className="flex items-start justify-between mb-2">
                       <div>
                         <h3
-                          className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}
+                          className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}
                         >
                           {resume.name}
                         </h3>
@@ -690,7 +690,7 @@ function ResumeBuilderContent() {
               <h3
                 className={cn(
                   "text-lg font-semibold mb-2",
-                  isDark ? "text-white" : "text-gray-900"
+                  isDark ? "text-white" : "text-[#0F172A]"
                 )}
               >
                 No resumes yet
@@ -707,8 +707,8 @@ function ResumeBuilderContent() {
                 onClick={() => handleNewResume()}
                 className={cn(
                   isDark
-                    ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900"
-                    : "bg-[#2B8A8A] hover:bg-[#237070] text-white"
+                    ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]"
+                    : "bg-[#F59E0B] hover:bg-[#D97706] text-white"
                 )}
               >
                 <Plus className="h-4 w-4 mr-2" />
@@ -729,7 +729,7 @@ function ResumeBuilderContent() {
               className={`rounded-2xl border overflow-hidden transition-all cursor-pointer group ${
                 isDark
                   ? "bg-gray-900 border-gray-800 hover:border-[#4FD1C5]/30"
-                  : "bg-white border-gray-100 hover:shadow-lg hover:border-[#2B8A8A]/30"
+                  : "bg-white border-gray-100 hover:shadow-lg hover:border-[#0D9488]/30"
               }`}
             >
               <div
@@ -744,8 +744,8 @@ function ResumeBuilderContent() {
                   <span
                     className={`absolute top-3 right-3 text-xs px-2 py-1 rounded-full ${
                       isDark
-                        ? "bg-[#4FD1C5] text-gray-900"
-                        : "bg-[#2B8A8A] text-white"
+                        ? "bg-[#4FD1C5] text-[#0F172A]"
+                        : "bg-[#0D9488] text-white"
                     }`}
                   >
                     Popular
@@ -754,7 +754,7 @@ function ResumeBuilderContent() {
                 {/* Hover overlay */}
                 <div
                   className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center ${
-                    isDark ? "bg-[#4FD1C5]/80" : "bg-[#2B8A8A]/80"
+                    isDark ? "bg-[#4FD1C5]/80" : "bg-[#0D9488]/80"
                   }`}
                 >
                   <Button
@@ -762,7 +762,7 @@ function ResumeBuilderContent() {
                     className={
                       isDark
                         ? "bg-gray-900 text-[#4FD1C5] hover:bg-gray-800"
-                        : "bg-white text-[#2B8A8A] hover:bg-gray-100"
+                        : "bg-white text-[#0D9488] hover:bg-gray-100"
                     }
                   >
                     Use Template
@@ -771,7 +771,7 @@ function ResumeBuilderContent() {
               </div>
               <div className="p-4">
                 <h3
-                  className={`font-semibold mb-1 ${isDark ? "text-white" : "text-gray-900"}`}
+                  className={`font-semibold mb-1 ${isDark ? "text-white" : "text-[#0F172A]"}`}
                 >
                   {template.name}
                 </h3>

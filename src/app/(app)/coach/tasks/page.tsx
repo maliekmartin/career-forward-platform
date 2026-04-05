@@ -343,7 +343,7 @@ export default function CoachTasksPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
+          <h1 className={`text-2xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
             Tasks
           </h1>
           <p className={`text-sm mt-1 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -352,7 +352,7 @@ export default function CoachTasksPage() {
         </div>
         <Button
           onClick={() => setShowCreateModal(true)}
-          className={isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"}
+          className={isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"}
         >
           <Plus className="h-4 w-4 mr-2" aria-hidden="true" />
           Create Task
@@ -366,12 +366,12 @@ export default function CoachTasksPage() {
           onClick={() => setFilter("all")}
           className={`p-4 rounded-xl border cursor-pointer transition-colors ${
             filter === "all"
-              ? isDark ? "border-[#4FD1C5] bg-[#4FD1C5]/10" : "border-[#2B8A8A] bg-[#2B8A8A]/10"
+              ? isDark ? "border-[#4FD1C5] bg-[#4FD1C5]/10" : "border-[#0D9488] bg-[#0D9488]/10"
               : isDark ? "border-gray-800 bg-gray-900 hover:border-gray-700" : "border-gray-100 bg-white hover:border-gray-200"
           }`}
         >
-          <ListTodo className={`h-5 w-5 mb-2 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} aria-hidden="true" />
-          <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>{tasks.length}</p>
+          <ListTodo className={`h-5 w-5 mb-2 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} aria-hidden="true" />
+          <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>{tasks.length}</p>
           <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>Total Tasks</p>
         </motion.div>
 
@@ -385,7 +385,7 @@ export default function CoachTasksPage() {
           }`}
         >
           <Clock className={`h-5 w-5 mb-2 ${isDark ? "text-blue-400" : "text-blue-500"}`} aria-hidden="true" />
-          <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>{tasksDueToday}</p>
+          <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>{tasksDueToday}</p>
           <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>Due Today</p>
         </motion.div>
 
@@ -401,7 +401,7 @@ export default function CoachTasksPage() {
           }`}
         >
           <AlertTriangle className={`h-5 w-5 mb-2 ${overdueTasks > 0 ? (isDark ? "text-red-400" : "text-red-500") : (isDark ? "text-gray-500" : "text-gray-400")}`} aria-hidden="true" />
-          <p className={`text-2xl font-bold ${overdueTasks > 0 ? (isDark ? "text-red-400" : "text-red-600") : (isDark ? "text-white" : "text-gray-900")}`}>{overdueTasks}</p>
+          <p className={`text-2xl font-bold ${overdueTasks > 0 ? (isDark ? "text-red-400" : "text-red-600") : (isDark ? "text-white" : "text-[#0F172A]")}`}>{overdueTasks}</p>
           <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>Overdue</p>
         </motion.div>
 
@@ -415,7 +415,7 @@ export default function CoachTasksPage() {
           }`}
         >
           <CheckCircle className={`h-5 w-5 mb-2 ${isDark ? "text-green-400" : "text-green-500"}`} aria-hidden="true" />
-          <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>{completedTasks}</p>
+          <p className={`text-2xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>{completedTasks}</p>
           <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>Completed</p>
         </motion.div>
       </div>
@@ -432,7 +432,7 @@ export default function CoachTasksPage() {
             className={`w-full pl-10 pr-4 py-2.5 rounded-xl border text-sm transition-colors focus:outline-none focus:ring-2 ${
               isDark
                 ? "bg-gray-900 border-gray-800 text-white placeholder-gray-500 focus:ring-[#4FD1C5]"
-                : "bg-white border-gray-200 text-gray-900 placeholder-gray-400 focus:ring-[#2B8A8A]"
+                : "bg-white border-gray-200 text-[#0F172A] placeholder-gray-400 focus:ring-[#0D9488]"
             }`}
           />
         </div>
@@ -441,7 +441,7 @@ export default function CoachTasksPage() {
       {/* Task List */}
       <div className={`rounded-2xl border shadow-sm overflow-hidden ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}>
         <div className={`px-5 py-4 border-b ${isDark ? "border-gray-800" : "border-gray-100"}`}>
-          <h2 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+          <h2 className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
             {filter === "all" ? "All Tasks" : filter === "today" ? "Due Today" : filter === "overdue" ? "Overdue Tasks" : filter === "upcoming" ? "Upcoming Tasks" : "Completed Tasks"}
           </h2>
         </div>
@@ -499,7 +499,7 @@ export default function CoachTasksPage() {
                         <h3 className={`font-medium ${
                           task.status === "completed"
                             ? isDark ? "text-gray-500 line-through" : "text-gray-400 line-through"
-                            : isDark ? "text-white" : "text-gray-900"
+                            : isDark ? "text-white" : "text-[#0F172A]"
                         }`}>
                           {task.title}
                         </h3>
@@ -563,7 +563,7 @@ export default function CoachTasksPage() {
                         whileTap={{ scale: 0.9 }}
                         onClick={(e) => { e.stopPropagation(); openTaskDetails(task); }}
                         className={`p-2 rounded-lg transition-colors ${
-                          isDark ? "text-gray-500 hover:text-[#4FD1C5] hover:bg-[#4FD1C5]/10" : "text-gray-400 hover:text-[#2B8A8A] hover:bg-[#2B8A8A]/10"
+                          isDark ? "text-gray-500 hover:text-[#4FD1C5] hover:bg-[#4FD1C5]/10" : "text-gray-400 hover:text-[#0D9488] hover:bg-[#0D9488]/10"
                         }`}
                         aria-label="Edit task"
                       >
@@ -613,10 +613,10 @@ export default function CoachTasksPage() {
                 isDark ? "border-gray-800" : "border-gray-100"
               }`}>
                 <div className="flex items-center gap-3">
-                  <div className={`p-2 rounded-lg ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#2B8A8A]/10"}`}>
-                    <Plus className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} aria-hidden="true" />
+                  <div className={`p-2 rounded-lg ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#0D9488]/10"}`}>
+                    <Plus className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} aria-hidden="true" />
                   </div>
-                  <h2 className={`text-lg font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+                  <h2 className={`text-lg font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                     Create New Task
                   </h2>
                 </div>
@@ -647,7 +647,7 @@ export default function CoachTasksPage() {
                     className={`w-full px-4 py-2.5 rounded-lg border text-sm transition-colors focus:outline-none focus:ring-2 ${
                       isDark
                         ? "bg-gray-800 border-gray-700 text-white placeholder-gray-500 focus:ring-[#4FD1C5]"
-                        : "bg-white border-gray-200 text-gray-900 placeholder-gray-400 focus:ring-[#2B8A8A]"
+                        : "bg-white border-gray-200 text-[#0F172A] placeholder-gray-400 focus:ring-[#0D9488]"
                     }`}
                   />
                 </div>
@@ -665,7 +665,7 @@ export default function CoachTasksPage() {
                     className={`w-full px-4 py-2.5 rounded-lg border text-sm resize-none transition-colors focus:outline-none focus:ring-2 ${
                       isDark
                         ? "bg-gray-800 border-gray-700 text-white placeholder-gray-500 focus:ring-[#4FD1C5]"
-                        : "bg-white border-gray-200 text-gray-900 placeholder-gray-400 focus:ring-[#2B8A8A]"
+                        : "bg-white border-gray-200 text-[#0F172A] placeholder-gray-400 focus:ring-[#0D9488]"
                     }`}
                   />
                 </div>
@@ -683,7 +683,7 @@ export default function CoachTasksPage() {
                       className={`w-full px-4 py-2.5 rounded-lg border text-sm transition-colors focus:outline-none focus:ring-2 ${
                         isDark
                           ? "bg-gray-800 border-gray-700 text-white focus:ring-[#4FD1C5]"
-                          : "bg-white border-gray-200 text-gray-900 focus:ring-[#2B8A8A]"
+                          : "bg-white border-gray-200 text-[#0F172A] focus:ring-[#0D9488]"
                       }`}
                     />
                   </div>
@@ -698,7 +698,7 @@ export default function CoachTasksPage() {
                       className={`w-full px-4 py-2.5 rounded-lg border text-sm transition-colors focus:outline-none focus:ring-2 ${
                         isDark
                           ? "bg-gray-800 border-gray-700 text-white focus:ring-[#4FD1C5]"
-                          : "bg-white border-gray-200 text-gray-900 focus:ring-[#2B8A8A]"
+                          : "bg-white border-gray-200 text-[#0F172A] focus:ring-[#0D9488]"
                       }`}
                     />
                   </div>
@@ -714,7 +714,7 @@ export default function CoachTasksPage() {
                       onClick={() => setNewTask({ ...newTask, priority: "default" })}
                       className={`flex-1 px-4 py-2.5 rounded-lg border text-sm font-medium transition-colors ${
                         newTask.priority === "default"
-                          ? isDark ? "border-[#4FD1C5] bg-[#4FD1C5]/10 text-[#4FD1C5]" : "border-[#2B8A8A] bg-[#2B8A8A]/10 text-[#2B8A8A]"
+                          ? isDark ? "border-[#4FD1C5] bg-[#4FD1C5]/10 text-[#4FD1C5]" : "border-[#0D9488] bg-[#0D9488]/10 text-[#0D9488]"
                           : isDark ? "border-gray-700 text-gray-400 hover:border-gray-600" : "border-gray-200 text-gray-600 hover:border-gray-300"
                       }`}
                     >
@@ -747,7 +747,7 @@ export default function CoachTasksPage() {
                       className={`w-20 px-4 py-2.5 rounded-lg border text-sm text-center transition-colors focus:outline-none focus:ring-2 ${
                         isDark
                           ? "bg-gray-800 border-gray-700 text-white focus:ring-[#4FD1C5]"
-                          : "bg-white border-gray-200 text-gray-900 focus:ring-[#2B8A8A]"
+                          : "bg-white border-gray-200 text-[#0F172A] focus:ring-[#0D9488]"
                       }`}
                     />
                     <select
@@ -756,7 +756,7 @@ export default function CoachTasksPage() {
                       className={`flex-1 px-4 py-2.5 rounded-lg border text-sm transition-colors focus:outline-none focus:ring-2 ${
                         isDark
                           ? "bg-gray-800 border-gray-700 text-white focus:ring-[#4FD1C5]"
-                          : "bg-white border-gray-200 text-gray-900 focus:ring-[#2B8A8A]"
+                          : "bg-white border-gray-200 text-[#0F172A] focus:ring-[#0D9488]"
                       }`}
                     >
                       <option value="hours">Hours</option>
@@ -776,7 +776,7 @@ export default function CoachTasksPage() {
                         key={client.id}
                         className={`flex items-center gap-3 p-2 rounded-lg cursor-pointer transition-colors ${
                           newTask.assignedJobSeekers.includes(client.id)
-                            ? isDark ? "bg-[#4FD1C5]/10" : "bg-[#2B8A8A]/10"
+                            ? isDark ? "bg-[#4FD1C5]/10" : "bg-[#0D9488]/10"
                             : isDark ? "hover:bg-gray-800" : "hover:bg-gray-50"
                         }`}
                       >
@@ -822,7 +822,7 @@ export default function CoachTasksPage() {
                         className={`w-full px-4 py-2.5 rounded-lg border text-sm transition-colors focus:outline-none focus:ring-2 ${
                           isDark
                             ? "bg-gray-800 border-gray-700 text-white focus:ring-[#4FD1C5]"
-                            : "bg-white border-gray-200 text-gray-900 focus:ring-[#2B8A8A]"
+                            : "bg-white border-gray-200 text-[#0F172A] focus:ring-[#0D9488]"
                         }`}
                       >
                         <option value="daily">Daily</option>
@@ -847,7 +847,7 @@ export default function CoachTasksPage() {
                 <Button
                   onClick={handleCreateTask}
                   disabled={!newTask.title.trim() || !newTask.dueDate}
-                  className={`flex-1 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"}`}
+                  className={`flex-1 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"}`}
                 >
                   Create Task
                 </Button>
@@ -881,10 +881,10 @@ export default function CoachTasksPage() {
                 isDark ? "border-gray-800" : "border-gray-100"
               }`}>
                 <div className="flex items-center gap-3">
-                  <div className={`p-2 rounded-lg ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#2B8A8A]/10"}`}>
-                    <Edit3 className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} aria-hidden="true" />
+                  <div className={`p-2 rounded-lg ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#0D9488]/10"}`}>
+                    <Edit3 className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} aria-hidden="true" />
                   </div>
-                  <h2 className={`text-lg font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+                  <h2 className={`text-lg font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                     Task Details
                   </h2>
                 </div>
@@ -945,7 +945,7 @@ export default function CoachTasksPage() {
                     className={`w-full px-4 py-2.5 rounded-lg border text-sm transition-colors focus:outline-none focus:ring-2 ${
                       isDark
                         ? "bg-gray-800 border-gray-700 text-white placeholder-gray-500 focus:ring-[#4FD1C5]"
-                        : "bg-white border-gray-200 text-gray-900 placeholder-gray-400 focus:ring-[#2B8A8A]"
+                        : "bg-white border-gray-200 text-[#0F172A] placeholder-gray-400 focus:ring-[#0D9488]"
                     }`}
                   />
                 </div>
@@ -963,7 +963,7 @@ export default function CoachTasksPage() {
                     className={`w-full px-4 py-2.5 rounded-lg border text-sm resize-none transition-colors focus:outline-none focus:ring-2 ${
                       isDark
                         ? "bg-gray-800 border-gray-700 text-white placeholder-gray-500 focus:ring-[#4FD1C5]"
-                        : "bg-white border-gray-200 text-gray-900 placeholder-gray-400 focus:ring-[#2B8A8A]"
+                        : "bg-white border-gray-200 text-[#0F172A] placeholder-gray-400 focus:ring-[#0D9488]"
                     }`}
                   />
                 </div>
@@ -981,7 +981,7 @@ export default function CoachTasksPage() {
                       className={`w-full px-4 py-2.5 rounded-lg border text-sm transition-colors focus:outline-none focus:ring-2 ${
                         isDark
                           ? "bg-gray-800 border-gray-700 text-white focus:ring-[#4FD1C5]"
-                          : "bg-white border-gray-200 text-gray-900 focus:ring-[#2B8A8A]"
+                          : "bg-white border-gray-200 text-[#0F172A] focus:ring-[#0D9488]"
                       }`}
                     />
                   </div>
@@ -996,7 +996,7 @@ export default function CoachTasksPage() {
                       className={`w-full px-4 py-2.5 rounded-lg border text-sm transition-colors focus:outline-none focus:ring-2 ${
                         isDark
                           ? "bg-gray-800 border-gray-700 text-white focus:ring-[#4FD1C5]"
-                          : "bg-white border-gray-200 text-gray-900 focus:ring-[#2B8A8A]"
+                          : "bg-white border-gray-200 text-[#0F172A] focus:ring-[#0D9488]"
                       }`}
                     />
                   </div>
@@ -1012,7 +1012,7 @@ export default function CoachTasksPage() {
                       onClick={() => setEditingTask({ ...editingTask, priority: "default" })}
                       className={`flex-1 px-4 py-2.5 rounded-lg border text-sm font-medium transition-colors ${
                         editingTask.priority === "default"
-                          ? isDark ? "border-[#4FD1C5] bg-[#4FD1C5]/10 text-[#4FD1C5]" : "border-[#2B8A8A] bg-[#2B8A8A]/10 text-[#2B8A8A]"
+                          ? isDark ? "border-[#4FD1C5] bg-[#4FD1C5]/10 text-[#4FD1C5]" : "border-[#0D9488] bg-[#0D9488]/10 text-[#0D9488]"
                           : isDark ? "border-gray-700 text-gray-400 hover:border-gray-600" : "border-gray-200 text-gray-600 hover:border-gray-300"
                       }`}
                     >
@@ -1045,7 +1045,7 @@ export default function CoachTasksPage() {
                       className={`w-20 px-4 py-2.5 rounded-lg border text-sm text-center transition-colors focus:outline-none focus:ring-2 ${
                         isDark
                           ? "bg-gray-800 border-gray-700 text-white focus:ring-[#4FD1C5]"
-                          : "bg-white border-gray-200 text-gray-900 focus:ring-[#2B8A8A]"
+                          : "bg-white border-gray-200 text-[#0F172A] focus:ring-[#0D9488]"
                       }`}
                     />
                     <select
@@ -1054,7 +1054,7 @@ export default function CoachTasksPage() {
                       className={`flex-1 px-4 py-2.5 rounded-lg border text-sm transition-colors focus:outline-none focus:ring-2 ${
                         isDark
                           ? "bg-gray-800 border-gray-700 text-white focus:ring-[#4FD1C5]"
-                          : "bg-white border-gray-200 text-gray-900 focus:ring-[#2B8A8A]"
+                          : "bg-white border-gray-200 text-[#0F172A] focus:ring-[#0D9488]"
                       }`}
                     >
                       <option value="hours">Hours</option>
@@ -1074,7 +1074,7 @@ export default function CoachTasksPage() {
                         key={client.id}
                         className={`flex items-center gap-3 p-2 rounded-lg cursor-pointer transition-colors ${
                           editingTask.assignedJobSeekers.includes(client.id)
-                            ? isDark ? "bg-[#4FD1C5]/10" : "bg-[#2B8A8A]/10"
+                            ? isDark ? "bg-[#4FD1C5]/10" : "bg-[#0D9488]/10"
                             : isDark ? "hover:bg-gray-800" : "hover:bg-gray-50"
                         }`}
                       >
@@ -1124,7 +1124,7 @@ export default function CoachTasksPage() {
                           className={`w-full px-4 py-2.5 rounded-lg border text-sm transition-colors focus:outline-none focus:ring-2 ${
                             isDark
                               ? "bg-gray-800 border-gray-700 text-white focus:ring-[#4FD1C5]"
-                              : "bg-white border-gray-200 text-gray-900 focus:ring-[#2B8A8A]"
+                              : "bg-white border-gray-200 text-[#0F172A] focus:ring-[#0D9488]"
                           }`}
                         >
                           <option value="daily">Daily</option>
@@ -1144,7 +1144,7 @@ export default function CoachTasksPage() {
                           className={`w-full px-4 py-2.5 rounded-lg border text-sm transition-colors focus:outline-none focus:ring-2 ${
                             isDark
                               ? "bg-gray-800 border-gray-700 text-white focus:ring-[#4FD1C5]"
-                              : "bg-white border-gray-200 text-gray-900 focus:ring-[#2B8A8A]"
+                              : "bg-white border-gray-200 text-[#0F172A] focus:ring-[#0D9488]"
                           }`}
                         />
                       </div>
@@ -1172,7 +1172,7 @@ export default function CoachTasksPage() {
                 <Button
                   onClick={handleSaveTask}
                   disabled={!editingTask.title.trim() || !editingTask.dueDate}
-                  className={`flex-1 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"}`}
+                  className={`flex-1 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"}`}
                 >
                   Save Changes
                 </Button>

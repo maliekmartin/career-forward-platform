@@ -1083,7 +1083,7 @@ export function formatJobDate(dateString: string): string {
 export function getSourceInfo(source: Job["source"]): { name: string; color: string; bgColor: string } {
   switch (source) {
     case "worksourcewa":
-      return { name: "WorkSource WA", color: "#2B8A8A", bgColor: "bg-[#2B8A8A]/10" };
+      return { name: "WorkSource WA", color: "#0D9488", bgColor: "bg-[#0D9488]/10" };
     case "indeed":
       return { name: "Indeed", color: "#2164f3", bgColor: "bg-blue-100" };
     case "linkedin":

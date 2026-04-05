@@ -70,7 +70,7 @@ export function JobPreviewModal({
               <DialogTitle
                 className={cn(
                   "text-xl font-semibold leading-tight",
-                  isDark ? "text-white" : "text-gray-900"
+                  isDark ? "text-white" : "text-[#0F172A]"
                 )}
               >
                 {job.title}
@@ -145,7 +145,7 @@ export function JobPreviewModal({
               Posted {formatJobDate(job.datePosted)}
             </div>
             {job.remote && (
-              <div className="flex items-center gap-2 text-sm text-[#2B8A8A]">
+              <div className="flex items-center gap-2 text-sm text-[#0D9488]">
                 <Laptop className="h-4 w-4" />
                 Remote Position
               </div>
@@ -236,7 +236,7 @@ export function JobPreviewModal({
             <Button
               onClick={() => onApply(job)}
               disabled={isApplying}
-              className="bg-[#2B8A8A] hover:bg-[#237070] text-white rounded-xl px-6 py-3 h-auto"
+              className="bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-xl px-6 py-3 h-auto"
             >
               {isApplying ? (
                 <>

@@ -121,7 +121,7 @@ Downloaded: ${new Date().toLocaleString()}\\cf0\\fs24\\par
       >
         <div className="flex items-center justify-between">
           <div>
-            <h1 className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
+            <h1 className={`text-2xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
               Messages
             </h1>
             <p className={isDark ? "text-gray-400" : "text-gray-500"}>
@@ -161,7 +161,7 @@ Downloaded: ${new Date().toLocaleString()}\\cf0\\fs24\\par
                 className={`w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-sm ${
                   isDark
                     ? "bg-gray-800 border-gray-700 text-white placeholder-gray-500"
-                    : "bg-white border-gray-200 text-gray-900 placeholder-gray-400"
+                    : "bg-white border-gray-200 text-[#0F172A] placeholder-gray-400"
                 }`}
                 aria-label="Search conversations"
               />
@@ -177,7 +177,7 @@ Downloaded: ${new Date().toLocaleString()}\\cf0\\fs24\\par
                     onClick={() => handleSelectConversation(conversation)}
                     className={`w-full p-4 text-left cursor-pointer transition-colors border-b focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary ${
                       selectedConversation?.id === conversation.id
-                        ? isDark ? "bg-[#4FD1C5]/10" : "bg-[#2B8A8A]/5"
+                        ? isDark ? "bg-[#4FD1C5]/10" : "bg-[#0D9488]/5"
                         : isDark ? "hover:bg-gray-800 border-gray-800" : "hover:bg-gray-50 border-gray-50"
                     } ${isDark ? "border-gray-800" : "border-gray-50"}`}
                     aria-selected={selectedConversation?.id === conversation.id}
@@ -196,7 +196,7 @@ Downloaded: ${new Date().toLocaleString()}\\cf0\\fs24\\par
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between">
-                          <p className={`font-medium truncate ${isDark ? "text-white" : "text-gray-900"}`}>
+                          <p className={`font-medium truncate ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                             {conversation.participant.name}
                           </p>
                           <span className={`text-xs ${isDark ? "text-gray-500" : "text-gray-400"}`}>
@@ -208,8 +208,8 @@ Downloaded: ${new Date().toLocaleString()}\\cf0\\fs24\\par
                         </p>
                       </div>
                       {conversation.unread > 0 && (
-                        <span className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${isDark ? "bg-[#4FD1C5]" : "bg-[#2B8A8A]"}`}>
-                          <span className={`text-xs font-medium ${isDark ? "text-gray-900" : "text-white"}`}>{conversation.unread}</span>
+                        <span className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${isDark ? "bg-[#4FD1C5]" : "bg-[#0D9488]"}`}>
+                          <span className={`text-xs font-medium ${isDark ? "text-[#0F172A]" : "text-white"}`}>{conversation.unread}</span>
                         </span>
                       )}
                     </div>
@@ -237,7 +237,7 @@ Downloaded: ${new Date().toLocaleString()}\\cf0\\fs24\\par
                   )}
                 </div>
                 <div>
-                  <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                  <p className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                     {selectedConversation.participant.name}
                   </p>
                   <p className={`text-xs ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -313,11 +313,11 @@ Downloaded: ${new Date().toLocaleString()}\\cf0\\fs24\\par
                           className={`px-4 py-2.5 rounded-2xl ${
                             isSelf
                               ? isDark
-                                ? "bg-[#4FD1C5] text-gray-900 rounded-br-md"
-                                : "bg-[#2B8A8A] text-white rounded-br-md"
+                                ? "bg-[#4FD1C5] text-[#0F172A] rounded-br-md"
+                                : "bg-[#0D9488] text-white rounded-br-md"
                               : isDark
                               ? "bg-gray-800 text-white rounded-bl-md"
-                              : "bg-gray-100 text-gray-900 rounded-bl-md"
+                              : "bg-gray-100 text-[#0F172A] rounded-bl-md"
                           }`}
                         >
                           <p className="text-sm">{message.text}</p>
@@ -333,7 +333,7 @@ Downloaded: ${new Date().toLocaleString()}\\cf0\\fs24\\par
                           {isSelf && (
                             <>
                               {message.status === "read" ? (
-                                <CheckCheck className={`h-3 w-3 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} aria-label="Read" />
+                                <CheckCheck className={`h-3 w-3 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} aria-label="Read" />
                               ) : message.status === "delivered" ? (
                                 <CheckCheck className={`h-3 w-3 ${isDark ? "text-gray-500" : "text-gray-400"}`} aria-label="Delivered" />
                               ) : (
@@ -372,14 +372,14 @@ Downloaded: ${new Date().toLocaleString()}\\cf0\\fs24\\par
                   className={`flex-1 px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary ${
                     isDark
                       ? "bg-gray-800 border-gray-700 text-white placeholder-gray-500"
-                      : "bg-white border-gray-200 text-gray-900 placeholder-gray-400"
+                      : "bg-white border-gray-200 text-[#0F172A] placeholder-gray-400"
                   }`}
                   aria-label="Type a message"
                 />
                 <Button
                   onClick={handleSendMessage}
                   disabled={!newMessage.trim()}
-                  className={`rounded-xl px-4 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"}`}
+                  className={`rounded-xl px-4 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"}`}
                   aria-label="Send message"
                 >
                   <Send className="h-4 w-4" aria-hidden="true" />

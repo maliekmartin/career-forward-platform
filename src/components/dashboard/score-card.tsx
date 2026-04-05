@@ -74,7 +74,7 @@ export function ScoreCard() {
   const getScoreColor = (score: number, max: number) => {
     const pct = (score / max) * 100;
     if (pct >= 80) return "#22c55e";
-    if (pct >= 60) return "#2B8A8A";
+    if (pct >= 60) return "#0D9488";
     if (pct >= 40) return "#f59e0b";
     return "#ef4444";
   };
@@ -99,11 +99,11 @@ export function ScoreCard() {
         <div className={`rounded-xl p-4 ${isDark ? "bg-gray-900 hover:bg-gray-800" : "bg-white hover:bg-gray-50"} shadow-sm border ${isDark ? "border-gray-800" : "border-gray-100"} cursor-pointer transition-colors`}>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${isDark ? "bg-[#2B8A8A]/20" : "bg-[#2B8A8A]/10"}`}>
-                <Sparkles className="w-5 h-5 text-[#2B8A8A]" />
+              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${isDark ? "bg-[#0D9488]/20" : "bg-[#0D9488]/10"}`}>
+                <Sparkles className="w-5 h-5 text-[#0D9488]" />
               </div>
               <div>
-                <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>Get Your Career Score</p>
+                <p className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>Get Your Career Score</p>
                 <p className={`text-xs ${isDark ? "text-gray-400" : "text-gray-500"}`}>Upload your resume to see your score</p>
               </div>
             </div>
@@ -132,7 +132,7 @@ export function ScoreCard() {
           {/* Score Circle */}
           <div className="relative w-14 h-14 flex-shrink-0">
             <svg className="w-14 h-14 -rotate-90">
-              <circle cx="28" cy="28" r="24" fill="none" stroke={isDark ? "#374151" : "#e5e7eb"} strokeWidth="4" />
+              <circle cx="28" cy="28" r="24" fill="none" stroke={isDark ? "#0F172A" : "#e5e7eb"} strokeWidth="4" />
               <motion.circle
                 cx="28" cy="28" r="24" fill="none"
                 stroke={scoreColor}
@@ -150,7 +150,7 @@ export function ScoreCard() {
           {/* Score Details */}
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between mb-2">
-              <h3 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>Career Forward Score</h3>
+              <h3 className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>Career Forward Score</h3>
               <div className="flex items-center gap-2">
                 {scores.marketData?.demandLevel && (
                   <span className={`text-xs px-2 py-0.5 rounded-full ${
@@ -234,7 +234,7 @@ export function ScoreCard() {
             {!isPremium && (
               <Link href="/ai-coach">
                 <Button
-                  className="w-full mt-3 bg-gradient-to-r from-[#2B8A8A] to-[#4ECDC4] hover:opacity-90 text-white text-sm h-9"
+                  className="w-full mt-3 bg-gradient-to-r from-[#0D9488] to-[#4ECDC4] hover:opacity-90 text-white text-sm h-9"
                 >
                   <Sparkles className="w-4 h-4 mr-2" />
                   Chat with Compass & Unlock Tips - $4.99/mo

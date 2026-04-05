@@ -198,7 +198,7 @@ export default function JobBoardPage() {
       >
         <div className="flex items-center justify-between mb-2">
           <div>
-            <h1 className={`text-3xl font-bold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>Job Board</h1>
+            <h1 className={`text-3xl font-bold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>Job Board</h1>
             <p className={isDark ? "text-gray-400" : "text-gray-600"}>
               Discover opportunities from top job platforms
             </p>
@@ -243,22 +243,22 @@ export default function JobBoardPage() {
               placeholder="Search jobs by title, company, or location..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className={`w-full pl-12 pr-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] text-lg ${
+              className={`w-full pl-12 pr-4 py-3 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] text-lg ${
                 isDark
                   ? "bg-gray-800 border-gray-700 text-white placeholder-gray-500"
-                  : "bg-gray-50 border-gray-200 text-gray-900 placeholder-gray-400"
+                  : "bg-gray-50 border-gray-200 text-[#0F172A] placeholder-gray-400"
               }`}
             />
           </div>
           <Button
             onClick={() => setShowFilters(!showFilters)}
             variant="outline"
-            className={`rounded-xl px-6 ${showFilters ? "bg-[#2B8A8A]/10 border-[#2B8A8A] text-[#2B8A8A]" : ""}`}
+            className={`rounded-xl px-6 ${showFilters ? "bg-[#0D9488]/10 border-[#0D9488] text-[#0D9488]" : ""}`}
           >
             <Filter className="h-4 w-4 mr-2" />
             Filters
             {hasActiveFilters && (
-              <span className="ml-2 w-2 h-2 bg-[#2B8A8A] rounded-full" />
+              <span className="ml-2 w-2 h-2 bg-[#0D9488] rounded-full" />
             )}
           </Button>
         </div>
@@ -282,8 +282,8 @@ export default function JobBoardPage() {
                     <select
                       value={selectedCategory}
                       onChange={(e) => setSelectedCategory(e.target.value as Category)}
-                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] ${
-                        isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-gray-50 border-gray-200 text-gray-900"
+                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] ${
+                        isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-gray-50 border-gray-200 text-[#0F172A]"
                       }`}
                     >
                       {categoryOptions.map((opt) => (
@@ -302,8 +302,8 @@ export default function JobBoardPage() {
                     <select
                       value={selectedSource}
                       onChange={(e) => setSelectedSource(e.target.value as Source)}
-                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] ${
-                        isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-gray-50 border-gray-200 text-gray-900"
+                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] ${
+                        isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-gray-50 border-gray-200 text-[#0F172A]"
                       }`}
                     >
                       {sourceOptions.map((opt) => (
@@ -322,8 +322,8 @@ export default function JobBoardPage() {
                     <select
                       value={selectedHoursType}
                       onChange={(e) => setSelectedHoursType(e.target.value as HoursType)}
-                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] ${
-                        isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-gray-50 border-gray-200 text-gray-900"
+                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] ${
+                        isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-gray-50 border-gray-200 text-[#0F172A]"
                       }`}
                     >
                       {hoursOptions.map((opt) => (
@@ -342,8 +342,8 @@ export default function JobBoardPage() {
                     <select
                       value={sortBy}
                       onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] ${
-                        isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-gray-50 border-gray-200 text-gray-900"
+                      className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] ${
+                        isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-gray-50 border-gray-200 text-[#0F172A]"
                       }`}
                     >
                       <option value="newest">Newest First</option>
@@ -361,7 +361,7 @@ export default function JobBoardPage() {
                       onClick={() => setRemoteOnly(!remoteOnly)}
                       className={`w-full px-3 py-2 rounded-lg border flex items-center justify-center gap-2 transition-all ${
                         remoteOnly
-                          ? "bg-[#2B8A8A] text-white border-[#2B8A8A]"
+                          ? "bg-[#0D9488] text-white border-[#0D9488]"
                           : isDark
                             ? "bg-gray-800 text-gray-300 border-gray-700 hover:border-gray-600"
                             : "bg-gray-50 text-gray-600 border-gray-200 hover:border-gray-300"
@@ -381,7 +381,7 @@ export default function JobBoardPage() {
                     </span>
                     <button
                       onClick={clearFilters}
-                      className="text-sm text-[#2B8A8A] hover:underline flex items-center gap-1"
+                      className="text-sm text-[#0D9488] hover:underline flex items-center gap-1"
                     >
                       <X className="h-3 w-3" />
                       Clear all filters
@@ -415,7 +415,7 @@ export default function JobBoardPage() {
       {/* Loading State */}
       {loading && (
         <div className="flex flex-col items-center justify-center py-20">
-          <Loader2 className="h-12 w-12 animate-spin text-[#2B8A8A] mb-4" />
+          <Loader2 className="h-12 w-12 animate-spin text-[#0D9488] mb-4" />
           <p className={isDark ? "text-gray-400" : "text-gray-600"}>
             Finding the best jobs for you...
           </p>
@@ -436,7 +436,7 @@ export default function JobBoardPage() {
           }`}>
             <X className="h-8 w-8 text-red-500" />
           </div>
-          <h3 className={`font-semibold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+          <h3 className={`font-semibold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
             Could not load jobs
           </h3>
           <p className={`mb-4 ${isDark ? "text-gray-400" : "text-gray-600"}`}>
@@ -444,7 +444,7 @@ export default function JobBoardPage() {
           </p>
           <Button
             onClick={() => window.location.reload()}
-            className="bg-[#2B8A8A] hover:bg-[#237070] text-white rounded-full"
+            className="bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-full"
           >
             <RefreshCw className="h-4 w-4 mr-2" />
             Try again
@@ -484,7 +484,7 @@ export default function JobBoardPage() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <h3 className={`text-lg font-semibold group-hover:text-[#2B8A8A] transition-colors ${isDark ? "text-white" : "text-gray-900"}`}>
+                      <h3 className={`text-lg font-semibold group-hover:text-[#0D9488] transition-colors ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                         {job.title}
                       </h3>
                       <p className={`font-medium ${isDark ? "text-gray-300" : "text-gray-600"}`}>{job.company}</p>
@@ -519,7 +519,7 @@ export default function JobBoardPage() {
                       {formatJobDate(job.datePosted)}
                     </span>
                     {job.remote && (
-                      <span className="flex items-center gap-1 text-[#2B8A8A]">
+                      <span className="flex items-center gap-1 text-[#0D9488]">
                         <Laptop className="h-4 w-4" />
                         Remote
                       </span>
@@ -565,7 +565,7 @@ export default function JobBoardPage() {
                         handleApply(job);
                       }}
                       disabled={isApplying}
-                      className="bg-[#2B8A8A] hover:bg-[#237070] text-white rounded-xl px-6 py-6 h-auto"
+                      className="bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-xl px-6 py-6 h-auto"
                     >
                       {isApplying ? (
                         <>
@@ -604,13 +604,13 @@ export default function JobBoardPage() {
           }`}>
             <Search className="h-8 w-8 text-gray-400" />
           </div>
-          <h3 className={`font-semibold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>No jobs found</h3>
+          <h3 className={`font-semibold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>No jobs found</h3>
           <p className={`mb-4 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
             Try adjusting your search or filters to find more opportunities
           </p>
           <Button
             onClick={clearFilters}
-            className="bg-[#2B8A8A] hover:bg-[#237070] text-white rounded-full"
+            className="bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-full"
           >
             Clear all filters
           </Button>

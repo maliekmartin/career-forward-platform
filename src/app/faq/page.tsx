@@ -87,8 +87,8 @@ export default function FAQPage() {
     <div className="relative min-h-screen overflow-hidden bg-[#FAFBFC]">
       {/* Gradient Background */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-3xl opacity-20 bg-[#2B8A8A]" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-3xl opacity-10 bg-[#2B8A8A]" />
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-3xl opacity-20 bg-[#0D9488]" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-3xl opacity-10 bg-[#0D9488]" />
       </div>
 
       {/* Navigation */}
@@ -111,19 +111,19 @@ export default function FAQPage() {
           <div className="flex items-center gap-6">
             <Link
               href="/"
-              className="text-sm text-gray-600 hover:text-[#2B8A8A] transition-colors"
+              className="text-sm text-gray-600 hover:text-[#0D9488] transition-colors"
             >
               Home
             </Link>
             <Link
               href="/pricing"
-              className="text-sm text-gray-600 hover:text-[#2B8A8A] transition-colors"
+              className="text-sm text-gray-600 hover:text-[#0D9488] transition-colors"
             >
               Pricing
             </Link>
             <Link
               href="/signin"
-              className="px-4 py-2 bg-[#2B8A8A] text-white text-sm font-medium rounded-lg hover:bg-[#237070] transition-colors"
+              className="px-4 py-2 bg-[#0D9488] text-white text-sm font-medium rounded-lg hover:bg-[#237070] transition-colors"
             >
               Sign In
             </Link>
@@ -141,19 +141,19 @@ export default function FAQPage() {
           className="text-center mb-12"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-lg shadow-gray-200/50 border border-gray-100 mb-6">
-            <Sparkles className="h-4 w-4 text-[#2B8A8A]" />
+            <Sparkles className="h-4 w-4 text-[#0D9488]" />
             <span className="text-sm font-medium text-gray-700">
               Help Center
             </span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-4">
             Frequently Asked{" "}
-            <span className="text-[#2B8A8A]">Questions</span>
+            <span className="text-[#0D9488]">Questions</span>
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Find answers to common questions about Career Forward. Can&apos;t find
             what you&apos;re looking for?{" "}
-            <Link href="/demo" className="text-[#2B8A8A] hover:underline">
+            <Link href="/demo" className="text-[#0D9488] hover:underline">
               Contact us
             </Link>
           </p>
@@ -176,7 +176,7 @@ export default function FAQPage() {
                 setSelectedCategory(null);
               }}
               placeholder="Search for answers..."
-              className="w-full pl-12 pr-12 py-4 bg-white border border-gray-200 rounded-2xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] shadow-lg shadow-gray-200/50 transition-all"
+              className="w-full pl-12 pr-12 py-4 bg-white border border-gray-200 rounded-2xl text-[#0F172A] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] shadow-lg shadow-gray-200/50 transition-all"
             />
             {searchQuery && (
               <button
@@ -203,7 +203,7 @@ export default function FAQPage() {
           >
             <button
               onClick={clearSearch}
-              className="inline-flex items-center gap-2 text-[#2B8A8A] hover:underline text-sm font-medium"
+              className="inline-flex items-center gap-2 text-[#0D9488] hover:underline text-sm font-medium"
             >
               <ArrowRight className="h-4 w-4 rotate-180" />
               Back to all categories
@@ -223,7 +223,7 @@ export default function FAQPage() {
             >
               {/* Featured Questions */}
               <div className="mb-12">
-                <h2 className="text-lg font-semibold text-gray-900 mb-4">
+                <h2 className="text-lg font-semibold text-[#0F172A] mb-4">
                   Popular Questions
                 </h2>
                 <div className="bg-white rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100 overflow-hidden">
@@ -240,7 +240,7 @@ export default function FAQPage() {
               </div>
 
               {/* Category Grid */}
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">
+              <h2 className="text-lg font-semibold text-[#0F172A] mb-4">
                 Browse by Category
               </h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -265,7 +265,7 @@ export default function FAQPage() {
             >
               {selectedCategory && (
                 <div className="mb-6">
-                  <h2 className="text-2xl font-bold text-gray-900">
+                  <h2 className="text-2xl font-bold text-[#0F172A]">
                     {faqData.find((c) => c.id === selectedCategory)?.title}
                   </h2>
                   <p className="text-gray-600 mt-1">
@@ -289,7 +289,7 @@ export default function FAQPage() {
               ) : (
                 <div className="text-center py-12">
                   <HelpCircle className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  <h3 className="text-lg font-semibold text-[#0F172A] mb-2">
                     No results found
                   </h3>
                   <p className="text-gray-600 mb-4">
@@ -297,7 +297,7 @@ export default function FAQPage() {
                   </p>
                   <button
                     onClick={clearSearch}
-                    className="text-[#2B8A8A] font-medium hover:underline"
+                    className="text-[#0D9488] font-medium hover:underline"
                   >
                     Clear search and browse categories
                   </button>
@@ -314,8 +314,8 @@ export default function FAQPage() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="mt-16 text-center"
         >
-          <div className="bg-gradient-to-br from-[#2B8A8A]/5 to-[#2B8A8A]/10 rounded-2xl p-8 border border-[#2B8A8A]/20">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+          <div className="bg-gradient-to-br from-[#0D9488]/5 to-[#0D9488]/10 rounded-2xl p-8 border border-[#0D9488]/20">
+            <h2 className="text-2xl font-bold text-[#0F172A] mb-2">
               Still have questions?
             </h2>
             <p className="text-gray-600 mb-6">
@@ -325,14 +325,14 @@ export default function FAQPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/demo"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#2B8A8A] text-white font-semibold rounded-xl shadow-lg shadow-[#2B8A8A]/25 hover:bg-[#237070] transition-all"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#0D9488] text-white font-semibold rounded-xl shadow-lg shadow-[#F59E0B]/25 hover:bg-[#237070] transition-all"
               >
                 Contact Us
                 <ArrowRight className="h-5 w-5" />
               </Link>
               <a
                 href="mailto:support@careerforward.io"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-gray-900 font-semibold rounded-xl border border-gray-200 hover:border-[#2B8A8A] hover:text-[#2B8A8A] transition-all"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-[#0F172A] font-semibold rounded-xl border border-gray-200 hover:border-[#0D9488] hover:text-[#0D9488] transition-all"
               >
                 Email Support
               </a>
@@ -346,16 +346,16 @@ export default function FAQPage() {
         <div className="max-w-7xl mx-auto px-6 py-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-6">
-              <Link href="/" className="text-sm text-gray-500 hover:text-[#2B8A8A]">
+              <Link href="/" className="text-sm text-gray-500 hover:text-[#0D9488]">
                 Home
               </Link>
-              <Link href="/pricing" className="text-sm text-gray-500 hover:text-[#2B8A8A]">
+              <Link href="/pricing" className="text-sm text-gray-500 hover:text-[#0D9488]">
                 Pricing
               </Link>
-              <Link href="/faq" className="text-sm text-[#2B8A8A] font-medium">
+              <Link href="/faq" className="text-sm text-[#0D9488] font-medium">
                 FAQ
               </Link>
-              <Link href="/privacy" className="text-sm text-gray-500 hover:text-[#2B8A8A]">
+              <Link href="/privacy" className="text-sm text-gray-500 hover:text-[#0D9488]">
                 Privacy Policy
               </Link>
             </div>
@@ -387,16 +387,16 @@ function CategoryCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay }}
       onClick={onClick}
-      className="text-left bg-white rounded-xl p-6 shadow-lg shadow-gray-200/50 border border-gray-100 hover:border-[#2B8A8A]/30 hover:shadow-xl transition-all group"
+      className="text-left bg-white rounded-xl p-6 shadow-lg shadow-gray-200/50 border border-gray-100 hover:border-[#0D9488]/30 hover:shadow-xl transition-all group"
     >
-      <div className="w-12 h-12 bg-[#2B8A8A]/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-[#2B8A8A]/20 transition-colors">
-        <Icon className="h-6 w-6 text-[#2B8A8A]" />
+      <div className="w-12 h-12 bg-[#0D9488]/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-[#0D9488]/20 transition-colors">
+        <Icon className="h-6 w-6 text-[#0D9488]" />
       </div>
-      <h3 className="font-semibold text-gray-900 mb-1 group-hover:text-[#2B8A8A] transition-colors">
+      <h3 className="font-semibold text-[#0F172A] mb-1 group-hover:text-[#0D9488] transition-colors">
         {category.title}
       </h3>
       <p className="text-sm text-gray-500 mb-3">{category.description}</p>
-      <span className="text-xs text-[#2B8A8A] font-medium">
+      <span className="text-xs text-[#0D9488] font-medium">
         {category.items.length} articles
       </span>
     </motion.button>
@@ -421,7 +421,7 @@ function FAQAccordionItem({
         onClick={onToggle}
         className="w-full px-6 py-5 flex items-start justify-between gap-4 text-left hover:bg-gray-50 transition-colors"
       >
-        <span className="font-medium text-gray-900 pr-4">{item.question}</span>
+        <span className="font-medium text-[#0F172A] pr-4">{item.question}</span>
         <ChevronDown
           className={`h-5 w-5 text-gray-400 flex-shrink-0 mt-0.5 transition-transform ${
             isExpanded ? "rotate-180" : ""

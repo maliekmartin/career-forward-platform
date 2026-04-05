@@ -53,7 +53,7 @@ const PAGE_COLORS: Record<string, string> = {
   "/assessments": "#E53E3E",
   "/resources": "#DD6B20",
   "/achievements": "#D53F8C",
-  "/messages": "#2B8A8A",
+  "/messages": "#0D9488",
   "/settings": "#718096",
   "/ai-coach": "#9F7AEA",
 };
@@ -96,7 +96,7 @@ export function ContinueCard() {
   }
 
   const Icon = PAGE_ICONS[sessionState.lastPath] || FileText;
-  const color = PAGE_COLORS[sessionState.lastPath] || "#2B8A8A";
+  const color = PAGE_COLORS[sessionState.lastPath] || "#0D9488";
   const hasDraft = sessionState.draftData && sessionState.draftData.pageKey;
 
   const timeAgo = sessionState.lastVisitedAt
@@ -125,7 +125,7 @@ export function ContinueCard() {
           {/* Content */}
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-0.5">
-              <h3 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+              <h3 className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                 Pick up where you left off
               </h3>
               {hasDraft && (
@@ -164,8 +164,8 @@ export function ContinueCard() {
             <Button
               className={`gap-2 ${
                 isDark
-                  ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900"
-                  : "bg-[#2B8A8A] hover:bg-[#237070] text-white"
+                  ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]"
+                  : "bg-[#F59E0B] hover:bg-[#D97706] text-white"
               }`}
             >
               Continue

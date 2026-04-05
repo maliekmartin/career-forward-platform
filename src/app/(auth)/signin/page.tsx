@@ -68,8 +68,8 @@ function SignInForm() {
     <div className="relative min-h-screen overflow-hidden bg-[#FAFBFC]">
       {/* Gradient Background */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-3xl opacity-20 bg-[#2B8A8A]" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full blur-3xl opacity-10 bg-[#2B8A8A]" />
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full blur-3xl opacity-20 bg-[#0D9488]" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full blur-3xl opacity-10 bg-[#0D9488]" />
       </div>
 
       {/* Navigation */}
@@ -105,18 +105,18 @@ function SignInForm() {
               className="hidden lg:block"
             >
               {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-lg shadow-gray-200/50 border border-gray-100 mb-8">
-                <Sparkles className="h-4 w-4 text-[#2B8A8A]" />
-                <span className="text-sm font-medium text-gray-700">
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#F59E0B]/10 rounded-full border border-[#F59E0B]/20 mb-8">
+                <Sparkles className="h-4 w-4 text-[#F59E0B]" />
+                <span className="text-sm font-medium text-[#F59E0B]">
                   100% Free for Job Seekers
                 </span>
               </div>
 
               {/* Headline */}
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] text-gray-900 mb-6">
+              <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] text-[#0F172A] mb-6">
                 Your career journey
                 <br />
-                <span className="text-[#2B8A8A]">continues here</span>
+                <span className="text-[#F59E0B]">continues here</span>
               </h1>
 
               <p className="text-xl text-gray-600 leading-relaxed mb-8 max-w-md">
@@ -126,15 +126,15 @@ function SignInForm() {
               {/* Trust indicators */}
               <div className="flex flex-col gap-3">
                 <div className="flex items-center gap-2 text-gray-600">
-                  <CheckCircle2 className="h-5 w-5 text-[#2B8A8A]" />
+                  <CheckCircle2 className="h-5 w-5 text-[#0D9488]" />
                   <span>AI-powered job matching</span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-600">
-                  <CheckCircle2 className="h-5 w-5 text-[#2B8A8A]" />
+                  <CheckCircle2 className="h-5 w-5 text-[#0D9488]" />
                   <span>Resume builder & interview prep</span>
                 </div>
                 <div className="flex items-center gap-2 text-gray-600">
-                  <CheckCircle2 className="h-5 w-5 text-[#2B8A8A]" />
+                  <CheckCircle2 className="h-5 w-5 text-[#0D9488]" />
                   <span>Progress tracking & analytics</span>
                 </div>
               </div>
@@ -164,7 +164,7 @@ function SignInForm() {
                 </div>
 
                 <div className="text-center mb-6">
-                  <h2 className="text-2xl font-bold text-gray-900">Welcome Back</h2>
+                  <h2 className="text-2xl font-bold text-[#0F172A]">Welcome Back</h2>
                   <p className="text-gray-500 mt-1">
                     Sign in to continue your journey
                   </p>
@@ -198,7 +198,7 @@ function SignInForm() {
                       }
                       required
                       disabled={isLoading}
-                      className="h-12 bg-gray-50 border-gray-200 focus:border-[#2B8A8A] focus:ring-[#2B8A8A]/20"
+                      className="h-12 bg-gray-50 border-gray-200 focus:border-[#0D9488] focus:ring-[#0D9488]/20"
                     />
                   </div>
 
@@ -214,7 +214,7 @@ function SignInForm() {
                         }
                         required
                         disabled={isLoading}
-                        className="h-12 bg-gray-50 border-gray-200 focus:border-[#2B8A8A] focus:ring-[#2B8A8A]/20 pr-10"
+                        className="h-12 bg-gray-50 border-gray-200 focus:border-[#0D9488] focus:ring-[#0D9488]/20 pr-10"
                       />
                       <button
                         type="button"
@@ -249,7 +249,7 @@ function SignInForm() {
                     </div>
                     <Link
                       href="/forgot-password"
-                      className="text-sm text-[#2B8A8A] hover:underline"
+                      className="text-sm text-[#0D9488] hover:underline"
                     >
                       Forgot password?
                     </Link>
@@ -257,7 +257,7 @@ function SignInForm() {
 
                   <Button
                     type="submit"
-                    className="w-full h-12 bg-[#2B8A8A] hover:bg-[#237070] text-white font-semibold shadow-lg shadow-[#2B8A8A]/25 hover:shadow-xl hover:shadow-[#2B8A8A]/30 transition-all duration-200"
+                    className="w-full h-12 bg-[#F59E0B] hover:bg-[#D97706] text-white font-semibold shadow-lg shadow-[#F59E0B]/25 hover:shadow-xl hover:shadow-[#F59E0B]/30 transition-all duration-200"
                     disabled={isLoading}
                   >
                     {isLoading ? (
@@ -279,7 +279,7 @@ function SignInForm() {
                     Don&apos;t have an account?{" "}
                     <Link
                       href="/register/seeker"
-                      className="text-[#2B8A8A] font-medium hover:underline"
+                      className="text-[#0D9488] font-medium hover:underline"
                     >
                       Create one here
                     </Link>
@@ -303,7 +303,7 @@ export default function SignInPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen flex items-center justify-center bg-[#FAFBFC]">
-        <Loader2 className="h-8 w-8 animate-spin text-[#2B8A8A]" />
+        <Loader2 className="h-8 w-8 animate-spin text-[#0D9488]" />
       </div>
     }>
       <SignInForm />

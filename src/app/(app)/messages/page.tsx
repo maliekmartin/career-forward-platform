@@ -147,7 +147,7 @@ Downloaded: ${new Date().toLocaleString()}\\cf0\\fs24\\par
         {/* Conversation List Sidebar */}
         <div className={`w-80 border-r flex flex-col ${isDark ? "border-gray-800" : "border-gray-100"}`}>
           <div className={`p-4 border-b ${isDark ? "border-gray-800" : "border-gray-100"}`}>
-            <h2 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+            <h2 className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
               Messages
             </h2>
           </div>
@@ -158,7 +158,7 @@ Downloaded: ${new Date().toLocaleString()}\\cf0\\fs24\\par
                 onClick={() => setSelectedConversationId(conversation.id)}
                 className={`w-full px-4 py-3 text-left transition-colors border-b ${
                   selectedConversationId === conversation.id
-                    ? isDark ? "bg-gray-800 border-gray-800" : "bg-[#2B8A8A]/10 border-gray-100"
+                    ? isDark ? "bg-gray-800 border-gray-800" : "bg-[#0D9488]/10 border-gray-100"
                     : isDark ? "border-gray-800 hover:bg-gray-800/50" : "border-gray-50 hover:bg-gray-50"
                 }`}
               >
@@ -166,7 +166,7 @@ Downloaded: ${new Date().toLocaleString()}\\cf0\\fs24\\par
                   <div className="relative flex-shrink-0">
                     {conversation.type === "ai" ? (
                       <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                        isDark ? "bg-gradient-to-br from-[#4FD1C5] to-[#2B8A8A]" : "bg-gradient-to-br from-[#2B8A8A] to-[#1a5555]"
+                        isDark ? "bg-gradient-to-br from-[#4FD1C5] to-[#0D9488]" : "bg-gradient-to-br from-[#0D9488] to-[#1a5555]"
                       }`}>
                         <Bot className="h-6 w-6 text-white" />
                       </div>
@@ -183,7 +183,7 @@ Downloaded: ${new Date().toLocaleString()}\\cf0\\fs24\\par
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between">
-                      <p className={`font-medium text-sm ${isDark ? "text-white" : "text-gray-900"}`}>
+                      <p className={`font-medium text-sm ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                         {conversation.participant.name}
                       </p>
                       <span className={`text-xs ${isDark ? "text-gray-500" : "text-gray-400"}`}>
@@ -203,8 +203,8 @@ Downloaded: ${new Date().toLocaleString()}\\cf0\\fs24\\par
                   </div>
                   {conversation.unreadCount > 0 && (
                     <div className="flex-shrink-0">
-                      <div className="w-5 h-5 bg-[#2B8A8A] dark:bg-[#4FD1C5] rounded-full flex items-center justify-center">
-                        <span className="text-[10px] font-bold text-white dark:text-gray-900">{conversation.unreadCount}</span>
+                      <div className="w-5 h-5 bg-[#0D9488] dark:bg-[#4FD1C5] rounded-full flex items-center justify-center">
+                        <span className="text-[10px] font-bold text-white dark:text-[#0F172A]">{conversation.unreadCount}</span>
                       </div>
                     </div>
                   )}
@@ -223,7 +223,7 @@ Downloaded: ${new Date().toLocaleString()}\\cf0\\fs24\\par
                 <div className="relative">
                   {selectedConversation.type === "ai" ? (
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                      isDark ? "bg-gradient-to-br from-[#4FD1C5] to-[#2B8A8A]" : "bg-gradient-to-br from-[#2B8A8A] to-[#1a5555]"
+                      isDark ? "bg-gradient-to-br from-[#4FD1C5] to-[#0D9488]" : "bg-gradient-to-br from-[#0D9488] to-[#1a5555]"
                     }`}>
                       <Bot className="h-5 w-5 text-white" />
                     </div>
@@ -239,7 +239,7 @@ Downloaded: ${new Date().toLocaleString()}\\cf0\\fs24\\par
                   )}
                 </div>
                 <div>
-                  <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                  <p className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                     {selectedConversation.participant.name}
                   </p>
                   <p className={`text-xs ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -295,11 +295,11 @@ Downloaded: ${new Date().toLocaleString()}\\cf0\\fs24\\par
                         className={`px-4 py-2.5 rounded-2xl whitespace-pre-wrap ${
                           isSelf
                             ? isDark
-                              ? "bg-[#4FD1C5] text-gray-900 rounded-br-md"
-                              : "bg-[#2B8A8A] text-white rounded-br-md"
+                              ? "bg-[#4FD1C5] text-[#0F172A] rounded-br-md"
+                              : "bg-[#0D9488] text-white rounded-br-md"
                             : isDark
                               ? "bg-gray-800 text-white rounded-bl-md"
-                              : "bg-gray-100 text-gray-900 rounded-bl-md"
+                              : "bg-gray-100 text-[#0F172A] rounded-bl-md"
                         }`}
                       >
                         <p className="text-sm">{message.text}</p>
@@ -313,7 +313,7 @@ Downloaded: ${new Date().toLocaleString()}\\cf0\\fs24\\par
                         {isSelf && (
                           <>
                             {message.status === "read" ? (
-                              <CheckCheck className={`h-3 w-3 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} />
+                              <CheckCheck className={`h-3 w-3 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} />
                             ) : message.status === "delivered" ? (
                               <CheckCheck className={`h-3 w-3 ${isDark ? "text-gray-500" : "text-gray-400"}`} />
                             ) : (
@@ -341,16 +341,16 @@ Downloaded: ${new Date().toLocaleString()}\\cf0\\fs24\\par
                   value={newMessage}
                   onChange={(e) => setNewMessage(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
-                  className={`flex-1 px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] ${
+                  className={`flex-1 px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] ${
                     isDark
                       ? "bg-gray-800 border-gray-700 text-white placeholder-gray-500"
-                      : "bg-white border-gray-200 text-gray-900 placeholder-gray-400"
+                      : "bg-white border-gray-200 text-[#0F172A] placeholder-gray-400"
                   }`}
                 />
                 <Button
                   onClick={handleSendMessage}
                   disabled={!newMessage.trim()}
-                  className={`rounded-xl px-4 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"}`}
+                  className={`rounded-xl px-4 ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"}`}
                 >
                   <Send className="h-4 w-4" />
                 </Button>

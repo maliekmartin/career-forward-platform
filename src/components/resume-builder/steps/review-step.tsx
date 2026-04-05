@@ -140,7 +140,7 @@ export function ReviewStep() {
         <h2
           className={cn(
             "text-2xl font-bold mb-2",
-            isDark ? "text-white" : "text-gray-900"
+            isDark ? "text-white" : "text-[#0F172A]"
           )}
         >
           Review Your Resume
@@ -184,7 +184,7 @@ export function ReviewStep() {
               <p
                 className={cn(
                   "font-semibold text-lg",
-                  isDark ? "text-white" : "text-gray-900"
+                  isDark ? "text-white" : "text-[#0F172A]"
                 )}
               >
                 {allRequiredComplete
@@ -293,7 +293,7 @@ export function ReviewStep() {
                   <p
                     className={cn(
                       "font-medium",
-                      isDark ? "text-white" : "text-gray-900"
+                      isDark ? "text-white" : "text-[#0F172A]"
                     )}
                   >
                     {section.name}
@@ -336,7 +336,7 @@ export function ReviewStep() {
                       "text-sm",
                       isDark
                         ? "text-[#4FD1C5] hover:text-[#4FD1C5] hover:bg-[#4FD1C5]/10"
-                        : "text-[#2B8A8A] hover:text-[#2B8A8A] hover:bg-[#2B8A8A]/10"
+                        : "text-[#0D9488] hover:text-[#0D9488] hover:bg-[#0D9488]/10"
                     )}
                   >
                     Edit
@@ -366,7 +366,7 @@ export function ReviewStep() {
         <p
           className={cn(
             "font-semibold",
-            isDark ? "text-white" : "text-gray-900"
+            isDark ? "text-white" : "text-[#0F172A]"
           )}
         >
           {state.resumeName}
@@ -400,8 +400,8 @@ export function ReviewStep() {
           className={cn(
             "flex-1 h-12 gap-2",
             isDark
-              ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900"
-              : "bg-[#2B8A8A] hover:bg-[#237070] text-white",
+              ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]"
+              : "bg-[#F59E0B] hover:bg-[#D97706] text-white",
             !allRequiredComplete && "opacity-50 cursor-not-allowed"
           )}
         >
@@ -414,13 +414,13 @@ export function ReviewStep() {
       <div
         className={cn(
           "p-4 rounded-xl",
-          isDark ? "bg-[#4FD1C5]/5 border border-[#4FD1C5]/20" : "bg-[#2B8A8A]/5 border border-[#2B8A8A]/20"
+          isDark ? "bg-[#4FD1C5]/5 border border-[#4FD1C5]/20" : "bg-[#0D9488]/5 border border-[#0D9488]/20"
         )}
       >
         <h4
           className={cn(
             "font-medium mb-2 text-sm",
-            isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"
+            isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"
           )}
         >
           Before You Download

@@ -223,14 +223,14 @@ export function CustomizeDashboardModal({
           className="w-full max-w-4xl max-h-[90vh] bg-white dark:bg-gray-900 rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-gray-100 dark:border-gray-800"
         >
           {/* Header */}
-          <div className="flex items-center justify-between px-6 py-5 border-b border-gray-100 dark:border-gray-800 bg-gradient-to-r from-[#2B8A8A]/5 to-purple-500/5 dark:from-[#2B8A8A]/10 dark:to-purple-500/10">
+          <div className="flex items-center justify-between px-6 py-5 border-b border-gray-100 dark:border-gray-800 bg-gradient-to-r from-[#0D9488]/5 to-purple-500/5 dark:from-[#0D9488]/10 dark:to-purple-500/10">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#2B8A8A] to-purple-600 flex items-center justify-center shadow-lg shadow-[#2B8A8A]/25">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#0D9488] to-purple-600 flex items-center justify-center shadow-lg shadow-[#F59E0B]/25">
                 <Sparkles className="h-6 w-6 text-white" />
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                  <h2 className="text-xl font-bold text-[#0F172A] dark:text-white">
                     Customize Dashboard
                   </h2>
                   <Badge className="bg-gradient-to-r from-amber-500 to-amber-600 text-white border-0">
@@ -283,7 +283,7 @@ export function CustomizeDashboardModal({
                   {/* Selected Metrics */}
                   {selectedMetricsObjects.length > 0 && (
                     <div>
-                      <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                      <h3 className="text-sm font-semibold text-[#0F172A] dark:text-white mb-3 flex items-center gap-2">
                         <Check className="h-4 w-4 text-green-600" />
                         Selected Metrics ({selectedMetrics.length}/{MAX_METRICS})
                       </h3>
@@ -311,7 +311,7 @@ export function CustomizeDashboardModal({
                   {/* Available Metrics */}
                   {unselectedMetrics.length > 0 && (
                     <div>
-                      <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                      <h3 className="text-sm font-semibold text-[#0F172A] dark:text-white mb-3 flex items-center gap-2">
                         Available Metrics
                         {selectedMetrics.length >= MAX_METRICS && (
                           <span className="text-xs font-normal text-amber-600 dark:text-amber-400">
@@ -341,7 +341,7 @@ export function CustomizeDashboardModal({
                 <div className="flex-1 overflow-y-auto max-h-[calc(90vh-280px)] pr-2">
                   <div className="space-y-2">
                     <div className="flex items-center gap-2 mb-3">
-                      <h3 className="text-sm font-semibold text-gray-900 dark:text-white">
+                      <h3 className="text-sm font-semibold text-[#0F172A] dark:text-white">
                         Dashboard Sections
                       </h3>
                       <p className="text-xs text-gray-500 dark:text-gray-400">
@@ -382,7 +382,7 @@ export function CustomizeDashboardModal({
               <Button
                 variant="ghost"
                 onClick={handleReset}
-                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white gap-2"
+                className="text-gray-600 dark:text-gray-400 hover:text-[#0F172A] dark:hover:text-white gap-2"
               >
                 <RotateCcw className="h-4 w-4" />
                 Reset to Defaults
@@ -396,7 +396,7 @@ export function CustomizeDashboardModal({
                   disabled={!hasChanges || isSaving}
                   className={`gap-2 ${
                     hasChanges && !isSaving
-                      ? "bg-gradient-to-r from-[#2B8A8A] to-purple-600 hover:from-[#237070] hover:to-purple-700 text-white shadow-lg shadow-[#2B8A8A]/25"
+                      ? "bg-gradient-to-r from-[#0D9488] to-purple-600 hover:from-[#237070] hover:to-purple-700 text-white shadow-lg shadow-[#F59E0B]/25"
                       : ""
                   }`}
                 >
@@ -443,10 +443,10 @@ function MetricCard({
     <div
       className={`group relative rounded-xl border p-4 transition-all cursor-pointer ${
         isSelected
-          ? "bg-gradient-to-br from-[#2B8A8A]/5 to-purple-500/5 dark:from-[#2B8A8A]/10 dark:to-purple-500/10 border-[#2B8A8A]/30 dark:border-[#2B8A8A]/50 shadow-md"
+          ? "bg-gradient-to-br from-[#0D9488]/5 to-purple-500/5 dark:from-[#0D9488]/10 dark:to-purple-500/10 border-[#0D9488]/30 dark:border-[#0D9488]/50 shadow-md"
           : isDisabled
           ? "bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 opacity-50 cursor-not-allowed"
-          : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-[#2B8A8A]/30 dark:hover:border-[#2B8A8A]/50 hover:shadow-md"
+          : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-[#0D9488]/30 dark:hover:border-[#0D9488]/50 hover:shadow-md"
       }`}
       onClick={() => !isDisabled && onToggle(metric.id)}
     >
@@ -466,7 +466,7 @@ function MetricCard({
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2">
-            <h4 className="font-semibold text-gray-900 dark:text-white text-sm">
+            <h4 className="font-semibold text-[#0F172A] dark:text-white text-sm">
               {metric.label}
             </h4>
             {isSelected && (
@@ -533,7 +533,7 @@ function SectionCard({
       <div
         className={`group relative rounded-xl border p-4 transition-all ${
           section.visible
-            ? "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-[#2B8A8A]/30 dark:hover:border-[#2B8A8A]/50 hover:shadow-md"
+            ? "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-[#0D9488]/30 dark:hover:border-[#0D9488]/50 hover:shadow-md"
             : "bg-gray-50 dark:bg-gray-800/50 border-gray-200 dark:border-gray-700 opacity-60"
         }`}
       >
@@ -541,12 +541,12 @@ function SectionCard({
           <div className="text-gray-400 dark:text-gray-500 cursor-grab active:cursor-grabbing">
             <GripVertical className="h-5 w-5" />
           </div>
-          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#2B8A8A] to-purple-600 flex items-center justify-center flex-shrink-0">
+          <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#0D9488] to-purple-600 flex items-center justify-center flex-shrink-0">
             {Icon && <Icon className="h-5 w-5 text-white" />}
           </div>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2">
-              <h4 className="font-semibold text-gray-900 dark:text-white text-sm">
+              <h4 className="font-semibold text-[#0F172A] dark:text-white text-sm">
                 {definition.label}
               </h4>
               <Badge
@@ -564,7 +564,7 @@ function SectionCard({
             onClick={() => onToggleVisibility(section.id)}
             className={`p-2 rounded-lg transition-colors ${
               section.visible
-                ? "text-[#2B8A8A] hover:bg-[#2B8A8A]/10"
+                ? "text-[#0D9488] hover:bg-[#0D9488]/10"
                 : "text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
             }`}
           >

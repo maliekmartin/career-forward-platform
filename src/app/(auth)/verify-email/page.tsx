@@ -106,8 +106,8 @@ function VerifyEmailContent() {
         <div className="bg-white rounded-2xl p-8 border border-gray-100 shadow-sm">
           {status === "loading" && (
             <div className="text-center">
-              <Loader2 className="h-12 w-12 text-[#2B8A8A] mx-auto mb-4 animate-spin" />
-              <h1 className="text-xl font-bold text-gray-900 mb-2">Verifying your email...</h1>
+              <Loader2 className="h-12 w-12 text-[#0D9488] mx-auto mb-4 animate-spin" />
+              <h1 className="text-xl font-bold text-[#0F172A] mb-2">Verifying your email...</h1>
               <p className="text-gray-600">Please wait while we verify your email address.</p>
             </div>
           )}
@@ -117,11 +117,11 @@ function VerifyEmailContent() {
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <CheckCircle className="h-10 w-10 text-green-600" />
               </div>
-              <h1 className="text-xl font-bold text-gray-900 mb-2">Email Verified!</h1>
+              <h1 className="text-xl font-bold text-[#0F172A] mb-2">Email Verified!</h1>
               <p className="text-gray-600 mb-6">{message}</p>
               <Link
                 href="/signin"
-                className="inline-flex items-center justify-center w-full bg-[#2B8A8A] text-white font-semibold py-3 px-6 rounded-lg hover:bg-[#247070] transition-colors"
+                className="inline-flex items-center justify-center w-full bg-[#0D9488] text-white font-semibold py-3 px-6 rounded-lg hover:bg-[#247070] transition-colors"
               >
                 Sign in to your account
               </Link>
@@ -133,11 +133,11 @@ function VerifyEmailContent() {
               <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <CheckCircle className="h-10 w-10 text-blue-600" />
               </div>
-              <h1 className="text-xl font-bold text-gray-900 mb-2">Already Verified</h1>
+              <h1 className="text-xl font-bold text-[#0F172A] mb-2">Already Verified</h1>
               <p className="text-gray-600 mb-6">{message}</p>
               <Link
                 href="/signin"
-                className="inline-flex items-center justify-center w-full bg-[#2B8A8A] text-white font-semibold py-3 px-6 rounded-lg hover:bg-[#247070] transition-colors"
+                className="inline-flex items-center justify-center w-full bg-[#0D9488] text-white font-semibold py-3 px-6 rounded-lg hover:bg-[#247070] transition-colors"
               >
                 Sign in to your account
               </Link>
@@ -149,7 +149,7 @@ function VerifyEmailContent() {
               <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <XCircle className="h-10 w-10 text-red-600" />
               </div>
-              <h1 className="text-xl font-bold text-gray-900 mb-2">
+              <h1 className="text-xl font-bold text-[#0F172A] mb-2">
                 {status === "expired" ? "Link Expired" : "Verification Failed"}
               </h1>
               <p className="text-gray-600 mb-6">{message}</p>
@@ -164,12 +164,12 @@ function VerifyEmailContent() {
                     placeholder="your@email.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#2B8A8A] focus:border-transparent"
+                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0D9488] focus:border-transparent"
                   />
                   <button
                     onClick={handleResendVerification}
                     disabled={!email || resending}
-                    className="inline-flex items-center justify-center w-full bg-[#2B8A8A] text-white font-semibold py-3 px-6 rounded-lg hover:bg-[#247070] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="inline-flex items-center justify-center w-full bg-[#0D9488] text-white font-semibold py-3 px-6 rounded-lg hover:bg-[#247070] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {resending ? (
                       <>
@@ -203,7 +203,7 @@ function VerifyEmailContent() {
 
         <p className="text-center text-sm text-gray-500 mt-6">
           Need help?{" "}
-          <Link href="/contact" className="text-[#2B8A8A] hover:underline font-medium">
+          <Link href="/contact" className="text-[#0D9488] hover:underline font-medium">
             Contact support
           </Link>
         </p>
@@ -216,7 +216,7 @@ function LoadingFallback() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#FAFBFC]">
       <div className="text-center">
-        <Loader2 className="h-12 w-12 text-[#2B8A8A] mx-auto mb-4 animate-spin" />
+        <Loader2 className="h-12 w-12 text-[#0D9488] mx-auto mb-4 animate-spin" />
         <p className="text-gray-600">Loading...</p>
       </div>
     </div>

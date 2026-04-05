@@ -61,7 +61,7 @@ function AnimatedSection({ children, className = "", delay = 0 }: { children: Re
 
 // Bento Feature Card - Large
 function BentoCardLarge({ feature, index, audience }: { feature: typeof seekerFeatures[0]; index: number; audience: string }) {
-  const accentColor = audience === "seekers" ? "#2B8A8A" : "#374151";
+  const accentColor = audience === "seekers" ? "#0D9488" : "#0F172A";
 
   return (
     <motion.div
@@ -83,7 +83,7 @@ function BentoCardLarge({ feature, index, audience }: { feature: typeof seekerFe
           <feature.icon className="h-8 w-8" style={{ color: accentColor }} />
         </motion.div>
 
-        <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-[#2B8A8A] transition-colors">
+        <h3 className="text-2xl font-bold text-[#0F172A] mb-4 group-hover:text-[#0D9488] transition-colors">
           {feature.title}
         </h3>
 
@@ -102,7 +102,7 @@ function BentoCardLarge({ feature, index, audience }: { feature: typeof seekerFe
 
 // Bento Feature Card - Small
 function BentoCardSmall({ feature, index, audience }: { feature: typeof seekerFeatures[0]; index: number; audience: string }) {
-  const accentColor = audience === "seekers" ? "#2B8A8A" : "#374151";
+  const accentColor = audience === "seekers" ? "#0D9488" : "#0F172A";
 
   return (
     <motion.div
@@ -122,7 +122,7 @@ function BentoCardSmall({ feature, index, audience }: { feature: typeof seekerFe
           <feature.icon className="h-6 w-6" style={{ color: accentColor }} />
         </motion.div>
 
-        <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-[#2B8A8A] transition-colors">
+        <h3 className="text-lg font-semibold text-[#0F172A] mb-2 group-hover:text-[#0D9488] transition-colors">
           {feature.title}
         </h3>
 
@@ -136,7 +136,7 @@ function BentoCardSmall({ feature, index, audience }: { feature: typeof seekerFe
 
 // Process step card
 function ProcessStep({ step, index, isLast, audience }: { step: typeof seekerSteps[0]; index: number; isLast: boolean; audience: string }) {
-  const accentColor = audience === "seekers" ? "#2B8A8A" : "#374151";
+  const accentColor = audience === "seekers" ? "#0D9488" : "#0F172A";
 
   return (
     <motion.div
@@ -163,7 +163,7 @@ function ProcessStep({ step, index, isLast, audience }: { step: typeof seekerSte
           {step.number}
         </motion.div>
 
-        <h3 className="text-xl font-bold text-gray-900 mb-3">
+        <h3 className="text-xl font-bold text-[#0F172A] mb-3">
           {step.title}
         </h3>
 
@@ -200,11 +200,11 @@ function TestimonialCard({ testimonial, index, featured = false }: { testimonial
       </p>
 
       <div className="flex items-center gap-4">
-        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#2B8A8A] to-[#374151] flex items-center justify-center text-white font-bold text-lg">
+        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#0D9488] to-[#0F172A] flex items-center justify-center text-white font-bold text-lg">
           {testimonial.avatar}
         </div>
         <div>
-          <div className="font-bold text-gray-900 text-lg">{testimonial.name}</div>
+          <div className="font-bold text-[#0F172A] text-lg">{testimonial.name}</div>
           <div className="text-gray-500">{testimonial.role}</div>
         </div>
       </div>
@@ -214,7 +214,7 @@ function TestimonialCard({ testimonial, index, featured = false }: { testimonial
 
 // Sticky CTA Component
 function StickyCTA({ audience, isVisible }: { audience: string; isVisible: boolean }) {
-  const accentColor = audience === "seekers" ? "#2B8A8A" : "#374151";
+  const accentColor = audience === "seekers" ? "#0D9488" : "#0F172A";
 
   return (
     <AnimatePresence>
@@ -278,38 +278,38 @@ const seekerFeatures = [
     icon: FileText,
     title: "Resume Builder",
     description: "Create ATS-optimized resumes with our intuitive builder. Stand out with templates designed by HR professionals.",
-    color: "#2B8A8A",
+    color: "#0D9488",
     highlight: "Most Popular",
   },
   {
     icon: Briefcase,
     title: "Job Tracker",
     description: "Never lose track of an application. Organize, follow up, and land more interviews with smart tracking.",
-    color: "#374151",
+    color: "#0F172A",
   },
   {
     icon: MessageSquare,
     title: "Interview Prep",
     description: "Practice with industry-specific questions and video coaching. Walk into every interview confident.",
-    color: "#2B8A8A",
+    color: "#0D9488",
   },
   {
     icon: Sparkles,
     title: "AI Career Coach",
     description: "Get personalized guidance from our AI-powered career coach. Available 24/7 to answer questions and keep you on track.",
-    color: "#374151",
+    color: "#0F172A",
   },
   {
     icon: Target,
     title: "Career Assessments",
     description: "Discover your strengths and find career paths that match your skills and interests.",
-    color: "#2B8A8A",
+    color: "#0D9488",
   },
   {
     icon: Bell,
     title: "Smart Reminders",
     description: "Stay on track with automated follow-up reminders and application deadline alerts.",
-    color: "#374151",
+    color: "#0F172A",
   },
 ];
 
@@ -319,38 +319,38 @@ const orgFeatures = [
     icon: Users,
     title: "Caseload Management",
     description: "Manage your entire caseload from one dashboard. See progress, engagement, and outcomes at a glance.",
-    color: "#374151",
+    color: "#0F172A",
     highlight: "Core Feature",
   },
   {
     icon: TrendingUp,
     title: "Outcome Tracking",
     description: "Track job placements, interview rates, and success metrics. Generate reports for stakeholders and funders.",
-    color: "#374151",
+    color: "#0F172A",
   },
   {
     icon: ClipboardCheck,
     title: "Exit Data & Reporting",
     description: "Capture exit wages, job titles, hours, and placement data. Generate comprehensive reports for funders.",
-    color: "#374151",
+    color: "#0F172A",
   },
   {
     icon: Shield,
     title: "Privacy Controls",
     description: "Job seekers control what coaches can see. Build trust with transparent, consent-based data sharing.",
-    color: "#374151",
+    color: "#0F172A",
   },
   {
     icon: MessageSquare,
     title: "In-App Messaging",
     description: "Communicate directly with job seekers. Full transparency protects coaches and documents interactions.",
-    color: "#374151",
+    color: "#0F172A",
   },
   {
     icon: PieChart,
     title: "Measurable Skill Gains",
     description: "Track skill development and training completion. Document progress for WIOA reporting requirements.",
-    color: "#374151",
+    color: "#0F172A",
   },
 ];
 
@@ -505,7 +505,7 @@ export default function LandingPage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [fetchSuccessStories]);
 
-  const accentColor = audience === "seekers" ? "#2B8A8A" : "#374151";
+  const accentColor = audience === "seekers" ? "#0D9488" : "#0F172A";
 
   return (
     <div className="min-h-screen bg-[#FAFBFC] scroll-smooth">
@@ -532,27 +532,27 @@ export default function LandingPage() {
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
-            <a href="#features" className="text-sm text-gray-600 hover:text-[#2B8A8A] transition-colors font-medium">
+            <a href="#features" className="text-sm text-gray-600 hover:text-[#0D9488] transition-colors font-medium">
               Features
             </a>
-            <a href="#how-it-works" className="text-sm text-gray-600 hover:text-[#2B8A8A] transition-colors font-medium">
+            <a href="#how-it-works" className="text-sm text-gray-600 hover:text-[#0D9488] transition-colors font-medium">
               How It Works
             </a>
-            <a href="#testimonials" className="text-sm text-gray-600 hover:text-[#2B8A8A] transition-colors font-medium">
+            <a href="#testimonials" className="text-sm text-gray-600 hover:text-[#0D9488] transition-colors font-medium">
               Stories
             </a>
-            <Link href="/faq" className="text-sm text-gray-600 hover:text-[#2B8A8A] transition-colors font-medium">
+            <Link href="/faq" className="text-sm text-gray-600 hover:text-[#0D9488] transition-colors font-medium">
               FAQ
             </Link>
           </div>
 
           <div className="flex items-center gap-3">
-            <Button variant="ghost" size="sm" asChild className="text-gray-600 hover:text-[#2B8A8A] font-medium">
+            <Button variant="ghost" size="sm" asChild className="text-gray-600 hover:text-[#0D9488] font-medium">
               <Link href="/signin">
                 Sign In
               </Link>
             </Button>
-            <Button size="sm" asChild className="bg-[#2B8A8A] hover:bg-[#237070] text-white rounded-full px-6 font-medium shadow-lg shadow-[#2B8A8A]/25 hover:shadow-xl hover:shadow-[#2B8A8A]/30 transition-all">
+            <Button size="sm" asChild className="bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-full px-6 font-medium shadow-lg shadow-[#F59E0B]/25 hover:shadow-xl hover:shadow-[#F59E0B]/30 transition-all">
               <Link href="/register">
                 Get Started Free
               </Link>
@@ -590,7 +590,7 @@ export default function LandingPage() {
                 className="flex items-center justify-center lg:justify-start mb-8"
               >
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-lg shadow-gray-200/50 border border-gray-100">
-                  <Sparkles className="h-4 w-4 text-[#2B8A8A]" />
+                  <Sparkles className="h-4 w-4 text-[#0D9488]" />
                   <span className="text-sm font-medium text-gray-700">100% Free for Job Seekers</span>
                 </div>
               </motion.div>
@@ -602,7 +602,7 @@ export default function LandingPage() {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="mb-8"
             >
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] text-gray-900">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] text-[#0F172A]">
                 <AnimatePresence mode="wait">
                   <motion.span
                     key={audience}
@@ -726,7 +726,7 @@ export default function LandingPage() {
                   variant="ghost"
                   size="lg"
                   asChild
-                  className="rounded-full px-8 h-14 text-base font-medium text-gray-600 hover:text-[#2B8A8A] hover:bg-[#2B8A8A]/5 transition-all duration-300"
+                  className="rounded-full px-8 h-14 text-base font-medium text-gray-600 hover:text-[#0D9488] hover:bg-[#0D9488]/5 transition-all duration-300"
                 >
                   <Link href="/waitlist">
                     <Sparkles className="mr-2 h-4 w-4" />
@@ -746,7 +746,7 @@ export default function LandingPage() {
             >
               {(audience === "seekers" ? seekerStats : orgStats).map((stat, index) => (
                 <div key={index} className="text-center lg:text-left">
-                  <div className="text-3xl md:text-4xl font-bold text-gray-900">{stat.value}</div>
+                  <div className="text-3xl md:text-4xl font-bold text-[#0F172A]">{stat.value}</div>
                   <div className="text-sm text-gray-500 mt-1 font-medium">{stat.label}</div>
                 </div>
               ))}
@@ -890,7 +890,7 @@ export default function LandingPage() {
                 {audience === "seekers" ? "Powerful Features" : "Platform Capabilities"}
               </span>
             </div>
-            <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+            <h2 className="text-5xl md:text-6xl font-bold text-[#0F172A] mb-6">
               {audience === "seekers"
                 ? "Everything you need to succeed"
                 : "Tools to drive outcomes"}
@@ -936,7 +936,7 @@ export default function LandingPage() {
                   })()}
                 </motion.div>
 
-                <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-[#2B8A8A] transition-colors">
+                <h3 className="text-2xl font-bold text-[#0F172A] mb-3 group-hover:text-[#0D9488] transition-colors">
                   {(audience === "seekers" ? seekerFeatures : orgFeatures)[0].title}
                 </h3>
 
@@ -949,38 +949,38 @@ export default function LandingPage() {
                   {audience === "seekers" ? (
                     <>
                       <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <CheckCircle2 className="h-4 w-4 text-[#2B8A8A]" />
+                        <CheckCircle2 className="h-4 w-4 text-[#0D9488]" />
                         <span>ATS-Optimized</span>
                       </div>
                       <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <CheckCircle2 className="h-4 w-4 text-[#2B8A8A]" />
+                        <CheckCircle2 className="h-4 w-4 text-[#0D9488]" />
                         <span>Pro Templates</span>
                       </div>
                       <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <CheckCircle2 className="h-4 w-4 text-[#2B8A8A]" />
+                        <CheckCircle2 className="h-4 w-4 text-[#0D9488]" />
                         <span>Easy Export</span>
                       </div>
                       <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <CheckCircle2 className="h-4 w-4 text-[#2B8A8A]" />
+                        <CheckCircle2 className="h-4 w-4 text-[#0D9488]" />
                         <span>Multiple Versions</span>
                       </div>
                     </>
                   ) : (
                     <>
                       <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <CheckCircle2 className="h-4 w-4 text-[#374151]" />
+                        <CheckCircle2 className="h-4 w-4 text-[#0F172A]" />
                         <span>Real-time Updates</span>
                       </div>
                       <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <CheckCircle2 className="h-4 w-4 text-[#374151]" />
+                        <CheckCircle2 className="h-4 w-4 text-[#0F172A]" />
                         <span>Bulk Actions</span>
                       </div>
                       <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <CheckCircle2 className="h-4 w-4 text-[#374151]" />
+                        <CheckCircle2 className="h-4 w-4 text-[#0F172A]" />
                         <span>Smart Filters</span>
                       </div>
                       <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <CheckCircle2 className="h-4 w-4 text-[#374151]" />
+                        <CheckCircle2 className="h-4 w-4 text-[#0F172A]" />
                         <span>Quick Notes</span>
                       </div>
                     </>
@@ -1067,7 +1067,7 @@ export default function LandingPage() {
                       <feature.icon className="h-6 w-6" style={{ color: accentColor }} />
                     </motion.div>
                     <div>
-                      <h3 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-[#2B8A8A] transition-colors">
+                      <h3 className="text-lg font-bold text-[#0F172A] mb-1 group-hover:text-[#0D9488] transition-colors">
                         {feature.title}
                       </h3>
                       <p className="text-gray-600 text-sm leading-relaxed">
@@ -1101,7 +1101,7 @@ export default function LandingPage() {
                       <feature.icon className="h-6 w-6" style={{ color: accentColor }} />
                     </motion.div>
                     <div>
-                      <h3 className="text-lg font-bold text-gray-900 mb-1 group-hover:text-[#2B8A8A] transition-colors">
+                      <h3 className="text-lg font-bold text-[#0F172A] mb-1 group-hover:text-[#0D9488] transition-colors">
                         {feature.title}
                       </h3>
                       <p className="text-gray-600 text-sm leading-relaxed">
@@ -1136,7 +1136,7 @@ export default function LandingPage() {
                   <GraduationCap className="h-6 w-6" style={{ color: accentColor }} />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-1">
+                  <h3 className="text-lg font-bold text-[#0F172A] mb-1">
                     Learning Management System
                   </h3>
                   <p className="text-gray-600 text-sm leading-relaxed">
@@ -1182,7 +1182,7 @@ export default function LandingPage() {
                 See it in action
               </span>
             </div>
-            <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+            <h2 className="text-5xl md:text-6xl font-bold text-[#0F172A] mb-6">
               {audience === "seekers"
                 ? "Your personalized dashboard"
                 : "Powerful coach dashboard"}
@@ -1231,7 +1231,7 @@ export default function LandingPage() {
                     >
                       {/* Progress Card */}
                       <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
-                        <h4 className="font-semibold text-gray-900 mb-4">Your Progress</h4>
+                        <h4 className="font-semibold text-[#0F172A] mb-4">Your Progress</h4>
                         <div className="space-y-4">
                           {[
                             { label: "Profile", value: 100 },
@@ -1260,7 +1260,7 @@ export default function LandingPage() {
 
                       {/* Applications Card */}
                       <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
-                        <h4 className="font-semibold text-gray-900 mb-4">Recent Applications</h4>
+                        <h4 className="font-semibold text-[#0F172A] mb-4">Recent Applications</h4>
                         <div className="space-y-3">
                           {[
                             { company: "Tech Co", status: "Interview" },
@@ -1268,8 +1268,8 @@ export default function LandingPage() {
                             { company: "StartupXYZ", status: "Review" },
                           ].map((app, i) => (
                             <div key={i} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                              <span className="text-sm font-medium text-gray-900">{app.company}</span>
-                              <span className="text-xs px-2 py-1 rounded-full bg-[#2B8A8A]/10 text-[#2B8A8A] font-medium">
+                              <span className="text-sm font-medium text-[#0F172A]">{app.company}</span>
+                              <span className="text-xs px-2 py-1 rounded-full bg-[#0D9488]/10 text-[#0D9488] font-medium">
                                 {app.status}
                               </span>
                             </div>
@@ -1279,7 +1279,7 @@ export default function LandingPage() {
 
                       {/* Quick Actions Card */}
                       <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
-                        <h4 className="font-semibold text-gray-900 mb-4">Quick Actions</h4>
+                        <h4 className="font-semibold text-[#0F172A] mb-4">Quick Actions</h4>
                         <div className="space-y-3">
                           {[
                             { icon: FileText, label: "Update Resume" },
@@ -1304,7 +1304,7 @@ export default function LandingPage() {
                     >
                       {/* Stats Overview */}
                       <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
-                        <h4 className="font-semibold text-gray-900 mb-4">Overview</h4>
+                        <h4 className="font-semibold text-[#0F172A] mb-4">Overview</h4>
                         <div className="grid grid-cols-2 gap-4">
                           {[
                             { value: "24", label: "Active" },
@@ -1322,7 +1322,7 @@ export default function LandingPage() {
 
                       {/* Caseload */}
                       <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
-                        <h4 className="font-semibold text-gray-900 mb-4">Active Caseload</h4>
+                        <h4 className="font-semibold text-[#0F172A] mb-4">Active Caseload</h4>
                         <div className="space-y-3">
                           {[
                             { name: "Marcus R.", milestone: "Interview" },
@@ -1330,10 +1330,10 @@ export default function LandingPage() {
                             { name: "Diana O.", milestone: "Offer" },
                           ].map((person, i) => (
                             <div key={i} className="flex items-center gap-3 p-2">
-                              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#374151] to-[#1F2937] flex items-center justify-center text-white text-xs font-medium">
+                              <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#0F172A] to-[#1F2937] flex items-center justify-center text-white text-xs font-medium">
                                 {person.name[0]}
                               </div>
-                              <span className="text-sm font-medium text-gray-900 flex-1">{person.name}</span>
+                              <span className="text-sm font-medium text-[#0F172A] flex-1">{person.name}</span>
                               <span className="text-xs px-2 py-1 rounded-full bg-emerald-100 text-emerald-700 font-medium">
                                 {person.milestone}
                               </span>
@@ -1344,7 +1344,7 @@ export default function LandingPage() {
 
                       {/* Today's Schedule */}
                       <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-100">
-                        <h4 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                        <h4 className="font-semibold text-[#0F172A] mb-4 flex items-center gap-2">
                           <Calendar className="h-4 w-4 text-gray-400" />
                           Today
                         </h4>
@@ -1378,7 +1378,7 @@ export default function LandingPage() {
                   <CheckCircle2 className="h-5 w-5 text-green-600" />
                 </div>
                 <div>
-                  <div className="text-sm font-medium text-gray-900">Task Complete</div>
+                  <div className="text-sm font-medium text-[#0F172A]">Task Complete</div>
                   <div className="text-xs text-gray-500">Just now</div>
                 </div>
               </div>
@@ -1394,7 +1394,7 @@ export default function LandingPage() {
                   <TrendingUp className="h-5 w-5" style={{ color: accentColor }} />
                 </div>
                 <div>
-                  <div className="text-sm font-medium text-gray-900">+3 Applications</div>
+                  <div className="text-sm font-medium text-[#0F172A]">+3 Applications</div>
                   <div className="text-xs text-gray-500">This week</div>
                 </div>
               </div>
@@ -1416,7 +1416,7 @@ export default function LandingPage() {
                 {audience === "seekers" ? "Simple Process" : "Easy Setup"}
               </span>
             </div>
-            <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+            <h2 className="text-5xl md:text-6xl font-bold text-[#0F172A] mb-6">
               {audience === "seekers"
                 ? "Your path to employment"
                 : "Get started in minutes"}
@@ -1452,7 +1452,7 @@ export default function LandingPage() {
                 {audience === "seekers" ? "Success Stories" : "Partner Testimonials"}
               </span>
             </div>
-            <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+            <h2 className="text-5xl md:text-6xl font-bold text-[#0F172A] mb-6">
               {audience === "seekers"
                 ? "Real people, real results"
                 : "Trusted by leading organizations"}
@@ -1523,11 +1523,11 @@ export default function LandingPage() {
             <AnimatedSection>
               {audience === "seekers" ? (
                 <>
-                  <div className="inline-flex items-center gap-2 bg-[#2B8A8A]/10 rounded-full px-5 py-2.5 mb-8">
-                    <Sparkles className="h-4 w-4 text-[#2B8A8A]" />
-                    <span className="text-sm font-semibold text-[#2B8A8A]">AI-Powered Guidance</span>
+                  <div className="inline-flex items-center gap-2 bg-[#0D9488]/10 rounded-full px-5 py-2.5 mb-8">
+                    <Sparkles className="h-4 w-4 text-[#0D9488]" />
+                    <span className="text-sm font-semibold text-[#0D9488]">AI-Powered Guidance</span>
                   </div>
-                  <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-8 leading-tight">
+                  <h2 className="text-5xl md:text-6xl font-bold text-[#0F172A] mb-8 leading-tight">
                     Your personal AI career coach
                   </h2>
                   <p className="text-xl text-gray-600 mb-10 leading-relaxed">
@@ -1549,7 +1549,7 @@ export default function LandingPage() {
                         transition={{ delay: index * 0.1 }}
                         viewport={{ once: true }}
                       >
-                        <CheckCircle2 className="h-6 w-6 text-[#2B8A8A] flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 className="h-6 w-6 text-[#0D9488] flex-shrink-0 mt-0.5" />
                         <span className="text-gray-700 text-lg">{item}</span>
                       </motion.li>
                     ))}
@@ -1558,7 +1558,7 @@ export default function LandingPage() {
                   <Button
                     size="lg"
                     asChild
-                    className="bg-[#2B8A8A] hover:bg-[#237070] text-white rounded-full px-10 h-14 font-semibold shadow-lg hover:shadow-xl transition-all"
+                    className="bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-full px-10 h-14 font-semibold shadow-lg hover:shadow-xl transition-all"
                   >
                     <Link href="/register">
                       Get Started Free
@@ -1568,11 +1568,11 @@ export default function LandingPage() {
                 </>
               ) : (
                 <>
-                  <div className="inline-flex items-center gap-2 bg-[#374151]/10 rounded-full px-5 py-2.5 mb-8">
-                    <Users className="h-4 w-4 text-[#374151]" />
-                    <span className="text-sm font-semibold text-[#374151]">For Workforce Partners</span>
+                  <div className="inline-flex items-center gap-2 bg-[#0F172A]/10 rounded-full px-5 py-2.5 mb-8">
+                    <Users className="h-4 w-4 text-[#0F172A]" />
+                    <span className="text-sm font-semibold text-[#0F172A]">For Workforce Partners</span>
                   </div>
-                  <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-8 leading-tight">
+                  <h2 className="text-5xl md:text-6xl font-bold text-[#0F172A] mb-8 leading-tight">
                     Empower your coaches with better tools
                   </h2>
                   <p className="text-xl text-gray-600 mb-10 leading-relaxed">
@@ -1594,7 +1594,7 @@ export default function LandingPage() {
                         transition={{ delay: index * 0.1 }}
                         viewport={{ once: true }}
                       >
-                        <CheckCircle2 className="h-6 w-6 text-[#374151] flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 className="h-6 w-6 text-[#0F172A] flex-shrink-0 mt-0.5" />
                         <span className="text-gray-700 text-lg">{item}</span>
                       </motion.li>
                     ))}
@@ -1603,7 +1603,7 @@ export default function LandingPage() {
                   <Button
                     size="lg"
                     asChild
-                    className="bg-[#374151] hover:bg-[#1F2937] text-white rounded-full px-10 h-14 font-semibold shadow-lg hover:shadow-xl transition-all"
+                    className="bg-[#0F172A] hover:bg-[#1F2937] text-white rounded-full px-10 h-14 font-semibold shadow-lg hover:shadow-xl transition-all"
                   >
                     <Link href="/pricing">
                       View Pricing
@@ -1623,8 +1623,8 @@ export default function LandingPage() {
                 {audience === "seekers" ? (
                   <>
                     <div className="flex items-center justify-between p-6 border-b border-gray-100">
-                      <h3 className="font-bold text-gray-900 text-xl">Your Progress</h3>
-                      <span className="text-sm bg-[#2B8A8A]/10 text-[#2B8A8A] px-4 py-1.5 rounded-full font-semibold">
+                      <h3 className="font-bold text-[#0F172A] text-xl">Your Progress</h3>
+                      <span className="text-sm bg-[#0D9488]/10 text-[#0D9488] px-4 py-1.5 rounded-full font-semibold">
                         Track Your Journey
                       </span>
                     </div>
@@ -1645,14 +1645,14 @@ export default function LandingPage() {
                         >
                           <div className="flex items-center justify-between mb-2">
                             <div className="flex items-center gap-3">
-                              <item.icon className="h-5 w-5 text-[#2B8A8A]" />
-                              <span className="font-medium text-gray-900">{item.label}</span>
+                              <item.icon className="h-5 w-5 text-[#0D9488]" />
+                              <span className="font-medium text-[#0F172A]">{item.label}</span>
                             </div>
-                            <span className="text-sm text-[#2B8A8A] font-semibold">{item.progress}%</span>
+                            <span className="text-sm text-[#0D9488] font-semibold">{item.progress}%</span>
                           </div>
                           <div className="h-2.5 bg-gray-100 rounded-full overflow-hidden">
                             <motion.div
-                              className="h-full bg-[#2B8A8A] rounded-full"
+                              className="h-full bg-[#0D9488] rounded-full"
                               initial={{ width: 0 }}
                               whileInView={{ width: `${item.progress}%` }}
                               transition={{ duration: 1, delay: index * 0.2 }}
@@ -1665,11 +1665,11 @@ export default function LandingPage() {
 
                     <div className="p-6 bg-gray-50 border-t border-gray-100">
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#2B8A8A] to-[#374151] flex items-center justify-center text-white font-bold">
+                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#0D9488] to-[#0F172A] flex items-center justify-center text-white font-bold">
                           <Sparkles className="h-5 w-5" />
                         </div>
                         <div>
-                          <p className="font-medium text-gray-900">AI Career Coach</p>
+                          <p className="font-medium text-[#0F172A]">AI Career Coach</p>
                           <p className="text-sm text-gray-500">Available 24/7 to help you succeed</p>
                         </div>
                       </div>
@@ -1680,7 +1680,7 @@ export default function LandingPage() {
                     {/* Stats Row */}
                     <div className="grid grid-cols-3 gap-4 p-6 border-b border-gray-100">
                       {[
-                        { value: "12", label: "Job Seekers", color: "text-[#2B8A8A]" },
+                        { value: "12", label: "Job Seekers", color: "text-[#0D9488]" },
                         { value: "3", label: "Placements", color: "text-emerald-600" },
                         { value: "5", label: "Tasks Due", color: "text-purple-600" },
                       ].map((stat, index) => (
@@ -1701,8 +1701,8 @@ export default function LandingPage() {
                     {/* Caseload Preview */}
                     <div className="p-6">
                       <div className="flex items-center justify-between mb-4">
-                        <h4 className="font-bold text-gray-900">Active Caseload</h4>
-                        <span className="text-sm text-[#2B8A8A] font-medium cursor-pointer hover:underline">View All</span>
+                        <h4 className="font-bold text-[#0F172A]">Active Caseload</h4>
+                        <span className="text-sm text-[#0D9488] font-medium cursor-pointer hover:underline">View All</span>
                       </div>
                       <div className="space-y-3">
                         {[
@@ -1719,7 +1719,7 @@ export default function LandingPage() {
                             className="flex items-center gap-4 p-3 rounded-xl hover:bg-gray-50 transition-colors cursor-pointer"
                           >
                             <div className="relative">
-                              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#374151] to-[#1F2937] flex items-center justify-center text-white font-medium">
+                              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#0F172A] to-[#1F2937] flex items-center justify-center text-white font-medium">
                                 {person.avatar}
                               </div>
                               {person.online && (
@@ -1727,7 +1727,7 @@ export default function LandingPage() {
                               )}
                             </div>
                             <div className="flex-1 min-w-0">
-                              <span className="font-medium text-gray-900">{person.name}</span>
+                              <span className="font-medium text-[#0F172A]">{person.name}</span>
                             </div>
                             <span className={`text-xs px-3 py-1 rounded-full font-medium ${person.milestoneColor}`}>
                               {person.milestone}
@@ -1740,15 +1740,15 @@ export default function LandingPage() {
                     {/* Schedule */}
                     <div className="p-6 border-t border-gray-100 bg-gray-50/50">
                       <div className="flex items-center justify-between mb-4">
-                        <h4 className="font-bold text-gray-900 flex items-center gap-2">
-                          <Calendar className="w-4 h-4 text-[#374151]" />
+                        <h4 className="font-bold text-[#0F172A] flex items-center gap-2">
+                          <Calendar className="w-4 h-4 text-[#0F172A]" />
                           Today
                         </h4>
                         <span className="text-sm text-gray-500">3 meetings</span>
                       </div>
                       <div className="space-y-2">
                         {[
-                          { time: "9:00 AM", name: "Marcus R.", type: "Check-in", color: "border-l-[#2B8A8A]" },
+                          { time: "9:00 AM", name: "Marcus R.", type: "Check-in", color: "border-l-[#0D9488]" },
                           { time: "11:00 AM", name: "Aisha P.", type: "Resume Review", color: "border-l-purple-500" },
                           { time: "2:00 PM", name: "Diana O.", type: "Offer Discussion", color: "border-l-emerald-500" },
                         ].map((meeting, index) => (
@@ -1761,7 +1761,7 @@ export default function LandingPage() {
                             className={`flex items-center gap-4 p-3 bg-white rounded-lg border-l-4 ${meeting.color}`}
                           >
                             <span className="text-sm text-gray-500 font-medium w-20">{meeting.time}</span>
-                            <span className="text-sm text-gray-900 font-medium">{meeting.name}</span>
+                            <span className="text-sm text-[#0F172A] font-medium">{meeting.name}</span>
                             <span className="text-sm text-gray-400 ml-auto">{meeting.type}</span>
                           </motion.div>
                         ))}
@@ -1802,7 +1802,7 @@ export default function LandingPage() {
                     <Button
                       size="lg"
                       asChild
-                      className="bg-white text-[#2B8A8A] hover:bg-gray-100 rounded-full px-12 h-16 text-lg font-bold shadow-2xl hover:scale-105 transition-all duration-300"
+                      className="bg-white text-[#0D9488] hover:bg-gray-100 rounded-full px-12 h-16 text-lg font-bold shadow-2xl hover:scale-105 transition-all duration-300"
                     >
                       <Link href="/register">
                         Get Started Free
@@ -1833,7 +1833,7 @@ export default function LandingPage() {
                     <Button
                       size="lg"
                       asChild
-                      className="bg-white text-[#374151] hover:bg-gray-100 rounded-full px-12 h-16 text-lg font-bold shadow-2xl hover:scale-105 transition-all duration-300"
+                      className="bg-white text-[#0F172A] hover:bg-gray-100 rounded-full px-12 h-16 text-lg font-bold shadow-2xl hover:scale-105 transition-all duration-300"
                     >
                       <Link href="/demo">
                         Request a Demo
@@ -1875,26 +1875,26 @@ export default function LandingPage() {
               </p>
             </div>
             <div>
-              <h4 className="font-bold text-gray-900 mb-5">Product</h4>
+              <h4 className="font-bold text-[#0F172A] mb-5">Product</h4>
               <ul className="space-y-4 text-gray-500">
-                <li><Link href="/register" className="hover:text-[#2B8A8A] transition-colors">Get Started</Link></li>
-                <li><Link href="/signin" className="hover:text-[#2B8A8A] transition-colors">Sign In</Link></li>
-                <li><a href="#features" className="hover:text-[#2B8A8A] transition-colors">Features</a></li>
-                <li><Link href="/pricing" className="hover:text-[#2B8A8A] transition-colors">Pricing</Link></li>
+                <li><Link href="/register" className="hover:text-[#0D9488] transition-colors">Get Started</Link></li>
+                <li><Link href="/signin" className="hover:text-[#0D9488] transition-colors">Sign In</Link></li>
+                <li><a href="#features" className="hover:text-[#0D9488] transition-colors">Features</a></li>
+                <li><Link href="/pricing" className="hover:text-[#0D9488] transition-colors">Pricing</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold text-gray-900 mb-5">Resources</h4>
+              <h4 className="font-bold text-[#0F172A] mb-5">Resources</h4>
               <ul className="space-y-4 text-gray-500">
-                <li><Link href="/faq" className="hover:text-[#2B8A8A] transition-colors">FAQ</Link></li>
-                <li><Link href="/demo" className="hover:text-[#2B8A8A] transition-colors">Platform Demo</Link></li>
+                <li><Link href="/faq" className="hover:text-[#0D9488] transition-colors">FAQ</Link></li>
+                <li><Link href="/demo" className="hover:text-[#0D9488] transition-colors">Platform Demo</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-bold text-gray-900 mb-5">Legal</h4>
+              <h4 className="font-bold text-[#0F172A] mb-5">Legal</h4>
               <ul className="space-y-4 text-gray-500">
-                <li><Link href="/privacy" className="hover:text-[#2B8A8A] transition-colors">Privacy Policy</Link></li>
-                <li><Link href="/terms" className="hover:text-[#2B8A8A] transition-colors">Terms of Service</Link></li>
+                <li><Link href="/privacy" className="hover:text-[#0D9488] transition-colors">Privacy Policy</Link></li>
+                <li><Link href="/terms" className="hover:text-[#0D9488] transition-colors">Terms of Service</Link></li>
               </ul>
             </div>
           </div>
@@ -1903,7 +1903,7 @@ export default function LandingPage() {
               &copy; {new Date().getFullYear()} Career Forward. All Rights Reserved.
             </p>
             <div className="flex items-center gap-2 text-gray-400">
-              <CheckCircle2 className="h-4 w-4 text-[#2B8A8A]" />
+              <CheckCircle2 className="h-4 w-4 text-[#0D9488]" />
               <span>A MartinBuiltStrategies Product</span>
             </div>
           </div>

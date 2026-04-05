@@ -36,7 +36,7 @@ export function ModernTemplate({ data }: ModernTemplateProps) {
 
   return (
     <div
-      className="min-h-full bg-white text-gray-900"
+      className="min-h-full bg-white text-[#0F172A]"
       style={{
         fontFamily: "Arial, sans-serif",
         fontSize: "11pt",
@@ -72,31 +72,31 @@ export function ModernTemplate({ data }: ModernTemplateProps) {
           >
             {contactInfo.email && (
               <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-                <Mail size={12} color="#2B8A8A" />
+                <Mail size={12} color="#0D9488" />
                 {contactInfo.email}
               </span>
             )}
             {contactInfo.phone && (
               <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-                <Phone size={12} color="#2B8A8A" />
+                <Phone size={12} color="#0D9488" />
                 {contactInfo.phone}
               </span>
             )}
             {(contactInfo.city || contactInfo.state) && (
               <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-                <MapPin size={12} color="#2B8A8A" />
+                <MapPin size={12} color="#0D9488" />
                 {[contactInfo.city, contactInfo.state].filter(Boolean).join(", ")}
               </span>
             )}
             {contactInfo.linkedinUrl && (
               <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-                <Linkedin size={12} color="#2B8A8A" />
+                <Linkedin size={12} color="#0D9488" />
                 {contactInfo.linkedinUrl.replace(/^https?:\/\/(www\.)?/, "")}
               </span>
             )}
             {contactInfo.portfolioUrl && (
               <span style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-                <Globe size={12} color="#2B8A8A" />
+                <Globe size={12} color="#0D9488" />
                 {contactInfo.portfolioUrl.replace(/^https?:\/\/(www\.)?/, "")}
               </span>
             )}
@@ -108,7 +108,7 @@ export function ModernTemplate({ data }: ModernTemplateProps) {
       <div
         style={{
           height: "3px",
-          background: "linear-gradient(to right, #2B8A8A, #4FD1C5)",
+          background: "linear-gradient(to right, #0D9488, #4FD1C5)",
           marginBottom: "20px",
           borderRadius: "2px",
         }}
@@ -121,7 +121,7 @@ export function ModernTemplate({ data }: ModernTemplateProps) {
             style={{
               fontSize: "12pt",
               fontWeight: "700",
-              color: "#2B8A8A",
+              color: "#0D9488",
               textTransform: "uppercase",
               letterSpacing: "1px",
               marginBottom: "8px",
@@ -142,7 +142,7 @@ export function ModernTemplate({ data }: ModernTemplateProps) {
             style={{
               fontSize: "12pt",
               fontWeight: "700",
-              color: "#2B8A8A",
+              color: "#0D9488",
               textTransform: "uppercase",
               letterSpacing: "1px",
               marginBottom: "12px",
@@ -236,7 +236,7 @@ export function ModernTemplate({ data }: ModernTemplateProps) {
             style={{
               fontSize: "12pt",
               fontWeight: "700",
-              color: "#2B8A8A",
+              color: "#0D9488",
               textTransform: "uppercase",
               letterSpacing: "1px",
               marginBottom: "12px",
@@ -320,7 +320,7 @@ export function ModernTemplate({ data }: ModernTemplateProps) {
             style={{
               fontSize: "12pt",
               fontWeight: "700",
-              color: "#2B8A8A",
+              color: "#0D9488",
               textTransform: "uppercase",
               letterSpacing: "1px",
               marginBottom: "8px",
@@ -342,7 +342,7 @@ export function ModernTemplate({ data }: ModernTemplateProps) {
                 key={index}
                 style={{
                   backgroundColor: "#f0f9f9",
-                  color: "#2B8A8A",
+                  color: "#0D9488",
                   padding: "4px 10px",
                   borderRadius: "4px",
                   fontSize: "10pt",
@@ -363,7 +363,7 @@ export function ModernTemplate({ data }: ModernTemplateProps) {
             style={{
               fontSize: "12pt",
               fontWeight: "700",
-              color: "#2B8A8A",
+              color: "#0D9488",
               textTransform: "uppercase",
               letterSpacing: "1px",
               marginBottom: "12px",

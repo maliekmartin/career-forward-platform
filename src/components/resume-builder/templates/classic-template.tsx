@@ -26,7 +26,7 @@ export function ClassicTemplate({ data }: ClassicTemplateProps) {
 
   return (
     <div
-      className="min-h-full bg-white text-gray-900"
+      className="min-h-full bg-white text-[#0F172A]"
       style={{
         fontFamily: "Georgia, 'Times New Roman', serif",
         fontSize: "11pt",

@@ -67,7 +67,7 @@ export function ConsentGate({ children, userEmail }: ConsentGateProps) {
   if (hasConsented === null) {
     return (
       <div className="min-h-screen bg-[#FAFBFC] flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-[#2B8A8A] border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-[#0D9488] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -82,11 +82,11 @@ export function ConsentGate({ children, userEmail }: ConsentGateProps) {
     <>
       <div className="min-h-screen bg-[#FAFBFC] flex items-center justify-center">
         <div className="text-center">
-          <h2 className="text-xl font-semibold text-gray-900 mb-2">Terms & Privacy Review Required</h2>
+          <h2 className="text-xl font-semibold text-[#0F172A] mb-2">Terms & Privacy Review Required</h2>
           <p className="text-gray-600 mb-4">Please review and accept our terms to continue.</p>
           <button
             onClick={() => setShowConsentModal(true)}
-            className="px-6 py-3 bg-[#2B8A8A] text-white rounded-xl font-medium hover:bg-[#237070] transition-colors"
+            className="px-6 py-3 bg-[#0D9488] text-white rounded-xl font-medium hover:bg-[#237070] transition-colors"
           >
             Review Terms
           </button>

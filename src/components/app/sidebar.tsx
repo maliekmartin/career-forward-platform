@@ -41,11 +41,11 @@ const tools = [
 ];
 
 const questStages = [
-  { name: "Discover", progress: 100, color: "#2B8A8A" },
-  { name: "Prepare", progress: 60, color: "#38A169" },
-  { name: "Search", progress: 0, color: "#D69E2E" },
-  { name: "Interview", progress: 0, color: "#E53E3E" },
-  { name: "Success", progress: 0, color: "#805AD5" },
+  { name: "Discover", progress: 100, color: "#0D9488" },
+  { name: "Prepare", progress: 60, color: "#0D9488" },
+  { name: "Search", progress: 0, color: "#F59E0B" },
+  { name: "Interview", progress: 0, color: "#F59E0B" },
+  { name: "Success", progress: 0, color: "#38A169" },
 ];
 
 interface UserProfile {
@@ -122,7 +122,7 @@ export function Sidebar() {
             width={180}
             height={45}
           />
-          <span className={`mt-1 text-xs font-semibold tracking-wide ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`}>
+          <span className={`mt-1 text-xs font-semibold tracking-wide ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`}>
             Job Seeker Portal
           </span>
         </Link>
@@ -134,7 +134,7 @@ export function Sidebar() {
           <span className={`text-xs font-medium uppercase tracking-wider ${isDark ? "text-gray-400" : "text-gray-500"}`}>
             Your Quest
           </span>
-          <span className={`text-xs font-semibold ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`}>
+          <span className={`text-xs font-semibold ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`}>
             {user?.questProgress ?? 32}%
           </span>
         </div>
@@ -186,7 +186,7 @@ export function Sidebar() {
                         ? "text-gray-500 cursor-not-allowed"
                         : "text-gray-400 cursor-not-allowed"
                       : isActive
-                      ? "bg-[#2B8A8A] dark:bg-[#4FD1C5] text-white dark:text-gray-900"
+                      ? "bg-[#0D9488] dark:bg-[#4FD1C5] text-white dark:text-[#0F172A]"
                       : isDark
                       ? "text-gray-400 hover:bg-gray-800 hover:text-white"
                       : "text-gray-600 hover:bg-gray-50"
@@ -226,7 +226,7 @@ export function Sidebar() {
                     href={item.href}
                     className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
                       isActive
-                        ? "bg-[#2B8A8A] dark:bg-[#4FD1C5] text-white dark:text-gray-900"
+                        ? "bg-[#0D9488] dark:bg-[#4FD1C5] text-white dark:text-[#0F172A]"
                         : isDark
                         ? "text-gray-400 hover:bg-gray-800 hover:text-white"
                         : "text-gray-600 hover:bg-gray-50"
@@ -248,7 +248,7 @@ export function Sidebar() {
             href="/achievements"
             className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
               pathname === "/achievements"
-                ? "bg-[#2B8A8A] dark:bg-[#4FD1C5] text-white dark:text-gray-900"
+                ? "bg-[#0D9488] dark:bg-[#4FD1C5] text-white dark:text-[#0F172A]"
                 : isDark
                 ? "text-gray-400 hover:bg-gray-800 hover:text-white"
                 : "text-gray-600 hover:bg-gray-50"
@@ -306,12 +306,12 @@ export function Sidebar() {
               className="w-10 h-10 rounded-full object-cover"
             />
           ) : (
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#2B8A8A]/10"}`}>
-              <User className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} />
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#0D9488]/10"}`}>
+              <User className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} />
             </div>
           )}
           <div className="flex-1 min-w-0">
-            <p className={`text-sm font-medium truncate ${isDark ? "text-white" : "text-gray-900"}`}>
+            <p className={`text-sm font-medium truncate ${isDark ? "text-white" : "text-[#0F172A]"}`}>
               {user ? `${user.firstName} ${user.lastName}` : "Loading..."}
             </p>
             <p className={`text-xs truncate ${isDark ? "text-gray-400" : "text-gray-500"}`}>

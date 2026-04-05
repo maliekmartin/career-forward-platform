@@ -37,7 +37,7 @@ export default function CoachLayout({
     return (
       <div className={`min-h-screen flex items-center justify-center ${isDark ? "bg-gray-950" : "bg-[#F5F5F5]"}`}>
         <div className="text-center">
-          <Loader2 className={`w-8 h-8 animate-spin mx-auto mb-4 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} />
+          <Loader2 className={`w-8 h-8 animate-spin mx-auto mb-4 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} />
           <p className={isDark ? "text-gray-400" : "text-gray-600"}>Verifying access...</p>
         </div>
       </div>
@@ -52,7 +52,7 @@ export default function CoachLayout({
           <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${isDark ? "bg-red-900/30" : "bg-red-100"}`}>
             <ShieldAlert className={`w-8 h-8 ${isDark ? "text-red-400" : "text-red-600"}`} />
           </div>
-          <h1 className={`text-xl font-bold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+          <h1 className={`text-xl font-bold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
             Access Restricted
           </h1>
           <p className={`mb-4 ${isDark ? "text-gray-400" : "text-gray-600"}`}>

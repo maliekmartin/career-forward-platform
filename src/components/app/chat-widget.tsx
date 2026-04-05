@@ -393,7 +393,7 @@ Downloaded: ${new Date().toLocaleString()}\\cf0\\fs24\\par
                   >
                     {/* Header */}
                     <div className={`px-4 py-3 flex items-center justify-between ${
-                      isDark ? "bg-[#4FD1C5] text-gray-900" : "bg-[#2B8A8A] text-white"
+                      isDark ? "bg-[#4FD1C5] text-[#0F172A]" : "bg-[#0D9488] text-white"
                     }`}>
                       <div className="flex items-center gap-3">
                         <div className="relative">
@@ -404,13 +404,13 @@ Downloaded: ${new Date().toLocaleString()}\\cf0\\fs24\\par
                           />
                           {conversation.participant.isOnline && (
                             <div className={`absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-green-400 rounded-full border-2 ${
-                              isDark ? "border-[#4FD1C5]" : "border-[#2B8A8A]"
+                              isDark ? "border-[#4FD1C5]" : "border-[#0D9488]"
                             }`} />
                           )}
                         </div>
                         <div>
                           <p className="font-medium text-sm">{conversation.participant.name}</p>
-                          <p className={`text-xs ${isDark ? "text-gray-900/70" : "text-white/70"}`}>
+                          <p className={`text-xs ${isDark ? "text-[#0F172A]/70" : "text-white/70"}`}>
                             {conversation.participant.isOnline ? "Active now" : "Offline"}
                           </p>
                         </div>
@@ -465,27 +465,27 @@ Downloaded: ${new Date().toLocaleString()}\\cf0\\fs24\\par
                                 className={`max-w-[80%] px-3 py-2 rounded-2xl text-sm ${
                                   isSelf
                                     ? isDark
-                                      ? "bg-[#4FD1C5] text-gray-900 rounded-br-md"
-                                      : "bg-[#2B8A8A] text-white rounded-br-md"
+                                      ? "bg-[#4FD1C5] text-[#0F172A] rounded-br-md"
+                                      : "bg-[#0D9488] text-white rounded-br-md"
                                     : isDark
                                       ? "bg-gray-700 text-gray-100 rounded-bl-md"
-                                      : "bg-white text-gray-900 rounded-bl-md shadow-sm"
+                                      : "bg-white text-[#0F172A] rounded-bl-md shadow-sm"
                                 }`}
                               >
                                 <p>{message.text}</p>
                                 <div className={`flex items-center gap-1 mt-0.5 ${isSelf ? "justify-end" : ""}`}>
                                   <span className={`text-[10px] ${
                                     isSelf
-                                      ? isDark ? "text-gray-900/60" : "text-white/60"
+                                      ? isDark ? "text-[#0F172A]/60" : "text-white/60"
                                       : isDark ? "text-gray-400" : "text-gray-400"
                                   }`}>
                                     {message.timestamp}
                                   </span>
                                   {isSelf && (
                                     message.status === "read" ? (
-                                      <CheckCheck className={`h-3 w-3 ${isDark ? "text-gray-900/60" : "text-white/60"}`} />
+                                      <CheckCheck className={`h-3 w-3 ${isDark ? "text-[#0F172A]/60" : "text-white/60"}`} />
                                     ) : (
-                                      <Check className={`h-3 w-3 ${isDark ? "text-gray-900/60" : "text-white/60"}`} />
+                                      <Check className={`h-3 w-3 ${isDark ? "text-[#0F172A]/60" : "text-white/60"}`} />
                                     )
                                   )}
                                 </div>
@@ -515,7 +515,7 @@ Downloaded: ${new Date().toLocaleString()}\\cf0\\fs24\\par
                           className={`flex-1 px-3 py-2 rounded-full text-sm focus:outline-none focus:ring-2 ${
                             isDark
                               ? "bg-gray-800 text-white placeholder-gray-500 focus:ring-[#4FD1C5]/30"
-                              : "bg-gray-100 text-gray-900 placeholder-gray-400 focus:ring-[#2B8A8A]/20"
+                              : "bg-gray-100 text-[#0F172A] placeholder-gray-400 focus:ring-[#0D9488]/20"
                           }`}
                         />
                         <button
@@ -524,7 +524,7 @@ Downloaded: ${new Date().toLocaleString()}\\cf0\\fs24\\par
                           className={`p-2 rounded-full transition-colors disabled:opacity-50 ${
                             isDark
                               ? "text-[#4FD1C5] hover:bg-[#4FD1C5]/10"
-                              : "text-[#2B8A8A] hover:bg-[#2B8A8A]/10"
+                              : "text-[#0D9488] hover:bg-[#0D9488]/10"
                           }`}
                         >
                           <Send className="h-4 w-4" />

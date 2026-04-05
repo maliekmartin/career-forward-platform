@@ -197,7 +197,7 @@ export function JobSeekerHeader() {
     }`}>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
+          <h1 className={`text-2xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
             {pageTitle}
           </h1>
           {pathname === "/dashboard" && (
@@ -250,10 +250,10 @@ export function JobSeekerHeader() {
                     }`}
                   >
                     <div className={`px-4 py-3 border-b flex items-center justify-between ${isDark ? "border-gray-800" : "border-gray-100"}`}>
-                      <h3 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>Notifications</h3>
+                      <h3 className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>Notifications</h3>
                       <div className="flex items-center gap-3">
                         {unreadNotifCount > 0 && (
-                          <button onClick={markAllNotifsAsRead} className={`text-xs font-medium ${isDark ? "text-[#4FD1C5] hover:text-[#3DBDB0]" : "text-[#2B8A8A] hover:text-[#237070]"}`}>
+                          <button onClick={markAllNotifsAsRead} className={`text-xs font-medium ${isDark ? "text-[#4FD1C5] hover:text-[#3DBDB0]" : "text-[#0D9488] hover:text-[#237070]"}`}>
                             Mark all read
                           </button>
                         )}
@@ -286,14 +286,14 @@ export function JobSeekerHeader() {
                                 {getNotificationIcon(notif.type)}
                               </div>
                               <div className="flex-1 min-w-0">
-                                <p className={`text-sm font-medium ${notif.read ? (isDark ? "text-gray-400" : "text-gray-500") : (isDark ? "text-white" : "text-gray-900")}`}>
+                                <p className={`text-sm font-medium ${notif.read ? (isDark ? "text-gray-400" : "text-gray-500") : (isDark ? "text-white" : "text-[#0F172A]")}`}>
                                   {notif.title}
                                 </p>
                                 <p className={`text-xs mt-0.5 truncate ${isDark ? "text-gray-500" : "text-gray-400"}`}>{notif.message}</p>
                                 <p className={`text-xs mt-1 ${isDark ? "text-gray-600" : "text-gray-300"}`}>{notif.time}</p>
                               </div>
                               <div className="flex items-center gap-2">
-                                {!notif.read && <div className="w-2 h-2 rounded-full bg-[#2B8A8A] dark:bg-[#4FD1C5]" />}
+                                {!notif.read && <div className="w-2 h-2 rounded-full bg-[#0D9488] dark:bg-[#4FD1C5]" />}
                                 <button
                                   onClick={(e) => clearNotification(notif.id, e)}
                                   className={`p-1 rounded opacity-0 group-hover/notif:opacity-100 transition-opacity ${
@@ -335,7 +335,7 @@ export function JobSeekerHeader() {
                 <motion.span
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
-                  className="absolute top-1 right-1 w-4 h-4 bg-[#2B8A8A] dark:bg-[#4FD1C5] rounded-full text-[10px] font-bold text-white dark:text-gray-900 flex items-center justify-center"
+                  className="absolute top-1 right-1 w-4 h-4 bg-[#0D9488] dark:bg-[#4FD1C5] rounded-full text-[10px] font-bold text-white dark:text-[#0F172A] flex items-center justify-center"
                 >
                   {totalUnreadCount}
                 </motion.span>
@@ -358,11 +358,11 @@ export function JobSeekerHeader() {
                   >
                     {/* Header */}
                     <div className={`px-4 py-3 border-b flex items-center justify-between ${isDark ? "border-gray-800" : "border-gray-100"}`}>
-                      <h3 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>Messages</h3>
+                      <h3 className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>Messages</h3>
                       <Link
                         href="/messages"
                         onClick={() => setShowMessages(false)}
-                        className={`text-xs font-medium ${isDark ? "text-[#4FD1C5] hover:text-[#3DBDB0]" : "text-[#2B8A8A] hover:text-[#237070]"}`}
+                        className={`text-xs font-medium ${isDark ? "text-[#4FD1C5] hover:text-[#3DBDB0]" : "text-[#0D9488] hover:text-[#237070]"}`}
                       >
                         View all
                       </Link>
@@ -377,7 +377,7 @@ export function JobSeekerHeader() {
                           onClick={() => setShowMessages(false)}
                           className={`block px-4 py-3 transition-colors border-b last:border-b-0 ${
                             conversation.unreadCount > 0
-                              ? isDark ? "bg-gray-800/50 border-gray-800" : "bg-[#2B8A8A]/5 border-gray-50"
+                              ? isDark ? "bg-gray-800/50 border-gray-800" : "bg-[#0D9488]/5 border-gray-50"
                               : isDark ? "border-gray-800" : "border-gray-50"
                           } ${isDark ? "hover:bg-gray-800" : "hover:bg-gray-50"}`}
                         >
@@ -385,7 +385,7 @@ export function JobSeekerHeader() {
                             <div className="relative flex-shrink-0">
                               {conversation.type === "ai" ? (
                                 <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                                  isDark ? "bg-gradient-to-br from-[#4FD1C5] to-[#2B8A8A]" : "bg-gradient-to-br from-[#2B8A8A] to-[#1a5555]"
+                                  isDark ? "bg-gradient-to-br from-[#4FD1C5] to-[#0D9488]" : "bg-gradient-to-br from-[#0D9488] to-[#1a5555]"
                                 }`}>
                                   <Bot className="h-6 w-6 text-white" />
                                 </div>
@@ -402,7 +402,7 @@ export function JobSeekerHeader() {
                             </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center justify-between">
-                                <p className={`font-medium text-sm ${isDark ? "text-white" : "text-gray-900"}`}>
+                                <p className={`font-medium text-sm ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                                   {conversation.participant.name}
                                 </p>
                                 <span className={`text-xs ${isDark ? "text-gray-500" : "text-gray-400"}`}>
@@ -422,8 +422,8 @@ export function JobSeekerHeader() {
                             </div>
                             {conversation.unreadCount > 0 && (
                               <div className="flex-shrink-0">
-                                <div className="w-5 h-5 bg-[#2B8A8A] dark:bg-[#4FD1C5] rounded-full flex items-center justify-center">
-                                  <span className="text-[10px] font-bold text-white dark:text-gray-900">{conversation.unreadCount}</span>
+                                <div className="w-5 h-5 bg-[#0D9488] dark:bg-[#4FD1C5] rounded-full flex items-center justify-center">
+                                  <span className="text-[10px] font-bold text-white dark:text-[#0F172A]">{conversation.unreadCount}</span>
                                 </div>
                               </div>
                             )}
@@ -447,8 +447,8 @@ export function JobSeekerHeader() {
                 aria-hidden="true"
               />
             ) : (
-              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#2B8A8A]/10"}`}>
-                <User className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} />
+              <div className={`w-9 h-9 rounded-full flex items-center justify-center ${isDark ? "bg-[#4FD1C5]/20" : "bg-[#0D9488]/10"}`}>
+                <User className={`h-5 w-5 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} />
               </div>
             )}
             <span className={`text-sm font-medium ${isDark ? "text-gray-200" : "text-gray-700"}`}>

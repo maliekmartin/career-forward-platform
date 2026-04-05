@@ -25,7 +25,7 @@ export function CleanTemplate({ data }: CleanTemplateProps) {
 
   return (
     <div
-      className="min-h-full bg-white text-gray-900"
+      className="min-h-full bg-white text-[#0F172A]"
       style={{
         fontFamily: "'Helvetica Neue', Arial, sans-serif",
         fontSize: "10pt",

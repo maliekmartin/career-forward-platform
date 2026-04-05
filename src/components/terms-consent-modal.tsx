@@ -253,11 +253,11 @@ export function TermsConsentModal({ isOpen, onComplete, onCancel }: TermsConsent
           {/* Header */}
           <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-gray-50">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[#2B8A8A]/10 flex items-center justify-center">
-                <Icon className="h-5 w-5 text-[#2B8A8A]" />
+              <div className="w-10 h-10 rounded-xl bg-[#0D9488]/10 flex items-center justify-center">
+                <Icon className="h-5 w-5 text-[#0D9488]" />
               </div>
               <div>
-                <h2 className="text-lg font-bold text-gray-900">{currentContent.title}</h2>
+                <h2 className="text-lg font-bold text-[#0F172A]">{currentContent.title}</h2>
                 <p className="text-sm text-gray-500">
                   Step {step === "terms" ? "1" : "2"} of 2 — Please read carefully
                 </p>
@@ -274,7 +274,7 @@ export function TermsConsentModal({ isOpen, onComplete, onCancel }: TermsConsent
           {/* Progress bar */}
           <div className="h-1 bg-gray-100">
             <motion.div
-              className="h-full bg-[#2B8A8A]"
+              className="h-full bg-[#0D9488]"
               initial={{ width: "0%" }}
               animate={{ width: step === "terms" ? "50%" : "100%" }}
               transition={{ duration: 0.3 }}
@@ -301,7 +301,7 @@ export function TermsConsentModal({ isOpen, onComplete, onCancel }: TermsConsent
                     {section.highlight && (
                       <AlertTriangle className="h-5 w-5 text-amber-600 flex-shrink-0 mt-0.5" />
                     )}
-                    <h3 className={`font-semibold ${section.highlight ? "text-amber-900" : "text-gray-900"}`}>
+                    <h3 className={`font-semibold ${section.highlight ? "text-amber-900" : "text-[#0F172A]"}`}>
                       {section.title}
                     </h3>
                   </div>
@@ -355,7 +355,7 @@ export function TermsConsentModal({ isOpen, onComplete, onCancel }: TermsConsent
                   disabled={!hasScrolledToBottom}
                   className={`rounded-xl transition-all ${
                     hasScrolledToBottom
-                      ? "bg-[#2B8A8A] hover:bg-[#237070] text-white shadow-lg shadow-[#2B8A8A]/25"
+                      ? "bg-[#F59E0B] hover:bg-[#D97706] text-white shadow-lg shadow-[#F59E0B]/25"
                       : "bg-gray-200 text-gray-400 cursor-not-allowed"
                   }`}
                 >

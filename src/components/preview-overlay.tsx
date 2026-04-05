@@ -96,7 +96,7 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
     return <>{children}</>;
   }
 
-  const accentColor = audience === "seekers" ? "#2B8A8A" : "#374151";
+  const accentColor = audience === "seekers" ? "#0D9488" : "#0F172A";
   const currentContent = heroContent[audience];
   const currentValueProps = audience === "seekers" ? seekerValueProps : orgValueProps;
   const currentStats = audience === "seekers" ? seekerStats : orgStats;
@@ -116,7 +116,7 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-[#FAFBFC] flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-[#2B8A8A] border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-[#0D9488] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -265,7 +265,7 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.3 }}
-                    className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] text-gray-900 mb-4"
+                    className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] text-[#0F172A] mb-4"
                   >
                     {currentContent.headline}
                     <br />
@@ -343,7 +343,7 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
                     <Lock className="h-5 w-5" style={{ color: accentColor }} />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900">Preview Access</h3>
+                    <h3 className="font-semibold text-[#0F172A]">Preview Access</h3>
                     <p className="text-sm text-gray-500">Enter password to continue</p>
                   </div>
                 </div>
@@ -358,7 +358,7 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
                         setError("");
                       }}
                       placeholder="Enter preview password"
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 transition-all"
+                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-[#0F172A] placeholder-gray-400 focus:outline-none focus:ring-2 transition-all"
                       style={{
                         "--tw-ring-color": `${accentColor}20`,
                       } as React.CSSProperties}

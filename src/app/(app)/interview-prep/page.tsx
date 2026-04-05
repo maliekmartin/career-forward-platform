@@ -103,7 +103,7 @@ export default function InterviewPrepPage() {
 
   const stats = [
     { label: "Modules Completed", value: "2/6", icon: CheckCircle2, color: "#38A169" },
-    { label: "Videos Watched", value: "7/29", icon: Video, color: "#2B8A8A" },
+    { label: "Videos Watched", value: "7/29", icon: Video, color: "#0D9488" },
     { label: "Time Invested", value: "45 min", icon: Clock, color: "#805AD5" },
     { label: "Skill Score", value: "68%", icon: Star, color: "#D69E2E" },
   ];
@@ -132,7 +132,7 @@ export default function InterviewPrepPage() {
                 <stat.icon className="h-5 w-5" style={{ color: stat.color }} />
               </div>
             </div>
-            <p className={`text-3xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
+            <p className={`text-3xl font-bold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
               {stat.value}
             </p>
             <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -152,24 +152,24 @@ export default function InterviewPrepPage() {
             transition={{ delay: 0.2 }}
             className={`rounded-2xl overflow-hidden ${
               isDark
-                ? "bg-gradient-to-br from-[#4FD1C5] to-[#2B8A8A]"
-                : "bg-gradient-to-br from-[#2B8A8A] to-[#1a5a5a]"
+                ? "bg-gradient-to-br from-[#4FD1C5] to-[#0D9488]"
+                : "bg-gradient-to-br from-[#0D9488] to-[#1a5a5a]"
             }`}
           >
             <div className="grid grid-cols-2">
-              <div className={`p-8 ${isDark ? "text-gray-900" : "text-white"}`}>
+              <div className={`p-8 ${isDark ? "text-[#0F172A]" : "text-white"}`}>
                 <span className={`inline-block text-xs px-3 py-1 rounded-full mb-4 ${
-                  isDark ? "bg-gray-900/20 text-gray-900" : "bg-white/20 text-white"
+                  isDark ? "bg-gray-900/20 text-[#0F172A]" : "bg-white/20 text-white"
                 }`}>
                   Featured
                 </span>
                 <h2 className="text-xl font-bold mb-3">
                   {featuredVideo.title}
                 </h2>
-                <p className={`text-sm mb-6 ${isDark ? "text-gray-900/80" : "text-white/80"}`}>
+                <p className={`text-sm mb-6 ${isDark ? "text-[#0F172A]/80" : "text-white/80"}`}>
                   {featuredVideo.description}
                 </p>
-                <div className={`flex items-center gap-4 text-sm mb-6 ${isDark ? "text-gray-900/70" : "text-white/70"}`}>
+                <div className={`flex items-center gap-4 text-sm mb-6 ${isDark ? "text-[#0F172A]/70" : "text-white/70"}`}>
                   <span className="flex items-center gap-1">
                     <Clock className="h-4 w-4" />
                     {featuredVideo.duration}
@@ -180,7 +180,7 @@ export default function InterviewPrepPage() {
                   </span>
                 </div>
                 <Button className={`rounded-full ${
-                  isDark ? "bg-gray-900 text-[#4FD1C5] hover:bg-gray-800" : "bg-white text-[#2B8A8A] hover:bg-gray-100"
+                  isDark ? "bg-gray-900 text-[#4FD1C5] hover:bg-gray-800" : "bg-white text-[#0D9488] hover:bg-gray-100"
                 }`}>
                   <Play className="h-4 w-4 mr-2" />
                   Watch Now
@@ -190,7 +190,7 @@ export default function InterviewPrepPage() {
                 <div className={`w-20 h-20 rounded-full flex items-center justify-center cursor-pointer transition-colors ${
                   isDark ? "bg-gray-900/20 hover:bg-gray-900/30" : "bg-white/20 hover:bg-white/30"
                 }`}>
-                  <Play className={`h-8 w-8 ml-1 ${isDark ? "text-gray-900" : "text-white"}`} />
+                  <Play className={`h-8 w-8 ml-1 ${isDark ? "text-[#0F172A]" : "text-white"}`} />
                 </div>
               </div>
             </div>
@@ -206,7 +206,7 @@ export default function InterviewPrepPage() {
             }`}
           >
             <div className={`p-6 border-b ${isDark ? "border-gray-800" : "border-gray-100"}`}>
-              <h2 className={`text-lg font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>
+              <h2 className={`text-lg font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                 Training Modules
               </h2>
             </div>
@@ -225,7 +225,7 @@ export default function InterviewPrepPage() {
                         ? isDark ? "bg-green-900/30" : "bg-green-100"
                         : module.locked
                         ? isDark ? "bg-gray-800" : "bg-gray-100"
-                        : isDark ? "bg-[#4FD1C5]/20" : "bg-[#2B8A8A]/10"
+                        : isDark ? "bg-[#4FD1C5]/20" : "bg-[#0D9488]/10"
                     }`}
                   >
                     {module.completed ? (
@@ -233,13 +233,13 @@ export default function InterviewPrepPage() {
                     ) : module.locked ? (
                       <Lock className={`h-6 w-6 ${isDark ? "text-gray-500" : "text-gray-400"}`} />
                     ) : (
-                      <Video className={`h-6 w-6 ${isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"}`} />
+                      <Video className={`h-6 w-6 ${isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"}`} />
                     )}
                   </div>
 
                   {/* Content */}
                   <div className="flex-1">
-                    <h3 className={`font-medium mb-1 ${isDark ? "text-white" : "text-gray-900"}`}>
+                    <h3 className={`font-medium mb-1 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                       {module.title}
                     </h3>
                     <p className={`text-sm mb-2 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -262,13 +262,13 @@ export default function InterviewPrepPage() {
                     <div className="w-32">
                       <div className="flex items-center justify-between text-xs mb-1">
                         <span className={isDark ? "text-gray-500" : "text-gray-500"}>Progress</span>
-                        <span className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                        <span className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                           {module.progress}%
                         </span>
                       </div>
                       <div className={`h-1.5 rounded-full overflow-hidden ${isDark ? "bg-gray-800" : "bg-gray-100"}`}>
                         <div
-                          className={`h-full rounded-full ${isDark ? "bg-[#4FD1C5]" : "bg-[#2B8A8A]"}`}
+                          className={`h-full rounded-full ${isDark ? "bg-[#4FD1C5]" : "bg-[#0D9488]"}`}
                           style={{ width: `${module.progress}%` }}
                         />
                       </div>
@@ -293,7 +293,7 @@ export default function InterviewPrepPage() {
               isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"
             }`}
           >
-            <h3 className={`font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>Categories</h3>
+            <h3 className={`font-semibold mb-4 ${isDark ? "text-white" : "text-[#0F172A]"}`}>Categories</h3>
             <div className="space-y-2">
               {categories.map((cat) => (
                 <button
@@ -326,7 +326,7 @@ export default function InterviewPrepPage() {
           >
             <div className="flex items-center gap-2 mb-3">
               <BookOpen className={`h-5 w-5 ${isDark ? "text-yellow-400" : "text-yellow-600"}`} />
-              <h3 className={`font-semibold ${isDark ? "text-white" : "text-gray-900"}`}>Quick Tip</h3>
+              <h3 className={`font-semibold ${isDark ? "text-white" : "text-[#0F172A]"}`}>Quick Tip</h3>
             </div>
             <p className={`text-sm mb-4 ${isDark ? "text-gray-300" : "text-gray-600"}`}>
               Research the company before your interview. Understanding their
@@ -350,14 +350,14 @@ export default function InterviewPrepPage() {
               isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"
             }`}
           >
-            <h3 className={`font-semibold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+            <h3 className={`font-semibold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
               Practice with a Coach
             </h3>
             <p className={`text-sm mb-4 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
               Schedule a mock interview session with a career coach.
             </p>
             <Button className={`w-full rounded-xl ${
-              isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"
+              isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"
             }`}>
               Schedule Session
             </Button>

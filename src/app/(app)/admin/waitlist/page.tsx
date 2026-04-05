@@ -89,7 +89,7 @@ export default function AdminWaitlistPage() {
     <div className="container mx-auto py-8 px-4">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Waitlist Management</h1>
+          <h1 className="text-2xl font-bold text-[#0F172A]">Waitlist Management</h1>
           <p className="text-gray-600">View and export waitlist entries</p>
         </div>
         <div className="flex gap-3">

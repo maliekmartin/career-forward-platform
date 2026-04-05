@@ -210,7 +210,7 @@ export default function SettingsPage() {
         animate={{ opacity: 1, y: 0 }}
         className="mb-8"
       >
-        <h1 className={`text-3xl font-bold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>Settings</h1>
+        <h1 className={`text-3xl font-bold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>Settings</h1>
         <p className={isDark ? "text-gray-400" : "text-gray-600"}>Manage your account and preferences</p>
       </motion.div>
 
@@ -228,7 +228,7 @@ export default function SettingsPage() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
                   activeTab === tab.id
-                    ? "bg-[#2B8A8A]/10 text-[#2B8A8A]"
+                    ? "bg-[#0D9488]/10 text-[#0D9488]"
                     : isDark
                       ? "text-gray-400 hover:bg-gray-800"
                       : "text-gray-600 hover:bg-gray-50"
@@ -251,7 +251,7 @@ export default function SettingsPage() {
             <div className="space-y-6">
               {/* Profile Photo */}
               <div className={`rounded-2xl border p-6 ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}>
-                <h2 className={`text-lg font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>
+                <h2 className={`text-lg font-semibold mb-4 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   Profile Photo
                 </h2>
                 <div className="flex items-center gap-6">
@@ -273,7 +273,7 @@ export default function SettingsPage() {
 
               {/* Personal Info */}
               <div className={`rounded-2xl border p-6 ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}>
-                <h2 className={`text-lg font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>
+                <h2 className={`text-lg font-semibold mb-4 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   Personal Information
                 </h2>
                 {loading ? (
@@ -291,8 +291,8 @@ export default function SettingsPage() {
                           type="text"
                           value={firstName}
                           onChange={(e) => setFirstName(e.target.value)}
-                          className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] ${
-                            isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-gray-900"
+                          className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] ${
+                            isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-[#0F172A]"
                           }`}
                         />
                       </div>
@@ -304,8 +304,8 @@ export default function SettingsPage() {
                           type="text"
                           value={lastName}
                           onChange={(e) => setLastName(e.target.value)}
-                          className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] ${
-                            isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-gray-900"
+                          className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] ${
+                            isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-[#0F172A]"
                           }`}
                         />
                       </div>
@@ -334,8 +334,8 @@ export default function SettingsPage() {
                           value={phone}
                           onChange={(e) => setPhone(e.target.value)}
                           placeholder="(555) 555-1234"
-                          className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] ${
-                            isDark ? "bg-gray-800 border-gray-700 text-white placeholder:text-gray-600" : "bg-white border-gray-200 text-gray-900 placeholder:text-gray-400"
+                          className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] ${
+                            isDark ? "bg-gray-800 border-gray-700 text-white placeholder:text-gray-600" : "bg-white border-gray-200 text-[#0F172A] placeholder:text-gray-400"
                           }`}
                         />
                       </div>
@@ -350,7 +350,7 @@ export default function SettingsPage() {
                         <Button
                           onClick={handleSaveProfile}
                           disabled={saving}
-                          className={`rounded-xl ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"}`}
+                          className={`rounded-xl ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"}`}
                         >
                           {saving ? (
                             <>
@@ -373,7 +373,7 @@ export default function SettingsPage() {
             <div className="space-y-6">
               {/* Change Password */}
               <div className={`rounded-2xl border p-6 ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}>
-                <h2 className={`text-lg font-semibold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+                <h2 className={`text-lg font-semibold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   Change Password
                 </h2>
                 <p className={`text-sm mb-6 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -411,8 +411,8 @@ export default function SettingsPage() {
                         type={showCurrentPassword ? "text" : "password"}
                         value={currentPassword}
                         onChange={(e) => setCurrentPassword(e.target.value)}
-                        className={`w-full px-4 py-2.5 pr-12 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] ${
-                          isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-gray-900"
+                        className={`w-full px-4 py-2.5 pr-12 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] ${
+                          isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-[#0F172A]"
                         }`}
                       />
                       <button
@@ -434,8 +434,8 @@ export default function SettingsPage() {
                         type={showNewPassword ? "text" : "password"}
                         value={newPassword}
                         onChange={(e) => setNewPassword(e.target.value)}
-                        className={`w-full px-4 py-2.5 pr-12 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] ${
-                          isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-gray-900"
+                        className={`w-full px-4 py-2.5 pr-12 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] ${
+                          isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-[#0F172A]"
                         }`}
                       />
                       <button
@@ -480,8 +480,8 @@ export default function SettingsPage() {
                         type={showConfirmPassword ? "text" : "password"}
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        className={`w-full px-4 py-2.5 pr-12 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] ${
-                          isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-gray-900"
+                        className={`w-full px-4 py-2.5 pr-12 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] ${
+                          isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-[#0F172A]"
                         }`}
                       />
                       <button
@@ -506,7 +506,7 @@ export default function SettingsPage() {
                     <Button
                       onClick={handleChangePassword}
                       disabled={!canChangePassword || changingPassword}
-                      className={`rounded-xl ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"} disabled:opacity-50 disabled:cursor-not-allowed`}
+                      className={`rounded-xl ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"} disabled:opacity-50 disabled:cursor-not-allowed`}
                     >
                       {changingPassword ? (
                         <>
@@ -523,7 +523,7 @@ export default function SettingsPage() {
 
               {/* Active Sessions Info */}
               <div className={`rounded-2xl border p-6 ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}>
-                <h2 className={`text-lg font-semibold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+                <h2 className={`text-lg font-semibold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   Session Security
                 </h2>
                 <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -537,7 +537,7 @@ export default function SettingsPage() {
             <div className="space-y-6">
               {/* Coach Connection */}
               <div className={`rounded-2xl border p-6 ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}>
-                <h2 className={`text-lg font-semibold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+                <h2 className={`text-lg font-semibold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   Career Coach Connection
                 </h2>
                 <p className={`text-sm mb-6 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -553,7 +553,7 @@ export default function SettingsPage() {
                           <Check className={`h-5 w-5 ${isDark ? "text-green-400" : "text-green-600"}`} />
                         </div>
                         <div>
-                          <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                          <p className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                             Connected with Sarah Johnson
                           </p>
                           <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -575,7 +575,7 @@ export default function SettingsPage() {
                   <div className={`rounded-xl p-4 ${isDark ? "bg-gray-800 border border-gray-700" : "bg-gray-50 border border-gray-200"}`}>
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>
+                        <p className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                           No coach connected
                         </p>
                         <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -583,7 +583,7 @@ export default function SettingsPage() {
                         </p>
                       </div>
                       <Button
-                        className={isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-gray-900" : "bg-[#2B8A8A] hover:bg-[#237070] text-white"}
+                        className={isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"}
                         onClick={() => setCoachConnected(true)}
                       >
                         <Link2 className="h-4 w-4 mr-2" />
@@ -596,7 +596,7 @@ export default function SettingsPage() {
 
               {/* What Coach Can See */}
               <div className={`rounded-2xl border p-6 ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}>
-                <h2 className={`text-lg font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>
+                <h2 className={`text-lg font-semibold mb-4 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   Coach Visibility Settings
                 </h2>
                 <p className={`text-sm mb-4 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -630,7 +630,7 @@ export default function SettingsPage() {
                       className={`flex items-center justify-between p-3 rounded-xl ${isDark ? "bg-gray-800" : "bg-gray-50"}`}
                     >
                       <div>
-                        <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>{item.label}</p>
+                        <p className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>{item.label}</p>
                         <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
                           {item.description}
                         </p>
@@ -641,7 +641,7 @@ export default function SettingsPage() {
                           defaultChecked
                           className="sr-only peer"
                         />
-                        <div className={`w-11 h-6 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#2B8A8A]/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#2B8A8A] ${isDark ? "bg-gray-700" : "bg-gray-200"}`}></div>
+                        <div className={`w-11 h-6 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#0D9488]/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#0D9488] ${isDark ? "bg-gray-700" : "bg-gray-200"}`}></div>
                       </label>
                     </div>
                   ))}
@@ -652,7 +652,7 @@ export default function SettingsPage() {
 
           {activeTab === "notifications" && (
             <div className={`rounded-2xl border p-6 ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}>
-              <h2 className={`text-lg font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>
+              <h2 className={`text-lg font-semibold mb-4 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                 Notification Preferences
               </h2>
               <div className="space-y-4">
@@ -683,7 +683,7 @@ export default function SettingsPage() {
                     className={`flex items-center justify-between p-4 border rounded-xl ${isDark ? "border-gray-800" : "border-gray-100"}`}
                   >
                     <div>
-                      <p className={`font-medium ${isDark ? "text-white" : "text-gray-900"}`}>{item.label}</p>
+                      <p className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>{item.label}</p>
                       <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>{item.description}</p>
                     </div>
                     <label className="relative inline-flex items-center cursor-pointer">
@@ -692,7 +692,7 @@ export default function SettingsPage() {
                         defaultChecked
                         className="sr-only peer"
                       />
-                      <div className={`w-11 h-6 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#2B8A8A]/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#2B8A8A] ${isDark ? "bg-gray-700" : "bg-gray-200"}`}></div>
+                      <div className={`w-11 h-6 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#0D9488]/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#0D9488] ${isDark ? "bg-gray-700" : "bg-gray-200"}`}></div>
                     </label>
                   </div>
                 ))}
@@ -703,11 +703,11 @@ export default function SettingsPage() {
           {activeTab === "preferences" && (
             <div className="space-y-6">
               <div className={`rounded-2xl border p-6 ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}>
-                <h2 className={`text-lg font-semibold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>
+                <h2 className={`text-lg font-semibold mb-4 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   Language
                 </h2>
-                <select className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#2B8A8A]/20 focus:border-[#2B8A8A] ${
-                  isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-gray-900"
+                <select className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] ${
+                  isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-[#0F172A]"
                 }`}>
                   <option>English</option>
                   <option>Español</option>
@@ -722,7 +722,7 @@ export default function SettingsPage() {
           {activeTab === "data" && (
             <div className="space-y-6">
               <div className={`rounded-2xl border p-6 ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}>
-                <h2 className={`text-lg font-semibold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
+                <h2 className={`text-lg font-semibold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   Export Your Data
                 </h2>
                 <p className={`text-sm mb-4 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -792,7 +792,7 @@ export default function SettingsPage() {
                       value={deletePassword}
                       onChange={(e) => setDeletePassword(e.target.value)}
                       className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 ${
-                        isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-gray-900"
+                        isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-[#0F172A]"
                       }`}
                     />
                   </div>
@@ -806,7 +806,7 @@ export default function SettingsPage() {
                       onChange={(e) => setDeleteConfirmation(e.target.value)}
                       placeholder="DELETE MY ACCOUNT"
                       className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 ${
-                        isDark ? "bg-gray-800 border-gray-700 text-white placeholder:text-gray-600" : "bg-white border-gray-200 text-gray-900 placeholder:text-gray-400"
+                        isDark ? "bg-gray-800 border-gray-700 text-white placeholder:text-gray-600" : "bg-white border-gray-200 text-[#0F172A] placeholder:text-gray-400"
                       }`}
                     />
                   </div>

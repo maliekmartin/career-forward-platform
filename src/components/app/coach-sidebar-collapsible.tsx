@@ -148,7 +148,7 @@ export function CollapsibleCoachSidebar() {
                   width={160}
                   height={40}
                 />
-                <span className={`mt-1 text-xs font-semibold tracking-wide text-center ${isDark ? "text-[#4FD1C5]" : "text-[#374151]"}`}>
+                <span className={`mt-1 text-xs font-semibold tracking-wide text-center ${isDark ? "text-[#4FD1C5]" : "text-[#0F172A]"}`}>
                   Coach Portal
                 </span>
               </motion.div>
@@ -205,7 +205,7 @@ export function CollapsibleCoachSidebar() {
                 variants={contentVariants}
                 className="flex-1 min-w-0 overflow-hidden"
               >
-                <p className={`font-medium truncate ${isDark ? "text-white" : "text-gray-900"}`}>
+                <p className={`font-medium truncate ${isDark ? "text-white" : "text-[#0F172A]"}`}>
                   {coachProfile.firstName} {coachProfile.lastName}
                 </p>
                 <p className={`text-xs truncate ${isDark ? "text-gray-400" : "text-gray-500"}`}>
@@ -239,7 +239,7 @@ export function CollapsibleCoachSidebar() {
                     aria-label={`Caseload: ${coachProfile.clientCount} of ${coachProfile.maxClients} job seekers`}
                   >
                     <motion.div
-                      className="h-full bg-[#2B8A8A] dark:bg-[#4FD1C5] rounded-full"
+                      className="h-full bg-[#0D9488] dark:bg-[#4FD1C5] rounded-full"
                       initial={{ width: 0 }}
                       animate={{ width: `${(coachProfile.clientCount / coachProfile.maxClients) * 100}%` }}
                       transition={{ duration: 0.8, ease: "easeOut" }}
@@ -262,7 +262,7 @@ export function CollapsibleCoachSidebar() {
                 href={item.href}
                 className={`flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
                   isActive
-                    ? "bg-[#2B8A8A] dark:bg-[#4FD1C5] text-white dark:text-gray-900"
+                    ? "bg-[#0D9488] dark:bg-[#4FD1C5] text-white dark:text-[#0F172A]"
                     : isDark
                     ? "text-gray-400 hover:bg-gray-800 hover:text-white"
                     : "text-gray-600 hover:bg-gray-50"
@@ -324,7 +324,7 @@ export function CollapsibleCoachSidebar() {
                   href={item.href}
                   className={`flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
                     isActive
-                      ? "bg-[#2B8A8A] dark:bg-[#4FD1C5] text-white dark:text-gray-900"
+                      ? "bg-[#0D9488] dark:bg-[#4FD1C5] text-white dark:text-[#0F172A]"
                       : isDark
                       ? "text-gray-400 hover:bg-gray-800 hover:text-white"
                       : "text-gray-600 hover:bg-gray-50"

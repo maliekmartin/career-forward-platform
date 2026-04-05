@@ -121,7 +121,7 @@ export function ExperienceStep() {
     "h-10 rounded-lg transition-colors",
     isDark
       ? "bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 focus:border-[#4FD1C5] focus:ring-[#4FD1C5]/20"
-      : "bg-white border-gray-200 text-gray-900 placeholder:text-gray-400 focus:border-[#2B8A8A] focus:ring-[#2B8A8A]/20"
+      : "bg-white border-gray-200 text-[#0F172A] placeholder:text-gray-400 focus:border-[#0D9488] focus:ring-[#0D9488]/20"
   );
 
   const labelClass = cn(
@@ -136,7 +136,7 @@ export function ExperienceStep() {
         <h2
           className={cn(
             "text-2xl font-bold mb-2",
-            isDark ? "text-white" : "text-gray-900"
+            isDark ? "text-white" : "text-[#0F172A]"
           )}
         >
           Work Experience
@@ -160,7 +160,7 @@ export function ExperienceStep() {
               isDark
                 ? "bg-gray-900 border-gray-800"
                 : "bg-white border-gray-200",
-              expandedId === exp.id && (isDark ? "ring-1 ring-[#4FD1C5]/30" : "ring-1 ring-[#2B8A8A]/30")
+              expandedId === exp.id && (isDark ? "ring-1 ring-[#4FD1C5]/30" : "ring-1 ring-[#0D9488]/30")
             )}
           >
             {/* Header - always visible */}
@@ -183,7 +183,7 @@ export function ExperienceStep() {
                 <p
                   className={cn(
                     "font-medium truncate",
-                    isDark ? "text-white" : "text-gray-900"
+                    isDark ? "text-white" : "text-[#0F172A]"
                   )}
                 >
                   {exp.jobTitle || "Job Title"}
@@ -383,7 +383,7 @@ export function ExperienceStep() {
                         <span
                           className={cn(
                             "mt-2.5 w-2 h-2 rounded-full flex-shrink-0",
-                            isDark ? "bg-[#4FD1C5]" : "bg-[#2B8A8A]"
+                            isDark ? "bg-[#4FD1C5]" : "bg-[#0D9488]"
                           )}
                         />
                         <Input
@@ -419,7 +419,7 @@ export function ExperienceStep() {
                         "gap-1 h-8 ml-4",
                         isDark
                           ? "text-[#4FD1C5] hover:text-[#4FD1C5] hover:bg-[#4FD1C5]/10"
-                          : "text-[#2B8A8A] hover:text-[#2B8A8A] hover:bg-[#2B8A8A]/10"
+                          : "text-[#0D9488] hover:text-[#0D9488] hover:bg-[#0D9488]/10"
                       )}
                     >
                       <Plus className="w-3 h-3" />
@@ -440,7 +440,7 @@ export function ExperienceStep() {
             "w-full h-14 border-dashed gap-2",
             isDark
               ? "border-gray-700 text-gray-400 hover:text-[#4FD1C5] hover:border-[#4FD1C5] hover:bg-[#4FD1C5]/5"
-              : "border-gray-300 text-gray-500 hover:text-[#2B8A8A] hover:border-[#2B8A8A] hover:bg-[#2B8A8A]/5"
+              : "border-gray-300 text-gray-500 hover:text-[#0D9488] hover:border-[#0D9488] hover:bg-[#0D9488]/5"
           )}
         >
           <Plus className="w-5 h-5" />
@@ -452,13 +452,13 @@ export function ExperienceStep() {
       <div
         className={cn(
           "p-4 rounded-xl",
-          isDark ? "bg-[#4FD1C5]/5 border border-[#4FD1C5]/20" : "bg-[#2B8A8A]/5 border border-[#2B8A8A]/20"
+          isDark ? "bg-[#4FD1C5]/5 border border-[#4FD1C5]/20" : "bg-[#0D9488]/5 border border-[#0D9488]/20"
         )}
       >
         <h4
           className={cn(
             "font-medium mb-2 text-sm",
-            isDark ? "text-[#4FD1C5]" : "text-[#2B8A8A]"
+            isDark ? "text-[#4FD1C5]" : "text-[#0D9488]"
           )}
         >
           Tips for Work Experience
