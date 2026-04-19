@@ -70,6 +70,16 @@ const heroContent = {
 // Routes that should bypass password protection
 const PUBLIC_ROUTES = ["/waitlist"];
 
+// Helper to check if a pathname matches a public route
+function isPathPublic(path: string | null): boolean {
+  if (!path) return false;
+  // Normalize path by removing trailing slash
+  const normalizedPath = path.endsWith("/") && path.length > 1 ? path.slice(0, -1) : path;
+  return PUBLIC_ROUTES.some(route =>
+    normalizedPath === route || normalizedPath.startsWith(`${route}/`)
+  );
+}
+
 export function PreviewOverlay({ children }: PreviewOverlayProps) {
   const pathname = usePathname();
   const [isUnlocked, setIsUnlocked] = useState(false);
@@ -81,7 +91,7 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
 
   // Check if current route is public (bypass password protection)
   // This must be checked early to avoid flashing the password screen
-  const isPublicRoute = pathname !== null && PUBLIC_ROUTES.some(route => pathname === route || pathname.startsWith(`${route}/`));
+  const isPublicRoute = isPathPublic(pathname);
 
   useEffect(() => {
     const unlocked = sessionStorage.getItem("cf_preview_unlocked");
@@ -93,12 +103,6 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
 
   // If on a public route, render children immediately without any protection or loading
   if (isPublicRoute) {
-    return <>{children}</>;
-  }
-
-  // If pathname is not yet available (during SSR/hydration), show children for public routes
-  // This prevents flash of overlay on public pages
-  if (pathname === null) {
     return <>{children}</>;
   }
 
