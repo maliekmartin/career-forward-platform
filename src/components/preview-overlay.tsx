@@ -90,7 +90,6 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
   const [audience, setAudience] = useState<"seekers" | "organizations">("seekers");
 
   // Check if current route is public (bypass password protection)
-  // This must be checked early to avoid flashing the password screen
   const isPublicRoute = isPathPublic(pathname);
 
   useEffect(() => {
@@ -101,8 +100,8 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
     setIsLoading(false);
   }, []);
 
-  // If on a public route, render children immediately without any protection or loading
-  if (isPublicRoute) {
+  // ALWAYS render children for public routes - no overlay, no loading, nothing
+  if (pathname?.includes("/waitlist") || isPublicRoute) {
     return <>{children}</>;
   }
 
