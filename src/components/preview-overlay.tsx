@@ -81,7 +81,7 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
 
   // Check if current route is public (bypass password protection)
   // This must be checked early to avoid flashing the password screen
-  const isPublicRoute = PUBLIC_ROUTES.some(route => pathname === route || pathname?.startsWith(`${route}/`));
+  const isPublicRoute = pathname !== null && PUBLIC_ROUTES.some(route => pathname === route || pathname.startsWith(`${route}/`));
 
   useEffect(() => {
     const unlocked = sessionStorage.getItem("cf_preview_unlocked");
@@ -93,6 +93,12 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
 
   // If on a public route, render children immediately without any protection or loading
   if (isPublicRoute) {
+    return <>{children}</>;
+  }
+
+  // If pathname is not yet available (during SSR/hydration), show children for public routes
+  // This prevents flash of overlay on public pages
+  if (pathname === null) {
     return <>{children}</>;
   }
 
