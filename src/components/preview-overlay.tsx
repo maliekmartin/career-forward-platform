@@ -86,19 +86,24 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
   const [audience, setAudience] = useState<"seekers" | "organizations">("seekers");
 
   // Check if current route is public (bypass password protection)
   const isPublicRoute = isPathPublic(pathname);
 
   useEffect(() => {
+    setIsMounted(true);
     const unlocked = sessionStorage.getItem("cf_preview_unlocked");
     if (unlocked === "true") {
       setIsUnlocked(true);
     }
-    setIsLoading(false);
   }, []);
+
+  // During SSR or before hydration, always show children to avoid flash
+  if (!isMounted) {
+    return <>{children}</>;
+  }
 
   // ALWAYS render children for public routes - no overlay, no loading, nothing
   if (pathname?.includes("/waitlist") || isPublicRoute) {
@@ -121,14 +126,6 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
       setPassword("");
     }
   };
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-[#FAFBFC] flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-[#0D9488] border-t-transparent rounded-full animate-spin" />
-      </div>
-    );
-  }
 
   if (isUnlocked) {
     return <>{children}</>;
