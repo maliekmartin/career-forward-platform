@@ -261,4 +261,159 @@ html {
   .status-red {
     background-color: var(--destructive);
   }
+
+  /* ========================================
+     CORGI.INSURE INSPIRED UX PATTERNS
+     ======================================== */
+
+  /* 3D Button Effect - Press Down Animation */
+  .btn-3d {
+    position: relative;
+    transition: all 0.15s ease;
+    box-shadow:
+      0 4px 0 rgba(0, 0, 0, 0.1),
+      0 6px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .btn-3d:active {
+    transform: translateY(4px);
+    box-shadow:
+      0 0 0 rgba(0, 0, 0, 0.1),
+      0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .btn-3d-teal {
+    box-shadow:
+      0 4px 0 rgba(13, 148, 136, 0.6),
+      0 6px 16px rgba(13, 148, 136, 0.3);
+  }
+
+  .btn-3d-teal:active {
+    box-shadow:
+      0 0 0 rgba(13, 148, 136, 0.6),
+      0 2px 6px rgba(13, 148, 136, 0.3);
+  }
+
+  .btn-3d-amber {
+    box-shadow:
+      0 4px 0 rgba(245, 158, 11, 0.6),
+      0 6px 16px rgba(245, 158, 11, 0.3);
+  }
+
+  .btn-3d-amber:active {
+    box-shadow:
+      0 0 0 rgba(245, 158, 11, 0.6),
+      0 2px 6px rgba(245, 158, 11, 0.3);
+  }
+
+  /* Alternating Section Backgrounds */
+  .section-light {
+    background-color: #FAFBFC;
+  }
+
+  .section-dark {
+    background-color: #313131;
+    color: #FFFFFF;
+  }
+
+  .section-darker {
+    background-color: #0F172A;
+    color: #FFFFFF;
+  }
+
+  /* Generous Spacing (Corgi-style) */
+  .section-padding {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-padding {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section-padding {
+      padding-top: 8rem;
+      padding-bottom: 8rem;
+    }
+  }
+
+  /* Vertical Border Guides */
+  .with-guides {
+    position: relative;
+  }
+
+  .with-guides::before,
+  .with-guides::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: rgba(0, 0, 0, 0.05);
+    z-index: 0;
+  }
+
+  .with-guides::before {
+    left: 0;
+  }
+
+  .with-guides::after {
+    right: 0;
+  }
+
+  .dark .with-guides::before,
+  .dark .with-guides::after,
+  .section-dark .with-guides::before,
+  .section-dark .with-guides::after {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  /* Infinite Scroll Animation */
+  @keyframes scroll-left {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-scroll {
+    animation: scroll-left 40s linear infinite;
+  }
+
+  .animate-scroll:hover {
+    animation-play-state: paused;
+  }
+
+  /* Smooth hover lift effect */
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Typography - Monospace for tech elements */
+  .text-mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    letter-spacing: -0.02em;
+  }
+
+  /* Card with border glow on hover */
+  .card-glow {
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+  }
+
+  .card-glow:hover {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.1);
+  }
 }

@@ -278,7 +278,7 @@ function SignInForm() {
                   <p className="text-gray-500">
                     Don&apos;t have an account?{" "}
                     <Link
-                      href="/register/seeker"
+                      href="/waitlist"
                       className="text-[#0D9488] font-medium hover:underline"
                     >
                       Create one here

@@ -234,7 +234,7 @@ export default function PricingPage() {
 
             <Button
               onClick={() => setFormStep(2)}
-              className="w-full bg-[#0F172A] hover:bg-[#1E293B] text-white rounded-full h-12 text-base font-medium"
+              className="w-full bg-[#0F172A] hover:bg-[#1E293B] text-white rounded-full h-12 text-base font-medium btn-3d"
             >
               Continue
               <ArrowRight className="ml-2 h-4 w-4" />
@@ -366,7 +366,7 @@ export default function PricingPage() {
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="flex-1 bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-full h-12 text-base font-medium disabled:opacity-50"
+                  className="flex-1 bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-full h-12 text-base font-medium disabled:opacity-50 btn-3d-amber"
                 >
                   {isSubmitting ? (
                     <span className="flex items-center gap-2">
@@ -413,9 +413,9 @@ export default function PricingPage() {
             <Link href="/faq" className="text-sm text-gray-600 hover:text-[#0D9488] transition-colors font-medium">
               FAQ
             </Link>
-            <Link href="/register/seeker">
+            <Link href="/waitlist">
               <Button variant="outline" className="rounded-full px-5 h-9 text-sm font-medium">
-                I&apos;m a Job Seeker (Free)
+                I&apos;m a Job Seeker (Join Beta)
               </Button>
             </Link>
           </div>
@@ -472,7 +472,7 @@ export default function PricingPage() {
 
                   <Button
                     onClick={() => setFormStep(1)}
-                    className="bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-full h-14 px-10 text-lg font-medium shadow-lg shadow-[#F59E0B]/20"
+                    className="bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-full h-14 px-10 text-lg font-medium btn-3d-amber"
                   >
                     Get Pricing
                     <ArrowRight className="ml-2 h-5 w-5" />
@@ -747,9 +747,9 @@ export default function PricingPage() {
                   </p>
                 </div>
               </div>
-              <Link href="/register/seeker">
+              <Link href="/waitlist">
                 <Button className="bg-white text-[#0D9488] hover:bg-white/90 rounded-full px-6 font-medium shadow-lg">
-                  I'm a Job Seeker
+                  Join Beta Waitlist
                 </Button>
               </Link>
             </div>

@@ -443,7 +443,7 @@ export default function SeekerRegisterPage() {
 
             <Button
               type="submit"
-              className="w-full bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-xl h-12 font-semibold shadow-lg shadow-[#F59E0B]/25 transition-all"
+              className="w-full bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-xl h-12 font-semibold btn-3d-amber"
               disabled={isLoading}
             >
               {isLoading ? (

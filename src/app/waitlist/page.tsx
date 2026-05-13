@@ -319,7 +319,7 @@ export default function WaitlistPage() {
                       <Button
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full h-12 bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-xl font-medium text-base transition-all duration-200 shadow-lg shadow-[#F59E0B]/25"
+                        className="w-full h-12 bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-xl font-medium text-base btn-3d-amber"
                       >
                         {isSubmitting ? (
                           <>
@@ -385,13 +385,16 @@ export default function WaitlistPage() {
 
                   <div className="text-gray-600 mb-8 space-y-4">
                     <p>
-                      Thank you for joining the Career Forward waitlist. Please keep an eye on your email over the next one to two months, as you may be selected to participate in the Career Forward beta test.
+                      Thank you for joining the Career Forward waitlist! We're working hard to build the ultimate job search platform.
                     </p>
                     <p>
-                      We look forward to formally launching in early to mid-2027.
+                      <strong className="text-[#0F172A]">Our official launch is scheduled for Q2 2027</strong> (April-June). As we get closer to launch, we'll be selecting waitlist members for exclusive early access and beta testing opportunities.
+                    </p>
+                    <p>
+                      Keep an eye on your inbox—you'll be among the first to know when Career Forward goes live.
                     </p>
                     <p className="text-sm">
-                      If you have any questions, please email{" "}
+                      Questions? Email us at{" "}
                       <a href="mailto:support@martinbuiltstrategies.com" className="text-[#0D9488] hover:underline">
                         support@martinbuiltstrategies.com
                       </a>
@@ -641,7 +644,7 @@ export default function WaitlistPage() {
                 </p>
                 <Button
                   onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                  className="bg-[#F59E0B] text-white hover:bg-[#D97706] h-12 px-8 rounded-xl font-medium shadow-lg shadow-[#F59E0B]/25"
+                  className="bg-[#F59E0B] text-white hover:bg-[#D97706] h-12 px-8 rounded-xl font-medium btn-3d-amber"
                 >
                   Join the Waitlist
                   <ArrowRight className="w-4 h-4 ml-2" />

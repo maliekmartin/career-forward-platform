@@ -40,6 +40,11 @@ const seekerStats = [
   { value: "Free", label: "For Job Seekers" },
 ];
 
+const orgStats = [
+  { value: "40%", label: "Placement Increase" },
+  { value: "8hrs", label: "Saved per Coach/Week" },
+  { value: "96%", label: "Coach Satisfaction" },
+];
 
 // Animated section wrapper
 function AnimatedSection({ children, className = "", delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
@@ -111,7 +116,7 @@ function BentoCardSmall({ feature, index, audience }: { feature: typeof seekerFe
       viewport={{ once: true }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       whileHover={{ y: -6, transition: { duration: 0.3 } }}
-      className="group relative bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-xl hover:border-gray-200 transition-all duration-300 cursor-pointer"
+      className="group relative bg-white rounded-2xl p-8 border border-gray-100 shadow-sm hover:shadow-xl hover:border-gray-200 transition-all duration-300 cursor-pointer hover-lift card-glow"
     >
       <div className="relative z-10">
         <motion.div
@@ -249,15 +254,15 @@ function StickyCTA({ audience, isVisible }: { audience: string; isVisible: boole
 // Hero content for each audience
 const heroContent = {
   seekers: {
-    badge: "100% Free for Job Seekers",
+    badge: "Launching Q2 2027 • Join the Waitlist",
     headlineTop: "Land your dream",
     headlineBottom: "job,",
     headlineAccent: "faster",
     subheadline: "Build resumes, track applications, and prep for interviews. All in one place. Completely free.",
-    cta: "Start Your Journey",
+    cta: "Join Waitlist",
     secondaryCta: "See Demo",
-    ctaLink: "/register",
-    secondaryCtaLink: "/dashboard",
+    ctaLink: "/waitlist",
+    secondaryCtaLink: "/demo",
   },
   organizations: {
     badge: "For Workforce Partners",
@@ -552,9 +557,9 @@ export default function LandingPage() {
                 Sign In
               </Link>
             </Button>
-            <Button size="sm" asChild className="bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-full px-6 font-medium shadow-lg shadow-[#F59E0B]/25 hover:shadow-xl hover:shadow-[#F59E0B]/30 transition-all">
-              <Link href="/register">
-                Get Started Free
+            <Button size="sm" asChild className="bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-full px-6 font-medium btn-3d-amber">
+              <Link href="/waitlist">
+                Join Beta
               </Link>
             </Button>
           </div>
@@ -562,7 +567,7 @@ export default function LandingPage() {
       </motion.nav>
 
       {/* Hero Section - Enhanced */}
-      <section ref={heroRef} className="relative pt-32 pb-32 px-6 overflow-hidden min-h-screen flex items-center bg-[#FAFBFC]">
+      <section ref={heroRef} className="relative section-padding px-6 overflow-hidden min-h-screen flex items-center section-light with-guides">
         {/* Gradient Background */}
         <div className="absolute inset-0 overflow-hidden">
           <div
@@ -590,8 +595,8 @@ export default function LandingPage() {
                 className="flex items-center justify-center lg:justify-start mb-8"
               >
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-lg shadow-gray-200/50 border border-gray-100">
-                  <Sparkles className="h-4 w-4 text-[#0D9488]" />
-                  <span className="text-sm font-medium text-gray-700">100% Free for Job Seekers</span>
+                  <Sparkles className="h-4 w-4 text-[#F59E0B]" />
+                  <span className="text-sm font-medium text-gray-700">Launching Q2 2027 • Join the Waitlist</span>
                 </div>
               </motion.div>
 
@@ -680,10 +685,9 @@ export default function LandingPage() {
                 <a href={heroContent[audience].ctaLink}>
                   <Button
                     size="lg"
-                    className="rounded-full px-10 h-16 text-lg font-semibold shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                    className="rounded-full px-10 h-16 text-lg font-semibold btn-3d-amber text-white"
                     style={{
-                      backgroundColor: accentColor,
-                      boxShadow: `0 20px 40px ${accentColor}30`
+                      backgroundColor: accentColor
                     }}
                   >
                     {heroContent[audience].cta}
@@ -694,10 +698,9 @@ export default function LandingPage() {
                 <Button
                   size="lg"
                   asChild
-                  className="rounded-full px-10 h-16 text-lg font-semibold shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                  className="rounded-full px-10 h-16 text-lg font-semibold btn-3d-amber text-white"
                   style={{
-                    backgroundColor: accentColor,
-                    boxShadow: `0 20px 40px ${accentColor}30`
+                    backgroundColor: accentColor
                   }}
                 >
                   <Link href={heroContent[audience].ctaLink}>
@@ -721,19 +724,6 @@ export default function LandingPage() {
                   {heroContent[audience].secondaryCta}
                 </Link>
               </Button>
-              {audience === "seekers" && (
-                <Button
-                  variant="ghost"
-                  size="lg"
-                  asChild
-                  className="rounded-full px-8 h-14 text-base font-medium text-gray-600 hover:text-[#0D9488] hover:bg-[#0D9488]/5 transition-all duration-300"
-                >
-                  <Link href="/waitlist">
-                    <Sparkles className="mr-2 h-4 w-4" />
-                    Join Beta Waitlist
-                  </Link>
-                </Button>
-              )}
             </motion.div>
 
             {/* Stats row */}
@@ -746,7 +736,7 @@ export default function LandingPage() {
             >
               {(audience === "seekers" ? seekerStats : orgStats).map((stat, index) => (
                 <div key={index} className="text-center lg:text-left">
-                  <div className="text-3xl md:text-4xl font-bold text-[#0F172A]">{stat.value}</div>
+                  <div className="text-3xl md:text-4xl font-bold text-[#0F172A] text-mono">{stat.value}</div>
                   <div className="text-sm text-gray-500 mt-1 font-medium">{stat.label}</div>
                 </div>
               ))}
@@ -878,7 +868,7 @@ export default function LandingPage() {
 
 
       {/* Features Section - Bento Grid */}
-      <section id="features" className="py-32 px-6 bg-[#FAFBFC]">
+      <section id="features" className="section-padding px-6 section-dark with-guides">
         <div className="max-w-7xl mx-auto">
           <AnimatedSection className="text-center mb-16">
             <div
@@ -912,7 +902,7 @@ export default function LandingPage() {
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
               whileHover={{ y: -6 }}
-              className="group relative bg-white rounded-3xl p-8 border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 cursor-pointer lg:col-span-7 lg:row-span-2"
+              className="group relative bg-white rounded-3xl p-8 border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-300 cursor-pointer lg:col-span-7 lg:row-span-2 hover-lift card-glow"
             >
               {/* Highlight badge */}
               {(audience === "seekers" ? seekerFeatures : orgFeatures)[0].highlight && (
@@ -1056,7 +1046,7 @@ export default function LandingPage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
                   whileHover={{ y: -6 }}
-                  className="group relative bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl hover:border-gray-200 transition-all duration-300 cursor-pointer lg:col-span-4"
+                  className="group relative bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl hover:border-gray-200 transition-all duration-300 cursor-pointer lg:col-span-4 hover-lift card-glow"
                 >
                   <div className="flex items-start gap-4">
                     <motion.div
@@ -1090,7 +1080,7 @@ export default function LandingPage() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.2 + (index - 4) * 0.1 }}
                   whileHover={{ y: -6 }}
-                  className="group relative bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl hover:border-gray-200 transition-all duration-300 cursor-pointer lg:col-span-4"
+                  className="group relative bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl hover:border-gray-200 transition-all duration-300 cursor-pointer lg:col-span-4 hover-lift card-glow"
                 >
                   <div className="flex items-start gap-4">
                     <motion.div
@@ -1170,7 +1160,7 @@ export default function LandingPage() {
       </section>
 
       {/* Product Preview Section */}
-      <section className="py-32 px-6 bg-white overflow-hidden">
+      <section className="section-padding px-6 bg-white overflow-hidden with-guides">
         <div className="max-w-7xl mx-auto">
           <AnimatedSection className="text-center mb-16">
             <div
@@ -1404,7 +1394,7 @@ export default function LandingPage() {
       </section>
 
       {/* How It Works Section - Enhanced */}
-      <section id="how-it-works" className="py-32 px-6 bg-[#FAFBFC]">
+      <section id="how-it-works" className="section-padding px-6 section-dark with-guides">
         <div className="max-w-7xl mx-auto">
           <AnimatedSection className="text-center mb-20">
             <div
@@ -1443,7 +1433,7 @@ export default function LandingPage() {
       </section>
 
       {/* Testimonials Section - Enhanced */}
-      <section id="testimonials" className="py-32 px-6 bg-white">
+      <section id="testimonials" className="section-padding px-6 section-light with-guides">
         <div className="max-w-7xl mx-auto">
           <AnimatedSection className="text-center mb-20">
             <div className="inline-flex items-center gap-2 bg-yellow-100 rounded-full px-5 py-2.5 mb-8">
@@ -1517,7 +1507,7 @@ export default function LandingPage() {
       </section>
 
       {/* Audience-Specific Section */}
-      <section id="partners" className="py-32 px-6 bg-gradient-to-br from-gray-50 via-white to-gray-50">
+      <section id="partners" className="section-padding px-6 section-darker with-guides">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-20 items-center">
             <AnimatedSection>
@@ -1560,8 +1550,8 @@ export default function LandingPage() {
                     asChild
                     className="bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-full px-10 h-14 font-semibold shadow-lg hover:shadow-xl transition-all"
                   >
-                    <Link href="/register">
-                      Get Started Free
+                    <Link href="/waitlist">
+                      Join Beta Waitlist
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </Link>
                   </Button>
@@ -1692,7 +1682,7 @@ export default function LandingPage() {
                           viewport={{ once: true }}
                           className="text-center p-4 rounded-xl bg-gray-50"
                         >
-                          <div className={`text-3xl font-bold ${stat.color}`}>{stat.value}</div>
+                          <div className={`text-3xl font-bold text-mono ${stat.color}`}>{stat.value}</div>
                           <div className="text-sm text-gray-500">{stat.label}</div>
                         </motion.div>
                       ))}
@@ -1782,7 +1772,7 @@ export default function LandingPage() {
       </section>
 
       {/* CTA Section - Enhanced */}
-      <section className="py-32 px-6" style={{ backgroundColor: accentColor }}>
+      <section className="section-padding px-6 with-guides" style={{ backgroundColor: accentColor }}>
         <div className="max-w-5xl mx-auto text-center">
           <AnimatedSection>
             <motion.div
@@ -1804,8 +1794,8 @@ export default function LandingPage() {
                       asChild
                       className="bg-white text-[#0D9488] hover:bg-gray-100 rounded-full px-12 h-16 text-lg font-bold shadow-2xl hover:scale-105 transition-all duration-300"
                     >
-                      <Link href="/register">
-                        Get Started Free
+                      <Link href="/waitlist">
+                        Join Beta Waitlist
                         <ArrowRight className="ml-2 h-5 w-5" />
                       </Link>
                     </Button>
@@ -1815,8 +1805,8 @@ export default function LandingPage() {
                       asChild
                       className="rounded-full px-12 h-16 text-lg font-semibold border-2 border-white/30 text-white hover:bg-white/10 transition-all bg-transparent"
                     >
-                      <Link href="/dashboard">
-                        Try Demo
+                      <Link href="/demo">
+                        See Demo
                       </Link>
                     </Button>
                   </div>
@@ -1877,7 +1867,7 @@ export default function LandingPage() {
             <div>
               <h4 className="font-bold text-[#0F172A] mb-5">Product</h4>
               <ul className="space-y-4 text-gray-500">
-                <li><Link href="/register" className="hover:text-[#0D9488] transition-colors">Get Started</Link></li>
+                <li><Link href="/waitlist" className="hover:text-[#0D9488] transition-colors">Join Beta</Link></li>
                 <li><Link href="/signin" className="hover:text-[#0D9488] transition-colors">Sign In</Link></li>
                 <li><a href="#features" className="hover:text-[#0D9488] transition-colors">Features</a></li>
                 <li><Link href="/pricing" className="hover:text-[#0D9488] transition-colors">Pricing</Link></li>
