@@ -65,8 +65,8 @@ function AnimatedSection({ children, className = "", delay = 0 }: { children: Re
 }
 
 // Bento Feature Card - Large
-function BentoCardLarge({ feature, index, audience }: { feature: typeof seekerFeatures[0]; index: number; audience: string }) {
-  const accentColor = audience === "seekers" ? "#0D9488" : "#0F172A";
+function BentoCardLarge({ feature, index }: { feature: typeof seekerFeatures[0]; index: number }) {
+  const accentColor = "#0D9488";
 
   return (
     <motion.div
@@ -106,8 +106,8 @@ function BentoCardLarge({ feature, index, audience }: { feature: typeof seekerFe
 }
 
 // Bento Feature Card - Small
-function BentoCardSmall({ feature, index, audience }: { feature: typeof seekerFeatures[0]; index: number; audience: string }) {
-  const accentColor = audience === "seekers" ? "#0D9488" : "#0F172A";
+function BentoCardSmall({ feature, index }: { feature: typeof seekerFeatures[0]; index: number }) {
+  const accentColor = "#0D9488";
 
   return (
     <motion.div
@@ -140,8 +140,8 @@ function BentoCardSmall({ feature, index, audience }: { feature: typeof seekerFe
 }
 
 // Process step card
-function ProcessStep({ step, index, isLast, audience }: { step: typeof seekerSteps[0]; index: number; isLast: boolean; audience: string }) {
-  const accentColor = audience === "seekers" ? "#0D9488" : "#0F172A";
+function ProcessStep({ step, index, isLast }: { step: typeof seekerSteps[0]; index: number; isLast: boolean }) {
+  const accentColor = "#0D9488";
 
   return (
     <motion.div
@@ -218,8 +218,8 @@ function TestimonialCard({ testimonial, index, featured = false }: { testimonial
 }
 
 // Sticky CTA Component
-function StickyCTA({ audience, isVisible }: { audience: string; isVisible: boolean }) {
-  const accentColor = audience === "seekers" ? "#0D9488" : "#0F172A";
+function StickyCTA({ isVisible }: { isVisible: boolean }) {
+  const accentColor = "#0D9488";
 
   return (
     <AnimatePresence>
@@ -240,8 +240,8 @@ function StickyCTA({ audience, isVisible }: { audience: string; isVisible: boole
               boxShadow: `0 20px 40px ${accentColor}40`
             }}
           >
-            <Link href={audience === "seekers" ? "/register" : "/pricing"}>
-              {audience === "seekers" ? "Get Started Free" : "View Pricing"}
+            <Link href="/waitlist">
+              Join Waitlist
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>
@@ -251,30 +251,17 @@ function StickyCTA({ audience, isVisible }: { audience: string; isVisible: boole
   );
 }
 
-// Hero content for each audience
+// Hero content - Job Seeker Focused
 const heroContent = {
-  seekers: {
-    badge: "Launching Q2 2027 • Join the Waitlist",
-    headlineTop: "Land your dream",
-    headlineBottom: "job,",
-    headlineAccent: "faster",
-    subheadline: "Build resumes, track applications, and prep for interviews. All in one place. Completely free.",
-    cta: "Join Waitlist",
-    secondaryCta: "See Demo",
-    ctaLink: "/waitlist",
-    secondaryCtaLink: "/demo",
-  },
-  organizations: {
-    badge: "For Workforce Partners",
-    headlineTop: "Empower your",
-    headlineBottom: "team,",
-    headlineAccent: "together",
-    subheadline: "Give coaches real-time visibility into job seeker progress. Track outcomes, celebrate wins, and drive results.",
-    cta: "Request a Demo",
-    secondaryCta: "View Pricing",
-    ctaLink: "/demo",
-    secondaryCtaLink: "/pricing",
-  },
+  badge: "Launching Q2 2027 • Join the Waitlist",
+  headlineTop: "Land your dream",
+  headlineBottom: "job,",
+  headlineAccent: "faster",
+  subheadline: "Build resumes, track applications, and prep for interviews. All in one place. Completely free.",
+  cta: "Join Waitlist",
+  secondaryCta: "See Demo",
+  ctaLink: "/waitlist",
+  secondaryCtaLink: "/demo",
 };
 
 // B2C Features (Job Seekers)
@@ -473,8 +460,9 @@ interface SuccessStoryData {
 export default function LandingPage() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showStickyCTA, setShowStickyCTA] = useState(false);
-  // Audience fixed to job seekers (organization portal coming later)
+  // Job seeker focused platform (coach portal launching Q2 2027)
   const audience = "seekers" as const;
+  const accentColor = "#0D9488";
   const [dynamicStories, setDynamicStories] = useState<SuccessStoryData[]>([]);
   const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -510,7 +498,6 @@ export default function LandingPage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [fetchSuccessStories]);
 
-  const accentColor = audience === "seekers" ? "#0D9488" : "#0F172A";
 
   return (
     <div className="min-h-screen bg-[#FAFBFC] scroll-smooth">
@@ -596,7 +583,7 @@ export default function LandingPage() {
               >
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-lg shadow-gray-200/50 border border-gray-100">
                   <Sparkles className="h-4 w-4 text-[#F59E0B]" />
-                  <span className="text-sm font-medium text-gray-700">Launching Q2 2027 • Join the Waitlist</span>
+                  <span className="text-sm font-medium text-gray-700">{heroContent.badge}</span>
                 </div>
               </motion.div>
 
@@ -610,37 +597,37 @@ export default function LandingPage() {
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1] text-[#0F172A]">
                 <AnimatePresence mode="wait">
                   <motion.span
-                    key={audience}
+                    key="headline-item"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.3 }}
                   >
-                    {heroContent[audience].headlineTop}
+                    {heroContent.headlineTop}
                   </motion.span>
                 </AnimatePresence>
                 <br />
                 <AnimatePresence mode="wait">
                   <motion.span
-                    key={`bottom-${audience}`}
+                    key="headline-bottom"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.3 }}
                   >
-                    {heroContent[audience].headlineBottom}
+                    {heroContent.headlineBottom}
                   </motion.span>
                 </AnimatePresence>{" "}
                 <span className="relative inline" style={{ color: accentColor }}>
                   <AnimatePresence mode="wait">
                     <motion.span
-                      key={`accent-${audience}`}
+                      key="headline-accent"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -20 }}
                       transition={{ duration: 0.3 }}
                     >
-                      {heroContent[audience].headlineAccent}
+                      {heroContent.headlineAccent}
                     </motion.span>
                   </AnimatePresence>
                   <motion.svg
@@ -664,25 +651,25 @@ export default function LandingPage() {
 
             {/* Subheadline */}
             <motion.p
-              key={`subheadline-${audience}`}
+              key="subheadline"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}
               className="text-xl md:text-2xl leading-relaxed mb-10 max-w-xl mx-auto lg:mx-0 text-gray-600"
             >
-              {heroContent[audience].subheadline}
+              {heroContent.subheadline}
             </motion.p>
 
             {/* CTAs */}
             <motion.div
-              key={`ctas-${audience}`}
+              key="ctas"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
               className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 mb-12"
             >
-              {heroContent[audience].ctaLink.startsWith("mailto:") ? (
-                <a href={heroContent[audience].ctaLink}>
+              {heroContent.ctaLink.startsWith("mailto:") ? (
+                <a href={heroContent.ctaLink}>
                   <Button
                     size="lg"
                     className="rounded-full px-10 h-16 text-lg font-semibold btn-3d-amber text-white"
@@ -690,7 +677,7 @@ export default function LandingPage() {
                       backgroundColor: accentColor
                     }}
                   >
-                    {heroContent[audience].cta}
+                    {heroContent.cta}
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </a>
@@ -703,8 +690,8 @@ export default function LandingPage() {
                     backgroundColor: accentColor
                   }}
                 >
-                  <Link href={heroContent[audience].ctaLink}>
-                    {heroContent[audience].cta}
+                  <Link href={heroContent.ctaLink}>
+                    {heroContent.cta}
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Link>
                 </Button>
@@ -719,22 +706,22 @@ export default function LandingPage() {
                   color: accentColor
                 }}
               >
-                <Link href={heroContent[audience].secondaryCtaLink}>
+                <Link href={heroContent.secondaryCtaLink}>
                   <Play className="mr-2 h-5 w-5" />
-                  {heroContent[audience].secondaryCta}
+                  {heroContent.secondaryCta}
                 </Link>
               </Button>
             </motion.div>
 
             {/* Stats row */}
             <motion.div
-              key={`stats-${audience}`}
+              key="stats"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.5 }}
               className="flex items-center justify-center lg:justify-start gap-8 md:gap-12"
             >
-              {(audience === "seekers" ? seekerStats : orgStats).map((stat, index) => (
+              {seekerStats.map((stat, index) => (
                 <div key={index} className="text-center lg:text-left">
                   <div className="text-3xl md:text-4xl font-bold text-[#0F172A] text-mono">{stat.value}</div>
                   <div className="text-sm text-gray-500 mt-1 font-medium">{stat.label}</div>
@@ -820,7 +807,7 @@ export default function LandingPage() {
                       {/* Video content */}
                       <AnimatePresence mode="wait">
                         <motion.video
-                          key={audience}
+                          key="hero-video"
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
@@ -831,7 +818,7 @@ export default function LandingPage() {
                           playsInline
                           className="w-full h-auto aspect-video object-cover"
                         >
-                          <source src={audience === "seekers" ? "/hero-b2c.mp4" : "/hero-b2b.mp4"} type="video/mp4" />
+                          <source src="/hero-b2c.mp4" type="video/mp4" />
                         </motion.video>
                       </AnimatePresence>
                     </div>
@@ -877,7 +864,7 @@ export default function LandingPage() {
             >
               <Zap className="h-4 w-4" style={{ color: accentColor }} />
               <span className="text-sm font-semibold" style={{ color: accentColor }}>
-                {audience === "seekers" ? "Powerful Features" : "Platform Capabilities"}
+                Powerful Features
               </span>
             </div>
             <h2 className="text-5xl md:text-6xl font-bold text-[#0F172A] mb-6">
@@ -1071,10 +1058,10 @@ export default function LandingPage() {
 
             {/* Row 3: 2 More Features + LMS Coming Soon */}
             {[4, 5].map((index) => {
-              const feature = (audience === "seekers" ? seekerFeatures : orgFeatures)[index];
+              const feature = seekerFeatures[index];
               return (
                 <motion.div
-                  key={`feature-${audience}-${index}`}
+                  key={`feature-${index}`}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -1425,7 +1412,6 @@ export default function LandingPage() {
                 step={step}
                 index={index}
                 isLast={index === (audience === "seekers" ? seekerSteps : orgSteps).length - 1}
-                audience={audience}
               />
             ))}
           </div>
@@ -1901,7 +1887,7 @@ export default function LandingPage() {
       </footer>
 
       {/* Sticky CTA */}
-      <StickyCTA audience={audience} isVisible={showStickyCTA} />
+      <StickyCTA isVisible={showStickyCTA} />
     </div>
   );
 }
