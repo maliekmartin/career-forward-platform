@@ -87,7 +87,8 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [isMounted, setIsMounted] = useState(false);
-  const [audience, setAudience] = useState<"seekers" | "organizations">("seekers");
+  // Job seeker focused platform (coach portal launching Q2 2027)
+  const audience = "seekers" as const;
 
   // Check if current route is public (bypass password protection)
   const isPublicRoute = isPathPublic(pathname);
@@ -186,64 +187,6 @@ export function PreviewOverlay({ children }: PreviewOverlayProps) {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Left Side - Content */}
             <div className="text-center lg:text-left">
-              {/* Audience Toggle */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="flex justify-center lg:justify-start mb-8"
-              >
-                <div className="relative bg-white rounded-2xl p-1.5 shadow-xl shadow-gray-200/50 border border-gray-100">
-                  <motion.div
-                    className="absolute top-1.5 bottom-1.5 rounded-xl"
-                    initial={false}
-                    animate={{
-                      x: audience === "seekers" ? 0 : "100%",
-                      backgroundColor: accentColor,
-                    }}
-                    transition={{ type: "spring", stiffness: 400, damping: 35 }}
-                    style={{ width: "calc(50% - 3px)", left: "6px" }}
-                  />
-                  <div className="relative flex">
-                    <button
-                      onClick={() => setAudience("seekers")}
-                      className="relative z-10"
-                    >
-                      <div className="flex items-center gap-2 px-5 py-3">
-                        <Target className={`w-4 h-4 transition-colors duration-300 ${
-                          audience === "seekers" ? "text-white" : "text-gray-400"
-                        }`} />
-                        <div className="text-left">
-                          <p className={`font-semibold text-sm transition-colors duration-300 ${
-                            audience === "seekers" ? "text-white" : "text-gray-700"
-                          }`}>
-                            Job Seeker
-                          </p>
-                        </div>
-                      </div>
-                    </button>
-                    <div className="w-px bg-gray-200 my-2" />
-                    <button
-                      onClick={() => setAudience("organizations")}
-                      className="relative z-10"
-                    >
-                      <div className="flex items-center gap-2 px-5 py-3">
-                        <Building2 className={`w-4 h-4 transition-colors duration-300 ${
-                          audience === "organizations" ? "text-white" : "text-gray-400"
-                        }`} />
-                        <div className="text-left">
-                          <p className={`font-semibold text-sm transition-colors duration-300 ${
-                            audience === "organizations" ? "text-white" : "text-gray-700"
-                          }`}>
-                            Organization
-                          </p>
-                        </div>
-                      </div>
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-
               {/* Badge */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
