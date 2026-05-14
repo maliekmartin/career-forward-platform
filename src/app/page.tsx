@@ -179,7 +179,7 @@ export default function LandingPage() {
               transition={{ duration: 0.8 }}
             >
               <div className="inline-block bg-[#7C5FF5]/20 border border-[#7C5FF5]/30 rounded-full px-4 py-2 mb-6">
-                <span className="text-sm font-medium text-[#7C5FF5]">01 — Resume Builder</span>
+                <span className="text-sm font-medium text-[#7C5FF5]">01 - Resume Builder</span>
               </div>
               <h2 className="text-6xl font-bold mb-6 leading-tight">
                 Build resumes that
@@ -246,7 +246,7 @@ export default function LandingPage() {
               className="order-1 lg:order-2"
             >
               <div className="inline-block bg-[#6366F1]/20 border border-[#6366F1]/30 rounded-full px-4 py-2 mb-6">
-                <span className="text-sm font-medium text-[#6366F1]">02 — Job Tracker</span>
+                <span className="text-sm font-medium text-[#6366F1]">02 - Job Tracker</span>
               </div>
               <h2 className="text-6xl font-bold mb-6 leading-tight">
                 Never lose track
@@ -286,7 +286,7 @@ export default function LandingPage() {
             transition={{ duration: 0.8 }}
           >
             <div className="inline-block bg-[#7C5FF5]/20 border border-[#7C5FF5]/30 rounded-full px-4 py-2 mb-8">
-              <span className="text-sm font-medium text-[#7C5FF5]">03 — AI Career Coach</span>
+              <span className="text-sm font-medium text-[#7C5FF5]">03 - AI Career Coach</span>
             </div>
             <h2 className="text-7xl font-bold mb-8 leading-tight">
               Your personal
@@ -296,7 +296,7 @@ export default function LandingPage() {
               </span>
             </h2>
             <p className="text-2xl text-white/60 mb-12 max-w-2xl mx-auto leading-relaxed">
-              Meet Compass. Get personalized guidance 24/7—resume feedback, interview tips, career strategies.
+              Meet Compass. Get personalized guidance 24/7 - resume feedback, interview tips, career strategies.
             </p>
             <Button
               size="lg"
