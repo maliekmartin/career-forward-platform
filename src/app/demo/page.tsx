@@ -1,517 +1,280 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import {
   ArrowRight,
-  ArrowLeft,
-  CheckCircle2,
-  Users,
-  Sparkles,
-  BarChart3,
+  FileText,
   Target,
-  Mail,
-  Phone,
-  User,
-  Building2,
-  Briefcase,
-  Calendar,
-  PlayCircle,
   MessageSquare,
+  Briefcase,
+  CheckCircle2,
+  Sparkles,
+  TrendingUp,
+  Users,
+  Calendar,
 } from "lucide-react";
 
-const benefits = [
+const features = [
   {
-    icon: Users,
-    title: "Caseload Management",
-    description: "Track unlimited job seekers with real-time dashboards",
+    icon: FileText,
+    title: "AI-Powered Resume Builder",
+    description: "Create professional, ATS-optimized resumes in minutes with our intelligent builder.",
   },
   {
-    icon: Target,
-    title: "AI-Powered Matching",
-    description: "Connect seekers with opportunities that fit their skills",
-  },
-  {
-    icon: BarChart3,
-    title: "Outcome Tracking",
-    description: "Report placement data for grants and compliance",
+    icon: Briefcase,
+    title: "Job Application Tracker",
+    description: "Never lose track of an application. Organize and manage your entire job search.",
   },
   {
     icon: MessageSquare,
-    title: "Built-in Communication",
-    description: "Keep everyone connected with in-app messaging",
+    title: "AI Career Coach",
+    description: "Get personalized guidance 24/7 from Compass, your AI-powered career assistant.",
+  },
+  {
+    icon: Target,
+    title: "Interview Preparation",
+    description: "Practice common questions and get tips to ace your next interview.",
   },
 ];
 
-const teamSizeOptions = [
-  { value: "1-5", label: "1-5 coaches" },
-  { value: "6-15", label: "6-15 coaches" },
-  { value: "16-30", label: "16-30 coaches" },
-  { value: "31-50", label: "31-50 coaches" },
-  { value: "51+", label: "51+ coaches" },
-];
-
-const orgTypeOptions = [
-  { value: "workforce", label: "Workforce Development Board" },
-  { value: "nonprofit", label: "Non-Profit Organization" },
-  { value: "education", label: "Educational Institution" },
-  { value: "government", label: "Government Agency" },
-  { value: "staffing", label: "Staffing Agency" },
-  { value: "other", label: "Other" },
+const demoSteps = [
+  {
+    step: "1",
+    title: "Create Your Profile",
+    description: "Sign up in seconds and tell us about your career goals.",
+  },
+  {
+    step: "2",
+    title: "Build Your Resume",
+    description: "Use our AI-powered builder to create a standout resume.",
+  },
+  {
+    step: "3",
+    title: "Track Applications",
+    description: "Apply to jobs and keep everything organized in one place.",
+  },
+  {
+    step: "4",
+    title: "Land Your Job",
+    description: "Get interview tips, practice questions, and land your dream role.",
+  },
 ];
 
 export default function DemoPage() {
-  const [formStep, setFormStep] = useState(1); // 1 = contact, 2 = org info, 3 = success
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    company: "",
-    jobTitle: "",
-    teamSize: "",
-    orgType: "",
-    message: "",
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (formStep === 1) {
-      setFormStep(2);
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    // In production, you'd send this to your backend or email service
-    console.log("Demo request submitted:", formData);
-
-    setIsSubmitting(false);
-    setFormStep(3);
-  };
-
-  const handleBack = () => {
-    if (formStep > 1) {
-      setFormStep(formStep - 1);
-    }
-  };
-
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#FAFBFC]">
-      {/* Gradient Background */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-3xl opacity-20 bg-[#0D9488]" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-3xl opacity-10 bg-[#0D9488]" />
-      </div>
-
+    <div className="min-h-screen bg-[#FAFBFC]">
       {/* Navigation */}
-      <motion.nav
-        initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5 }}
-        className="relative z-20 bg-white/80 backdrop-blur-xl border-b border-gray-100 shadow-sm"
-      >
+      <nav className="bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto flex h-16 items-center justify-between px-6">
-          <Link href="/">
+          <Link href="/" className="flex items-center">
             <Image
               src="/career-forward-logo.png"
               alt="Career Forward"
-              width={180}
-              height={45}
+              width={200}
+              height={50}
               priority
             />
           </Link>
-          <div className="flex items-center gap-4">
-            <Link
-              href="/pricing"
-              className="text-sm text-gray-600 hover:text-[#0D9488] transition-colors hidden sm:block"
-            >
-              Pricing
-            </Link>
-            <Link
-              href="/faq"
-              className="text-sm text-gray-600 hover:text-[#0D9488] transition-colors hidden sm:block"
-            >
-              FAQ
-            </Link>
-            <Link href="/signin">
-              <Button variant="outline" size="sm">
-                Sign In
-              </Button>
-            </Link>
+          <div className="flex items-center gap-3">
+            <Button variant="ghost" size="sm" asChild>
+              <Link href="/signin">Sign In</Link>
+            </Button>
+            <Button size="sm" asChild className="bg-[#0D9488] hover:bg-[#0D9488]/90 text-white">
+              <Link href="/waitlist">Join Waitlist</Link>
+            </Button>
           </div>
         </div>
-      </motion.nav>
+      </nav>
 
-      {/* Main Content */}
-      <div className="relative z-10 min-h-[calc(100vh-64px)] py-12 px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
-            {/* Left Side - Content */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              className="lg:sticky lg:top-24"
-            >
-              {/* Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-lg shadow-gray-200/50 border border-gray-100 mb-6">
-                <PlayCircle className="h-4 w-4 text-[#0D9488]" />
-                <span className="text-sm font-medium text-gray-700">See Career Forward in Action</span>
-              </div>
-
-              {/* Headline */}
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight leading-[1.1] text-[#0F172A] mb-6">
-                Transform how you
-                <br />
-                <span className="text-[#0D9488]">serve job seekers</span>
-              </h1>
-
-              <p className="text-xl text-gray-600 leading-relaxed mb-8 max-w-lg">
-                Schedule a personalized demo to see how Career Forward can help your organization achieve better outcomes.
-              </p>
-
-              {/* Benefits */}
-              <div className="grid sm:grid-cols-2 gap-4 mb-8">
-                {benefits.map((benefit, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1 * i, duration: 0.4 }}
-                    className="flex items-start gap-3 p-4 bg-white rounded-xl border border-gray-100 shadow-sm"
-                  >
-                    <div className="w-10 h-10 bg-[#0D9488]/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <benefit.icon className="h-5 w-5 text-[#0D9488]" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-[#0F172A] text-sm">{benefit.title}</h3>
-                      <p className="text-xs text-gray-500 mt-0.5">{benefit.description}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* Trust line */}
-              <p className="text-sm text-gray-500">
-                <span className="font-medium text-gray-700">Here to Move You Forward</span> — Empowering workforce development organizations across the country.
-              </p>
-            </motion.div>
-
-            {/* Right Side - Form */}
+      {/* Hero Section */}
+      <section className="section-padding px-6 pt-20">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center max-w-3xl mx-auto mb-16">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              className="inline-flex items-center gap-2 bg-[#0D9488]/10 rounded-full px-4 py-2 mb-6"
             >
-              {/* Progress indicator */}
-              {formStep < 3 && (
-                <div className="flex items-center gap-2 mb-6">
-                  <div className={`h-2 flex-1 rounded-full ${formStep >= 1 ? "bg-[#0D9488]" : "bg-gray-200"}`} />
-                  <div className={`h-2 flex-1 rounded-full ${formStep >= 2 ? "bg-[#0D9488]" : "bg-gray-200"}`} />
-                </div>
-              )}
+              <Sparkles className="h-4 w-4 text-[#0D9488]" />
+              <span className="text-sm font-semibold text-[#0D9488]">Platform Demo</span>
+            </motion.div>
 
-              <div className="bg-white rounded-2xl p-8 shadow-xl shadow-gray-200/50 border border-gray-100">
-                <AnimatePresence mode="wait">
-                  {formStep === 1 && (
-                    <motion.div
-                      key="step1"
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -20 }}
-                    >
-                      <div className="text-center mb-6">
-                        <h2 className="text-2xl font-bold text-[#0F172A]">Request a Demo</h2>
-                        <p className="text-gray-500 mt-1">Tell us about yourself</p>
-                      </div>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-5xl md:text-6xl font-bold text-[#0F172A] mb-6"
+            >
+              See Career Forward
+              <br />
+              <span className="text-[#0D9488]">in Action</span>
+            </motion.h1>
 
-                      <form onSubmit={handleSubmit} className="space-y-4">
-                        <div className="grid grid-cols-2 gap-4">
-                          <div className="space-y-2">
-                            <Label htmlFor="firstName" className="text-gray-700">First Name</Label>
-                            <div className="relative">
-                              <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                              <Input
-                                id="firstName"
-                                placeholder="John"
-                                value={formData.firstName}
-                                onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                                required
-                                className="h-12 pl-10 bg-gray-50 border-gray-200"
-                              />
-                            </div>
-                          </div>
-                          <div className="space-y-2">
-                            <Label htmlFor="lastName" className="text-gray-700">Last Name</Label>
-                            <Input
-                              id="lastName"
-                              placeholder="Doe"
-                              value={formData.lastName}
-                              onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                              required
-                              className="h-12 bg-gray-50 border-gray-200"
-                            />
-                          </div>
-                        </div>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-xl text-gray-600 mb-8"
+            >
+              Watch how Career Forward helps job seekers build resumes, track applications, and land their dream jobs — all for free.
+            </motion.p>
 
-                        <div className="space-y-2">
-                          <Label htmlFor="email" className="text-gray-700">Work Email</Label>
-                          <div className="relative">
-                            <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                            <Input
-                              id="email"
-                              type="email"
-                              placeholder="john@organization.org"
-                              value={formData.email}
-                              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                              required
-                              className="h-12 pl-10 bg-gray-50 border-gray-200"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="space-y-2">
-                          <Label htmlFor="phone" className="text-gray-700">Phone Number</Label>
-                          <div className="relative">
-                            <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                            <Input
-                              id="phone"
-                              type="tel"
-                              placeholder="(555) 123-4567"
-                              value={formData.phone}
-                              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                              required
-                              className="h-12 pl-10 bg-gray-50 border-gray-200"
-                            />
-                          </div>
-                        </div>
-
-                        <Button
-                          type="submit"
-                          className="w-full h-12 bg-[#F59E0B] hover:bg-[#D97706] text-white font-semibold shadow-lg shadow-[#F59E0B]/25 mt-6"
-                        >
-                          Continue
-                          <ArrowRight className="ml-2 h-5 w-5" />
-                        </Button>
-                      </form>
-                    </motion.div>
-                  )}
-
-                  {formStep === 2 && (
-                    <motion.div
-                      key="step2"
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -20 }}
-                    >
-                      <button
-                        type="button"
-                        onClick={handleBack}
-                        className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700 mb-4"
-                      >
-                        <ArrowLeft className="h-4 w-4" />
-                        Back
-                      </button>
-
-                      <div className="text-center mb-6">
-                        <h2 className="text-2xl font-bold text-[#0F172A]">About Your Organization</h2>
-                        <p className="text-gray-500 mt-1">Help us prepare a tailored demo</p>
-                      </div>
-
-                      <form onSubmit={handleSubmit} className="space-y-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="company" className="text-gray-700">Organization Name</Label>
-                          <div className="relative">
-                            <Building2 className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                            <Input
-                              id="company"
-                              placeholder="Workforce Development Corp"
-                              value={formData.company}
-                              onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                              required
-                              className="h-12 pl-10 bg-gray-50 border-gray-200"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="space-y-2">
-                          <Label htmlFor="jobTitle" className="text-gray-700">Your Role</Label>
-                          <div className="relative">
-                            <Briefcase className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                            <Input
-                              id="jobTitle"
-                              placeholder="Program Director"
-                              value={formData.jobTitle}
-                              onChange={(e) => setFormData({ ...formData, jobTitle: e.target.value })}
-                              required
-                              className="h-12 pl-10 bg-gray-50 border-gray-200"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="space-y-2">
-                          <Label className="text-gray-700">Organization Type</Label>
-                          <Select
-                            value={formData.orgType}
-                            onValueChange={(value) => setFormData({ ...formData, orgType: value })}
-                          >
-                            <SelectTrigger className="h-12 bg-gray-50 border-gray-200">
-                              <SelectValue placeholder="Select organization type" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {orgTypeOptions.map((option) => (
-                                <SelectItem key={option.value} value={option.value}>
-                                  {option.label}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-
-                        <div className="space-y-2">
-                          <Label className="text-gray-700">Team Size</Label>
-                          <Select
-                            value={formData.teamSize}
-                            onValueChange={(value) => setFormData({ ...formData, teamSize: value })}
-                          >
-                            <SelectTrigger className="h-12 bg-gray-50 border-gray-200">
-                              <SelectValue placeholder="How many coaches?" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {teamSizeOptions.map((option) => (
-                                <SelectItem key={option.value} value={option.value}>
-                                  {option.label}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-
-                        <div className="space-y-2">
-                          <Label htmlFor="message" className="text-gray-700">
-                            Anything else we should know? <span className="text-gray-400">(Optional)</span>
-                          </Label>
-                          <textarea
-                            id="message"
-                            placeholder="Tell us about your current challenges or goals..."
-                            value={formData.message}
-                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                            className="w-full h-24 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-[#0F172A] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] resize-none"
-                          />
-                        </div>
-
-                        <Button
-                          type="submit"
-                          className="w-full h-12 bg-[#F59E0B] hover:bg-[#D97706] text-white font-semibold shadow-lg shadow-[#F59E0B]/25 mt-4"
-                          disabled={isSubmitting}
-                        >
-                          {isSubmitting ? (
-                            <>
-                              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                              Submitting...
-                            </>
-                          ) : (
-                            <>
-                              Request Demo
-                              <Calendar className="ml-2 h-5 w-5" />
-                            </>
-                          )}
-                        </Button>
-                      </form>
-                    </motion.div>
-                  )}
-
-                  {formStep === 3 && (
-                    <motion.div
-                      key="step3"
-                      initial={{ opacity: 0, scale: 0.95 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="text-center py-8"
-                    >
-                      <div className="w-16 h-16 bg-[#0D9488]/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <CheckCircle2 className="h-8 w-8 text-[#0D9488]" />
-                      </div>
-                      <h2 className="text-2xl font-bold text-[#0F172A] mb-2">You're All Set!</h2>
-                      <p className="text-gray-600 mb-6 max-w-sm mx-auto">
-                        Thanks for your interest in Career Forward. A member of our team will reach out within one business day to schedule your personalized demo.
-                      </p>
-                      <div className="bg-gray-50 rounded-xl p-4 mb-6">
-                        <p className="text-sm text-gray-500">
-                          Submitted for <span className="font-medium text-gray-700">{formData.company}</span>
-                        </p>
-                        <p className="text-sm text-gray-500">
-                          We'll contact you at <span className="font-medium text-gray-700">{formData.email}</span>
-                        </p>
-                      </div>
-                      <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                        <Link href="/">
-                          <Button variant="outline">
-                            Back to Home
-                          </Button>
-                        </Link>
-                        <Link href="/pricing">
-                          <Button className="bg-[#F59E0B] hover:bg-[#D97706]">
-                            View Pricing
-                            <ArrowRight className="ml-2 h-4 w-4" />
-                          </Button>
-                        </Link>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              {/* Footer note */}
-              {formStep < 3 && (
-                <p className="text-center text-sm text-gray-400 mt-6">
-                  By submitting, you agree to our privacy policy. We never share your information.
-                </p>
-              )}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="flex flex-col sm:flex-row items-center justify-center gap-4"
+            >
+              <Button size="lg" asChild className="bg-[#0D9488] hover:bg-[#0D9488]/90 text-white rounded-full px-8 h-14">
+                <Link href="/waitlist">
+                  Join the Waitlist
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+              <Button size="lg" variant="outline" asChild className="rounded-full px-8 h-14">
+                <Link href="/">
+                  Back to Home
+                </Link>
+              </Button>
             </motion.div>
           </div>
-        </div>
-      </div>
 
-      {/* Footer */}
-      <div className="relative z-10 px-6 py-6 border-t border-gray-100 bg-white/50 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-4">
-            <div className="flex items-center gap-6">
-              <Link href="/" className="text-sm text-gray-500 hover:text-[#0D9488] transition-colors">
-                Home
-              </Link>
-              <Link href="/faq" className="text-sm text-gray-500 hover:text-[#0D9488] transition-colors">
-                FAQ
-              </Link>
-              <Link href="/privacy" className="text-sm text-gray-500 hover:text-[#0D9488] transition-colors">
-                Privacy Policy
-              </Link>
+          {/* Demo Video Placeholder */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="relative rounded-3xl overflow-hidden shadow-2xl border border-gray-200 bg-white"
+          >
+            <div className="aspect-video bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full h-full object-cover"
+              >
+                <source src="/hero-b2c.mp4" type="video/mp4" />
+              </video>
             </div>
-            <span className="text-sm text-gray-400">A Martin Built Strategies Product</span>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Features Grid */}
+      <section className="section-padding px-6 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-4">
+              Everything You Need to Succeed
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              A complete job search toolkit, completely free for job seekers.
+            </p>
           </div>
-          <div className="text-center md:text-left">
-            <span className="text-sm text-gray-400">© 2026 Career Forward. All rights reserved.</span>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {features.map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition-shadow"
+              >
+                <div className="w-12 h-12 bg-[#0D9488]/10 rounded-xl flex items-center justify-center mb-4">
+                  <feature.icon className="h-6 w-6 text-[#0D9488]" />
+                </div>
+                <h3 className="text-xl font-bold text-[#0F172A] mb-2">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600">
+                  {feature.description}
+                </p>
+              </motion.div>
+            ))}
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="section-padding px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-4">
+              Your Path to Employment
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Four simple steps to go from job seeker to employed.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {demoSteps.map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="text-center"
+              >
+                <div className="w-16 h-16 bg-[#0D9488] text-white rounded-full flex items-center justify-center text-2xl font-bold mb-4 mx-auto">
+                  {item.step}
+                </div>
+                <h3 className="text-lg font-bold text-[#0F172A] mb-2">
+                  {item.title}
+                </h3>
+                <p className="text-gray-600">
+                  {item.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Stats */}
+      <section className="section-padding px-6 bg-[#0D9488]">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-12 text-center">
+            <div>
+              <div className="text-5xl font-bold text-white mb-2">70%</div>
+              <div className="text-white/80">Avg Placement Rate</div>
+            </div>
+            <div>
+              <div className="text-5xl font-bold text-white mb-2">3 wks</div>
+              <div className="text-white/80">Avg Time to Hire</div>
+            </div>
+            <div>
+              <div className="text-5xl font-bold text-white mb-2">Free</div>
+              <div className="text-white/80">For Job Seekers</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="section-padding px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-6">
+            Ready to Start Your Journey?
+          </h2>
+          <p className="text-xl text-gray-600 mb-8">
+            Join thousands on the waitlist for exclusive early access when we launch in Q2 2027.
+          </p>
+          <Button size="lg" asChild className="bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-full px-10 h-16 text-lg">
+            <Link href="/waitlist">
+              Join the Waitlist
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
+        </div>
+      </section>
     </div>
   );
 }
