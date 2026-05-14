@@ -168,11 +168,11 @@ function ProcessStep({ step, index, isLast }: { step: typeof seekerSteps[0]; ind
           {step.number}
         </motion.div>
 
-        <h3 className="text-xl font-bold text-[#0F172A] mb-3">
+        <h3 className="text-xl font-bold text-white mb-3">
           {step.title}
         </h3>
 
-        <p className="text-gray-600 leading-relaxed max-w-xs mx-auto">
+        <p className="text-gray-100 leading-relaxed max-w-xs mx-auto">
           {step.description}
         </p>
       </div>
