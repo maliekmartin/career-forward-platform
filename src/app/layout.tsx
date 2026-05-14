@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/lib/theme-context";
-import { PreviewOverlay } from "@/components/preview-overlay";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -71,9 +70,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider>
-          <PreviewOverlay>
-            {children}
-          </PreviewOverlay>
+          {children}
         </ThemeProvider>
         <script
           dangerouslySetInnerHTML={{
