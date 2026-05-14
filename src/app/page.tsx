@@ -1113,10 +1113,10 @@ export default function LandingPage() {
                   <GraduationCap className="h-6 w-6" style={{ color: accentColor }} />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-[#0F172A] mb-1">
+                  <h3 className="text-lg font-bold text-white mb-1">
                     Learning Management System
                   </h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">
+                  <p className="text-gray-100 text-sm leading-relaxed">
                     {audience === "seekers"
                       ? "Access training courses, certifications, and skill-building resources all in one place."
                       : "Assign training modules, track completion, and measure skill gains for WIOA compliance."}
