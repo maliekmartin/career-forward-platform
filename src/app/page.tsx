@@ -867,12 +867,12 @@ export default function LandingPage() {
                 Powerful Features
               </span>
             </div>
-            <h2 className="text-5xl md:text-6xl font-bold text-[#0F172A] mb-6">
+            <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">
               {audience === "seekers"
                 ? "Everything you need to succeed"
                 : "Tools to drive outcomes"}
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-gray-100 max-w-3xl mx-auto leading-relaxed">
               {audience === "seekers"
                 ? "A complete career toolkit designed by HR professionals to help you land your next role."
                 : "Equip your team with the visibility and tools they need to support job seekers effectively."}
@@ -1393,12 +1393,12 @@ export default function LandingPage() {
                 {audience === "seekers" ? "Simple Process" : "Easy Setup"}
               </span>
             </div>
-            <h2 className="text-5xl md:text-6xl font-bold text-[#0F172A] mb-6">
+            <h2 className="text-5xl md:text-6xl font-bold text-white mb-6">
               {audience === "seekers"
                 ? "Your path to employment"
                 : "Get started in minutes"}
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl text-gray-100 max-w-3xl mx-auto leading-relaxed">
               {audience === "seekers"
                 ? "Four simple steps to go from job seeker to employed. We guide you every step of the way."
                 : "Onboard your organization quickly and start seeing results from day one."}
@@ -1503,10 +1503,10 @@ export default function LandingPage() {
                     <Sparkles className="h-4 w-4 text-[#0D9488]" />
                     <span className="text-sm font-semibold text-[#0D9488]">AI-Powered Guidance</span>
                   </div>
-                  <h2 className="text-5xl md:text-6xl font-bold text-[#0F172A] mb-8 leading-tight">
+                  <h2 className="text-5xl md:text-6xl font-bold text-white mb-8 leading-tight">
                     Your personal AI career coach
                   </h2>
-                  <p className="text-xl text-gray-600 mb-10 leading-relaxed">
+                  <p className="text-xl text-gray-200 mb-10 leading-relaxed">
                     Meet Compass, your AI career coach. Get personalized guidance, resume feedback, and interview tips available 24/7 to help you succeed in your job search.
                   </p>
 
@@ -1526,7 +1526,7 @@ export default function LandingPage() {
                         viewport={{ once: true }}
                       >
                         <CheckCircle2 className="h-6 w-6 text-[#0D9488] flex-shrink-0 mt-0.5" />
-                        <span className="text-gray-700 text-lg">{item}</span>
+                        <span className="text-gray-100 text-lg">{item}</span>
                       </motion.li>
                     ))}
                   </ul>
