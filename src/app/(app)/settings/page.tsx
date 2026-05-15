@@ -1,0 +1,853 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useTheme } from "@/lib/theme-context";
+import {
+  User,
+  Bell,
+  Shield,
+  Eye,
+  EyeOff,
+  Globe,
+  Palette,
+  Link2,
+  Download,
+  Trash2,
+  ChevronRight,
+  Camera,
+  Check,
+  Loader2,
+  Lock,
+  AlertCircle,
+  CheckCircle2,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ProfilePictureSelector } from "@/components/profile/profile-picture-selector";
+
+const tabs = [
+  { id: "profile", name: "Profile", icon: User },
+  { id: "security", name: "Security", icon: Lock },
+  { id: "notifications", name: "Notifications", icon: Bell },
+  { id: "privacy", name: "Privacy & Coach", icon: Shield },
+  { id: "preferences", name: "Preferences", icon: Palette },
+  { id: "data", name: "Your Data", icon: Download },
+];
+
+interface UserProfile {
+  firstName: string | null;
+  lastName: string | null;
+  phone: string | null;
+  email: string;
+  profilePhotoUrl: string | null;
+}
+
+export default function SettingsPage() {
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
+  const [activeTab, setActiveTab] = useState("profile");
+  const [coachConnected, setCoachConnected] = useState(false);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [saveMessage, setSaveMessage] = useState<string | null>(null);
+
+  // Form state
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [phone, setPhone] = useState("");
+
+  // Password change state
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  // Account deletion state
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deletePassword, setDeletePassword] = useState("");
+  const [deleteConfirmation, setDeleteConfirmation] = useState("");
+  const [deleting, setDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [changingPassword, setChangingPassword] = useState(false);
+  const [passwordMessage, setPasswordMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+
+  // Password requirements
+  const passwordRequirements = [
+    { label: "At least 12 characters", test: (p: string) => p.length >= 12 },
+    { label: "One uppercase letter", test: (p: string) => /[A-Z]/.test(p) },
+    { label: "One lowercase letter", test: (p: string) => /[a-z]/.test(p) },
+    { label: "One number", test: (p: string) => /[0-9]/.test(p) },
+    { label: "One special character", test: (p: string) => /[^A-Za-z0-9]/.test(p) },
+  ];
+
+  const allRequirementsMet = passwordRequirements.every((r) => r.test(newPassword));
+  const passwordsMatch = newPassword === confirmPassword && confirmPassword.length > 0;
+  const canChangePassword = currentPassword && allRequirementsMet && passwordsMatch;
+
+  const handleChangePassword = async () => {
+    if (!canChangePassword) return;
+
+    setChangingPassword(true);
+    setPasswordMessage(null);
+
+    try {
+      const res = await fetch("/api/auth/change-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ currentPassword, newPassword }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        setPasswordMessage({ type: "success", text: data.message || "Password changed successfully!" });
+        setCurrentPassword("");
+        setNewPassword("");
+        setConfirmPassword("");
+      } else {
+        setPasswordMessage({ type: "error", text: data.error || "Failed to change password" });
+      }
+    } catch {
+      setPasswordMessage({ type: "error", text: "An error occurred. Please try again." });
+    } finally {
+      setChangingPassword(false);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    if (deleteConfirmation !== "DELETE MY ACCOUNT") {
+      setDeleteError("Please type 'DELETE MY ACCOUNT' exactly to confirm.");
+      return;
+    }
+
+    setDeleting(true);
+    setDeleteError(null);
+
+    try {
+      const res = await fetch("/api/auth/delete-account", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          password: deletePassword,
+          confirmation: deleteConfirmation,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        // Redirect to home page after successful deletion
+        window.location.href = "/";
+      } else {
+        setDeleteError(data.error || "Failed to delete account");
+      }
+    } catch {
+      setDeleteError("An error occurred. Please try again.");
+    } finally {
+      setDeleting(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  const fetchProfile = async () => {
+    try {
+      const res = await fetch("/api/profile");
+      if (res.ok) {
+        const data = await res.json();
+        setProfile(data.profile);
+        setFirstName(data.profile?.firstName || "");
+        setLastName(data.profile?.lastName || "");
+        setPhone(data.profile?.phone || "");
+      }
+    } catch (error) {
+      console.error("Failed to fetch profile:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSaveProfile = async () => {
+    setSaving(true);
+    setSaveMessage(null);
+    try {
+      const res = await fetch("/api/profile", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          profile: { firstName, lastName, phone },
+        }),
+      });
+
+      if (res.ok) {
+        setSaveMessage("Profile saved successfully!");
+        fetchProfile();
+      } else {
+        setSaveMessage("Failed to save profile");
+      }
+    } catch (error) {
+      setSaveMessage("Failed to save profile");
+    } finally {
+      setSaving(false);
+      setTimeout(() => setSaveMessage(null), 3000);
+    }
+  };
+
+  const handlePhotoChange = (url: string) => {
+    setProfile((prev) => prev ? { ...prev, profilePhotoUrl: url } : null);
+  };
+
+  return (
+    <div className="max-w-5xl mx-auto">
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="mb-8"
+      >
+        <h1 className={`text-3xl font-bold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>Settings</h1>
+        <p className={isDark ? "text-gray-400" : "text-gray-600"}>Manage your account and preferences</p>
+      </motion.div>
+
+      <div className="flex gap-8">
+        {/* Sidebar */}
+        <motion.div
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="w-64 flex-shrink-0"
+        >
+          <div className={`rounded-2xl border p-2 ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}>
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                  activeTab === tab.id
+                    ? "bg-[#0D9488]/10 text-[#0D9488]"
+                    : isDark
+                      ? "text-gray-400 hover:bg-gray-800"
+                      : "text-gray-600 hover:bg-gray-50"
+                }`}
+              >
+                <tab.icon className="h-5 w-5" />
+                {tab.name}
+              </button>
+            ))}
+          </div>
+        </motion.div>
+
+        {/* Content */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="flex-1"
+        >
+          {activeTab === "profile" && (
+            <div className="space-y-6">
+              {/* Profile Photo */}
+              <div className={`rounded-2xl border p-6 ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}>
+                <h2 className={`text-lg font-semibold mb-4 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
+                  Profile Photo
+                </h2>
+                <div className="flex items-center gap-6">
+                  <ProfilePictureSelector
+                    currentPhotoUrl={profile?.profilePhotoUrl}
+                    onPhotoChange={handlePhotoChange}
+                    size="lg"
+                  />
+                  <div>
+                    <p className={`text-sm mb-2 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
+                      Upload a professional photo or choose an avatar
+                    </p>
+                    <p className={`text-xs ${isDark ? "text-gray-500" : "text-gray-400"}`}>
+                      Click on the photo to change it
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Personal Info */}
+              <div className={`rounded-2xl border p-6 ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}>
+                <h2 className={`text-lg font-semibold mb-4 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
+                  Personal Information
+                </h2>
+                {loading ? (
+                  <div className="flex items-center justify-center py-8">
+                    <Loader2 className={`w-6 h-6 animate-spin ${isDark ? "text-gray-400" : "text-gray-500"}`} />
+                  </div>
+                ) : (
+                  <>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <label className={`block text-sm font-medium mb-1 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+                          First Name
+                        </label>
+                        <input
+                          type="text"
+                          value={firstName}
+                          onChange={(e) => setFirstName(e.target.value)}
+                          className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] ${
+                            isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-[#0F172A]"
+                          }`}
+                        />
+                      </div>
+                      <div>
+                        <label className={`block text-sm font-medium mb-1 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+                          Last Name
+                        </label>
+                        <input
+                          type="text"
+                          value={lastName}
+                          onChange={(e) => setLastName(e.target.value)}
+                          className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] ${
+                            isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-[#0F172A]"
+                          }`}
+                        />
+                      </div>
+                      <div className="col-span-2">
+                        <label className={`block text-sm font-medium mb-1 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+                          Email
+                        </label>
+                        <input
+                          type="email"
+                          value={profile?.email || ""}
+                          disabled
+                          className={`w-full px-4 py-2.5 border rounded-xl ${
+                            isDark ? "bg-gray-800/50 border-gray-700 text-gray-400" : "bg-gray-50 border-gray-200 text-gray-500"
+                          }`}
+                        />
+                        <p className={`text-xs mt-1 ${isDark ? "text-gray-500" : "text-gray-400"}`}>
+                          Email cannot be changed
+                        </p>
+                      </div>
+                      <div className="col-span-2">
+                        <label className={`block text-sm font-medium mb-1 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+                          Phone
+                        </label>
+                        <input
+                          type="tel"
+                          value={phone}
+                          onChange={(e) => setPhone(e.target.value)}
+                          placeholder="(555) 555-1234"
+                          className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] ${
+                            isDark ? "bg-gray-800 border-gray-700 text-white placeholder:text-gray-600" : "bg-white border-gray-200 text-[#0F172A] placeholder:text-gray-400"
+                          }`}
+                        />
+                      </div>
+                    </div>
+                    <div className="mt-4 flex items-center justify-between">
+                      {saveMessage && (
+                        <p className={`text-sm ${saveMessage.includes("success") ? "text-green-500" : "text-red-500"}`}>
+                          {saveMessage}
+                        </p>
+                      )}
+                      <div className="ml-auto">
+                        <Button
+                          onClick={handleSaveProfile}
+                          disabled={saving}
+                          className={`rounded-xl ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"}`}
+                        >
+                          {saving ? (
+                            <>
+                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                              Saving...
+                            </>
+                          ) : (
+                            "Save Changes"
+                          )}
+                        </Button>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+          )}
+
+          {activeTab === "security" && (
+            <div className="space-y-6">
+              {/* Change Password */}
+              <div className={`rounded-2xl border p-6 ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}>
+                <h2 className={`text-lg font-semibold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
+                  Change Password
+                </h2>
+                <p className={`text-sm mb-6 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
+                  Update your password to keep your account secure.
+                </p>
+
+                {passwordMessage && (
+                  <div className={`mb-4 p-4 rounded-xl flex items-start gap-3 ${
+                    passwordMessage.type === "success"
+                      ? isDark ? "bg-green-900/20 border border-green-800" : "bg-green-50 border border-green-200"
+                      : isDark ? "bg-red-900/20 border border-red-800" : "bg-red-50 border border-red-200"
+                  }`}>
+                    {passwordMessage.type === "success" ? (
+                      <CheckCircle2 className={`h-5 w-5 flex-shrink-0 ${isDark ? "text-green-400" : "text-green-600"}`} />
+                    ) : (
+                      <AlertCircle className={`h-5 w-5 flex-shrink-0 ${isDark ? "text-red-400" : "text-red-600"}`} />
+                    )}
+                    <p className={`text-sm ${
+                      passwordMessage.type === "success"
+                        ? isDark ? "text-green-300" : "text-green-700"
+                        : isDark ? "text-red-300" : "text-red-700"
+                    }`}>
+                      {passwordMessage.text}
+                    </p>
+                  </div>
+                )}
+
+                <div className="space-y-4">
+                  <div>
+                    <label className={`block text-sm font-medium mb-1 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+                      Current Password
+                    </label>
+                    <div className="relative">
+                      <input
+                        type={showCurrentPassword ? "text" : "password"}
+                        value={currentPassword}
+                        onChange={(e) => setCurrentPassword(e.target.value)}
+                        className={`w-full px-4 py-2.5 pr-12 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] ${
+                          isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-[#0F172A]"
+                        }`}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowCurrentPassword(!showCurrentPassword)}
+                        className={`absolute right-4 top-1/2 -translate-y-1/2 ${isDark ? "text-gray-400 hover:text-gray-300" : "text-gray-400 hover:text-gray-600"}`}
+                      >
+                        {showCurrentPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                      </button>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className={`block text-sm font-medium mb-1 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+                      New Password
+                    </label>
+                    <div className="relative">
+                      <input
+                        type={showNewPassword ? "text" : "password"}
+                        value={newPassword}
+                        onChange={(e) => setNewPassword(e.target.value)}
+                        className={`w-full px-4 py-2.5 pr-12 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] ${
+                          isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-[#0F172A]"
+                        }`}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowNewPassword(!showNewPassword)}
+                        className={`absolute right-4 top-1/2 -translate-y-1/2 ${isDark ? "text-gray-400 hover:text-gray-300" : "text-gray-400 hover:text-gray-600"}`}
+                      >
+                        {showNewPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Password Requirements */}
+                  {newPassword && (
+                    <div className={`p-4 rounded-xl ${isDark ? "bg-gray-800" : "bg-gray-50"}`}>
+                      <p className={`text-sm font-medium mb-2 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+                        Password requirements:
+                      </p>
+                      <div className="grid grid-cols-2 gap-2">
+                        {passwordRequirements.map((req, i) => (
+                          <div key={i} className="flex items-center gap-2 text-sm">
+                            {req.test(newPassword) ? (
+                              <CheckCircle2 className="w-4 h-4 text-green-500 flex-shrink-0" />
+                            ) : (
+                              <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 ${isDark ? "border-gray-600" : "border-gray-300"}`} />
+                            )}
+                            <span className={req.test(newPassword) ? "text-green-500" : isDark ? "text-gray-400" : "text-gray-500"}>
+                              {req.label}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  <div>
+                    <label className={`block text-sm font-medium mb-1 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+                      Confirm New Password
+                    </label>
+                    <div className="relative">
+                      <input
+                        type={showConfirmPassword ? "text" : "password"}
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        className={`w-full px-4 py-2.5 pr-12 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] ${
+                          isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-[#0F172A]"
+                        }`}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        className={`absolute right-4 top-1/2 -translate-y-1/2 ${isDark ? "text-gray-400 hover:text-gray-300" : "text-gray-400 hover:text-gray-600"}`}
+                      >
+                        {showConfirmPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                      </button>
+                    </div>
+                    {confirmPassword && !passwordsMatch && (
+                      <p className="text-sm text-red-500 mt-1">Passwords do not match</p>
+                    )}
+                    {passwordsMatch && (
+                      <p className="text-sm text-green-500 mt-1 flex items-center gap-1">
+                        <CheckCircle2 className="w-4 h-4" /> Passwords match
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="pt-2">
+                    <Button
+                      onClick={handleChangePassword}
+                      disabled={!canChangePassword || changingPassword}
+                      className={`rounded-xl ${isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"} disabled:opacity-50 disabled:cursor-not-allowed`}
+                    >
+                      {changingPassword ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Changing Password...
+                        </>
+                      ) : (
+                        "Change Password"
+                      )}
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Active Sessions Info */}
+              <div className={`rounded-2xl border p-6 ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}>
+                <h2 className={`text-lg font-semibold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
+                  Session Security
+                </h2>
+                <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
+                  When you change your password, all other sessions will be automatically logged out for your security.
+                </p>
+              </div>
+            </div>
+          )}
+
+          {activeTab === "privacy" && (
+            <div className="space-y-6">
+              {/* Coach Connection */}
+              <div className={`rounded-2xl border p-6 ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}>
+                <h2 className={`text-lg font-semibold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
+                  Career Coach Connection
+                </h2>
+                <p className={`text-sm mb-6 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
+                  Connect with a career coach at your American Job Center to get
+                  personalized support and guidance.
+                </p>
+
+                {coachConnected ? (
+                  <div className={`rounded-xl p-4 ${isDark ? "bg-green-900/20 border border-green-800" : "bg-green-50 border border-green-200"}`}>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${isDark ? "bg-green-900/30" : "bg-green-100"}`}>
+                          <Check className={`h-5 w-5 ${isDark ? "text-green-400" : "text-green-600"}`} />
+                        </div>
+                        <div>
+                          <p className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
+                            Connected with Sarah Johnson
+                          </p>
+                          <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
+                            Career Services Center
+                          </p>
+                        </div>
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setCoachConnected(false)}
+                        className={isDark ? "border-gray-700 text-gray-300 hover:bg-gray-800" : ""}
+                      >
+                        Disconnect
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  <div className={`rounded-xl p-4 ${isDark ? "bg-gray-800 border border-gray-700" : "bg-gray-50 border border-gray-200"}`}>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>
+                          No coach connected
+                        </p>
+                        <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
+                          Enter a coach code to connect
+                        </p>
+                      </div>
+                      <Button
+                        className={isDark ? "bg-[#4FD1C5] hover:bg-[#3DBDB0] text-[#0F172A]" : "bg-[#F59E0B] hover:bg-[#D97706] text-white"}
+                        onClick={() => setCoachConnected(true)}
+                      >
+                        <Link2 className="h-4 w-4 mr-2" />
+                        Connect Coach
+                      </Button>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* What Coach Can See */}
+              <div className={`rounded-2xl border p-6 ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}>
+                <h2 className={`text-lg font-semibold mb-4 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
+                  Coach Visibility Settings
+                </h2>
+                <p className={`text-sm mb-4 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
+                  Control what your career coach can see when connected.
+                </p>
+                <div className="space-y-3">
+                  {[
+                    {
+                      label: "Quest Progress",
+                      description: "Your overall journey progress",
+                    },
+                    {
+                      label: "Job Applications",
+                      description: "Applications logged in Job Tracker",
+                    },
+                    {
+                      label: "Saved Resumes",
+                      description: "Resumes you've created",
+                    },
+                    {
+                      label: "Achievements",
+                      description: "Badges and milestones earned",
+                    },
+                    {
+                      label: "Last Activity",
+                      description: "When you last used the platform",
+                    },
+                  ].map((item) => (
+                    <div
+                      key={item.label}
+                      className={`flex items-center justify-between p-3 rounded-xl ${isDark ? "bg-gray-800" : "bg-gray-50"}`}
+                    >
+                      <div>
+                        <p className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>{item.label}</p>
+                        <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>
+                          {item.description}
+                        </p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          defaultChecked
+                          className="sr-only peer"
+                        />
+                        <div className={`w-11 h-6 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#0D9488]/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#0D9488] ${isDark ? "bg-gray-700" : "bg-gray-200"}`}></div>
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {activeTab === "notifications" && (
+            <div className={`rounded-2xl border p-6 ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}>
+              <h2 className={`text-lg font-semibold mb-4 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
+                Notification Preferences
+              </h2>
+              <div className="space-y-4">
+                {[
+                  {
+                    label: "Email Notifications",
+                    description: "Receive updates via email",
+                  },
+                  {
+                    label: "Application Reminders",
+                    description: "Reminders to follow up on applications",
+                  },
+                  {
+                    label: "Coach Messages",
+                    description: "Messages from your career coach",
+                  },
+                  {
+                    label: "Achievement Alerts",
+                    description: "When you earn a new badge",
+                  },
+                  {
+                    label: "Weekly Summary",
+                    description: "Weekly progress report",
+                  },
+                ].map((item) => (
+                  <div
+                    key={item.label}
+                    className={`flex items-center justify-between p-4 border rounded-xl ${isDark ? "border-gray-800" : "border-gray-100"}`}
+                  >
+                    <div>
+                      <p className={`font-medium ${isDark ? "text-white" : "text-[#0F172A]"}`}>{item.label}</p>
+                      <p className={`text-sm ${isDark ? "text-gray-400" : "text-gray-500"}`}>{item.description}</p>
+                    </div>
+                    <label className="relative inline-flex items-center cursor-pointer">
+                      <input
+                        type="checkbox"
+                        defaultChecked
+                        className="sr-only peer"
+                      />
+                      <div className={`w-11 h-6 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-[#0D9488]/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#0D9488] ${isDark ? "bg-gray-700" : "bg-gray-200"}`}></div>
+                    </label>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {activeTab === "preferences" && (
+            <div className="space-y-6">
+              <div className={`rounded-2xl border p-6 ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}>
+                <h2 className={`text-lg font-semibold mb-4 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
+                  Language
+                </h2>
+                <select className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] ${
+                  isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-[#0F172A]"
+                }`}>
+                  <option>English</option>
+                  <option>Español</option>
+                  <option>Русский</option>
+                  <option>Українська</option>
+                  <option>Marshallese</option>
+                </select>
+              </div>
+            </div>
+          )}
+
+          {activeTab === "data" && (
+            <div className="space-y-6">
+              <div className={`rounded-2xl border p-6 ${isDark ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"}`}>
+                <h2 className={`text-lg font-semibold mb-2 ${isDark ? "text-white" : "text-[#0F172A]"}`}>
+                  Export Your Data
+                </h2>
+                <p className={`text-sm mb-4 ${isDark ? "text-gray-400" : "text-gray-500"}`}>
+                  Download all your data including resumes, applications, and
+                  progress.
+                </p>
+                <Button variant="outline" className={isDark ? "border-gray-700 text-gray-300 hover:bg-gray-800" : ""}>
+                  <Download className="h-4 w-4 mr-2" />
+                  Export Data
+                </Button>
+              </div>
+
+              <div className={`rounded-2xl border p-6 ${isDark ? "bg-red-900/20 border-red-800" : "bg-red-50 border-red-200"}`}>
+                <h2 className={`text-lg font-semibold mb-2 ${isDark ? "text-red-400" : "text-red-900"}`}>
+                  Delete Account
+                </h2>
+                <p className={`text-sm mb-4 ${isDark ? "text-red-300" : "text-red-700"}`}>
+                  Permanently delete your account and all associated data. This
+                  action cannot be undone.
+                </p>
+                <Button
+                  variant="outline"
+                  onClick={() => setShowDeleteModal(true)}
+                  className={`${isDark ? "text-red-400 border-red-700 hover:bg-red-900/30" : "text-red-600 border-red-300 hover:bg-red-100"}`}
+                >
+                  <Trash2 className="h-4 w-4 mr-2" />
+                  Delete Account
+                </Button>
+              </div>
+            </div>
+          )}
+
+          {/* Delete Account Confirmation Modal */}
+          {showDeleteModal && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center">
+              <div
+                className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+                onClick={() => {
+                  setShowDeleteModal(false);
+                  setDeletePassword("");
+                  setDeleteConfirmation("");
+                  setDeleteError(null);
+                }}
+              />
+              <div className={`relative z-10 w-full max-w-md mx-4 rounded-2xl p-6 shadow-xl ${isDark ? "bg-gray-900 border border-gray-800" : "bg-white"}`}>
+                <h2 className={`text-xl font-bold mb-2 ${isDark ? "text-red-400" : "text-red-600"}`}>
+                  Delete Your Account
+                </h2>
+                <p className={`text-sm mb-4 ${isDark ? "text-gray-400" : "text-gray-600"}`}>
+                  This will permanently delete your account and all associated data including resumes, job applications, and progress. This action cannot be undone.
+                </p>
+
+                {deleteError && (
+                  <div className={`mb-4 p-3 rounded-xl flex items-start gap-2 ${isDark ? "bg-red-900/30 border border-red-800" : "bg-red-50 border border-red-200"}`}>
+                    <AlertCircle className={`h-5 w-5 flex-shrink-0 ${isDark ? "text-red-400" : "text-red-600"}`} />
+                    <p className={`text-sm ${isDark ? "text-red-300" : "text-red-700"}`}>{deleteError}</p>
+                  </div>
+                )}
+
+                <div className="space-y-4">
+                  <div>
+                    <label className={`block text-sm font-medium mb-1 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+                      Enter your password
+                    </label>
+                    <input
+                      type="password"
+                      value={deletePassword}
+                      onChange={(e) => setDeletePassword(e.target.value)}
+                      className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 ${
+                        isDark ? "bg-gray-800 border-gray-700 text-white" : "bg-white border-gray-200 text-[#0F172A]"
+                      }`}
+                    />
+                  </div>
+                  <div>
+                    <label className={`block text-sm font-medium mb-1 ${isDark ? "text-gray-300" : "text-gray-700"}`}>
+                      Type <span className="font-mono text-red-500">DELETE MY ACCOUNT</span> to confirm
+                    </label>
+                    <input
+                      type="text"
+                      value={deleteConfirmation}
+                      onChange={(e) => setDeleteConfirmation(e.target.value)}
+                      placeholder="DELETE MY ACCOUNT"
+                      className={`w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-red-500/20 focus:border-red-500 ${
+                        isDark ? "bg-gray-800 border-gray-700 text-white placeholder:text-gray-600" : "bg-white border-gray-200 text-[#0F172A] placeholder:text-gray-400"
+                      }`}
+                    />
+                  </div>
+                </div>
+
+                <div className="flex gap-3 mt-6">
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      setShowDeleteModal(false);
+                      setDeletePassword("");
+                      setDeleteConfirmation("");
+                      setDeleteError(null);
+                    }}
+                    className={`flex-1 ${isDark ? "border-gray-700 text-gray-300 hover:bg-gray-800" : ""}`}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    onClick={handleDeleteAccount}
+                    disabled={deleting || !deletePassword || deleteConfirmation !== "DELETE MY ACCOUNT"}
+                    className="flex-1 bg-red-600 hover:bg-red-700 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {deleting ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Deleting...
+                      </>
+                    ) : (
+                      <>
+                        <Trash2 className="w-4 h-4 mr-2" />
+                        Delete Forever
+                      </>
+                    )}
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
+        </motion.div>
+      </div>
+    </div>
+  );
+}

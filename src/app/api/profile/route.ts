@@ -1,0 +1,232 @@
+import { NextRequest, NextResponse } from "next/server";
+import { getCurrentSession } from "@/lib/auth/session";
+import prisma from "@/lib/db";
+import { z } from "zod";
+
+// Validation schema for profile update
+const profileUpdateSchema = z.object({
+  firstName: z.string().min(1, "First name is required").max(100),
+  lastName: z.string().min(1, "Last name is required").max(100),
+  phone: z.string().optional(),
+  gender: z.enum(["MALE", "FEMALE", "NON_BINARY", "PREFER_NOT_TO_SAY"]).optional().nullable(),
+  yearsInIndustry: z.number().int().min(0).max(50).optional().nullable(),
+  currentIndustry: z.string().max(100).optional().nullable(),
+  careerGoal: z.enum(["SAME_INDUSTRY", "NEW_INDUSTRY", "CERTIFICATION"]).optional().nullable(),
+  profileCompleted: z.boolean().optional(),
+});
+
+// Resume content schema (stored in Resume model)
+const resumeContentSchema = z.object({
+  summary: z.string().optional(),
+  experience: z.array(z.object({
+    id: z.string(),
+    company: z.string(),
+    title: z.string(),
+    location: z.string().optional(),
+    startDate: z.string().optional(),
+    endDate: z.string().optional(),
+    current: z.boolean().optional(),
+    description: z.string().optional(),
+    highlights: z.array(z.string()).optional(),
+  })).optional(),
+  education: z.array(z.object({
+    id: z.string(),
+    institution: z.string(),
+    degree: z.string().optional(),
+    field: z.string().optional(),
+    location: z.string().optional(),
+    startDate: z.string().optional(),
+    endDate: z.string().optional(),
+    gpa: z.string().optional(),
+  })).optional(),
+  skills: z.array(z.string()).optional(),
+  certifications: z.array(z.object({
+    id: z.string(),
+    name: z.string(),
+    issuer: z.string().optional(),
+    dateObtained: z.string().optional(),
+    expirationDate: z.string().optional(),
+  })).optional(),
+});
+
+// Combined schema for the full onboarding update
+const onboardingUpdateSchema = z.object({
+  profile: profileUpdateSchema,
+  resumeContent: resumeContentSchema.optional(),
+  resumeName: z.string().optional(),
+});
+
+export async function GET() {
+  try {
+    const session = await getCurrentSession();
+    if (!session) {
+      return NextResponse.json(
+        { error: "Unauthorized" },
+        { status: 401 }
+      );
+    }
+
+    // Get user
+    const user = await prisma.user.findUnique({
+      where: { id: session.userId },
+    });
+
+    if (!user) {
+      return NextResponse.json(
+        { error: "User not found" },
+        { status: 404 }
+      );
+    }
+
+    // Get profile separately
+    const profile = await prisma.profile.findUnique({
+      where: { userId: session.userId },
+    });
+
+    // Get latest resume separately
+    const latestResume = await prisma.resume.findFirst({
+      where: { userId: session.userId },
+      orderBy: { updatedAt: "desc" },
+    });
+
+    return NextResponse.json({
+      success: true,
+      profile: profile ? {
+        ...profile,
+        email: user.email,
+      } : null,
+      latestResume: latestResume || null,
+    });
+  } catch (error) {
+    console.error("Get profile error:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch profile" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PUT(request: NextRequest) {
+  let currentStep = "initializing";
+
+  try {
+    currentStep = "checking session";
+    const session = await getCurrentSession();
+    if (!session) {
+      return NextResponse.json(
+        { error: "Unauthorized" },
+        { status: 401 }
+      );
+    }
+
+    currentStep = "parsing request body";
+    const body = await request.json();
+
+    currentStep = "validating input";
+    const validationResult = onboardingUpdateSchema.safeParse(body);
+    if (!validationResult.success) {
+      const errors = validationResult.error.flatten();
+      console.error("Validation errors:", errors);
+      return NextResponse.json(
+        { error: "Invalid input", details: errors },
+        { status: 400 }
+      );
+    }
+
+    const { profile: profileData, resumeContent, resumeName } = validationResult.data;
+
+    currentStep = "finding existing profile";
+    let profile = await prisma.profile.findUnique({
+      where: { userId: session.userId },
+    });
+
+    if (profile) {
+      currentStep = "updating profile";
+      profile = await prisma.profile.update({
+        where: { userId: session.userId },
+        data: {
+          firstName: profileData.firstName,
+          lastName: profileData.lastName,
+          phone: profileData.phone || null,
+          gender: profileData.gender || null,
+          yearsInIndustry: profileData.yearsInIndustry ?? null,
+          currentIndustry: profileData.currentIndustry || null,
+          careerGoal: profileData.careerGoal || null,
+          profileCompleted: profileData.profileCompleted ?? true,
+        },
+      });
+    } else {
+      currentStep = "creating profile";
+      profile = await prisma.profile.create({
+        data: {
+          userId: session.userId,
+          firstName: profileData.firstName,
+          lastName: profileData.lastName,
+          phone: profileData.phone || null,
+          gender: profileData.gender || null,
+          yearsInIndustry: profileData.yearsInIndustry ?? null,
+          currentIndustry: profileData.currentIndustry || null,
+          careerGoal: profileData.careerGoal || null,
+          profileCompleted: profileData.profileCompleted ?? true,
+        },
+      });
+    }
+
+    let resume = null;
+    if (resumeContent) {
+      currentStep = "finding existing resume";
+      const existingResume = await prisma.resume.findFirst({
+        where: { userId: session.userId },
+        orderBy: { updatedAt: "desc" },
+      });
+
+      if (existingResume) {
+        currentStep = "updating resume";
+        resume = await prisma.resume.update({
+          where: { id: existingResume.id },
+          data: {
+            name: resumeName || "My Resume",
+            content: resumeContent,
+          },
+        });
+      } else {
+        currentStep = "creating resume";
+        resume = await prisma.resume.create({
+          data: {
+            userId: session.userId,
+            name: resumeName || "My Resume",
+            templateId: "default",
+            content: resumeContent,
+          },
+        });
+      }
+    }
+
+    return NextResponse.json({
+      success: true,
+      profile,
+      resume,
+    });
+  } catch (error: unknown) {
+    console.error(`Profile update error at step "${currentStep}":`, error);
+
+    // Extract error message
+    let errorMessage = "Unknown error";
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    } else if (typeof error === "object" && error !== null) {
+      const err = error as Record<string, unknown>;
+      errorMessage = String(err.message || err.code || JSON.stringify(err));
+    } else if (typeof error === "string") {
+      errorMessage = error;
+    }
+
+    return NextResponse.json(
+      {
+        error: `Failed at ${currentStep}: ${errorMessage}`,
+        step: currentStep,
+      },
+      { status: 500 }
+    );
+  }
+}
