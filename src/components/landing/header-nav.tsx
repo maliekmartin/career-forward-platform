@@ -44,10 +44,10 @@ export function HeaderNav() {
             {/* Logo */}
             <Link href="/" className="flex items-center">
               <Image
-                src="/branding/logo.svg"
+                src="/branding/logo-transparent.png"
                 alt="Career Forward"
                 width={184}
-                height={52}
+                height={92}
                 className="h-[46px] w-auto"
               />
             </Link>
