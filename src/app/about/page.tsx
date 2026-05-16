@@ -243,7 +243,7 @@ export default function AboutPage() {
                   This dual perspective revealed a critical gap: while employers have access to sophisticated recruiting tools, job seekers navigate fragmented systems with outdated resources. Through his consulting firm, Martin Built Strategies, Maliek has helped numerous organizations optimize their operations and growth strategies, but his passion extends beyond business development into genuine workforce transformation.
                 </p>
                 <p>
-                  Career Forward represents his vision to democratize access to premium career resources. By combining deep recruiting expertise with cutting-edge AI technology and real-time labor market insights powered by Lightcast, he is creating the comprehensive platform that levels the playing field and helps everyone find meaningful employment.
+                  Career Forward represents his vision to democratize access to premium career resources. By combining deep recruiting expertise with cutting-edge AI technology and comprehensive labor market insights, he is creating the platform that levels the playing field and helps everyone find meaningful employment.
                 </p>
               </div>
 
@@ -288,10 +288,10 @@ export default function AboutPage() {
                 Career Forward was born from a simple observation: job searching is broken. Despite countless job boards and career services, job seekers still struggle to organize their applications, optimize their resumes, and make informed career decisions.
               </p>
               <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                We saw an opportunity to leverage AI and real-time labor market data to create something better—a comprehensive platform that brings together resume building, application tracking, interview preparation, and career coaching in one place.
+                We saw an opportunity to leverage AI and comprehensive labor market intelligence to create something better—a complete platform that brings together resume building, application tracking, interview preparation, and career coaching in one place.
               </p>
               <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                Based in Spokane, Washington, we're starting with deep market intelligence for Washington State, with plans to expand nationwide. Our partnership with Lightcast gives us access to the most comprehensive labor market data available, helping job seekers make informed decisions about their careers.
+                Based in Spokane, Washington, we're building tools that help job seekers make informed decisions about their careers, with plans to expand nationwide and integrate best-in-class data sources as the platform evolves.
               </p>
               <p className="text-lg text-gray-700 leading-relaxed">
                 We're launching in Q2 2027 with early access for our waitlist members. Join us on this journey to transform how people find meaningful work.

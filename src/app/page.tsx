@@ -7,8 +7,9 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, FileText, MessageSquare, Target, Sparkles } from "lucide-react";
 import { InteractiveDashboardDemo } from "@/components/landing/interactive-dashboard-demo";
-import { MarketIntelligence } from "@/components/landing/market-intelligence";
-import { CareerDial } from "@/components/landing/career-dial";
+// LIGHTCAST REMOVED - Commented out pending future data source decision
+// import { MarketIntelligence } from "@/components/landing/market-intelligence";
+// import { CareerDial } from "@/components/landing/career-dial";
 
 export default function LandingPage() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -563,11 +564,12 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* LIGHTCAST REMOVED - Commented out pending future data source decision */}
       {/* Career Exploration Tool */}
-      <CareerDial />
+      {/* <CareerDial /> */}
 
       {/* Market Intelligence */}
-      <MarketIntelligence />
+      {/* <MarketIntelligence /> */}
 
       {/* Feature 3: AI Career Coach - Compass */}
       <section className="relative py-32 overflow-hidden bg-gradient-to-br from-white via-[#F3E8FF] to-white">

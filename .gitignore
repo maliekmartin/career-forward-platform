@@ -68,3 +68,4 @@ logs
 public/videos/*.mp4
 public/hero-*.mp4
 marketing/*.mp4
+_archived_lightcast/
