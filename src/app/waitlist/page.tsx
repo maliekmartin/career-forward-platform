@@ -246,9 +246,9 @@ export default function WaitlistPage() {
             <Image
               src="/branding/logo.svg"
               alt="Career Forward"
-              width={180}
-              height={50}
-              className="h-12 w-auto"
+              width={184}
+              height={52}
+              className="h-[46px] w-auto"
             />
           </Link>
           <Link href="/">
@@ -323,7 +323,7 @@ export default function WaitlistPage() {
                           value={formData.firstName}
                           onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                           placeholder="First name"
-                          className="h-12 rounded-xl border-gray-200 focus:border-[#7C5FF5] focus:ring-[#7C5FF5]/20"
+                          className="h-12 rounded-xl border-gray-200 focus:border-[#7C5FF5] focus:ring-[#7C5FF5]/20 text-gray-900 placeholder:text-gray-400"
                         />
                         <Input
                           type="text"
@@ -331,7 +331,7 @@ export default function WaitlistPage() {
                           value={formData.lastName}
                           onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                           placeholder="Last name"
-                          className="h-12 rounded-xl border-gray-200 focus:border-[#7C5FF5] focus:ring-[#7C5FF5]/20"
+                          className="h-12 rounded-xl border-gray-200 focus:border-[#7C5FF5] focus:ring-[#7C5FF5]/20 text-gray-900 placeholder:text-gray-400"
                         />
                       </div>
                       <Input
@@ -340,13 +340,13 @@ export default function WaitlistPage() {
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="Enter your email"
-                        className="h-12 rounded-xl border-gray-200 focus:border-[#0D9488] focus:ring-[#0D9488]/20"
+                        className="h-12 rounded-xl border-gray-200 focus:border-[#7C5FF5] focus:ring-[#7C5FF5]/20 text-gray-900 placeholder:text-gray-400"
                       />
                       <select
                         required
                         value={formData.region}
                         onChange={(e) => setFormData({ ...formData, region: e.target.value })}
-                        className="w-full h-12 px-4 rounded-xl border border-gray-200 bg-white text-[#0F172A] focus:outline-none focus:ring-2 focus:ring-[#7C5FF5]/20 focus:border-[#7C5FF5]"
+                        className="w-full h-12 px-4 rounded-xl border border-gray-200 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#7C5FF5]/20 focus:border-[#7C5FF5]"
                       >
                         <option value="">Select your region</option>
                         {US_REGIONS.map((region) => (
@@ -713,9 +713,9 @@ export default function WaitlistPage() {
             <Image
               src="/branding/logo.svg"
               alt="Career Forward"
-              width={210}
-              height={60}
-              className="h-16 w-auto opacity-70 hover:opacity-100 transition-opacity"
+              width={184}
+              height={52}
+              className="h-12 w-auto opacity-70 hover:opacity-100 transition-opacity"
             />
           </Link>
           <p className="text-gray-400 text-sm">
