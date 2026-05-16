@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import marketData from "@/../public/data/market-data.json";
 
-type Region = "washington" | "spokane";
+type Region = "washington";
 
 export function CareerDial() {
   const [selectedRegion, setSelectedRegion] = useState<Region | null>(null);
@@ -17,7 +17,6 @@ export function CareerDial() {
 
   const regionNames = {
     washington: "Washington State",
-    spokane: "Spokane County",
   };
 
   // Get all occupations from selected region
@@ -113,26 +112,22 @@ export function CareerDial() {
                   </h3>
                 </div>
 
-                <div className="grid sm:grid-cols-2 gap-4 max-w-lg mx-auto mb-4">
-                  {(["washington", "spokane"] as Region[]).map((region) => (
-                    <button
-                      key={region}
-                      onClick={() => setSelectedRegion(region)}
-                      className="group relative bg-gradient-to-br from-[#7C5FF5] to-[#A78BFA] hover:from-[#6B4FE4] hover:to-[#9370ED] text-white rounded-2xl p-8 transition-all hover:scale-105 shadow-lg hover:shadow-2xl"
-                    >
-                      <div className="text-lg font-bold mb-2">{regionNames[region]}</div>
-                      <div className="text-sm opacity-90">
-                        {region === "washington" && "787 occupations tracked"}
-                        {region === "spokane" && "634 occupations tracked"}
-                      </div>
-                      <ArrowRight className="absolute top-4 right-4 w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </button>
-                  ))}
+                <div className="max-w-md mx-auto mb-4">
+                  <button
+                    onClick={() => setSelectedRegion("washington")}
+                    className="group relative w-full bg-gradient-to-br from-[#7C5FF5] to-[#A78BFA] hover:from-[#6B4FE4] hover:to-[#9370ED] text-white rounded-2xl p-10 transition-all hover:scale-105 shadow-lg hover:shadow-2xl"
+                  >
+                    <div className="text-2xl font-bold mb-2">Washington State</div>
+                    <div className="text-base opacity-90">
+                      787 occupations tracked
+                    </div>
+                    <ArrowRight className="absolute top-6 right-6 w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </button>
                 </div>
 
                 <Link href="/waitlist">
                   <button className="group relative bg-white hover:bg-gray-50 border-2 border-gray-200 hover:border-[#7C5FF5] text-gray-700 hover:text-[#7C5FF5] rounded-2xl px-6 py-3 transition-all hover:scale-105 shadow-md hover:shadow-lg font-medium">
-                    Other Location
+                    Explore Other Locations
                     <ArrowRight className="inline-block ml-2 w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </button>
                 </Link>
@@ -219,90 +214,95 @@ export function CareerDial() {
                   onClick={handleReset}
                   className="text-sm text-gray-500 hover:text-[#7C5FF5] transition-colors mb-6"
                 >
-                  ← Start over
+                  ← Search another career
                 </button>
 
-                <div className="text-center mb-8">
-                  <h3 className="text-3xl font-bold text-gray-900 mb-2">
+                <div className="text-center mb-10">
+                  <div className="inline-flex items-center gap-2 bg-[#7C5FF5]/10 rounded-full px-4 py-2 mb-4">
+                    <MapPin className="w-4 h-4 text-[#7C5FF5]" />
+                    <span className="text-sm font-medium text-[#7C5FF5]">{regionNames[selectedRegion!]}</span>
+                  </div>
+                  <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
                     {selectedJob.title}
                   </h3>
-                  <p className="text-gray-600">in {regionNames[selectedRegion!]}</p>
+                  <div className="flex items-center justify-center gap-3 text-gray-600">
+                    <div className="flex items-center gap-1">
+                      <DollarSign className="w-5 h-5 text-green-600" />
+                      <span className="text-xl font-bold text-gray-900">
+                        ${Math.round(selectedJob.salary.median * 0.75).toLocaleString()} - ${Math.round(selectedJob.salary.median * 1.25).toLocaleString()}
+                      </span>
+                      <span className="text-sm text-gray-500">/year</span>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Key Metrics */}
+                {/* Streamlined Metrics */}
                 <div className="grid sm:grid-cols-3 gap-4 mb-8">
-                  <div className="bg-gradient-to-br from-green-50 to-white border border-green-200 rounded-2xl p-6 text-center">
-                    <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center mx-auto mb-3">
-                      <DollarSign className="w-6 h-6 text-white" />
-                    </div>
-                    <div className="text-3xl font-bold text-gray-900 mb-1">
+                  <div className="bg-white border-2 border-green-200 rounded-xl p-5 text-center hover:border-green-400 transition-colors">
+                    <div className="text-sm text-gray-600 mb-2">Median Salary</div>
+                    <div className="text-2xl font-bold text-gray-900">
                       ${selectedJob.salary.median.toLocaleString()}
                     </div>
-                    <div className="text-sm text-gray-600">Median Salary</div>
                   </div>
 
-                  <div className="bg-gradient-to-br from-blue-50 to-white border border-blue-200 rounded-2xl p-6 text-center">
-                    <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center mx-auto mb-3">
-                      <Briefcase className="w-6 h-6 text-white" />
-                    </div>
-                    <div className="text-3xl font-bold text-gray-900 mb-1">
+                  <div className="bg-white border-2 border-blue-200 rounded-xl p-5 text-center hover:border-blue-400 transition-colors">
+                    <div className="text-sm text-gray-600 mb-2">Annual Openings</div>
+                    <div className="text-2xl font-bold text-gray-900">
                       {selectedJob.demand.avgAnnualOpenings.toLocaleString()}
                     </div>
-                    <div className="text-sm text-gray-600">Annual Openings</div>
                   </div>
 
-                  <div className="bg-gradient-to-br from-purple-50 to-white border border-purple-200 rounded-2xl p-6 text-center">
-                    <div className="w-12 h-12 bg-[#7C5FF5] rounded-xl flex items-center justify-center mx-auto mb-3">
-                      <TrendingUp className="w-6 h-6 text-white" />
-                    </div>
-                    <div className="text-3xl font-bold text-gray-900 mb-1">
+                  <div className="bg-white border-2 border-purple-200 rounded-xl p-5 text-center hover:border-purple-400 transition-colors">
+                    <div className="text-sm text-gray-600 mb-2">Growth Rate</div>
+                    <div className={`text-2xl font-bold ${selectedJob.employment.changePercent > 0 ? 'text-green-600' : 'text-red-600'}`}>
                       {selectedJob.employment.changePercent > 0 ? "+" : ""}
                       {selectedJob.employment.changePercent}%
                     </div>
-                    <div className="text-sm text-gray-600">Growth Rate</div>
                   </div>
                 </div>
 
-                {/* Additional Info */}
-                <div className="bg-gray-50 rounded-2xl p-6 mb-8">
-                  <h4 className="font-bold text-gray-900 mb-4">Career Outlook</h4>
-                  <div className="grid sm:grid-cols-2 gap-4 text-sm">
-                    <div>
-                      <span className="text-gray-600">Current Jobs:</span>
-                      <span className="ml-2 font-semibold text-gray-900">
-                        {selectedJob.employment.current.toLocaleString()}
-                      </span>
-                    </div>
-                    <div>
-                      <span className="text-gray-600">Projected (2026):</span>
-                      <span className="ml-2 font-semibold text-gray-900">
-                        {selectedJob.employment.projected.toLocaleString()}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* CTA */}
+                {/* Platform-Focused CTA */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3 }}
-                  className="text-center bg-gradient-to-br from-[#7C5FF5] to-[#A78BFA] rounded-2xl p-8 text-white"
+                  transition={{ delay: 0.2 }}
+                  className="bg-gradient-to-br from-[#7C5FF5] to-[#A78BFA] rounded-2xl p-8 text-white"
                 >
-                  <h4 className="text-2xl font-bold mb-3">Ready to Start Your Journey?</h4>
-                  <p className="mb-6 text-white/90">
-                    Join Career Forward to build your resume, track applications, and land your dream job as a {selectedJob.title}.
-                  </p>
-                  <Button
-                    size="lg"
-                    asChild
-                    className="bg-white hover:bg-white/90 text-[#7C5FF5] rounded-full px-12 h-14 text-lg font-semibold shadow-lg hover:scale-105 transition-all"
-                  >
-                    <Link href="/waitlist">
-                      Start Your Journey
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Link>
-                  </Button>
+                  <div className="text-center mb-6">
+                    <h4 className="text-2xl font-bold mb-3">Ready to land this role?</h4>
+                    <p className="text-white/90 text-base">
+                      Career Forward gives you everything you need to succeed
+                    </p>
+                  </div>
+
+                  <div className="grid sm:grid-cols-3 gap-4 mb-6">
+                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
+                      <div className="text-3xl mb-2">📝</div>
+                      <div className="text-sm font-medium">Build ATS-optimized resumes</div>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
+                      <div className="text-3xl mb-2">📊</div>
+                      <div className="text-sm font-medium">Track all applications</div>
+                    </div>
+                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
+                      <div className="text-3xl mb-2">🎯</div>
+                      <div className="text-sm font-medium">Get AI career coaching</div>
+                    </div>
+                  </div>
+
+                  <div className="text-center">
+                    <Button
+                      size="lg"
+                      asChild
+                      className="bg-white hover:bg-white/90 text-[#7C5FF5] rounded-full px-10 h-14 text-base font-semibold shadow-lg hover:scale-105 transition-all"
+                    >
+                      <Link href="/waitlist">
+                        Join Waitlist for Early Access
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                      </Link>
+                    </Button>
+                    <p className="text-xs text-white/70 mt-3">Launching Q2 2027 • Be among the first</p>
+                  </div>
                 </motion.div>
               </motion.div>
             )}

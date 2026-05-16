@@ -235,21 +235,15 @@ export default function AboutPage() {
                 "Community-Driven | Operationally Focused"
               </p>
 
-              <div className="space-y-4 text-lg text-gray-700 leading-relaxed">
+              <div className="space-y-4 text-base text-gray-700 leading-relaxed">
                 <p>
-                  Maliek Martin is a workforce development expert and entrepreneur based in Spokane, Washington, with over 8 years of experience in Talent Acquisition, Business Development, and Team Management. His career has been defined by a proven track record of building high-performing, sales-driven teams and implementing strategic processes that enhance organizational efficiency.
+                  Maliek Martin is a workforce development expert and entrepreneur based in Spokane, Washington, with over 8 years of experience in Talent Acquisition, Business Development, and Team Management. Throughout his corporate and staffing recruiting career, he developed a deep understanding of both sides of the hiring equation, helping companies identify top talent while guiding job seekers through the overwhelming process of landing their ideal roles.
                 </p>
                 <p>
-                  Throughout his corporate and staffing recruiting career, Maliek has developed a deep understanding of both sides of the hiring equation. He has spent years helping companies identify top talent while simultaneously guiding countless job seekers through the often overwhelming process of landing their ideal roles. This unique dual perspective revealed a critical insight: while employers have access to sophisticated recruiting tools and platforms, job seekers are left navigating fragmented systems with outdated resources.
+                  This dual perspective revealed a critical gap: while employers have access to sophisticated recruiting tools, job seekers navigate fragmented systems with outdated resources. Through his consulting firm, Martin Built Strategies, Maliek has helped numerous organizations optimize their operations and growth strategies, but his passion extends beyond business development into genuine workforce transformation.
                 </p>
                 <p>
-                  Maliek's experience managing recruitment teams showed him firsthand how the right tools and processes can transform outcomes. He witnessed how candidates with strong potential were often overlooked due to poorly formatted resumes, disorganized job searches, and lack of access to market intelligence. This gap between talent and opportunity became impossible to ignore.
-                </p>
-                <p>
-                  Through his consulting firm, Martin Built Strategies, Maliek has helped numerous organizations optimize their operations and growth strategies. His passion for building strong, impactful relationships, and teams that drive growth and connection, extends beyond business development into genuine workforce transformation.
-                </p>
-                <p>
-                  Career Forward represents Maliek's vision to democratize access to premium career resources. By combining his deep recruiting expertise with cutting-edge AI technology and real-time labor market insights powered by Lightcast, he is creating the comprehensive platform he wished existed for every job seeker he has ever worked with. A tool that levels the playing field and helps everyone find meaningful employment.
+                  Career Forward represents his vision to democratize access to premium career resources. By combining deep recruiting expertise with cutting-edge AI technology and real-time labor market insights powered by Lightcast, he is creating the comprehensive platform that levels the playing field and helps everyone find meaningful employment.
                 </p>
               </div>
 
