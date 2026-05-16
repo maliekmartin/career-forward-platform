@@ -249,6 +249,7 @@ export default function WaitlistPage() {
               width={184}
               height={52}
               className="h-[46px] w-auto"
+              priority
             />
           </Link>
           <Link href="/">
@@ -663,36 +664,71 @@ export default function WaitlistPage() {
                 </motion.div>
               </div>
 
-              {/* Video Demo */}
+              {/* Platform Preview */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
+                className="relative"
               >
                 <div className="bg-gradient-to-br from-[#7C5FF5] to-[#A78BFA] rounded-3xl p-1 shadow-2xl">
                   <div className="bg-white rounded-[22px] p-2">
-                    <div className="bg-[#0F172A] rounded-2xl overflow-hidden">
-                      <div className="flex items-center gap-2 px-4 py-3 bg-[#1F2937]">
-                        <div className="flex gap-1.5">
-                          <div className="w-3 h-3 rounded-full bg-red-500" />
-                          <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                          <div className="w-3 h-3 rounded-full bg-green-500" />
+                    <div className="bg-gradient-to-br from-[#0F172A] via-[#1F2937] to-[#0F172A] rounded-2xl overflow-hidden p-12">
+                      <div className="text-center space-y-8">
+                        {/* Browser Chrome */}
+                        <div className="flex items-center justify-center gap-2 mb-8">
+                          <div className="flex gap-1.5">
+                            <div className="w-3 h-3 rounded-full bg-red-500" />
+                            <div className="w-3 h-3 rounded-full bg-yellow-500" />
+                            <div className="w-3 h-3 rounded-full bg-green-500" />
+                          </div>
+                          <div className="flex-1 text-center max-w-xs mx-auto bg-[#374151] rounded-lg px-4 py-2">
+                            <span className="text-gray-400 text-sm font-medium">careerforward.io/dashboard</span>
+                          </div>
                         </div>
-                        <div className="flex-1 text-center">
-                          <span className="text-gray-400 text-sm font-medium">careerforward.io</span>
+
+                        {/* Dashboard Preview Content */}
+                        <div className="grid grid-cols-3 gap-4 mb-8">
+                          <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                            <div className="text-3xl mb-3">📊</div>
+                            <div className="text-2xl font-bold text-white mb-1">47</div>
+                            <div className="text-sm text-white/70">Applications</div>
+                          </div>
+                          <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                            <div className="text-3xl mb-3">✅</div>
+                            <div className="text-2xl font-bold text-green-400 mb-1">12</div>
+                            <div className="text-sm text-white/70">Interviews</div>
+                          </div>
+                          <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                            <div className="text-3xl mb-3">⭐</div>
+                            <div className="text-2xl font-bold text-[#A78BFA] mb-1">89</div>
+                            <div className="text-sm text-white/70">Resume Score</div>
+                          </div>
+                        </div>
+
+                        {/* Feature Highlights */}
+                        <div className="space-y-3">
+                          <div className="bg-white/5 border border-white/10 rounded-lg p-4 flex items-center gap-3">
+                            <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0" />
+                            <span className="text-white text-left text-sm">ATS-optimized resume builder with real-time scoring</span>
+                          </div>
+                          <div className="bg-white/5 border border-white/10 rounded-lg p-4 flex items-center gap-3">
+                            <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0" />
+                            <span className="text-white text-left text-sm">AI career coach available 24/7 for guidance</span>
+                          </div>
+                          <div className="bg-white/5 border border-white/10 rounded-lg p-4 flex items-center gap-3">
+                            <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0" />
+                            <span className="text-white text-left text-sm">Track every application with stoplight status system</span>
+                          </div>
                         </div>
                       </div>
-                      <video
-                        autoPlay
-                        muted
-                        loop
-                        playsInline
-                        className="w-full"
-                      >
-                        <source src="/hero-b2c.mp4" type="video/mp4" />
-                      </video>
                     </div>
                   </div>
+                </div>
+
+                {/* Floating Elements */}
+                <div className="absolute -top-4 -right-4 bg-[#7C5FF5] text-white rounded-full px-4 py-2 text-sm font-semibold shadow-lg">
+                  Coming Q2 2027
                 </div>
               </motion.div>
             </div>
