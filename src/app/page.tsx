@@ -27,7 +27,7 @@ export default function LandingPage() {
         <div className="max-w-[1600px] mx-auto flex h-20 items-center justify-between px-8">
           <Link href="/" className="flex items-center">
             <Image
-              src="/branding/1.png"
+              src="/branding/logo.svg"
               alt="Career Forward"
               width={180}
               height={50}
@@ -772,7 +772,7 @@ export default function LandingPage() {
             {/* Brand Section */}
             <div className="md:col-span-1">
               <Image
-                src="/branding/1.png"
+                src="/branding/logo.svg"
                 alt="Career Forward"
                 width={210}
                 height={60}

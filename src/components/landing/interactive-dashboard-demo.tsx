@@ -40,7 +40,7 @@ export function InteractiveDashboardDemo() {
           {/* Logo */}
           <div className="p-5 border-b border-gray-100">
             <Image
-              src="/branding/1.png"
+              src="/branding/logo.svg"
               alt="Career Forward"
               width={140}
               height={35}

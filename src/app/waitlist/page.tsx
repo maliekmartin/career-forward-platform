@@ -201,7 +201,7 @@ export default function WaitlistPage() {
         <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center">
             <Image
-              src="/branding/1.png"
+              src="/branding/logo.svg"
               alt="Career Forward"
               width={180}
               height={50}
@@ -668,7 +668,7 @@ export default function WaitlistPage() {
         <div className="max-w-6xl mx-auto flex flex-col items-center gap-4">
           <Link href="/">
             <Image
-              src="/branding/1.png"
+              src="/branding/logo.svg"
               alt="Career Forward"
               width={210}
               height={60}
