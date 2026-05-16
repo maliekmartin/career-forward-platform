@@ -1,7 +1,7 @@
 /**
  * FAQ Data for Career Forward Platform
  * Structured data for use in React components
- * Last Updated: January 2026
+ * Last Updated: May 2026
  */
 
 export interface FAQItem {
@@ -29,7 +29,7 @@ export const faqData: FAQCategory[] = [
       {
         id: "what-is-career-forward",
         question: "What is Career Forward?",
-        answer: "Career Forward is a comprehensive workforce development platform designed to empower job seekers and support organizations in guiding talent toward meaningful employment. Launching in Q3 2026, it combines intelligent career tools, AI-powered coaching, and structured guidance to help you navigate every step of your career journey—from self-assessment to job placement and beyond.",
+        answer: "Career Forward is a comprehensive workforce development platform designed to empower job seekers and support organizations in guiding talent toward meaningful employment. Launching in Q2 2027, it combines intelligent career tools, AI-powered coaching, and structured guidance to help you navigate every step of your career journey—from self-assessment to job placement and beyond.",
         tags: ["overview", "introduction"]
       },
       {
@@ -59,7 +59,7 @@ export const faqData: FAQCategory[] = [
       {
         id: "launch-date",
         question: "When is Career Forward launching?",
-        answer: "Career Forward is launching in Q3 2026 (July-September 2026). We're currently in development and will announce early access opportunities for beta testers. Organizations interested in being early adopters or joining our launch partner program can reach out now to express interest and get special introductory pricing.",
+        answer: "Career Forward is launching in Q2 2027 (April-June 2027). We're currently in development and will announce early access opportunities for beta testers. Organizations interested in being early adopters or joining our launch partner program can reach out now to express interest and get special introductory pricing.",
         tags: ["launch", "timeline"]
       },
       {
@@ -271,7 +271,7 @@ export const faqData: FAQCategory[] = [
       {
         id: "mobile-app",
         question: "Will there be a mobile app for Career Forward?",
-        answer: "Yes! A mobile app is coming soon after our Q3 2026 launch. This will allow you to access your profile, track applications, watch interview prep videos, and communicate with your coach on the go. We'll announce availability dates as we get closer to release.",
+        answer: "Yes! A mobile app is coming soon after our Q2 2027 launch. This will allow you to access your profile, track applications, watch interview prep videos, and communicate with your coach on the go. We'll announce availability dates as we get closer to release.",
         tags: ["mobile", "roadmap"]
       },
       {
@@ -789,7 +789,7 @@ export const faqData: FAQCategory[] = [
       {
         id: "soc2-compliance",
         question: "Is Career Forward SOC 2 compliant?",
-        answer: "Career Forward is currently working toward SOC 2 Type II certification, with an expected completion date in Q4 2026. We've implemented SOC 2-aligned security controls including encryption, access management, change management, and incident response procedures. For organizations with SOC 2 requirements, we can provide our current security documentation and roadmap. Enterprise customers can request security questionnaires and participate in vendor security assessments.",
+        answer: "Career Forward is currently working toward SOC 2 Type II certification, with an expected completion date in Q4 2027. We've implemented SOC 2-aligned security controls including encryption, access management, change management, and incident response procedures. For organizations with SOC 2 requirements, we can provide our current security documentation and roadmap. Enterprise customers can request security questionnaires and participate in vendor security assessments.",
         tags: ["soc2", "compliance", "security", "certification"]
       }
     ]

@@ -71,7 +71,7 @@ export default function DemoPage() {
         <div className="max-w-7xl mx-auto flex h-16 items-center justify-between px-6">
           <Link href="/" className="flex items-center">
             <Image
-              src="/career-forward-logo.png"
+              src="/branding/logo.svg"
               alt="Career Forward"
               width={200}
               height={50}
@@ -82,7 +82,7 @@ export default function DemoPage() {
             <Button variant="ghost" size="sm" asChild>
               <Link href="/signin">Sign In</Link>
             </Button>
-            <Button size="sm" asChild className="bg-[#0D9488] hover:bg-[#0D9488]/90 text-white">
+            <Button size="sm" asChild className="bg-[#7C5FF5] hover:bg-[#7C5FF5]/90 text-white">
               <Link href="/waitlist">Join Waitlist</Link>
             </Button>
           </div>
@@ -96,10 +96,10 @@ export default function DemoPage() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 bg-[#0D9488]/10 rounded-full px-4 py-2 mb-6"
+              className="inline-flex items-center gap-2 bg-[#7C5FF5]/10 rounded-full px-4 py-2 mb-6"
             >
-              <Sparkles className="h-4 w-4 text-[#0D9488]" />
-              <span className="text-sm font-semibold text-[#0D9488]">Platform Demo</span>
+              <Sparkles className="h-4 w-4 text-[#7C5FF5]" />
+              <span className="text-sm font-semibold text-[#7C5FF5]">Platform Demo</span>
             </motion.div>
 
             <motion.h1
@@ -110,7 +110,7 @@ export default function DemoPage() {
             >
               See Career Forward
               <br />
-              <span className="text-[#0D9488]">in Action</span>
+              <span className="text-[#7C5FF5]">in Action</span>
             </motion.h1>
 
             <motion.p
@@ -128,7 +128,7 @@ export default function DemoPage() {
               transition={{ delay: 0.3 }}
               className="flex flex-col sm:flex-row items-center justify-center gap-4"
             >
-              <Button size="lg" asChild className="bg-[#0D9488] hover:bg-[#0D9488]/90 text-white rounded-full px-8 h-14">
+              <Button size="lg" asChild className="bg-[#7C5FF5] hover:bg-[#7C5FF5]/90 text-white rounded-full px-8 h-14">
                 <Link href="/waitlist">
                   Join the Waitlist
                   <ArrowRight className="ml-2 h-5 w-5" />
@@ -186,8 +186,8 @@ export default function DemoPage() {
                 transition={{ delay: index * 0.1 }}
                 className="bg-white border border-gray-200 rounded-2xl p-8 hover:shadow-lg transition-shadow"
               >
-                <div className="w-12 h-12 bg-[#0D9488]/10 rounded-xl flex items-center justify-center mb-4">
-                  <feature.icon className="h-6 w-6 text-[#0D9488]" />
+                <div className="w-12 h-12 bg-[#7C5FF5]/10 rounded-xl flex items-center justify-center mb-4">
+                  <feature.icon className="h-6 w-6 text-[#7C5FF5]" />
                 </div>
                 <h3 className="text-xl font-bold text-[#0F172A] mb-2">
                   {feature.title}
@@ -223,7 +223,7 @@ export default function DemoPage() {
                 transition={{ delay: index * 0.1 }}
                 className="text-center"
               >
-                <div className="w-16 h-16 bg-[#0D9488] text-white rounded-full flex items-center justify-center text-2xl font-bold mb-4 mx-auto">
+                <div className="w-16 h-16 bg-[#7C5FF5] text-white rounded-full flex items-center justify-center text-2xl font-bold mb-4 mx-auto">
                   {item.step}
                 </div>
                 <h3 className="text-lg font-bold text-[#0F172A] mb-2">
@@ -239,7 +239,7 @@ export default function DemoPage() {
       </section>
 
       {/* Stats */}
-      <section className="section-padding px-6 bg-[#0D9488]">
+      <section className="section-padding px-6 bg-[#7C5FF5]">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-3 gap-12 text-center">
             <div>
@@ -267,7 +267,7 @@ export default function DemoPage() {
           <p className="text-xl text-gray-600 mb-8">
             Join thousands on the waitlist for exclusive early access when we launch in Q2 2027.
           </p>
-          <Button size="lg" asChild className="bg-[#F59E0B] hover:bg-[#D97706] text-white rounded-full px-10 h-16 text-lg">
+          <Button size="lg" asChild className="bg-[#7C5FF5] hover:bg-[#D97706] text-white rounded-full px-10 h-16 text-lg">
             <Link href="/waitlist">
               Join the Waitlist
               <ArrowRight className="ml-2 h-5 w-5" />

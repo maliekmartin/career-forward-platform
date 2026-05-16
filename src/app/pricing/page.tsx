@@ -172,7 +172,7 @@ export default function PricingPage() {
           >
             <div className="text-center mb-8">
               <div className="inline-flex items-center gap-2 text-sm text-[#64748B] mb-4">
-                <span className="w-6 h-6 rounded-full bg-[#0D9488] text-white text-xs flex items-center justify-center font-medium">1</span>
+                <span className="w-6 h-6 rounded-full bg-[#7C5FF5] text-white text-xs flex items-center justify-center font-medium">1</span>
                 <span>of 2</span>
               </div>
               <h3 className="text-2xl font-semibold text-[#0F172A] mb-2">
@@ -190,7 +190,7 @@ export default function PricingPage() {
                   key={teamSize}
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="text-6xl font-bold text-[#0D9488]"
+                  className="text-6xl font-bold text-[#7C5FF5]"
                 >
                   {teamSize}
                 </motion.span>
@@ -208,7 +208,7 @@ export default function PricingPage() {
                   onChange={(e) => setTeamSize(parseInt(e.target.value))}
                   className="w-full h-3 bg-[#E2E8F0] rounded-full appearance-none cursor-pointer"
                   style={{
-                    background: `linear-gradient(to right, #0D9488 0%, #0D9488 ${((teamSize - 1) / 29) * 100}%, #E2E8F0 ${((teamSize - 1) / 29) * 100}%, #E2E8F0 100%)`
+                    background: `linear-gradient(to right, #7C5FF5 0%, #7C5FF5 ${((teamSize - 1) / 29) * 100}%, #E2E8F0 ${((teamSize - 1) / 29) * 100}%, #E2E8F0 100%)`
                   }}
                 />
                 <div className="flex justify-between mt-3 text-sm text-[#94A3B8]">
@@ -222,10 +222,10 @@ export default function PricingPage() {
                 <motion.p
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="text-sm text-[#0D9488] text-center mt-6"
+                  className="text-sm text-[#7C5FF5] text-center mt-6"
                 >
                   Need more than 30?{" "}
-                  <Link href="mailto:hello@careerforward.io" className="underline font-medium">
+                  <Link href="mailto:support@martinbuiltstrategies.com" className="underline font-medium">
                     Contact us for enterprise pricing
                   </Link>
                 </motion.p>
@@ -252,7 +252,7 @@ export default function PricingPage() {
           >
             <div className="text-center mb-8">
               <div className="inline-flex items-center gap-2 text-sm text-[#64748B] mb-4">
-                <span className="w-6 h-6 rounded-full bg-[#0D9488] text-white text-xs flex items-center justify-center font-medium">2</span>
+                <span className="w-6 h-6 rounded-full bg-[#7C5FF5] text-white text-xs flex items-center justify-center font-medium">2</span>
                 <span>of 2</span>
               </div>
               <h3 className="text-2xl font-semibold text-[#0F172A] mb-2">
@@ -274,7 +274,7 @@ export default function PricingPage() {
                       required
                       value={formData.firstName}
                       onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] transition-all"
+                      className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7C5FF5]/20 focus:border-[#7C5FF5] transition-all"
                       placeholder="John"
                     />
                   </div>
@@ -288,7 +288,7 @@ export default function PricingPage() {
                       required
                       value={formData.lastName}
                       onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                      className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] transition-all"
+                      className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7C5FF5]/20 focus:border-[#7C5FF5] transition-all"
                       placeholder="Smith"
                     />
                   </div>
@@ -304,7 +304,7 @@ export default function PricingPage() {
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] transition-all"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7C5FF5]/20 focus:border-[#7C5FF5] transition-all"
                     placeholder="john@organization.org"
                   />
                 </div>
@@ -318,7 +318,7 @@ export default function PricingPage() {
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] transition-all"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7C5FF5]/20 focus:border-[#7C5FF5] transition-all"
                     placeholder="(555) 123-4567"
                   />
                 </div>
@@ -333,7 +333,7 @@ export default function PricingPage() {
                     required
                     value={formData.company}
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] transition-all"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7C5FF5]/20 focus:border-[#7C5FF5] transition-all"
                     placeholder="Your Organization"
                   />
                 </div>
@@ -347,7 +347,7 @@ export default function PricingPage() {
                     type="text"
                     value={formData.jobTitle}
                     onChange={(e) => setFormData({ ...formData, jobTitle: e.target.value })}
-                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] transition-all"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#7C5FF5]/20 focus:border-[#7C5FF5] transition-all"
                     placeholder="Program Manager"
                   />
                 </div>
@@ -402,7 +402,7 @@ export default function PricingPage() {
         <div className="max-w-6xl mx-auto flex h-16 items-center justify-between px-6">
           <Link href="/" className="flex items-center">
             <Image
-              src="/career-forward-logo.png"
+              src="/branding/logo.svg"
               alt="Career Forward"
               width={200}
               height={50}
@@ -410,7 +410,7 @@ export default function PricingPage() {
             />
           </Link>
           <div className="flex items-center gap-6">
-            <Link href="/faq" className="text-sm text-gray-600 hover:text-[#0D9488] transition-colors font-medium">
+            <Link href="/faq" className="text-sm text-gray-600 hover:text-[#7C5FF5] transition-colors font-medium">
               FAQ
             </Link>
             <Link href="/waitlist">
@@ -430,13 +430,13 @@ export default function PricingPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#0D9488]/10 rounded-full text-[#0D9488] text-sm font-medium mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#7C5FF5]/10 rounded-full text-[#7C5FF5] text-sm font-medium mb-6">
               <Building2 className="h-4 w-4" />
               For Workforce Development Organizations
             </div>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-[#0F172A] tracking-tight leading-[1.1] mb-6">
               Pricing built for{" "}
-              <span className="text-[#0D9488]">your program</span>
+              <span className="text-[#7C5FF5]">your program</span>
             </h1>
             <p className="text-lg md:text-xl text-[#64748B] max-w-2xl mx-auto leading-relaxed">
               Simple per-coach pricing with unlimited job seekers.
@@ -460,8 +460,8 @@ export default function PricingPage() {
                 className="max-w-2xl mx-auto"
               >
                 <div className="bg-white rounded-3xl shadow-[0_0_0_1px_rgba(0,0,0,0.03),0_2px_4px_rgba(0,0,0,0.05),0_12px_24px_rgba(0,0,0,0.05)] p-8 md:p-12 text-center">
-                  <div className="w-16 h-16 bg-[#0D9488]/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <BarChart3 className="h-8 w-8 text-[#0D9488]" />
+                  <div className="w-16 h-16 bg-[#7C5FF5]/10 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <BarChart3 className="h-8 w-8 text-[#7C5FF5]" />
                   </div>
                   <h2 className="text-2xl md:text-3xl font-semibold text-[#0F172A] mb-4">
                     Get your custom pricing
@@ -485,7 +485,7 @@ export default function PricingPage() {
                       { label: "No long-term contracts", icon: Shield },
                     ].map((item, i) => (
                       <div key={i} className="text-center">
-                        <item.icon className="h-5 w-5 text-[#0D9488] mx-auto mb-2" />
+                        <item.icon className="h-5 w-5 text-[#7C5FF5] mx-auto mb-2" />
                         <span className="text-sm text-[#64748B]">{item.label}</span>
                       </div>
                     ))}
@@ -518,7 +518,7 @@ export default function PricingPage() {
                 {/* Left: Pricing Calculator Card */}
                 <div className="bg-white rounded-3xl shadow-[0_0_0_1px_rgba(0,0,0,0.03),0_2px_4px_rgba(0,0,0,0.05),0_12px_24px_rgba(0,0,0,0.05)] overflow-hidden">
                   {/* Success header */}
-                  <div className="px-6 py-4 bg-[#0D9488] text-white">
+                  <div className="px-6 py-4 bg-[#7C5FF5] text-white">
                     <div className="flex items-center gap-3">
                       <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
                         <Check className="h-5 w-5" />
@@ -553,7 +553,7 @@ export default function PricingPage() {
                           }`}
                         >
                           Annual
-                          <span className="bg-[#0D9488] text-white text-xs px-2 py-0.5 rounded-full font-medium">
+                          <span className="bg-[#7C5FF5] text-white text-xs px-2 py-0.5 rounded-full font-medium">
                             -14%
                           </span>
                         </button>
@@ -578,7 +578,7 @@ export default function PricingPage() {
                           onChange={(e) => setCoachCount(parseInt(e.target.value))}
                           className="w-full h-2 bg-[#E2E8F0] rounded-full appearance-none cursor-pointer"
                           style={{
-                            background: `linear-gradient(to right, #0D9488 0%, #0D9488 ${((coachCount - 1) / 29) * 100}%, #E2E8F0 ${((coachCount - 1) / 29) * 100}%, #E2E8F0 100%)`
+                            background: `linear-gradient(to right, #7C5FF5 0%, #7C5FF5 ${((coachCount - 1) / 29) * 100}%, #E2E8F0 ${((coachCount - 1) / 29) * 100}%, #E2E8F0 100%)`
                           }}
                         />
                       </div>
@@ -601,10 +601,10 @@ export default function PricingPage() {
                         <motion.p
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
-                          className="text-sm text-[#0D9488] mt-3"
+                          className="text-sm text-[#7C5FF5] mt-3"
                         >
                           Need 30+?{" "}
-                          <Link href="mailto:hello@careerforward.io" className="underline">
+                          <Link href="mailto:support@martinbuiltstrategies.com" className="underline">
                             Contact us
                           </Link>{" "}
                           for volume pricing.
@@ -642,7 +642,7 @@ export default function PricingPage() {
                         <motion.div
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
-                          className="inline-flex items-center gap-1.5 bg-[#0D9488]/10 text-[#0D9488] text-sm font-medium px-3 py-1.5 rounded-full mt-4"
+                          className="inline-flex items-center gap-1.5 bg-[#7C5FF5]/10 text-[#7C5FF5] text-sm font-medium px-3 py-1.5 rounded-full mt-4"
                         >
                           <Sparkles className="h-3.5 w-3.5" />
                           Save ${savings}/year
@@ -665,7 +665,7 @@ export default function PricingPage() {
                           "Cancel anytime",
                         ].map((item, i) => (
                           <div key={i} className="flex items-center justify-center gap-2 text-sm text-[#64748B]">
-                            <Check className="h-4 w-4 text-[#0D9488]" />
+                            <Check className="h-4 w-4 text-[#7C5FF5]" />
                             {item}
                           </div>
                         ))}
@@ -677,7 +677,7 @@ export default function PricingPage() {
                 {/* Right: Built for Workforce Development */}
                 <div className="bg-[#0F172A] rounded-3xl p-6 md:p-8 flex flex-col">
                   <div className="mb-6">
-                    <Shield className="h-10 w-10 text-[#0D9488] mb-4" />
+                    <Shield className="h-10 w-10 text-[#7C5FF5] mb-4" />
                     <h3 className="text-2xl font-semibold text-white mb-3">
                       Built for Workforce Development
                     </h3>
@@ -688,7 +688,7 @@ export default function PricingPage() {
 
                   <div className="space-y-4 flex-1">
                     <div className="bg-white/5 rounded-xl p-5">
-                      <BarChart3 className="h-6 w-6 text-[#0D9488] mb-3" />
+                      <BarChart3 className="h-6 w-6 text-[#7C5FF5] mb-3" />
                       <h4 className="text-white font-semibold mb-1">Funder-Ready Reporting</h4>
                       <p className="text-[#94A3B8] text-sm leading-relaxed">
                         Exit data, wages, job titles, hours. The outcomes your funders need.
@@ -696,7 +696,7 @@ export default function PricingPage() {
                     </div>
 
                     <div className="bg-white/5 rounded-xl p-5">
-                      <MessageSquare className="h-6 w-6 text-[#0D9488] mb-3" />
+                      <MessageSquare className="h-6 w-6 text-[#7C5FF5] mb-3" />
                       <h4 className="text-white font-semibold mb-1">Full Transparency</h4>
                       <p className="text-[#94A3B8] text-sm leading-relaxed">
                         In-app messaging creates a complete audit trail. Every interaction documented.
@@ -704,7 +704,7 @@ export default function PricingPage() {
                     </div>
 
                     <div className="bg-white/5 rounded-xl p-5">
-                      <Sparkles className="h-6 w-6 text-[#0D9488] mb-3" />
+                      <Sparkles className="h-6 w-6 text-[#7C5FF5] mb-3" />
                       <h4 className="text-white font-semibold mb-1">Less Admin, More Coaching</h4>
                       <p className="text-[#94A3B8] text-sm leading-relaxed">
                         Automated tracking, reminders, and follow-ups. Give coaches back hours.
@@ -731,7 +731,7 @@ export default function PricingPage() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#0D9488] to-[#1E6B6B] p-8 md:p-10"
+            className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#7C5FF5] to-[#1E6B6B] p-8 md:p-10"
           >
             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="flex items-center gap-5">
@@ -748,7 +748,7 @@ export default function PricingPage() {
                 </div>
               </div>
               <Link href="/waitlist">
-                <Button className="bg-white text-[#0D9488] hover:bg-white/90 rounded-full px-6 font-medium shadow-lg">
+                <Button className="bg-white text-[#7C5FF5] hover:bg-white/90 rounded-full px-6 font-medium shadow-lg">
                   Join Beta Waitlist
                 </Button>
               </Link>
@@ -774,7 +774,7 @@ export default function PricingPage() {
                 onClick={() => setActiveTab("features")}
                 className={`flex-1 py-5 px-6 text-sm font-semibold transition-all duration-200 relative ${
                   activeTab === "features"
-                    ? "text-[#0D9488]"
+                    ? "text-[#7C5FF5]"
                     : "text-[#64748B] hover:text-[#0F172A]"
                 }`}
               >
@@ -785,7 +785,7 @@ export default function PricingPage() {
                 {activeTab === "features" && (
                   <motion.div
                     layoutId="activeTab"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#0D9488]"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#7C5FF5]"
                   />
                 )}
               </button>
@@ -793,7 +793,7 @@ export default function PricingPage() {
                 onClick={() => setActiveTab("faq")}
                 className={`flex-1 py-5 px-6 text-sm font-semibold transition-all duration-200 relative ${
                   activeTab === "faq"
-                    ? "text-[#0D9488]"
+                    ? "text-[#7C5FF5]"
                     : "text-[#64748B] hover:text-[#0F172A]"
                 }`}
               >
@@ -804,7 +804,7 @@ export default function PricingPage() {
                 {activeTab === "faq" && (
                   <motion.div
                     layoutId="activeTab"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#0D9488]"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#7C5FF5]"
                   />
                 )}
               </button>
@@ -835,7 +835,7 @@ export default function PricingPage() {
                           }
                           className={`w-full text-left rounded-xl p-4 transition-all duration-200 border ${
                             expandedCategory === category.name
-                              ? "bg-[#0D9488]/5 border-[#0D9488]/20"
+                              ? "bg-[#7C5FF5]/5 border-[#7C5FF5]/20"
                               : "bg-[#F8FAFC] border-transparent hover:bg-[#F1F5F9]"
                           }`}
                         >
@@ -843,8 +843,8 @@ export default function PricingPage() {
                             <div className="flex items-center gap-3">
                               <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-colors ${
                                 expandedCategory === category.name
-                                  ? "bg-[#0D9488] text-white"
-                                  : "bg-white text-[#0D9488] shadow-sm"
+                                  ? "bg-[#7C5FF5] text-white"
+                                  : "bg-white text-[#7C5FF5] shadow-sm"
                               }`}>
                                 <category.icon className="h-5 w-5" />
                               </div>
@@ -874,7 +874,7 @@ export default function PricingPage() {
                                       key={i}
                                       className="flex items-center gap-2.5 text-sm text-[#64748B]"
                                     >
-                                      <Check className="h-4 w-4 text-[#0D9488] flex-shrink-0" />
+                                      <Check className="h-4 w-4 text-[#7C5FF5] flex-shrink-0" />
                                       {feature}
                                     </li>
                                   ))}
@@ -904,7 +904,7 @@ export default function PricingPage() {
                           onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
                           className={`w-full text-left rounded-xl p-5 transition-all duration-200 border ${
                             expandedFaq === index
-                              ? "bg-[#0D9488]/5 border-[#0D9488]/20"
+                              ? "bg-[#7C5FF5]/5 border-[#7C5FF5]/20"
                               : "bg-[#F8FAFC] border-transparent hover:bg-[#F1F5F9]"
                           }`}
                         >
@@ -912,8 +912,8 @@ export default function PricingPage() {
                             <div className="flex items-start gap-4">
                               <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold shrink-0 transition-colors ${
                                 expandedFaq === index
-                                  ? "bg-[#0D9488] text-white"
-                                  : "bg-white text-[#0D9488] shadow-sm"
+                                  ? "bg-[#7C5FF5] text-white"
+                                  : "bg-white text-[#7C5FF5] shadow-sm"
                               }`}>
                                 {index + 1}
                               </div>
@@ -957,18 +957,18 @@ export default function PricingPage() {
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-4">
             <div className="flex items-center gap-6">
-              <Link href="/" className="text-sm text-gray-500 hover:text-[#0D9488] transition-colors">
+              <Link href="/" className="text-sm text-gray-500 hover:text-[#7C5FF5] transition-colors">
                 Home
               </Link>
-              <Link href="/faq" className="text-sm text-gray-500 hover:text-[#0D9488] transition-colors">
+              <Link href="/faq" className="text-sm text-gray-500 hover:text-[#7C5FF5] transition-colors">
                 FAQ
               </Link>
-              <Link href="/privacy" className="text-sm text-gray-500 hover:text-[#0D9488] transition-colors">
+              <Link href="/privacy" className="text-sm text-gray-500 hover:text-[#7C5FF5] transition-colors">
                 Privacy Policy
               </Link>
             </div>
             <div className="flex items-center gap-2 text-[#94A3B8] text-sm">
-              <Building2 className="h-4 w-4 text-[#0D9488]" />
+              <Building2 className="h-4 w-4 text-[#7C5FF5]" />
               <span>A MartinBuiltStrategies Product</span>
             </div>
           </div>

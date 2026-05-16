@@ -87,8 +87,8 @@ export default function FAQPage() {
     <div className="relative min-h-screen overflow-hidden bg-[#FAFBFC]">
       {/* Gradient Background */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-3xl opacity-20 bg-[#0D9488]" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-3xl opacity-10 bg-[#0D9488]" />
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] rounded-full blur-3xl opacity-20 bg-[#7C5FF5]" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] rounded-full blur-3xl opacity-10 bg-[#7C5FF5]" />
       </div>
 
       {/* Navigation */}
@@ -101,7 +101,7 @@ export default function FAQPage() {
         <div className="max-w-7xl mx-auto flex h-16 items-center justify-between px-6">
           <Link href="/">
             <Image
-              src="/career-forward-logo.png"
+              src="/branding/logo.svg"
               alt="Career Forward"
               width={180}
               height={45}
@@ -111,19 +111,19 @@ export default function FAQPage() {
           <div className="flex items-center gap-6">
             <Link
               href="/"
-              className="text-sm text-gray-600 hover:text-[#0D9488] transition-colors"
+              className="text-sm text-gray-600 hover:text-[#7C5FF5] transition-colors"
             >
               Home
             </Link>
             <Link
               href="/pricing"
-              className="text-sm text-gray-600 hover:text-[#0D9488] transition-colors"
+              className="text-sm text-gray-600 hover:text-[#7C5FF5] transition-colors"
             >
               Pricing
             </Link>
             <Link
               href="/signin"
-              className="px-4 py-2 bg-[#0D9488] text-white text-sm font-medium rounded-lg hover:bg-[#237070] transition-colors"
+              className="px-4 py-2 bg-[#7C5FF5] text-white text-sm font-medium rounded-lg hover:bg-[#237070] transition-colors"
             >
               Sign In
             </Link>
@@ -141,19 +141,19 @@ export default function FAQPage() {
           className="text-center mb-12"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-lg shadow-gray-200/50 border border-gray-100 mb-6">
-            <Sparkles className="h-4 w-4 text-[#0D9488]" />
+            <Sparkles className="h-4 w-4 text-[#7C5FF5]" />
             <span className="text-sm font-medium text-gray-700">
               Help Center
             </span>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-4">
             Frequently Asked{" "}
-            <span className="text-[#0D9488]">Questions</span>
+            <span className="text-[#7C5FF5]">Questions</span>
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Find answers to common questions about Career Forward. Can&apos;t find
             what you&apos;re looking for?{" "}
-            <Link href="/demo" className="text-[#0D9488] hover:underline">
+            <Link href="/demo" className="text-[#7C5FF5] hover:underline">
               Contact us
             </Link>
           </p>
@@ -176,7 +176,7 @@ export default function FAQPage() {
                 setSelectedCategory(null);
               }}
               placeholder="Search for answers..."
-              className="w-full pl-12 pr-12 py-4 bg-white border border-gray-200 rounded-2xl text-[#0F172A] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0D9488]/20 focus:border-[#0D9488] shadow-lg shadow-gray-200/50 transition-all"
+              className="w-full pl-12 pr-12 py-4 bg-white border border-gray-200 rounded-2xl text-[#0F172A] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#7C5FF5]/20 focus:border-[#7C5FF5] shadow-lg shadow-gray-200/50 transition-all"
             />
             {searchQuery && (
               <button
@@ -203,7 +203,7 @@ export default function FAQPage() {
           >
             <button
               onClick={clearSearch}
-              className="inline-flex items-center gap-2 text-[#0D9488] hover:underline text-sm font-medium"
+              className="inline-flex items-center gap-2 text-[#7C5FF5] hover:underline text-sm font-medium"
             >
               <ArrowRight className="h-4 w-4 rotate-180" />
               Back to all categories
@@ -297,7 +297,7 @@ export default function FAQPage() {
                   </p>
                   <button
                     onClick={clearSearch}
-                    className="text-[#0D9488] font-medium hover:underline"
+                    className="text-[#7C5FF5] font-medium hover:underline"
                   >
                     Clear search and browse categories
                   </button>
@@ -314,7 +314,7 @@ export default function FAQPage() {
           transition={{ duration: 0.5, delay: 0.3 }}
           className="mt-16 text-center"
         >
-          <div className="bg-gradient-to-br from-[#0D9488]/5 to-[#0D9488]/10 rounded-2xl p-8 border border-[#0D9488]/20">
+          <div className="bg-gradient-to-br from-[#7C5FF5]/5 to-[#7C5FF5]/10 rounded-2xl p-8 border border-[#7C5FF5]/20">
             <h2 className="text-2xl font-bold text-[#0F172A] mb-2">
               Still have questions?
             </h2>
@@ -325,14 +325,14 @@ export default function FAQPage() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/demo"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#0D9488] text-white font-semibold rounded-xl shadow-lg shadow-[#F59E0B]/25 hover:bg-[#237070] transition-all"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#7C5FF5] text-white font-semibold rounded-xl shadow-lg shadow-[#F59E0B]/25 hover:bg-[#237070] transition-all"
               >
                 Contact Us
                 <ArrowRight className="h-5 w-5" />
               </Link>
               <a
-                href="mailto:support@careerforward.io"
-                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-[#0F172A] font-semibold rounded-xl border border-gray-200 hover:border-[#0D9488] hover:text-[#0D9488] transition-all"
+                href="mailto:support@martinbuiltstrategies.com"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-[#0F172A] font-semibold rounded-xl border border-gray-200 hover:border-[#7C5FF5] hover:text-[#7C5FF5] transition-all"
               >
                 Email Support
               </a>
@@ -346,21 +346,21 @@ export default function FAQPage() {
         <div className="max-w-7xl mx-auto px-6 py-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-6">
-              <Link href="/" className="text-sm text-gray-500 hover:text-[#0D9488]">
+              <Link href="/" className="text-sm text-gray-500 hover:text-[#7C5FF5]">
                 Home
               </Link>
-              <Link href="/pricing" className="text-sm text-gray-500 hover:text-[#0D9488]">
+              <Link href="/pricing" className="text-sm text-gray-500 hover:text-[#7C5FF5]">
                 Pricing
               </Link>
-              <Link href="/faq" className="text-sm text-[#0D9488] font-medium">
+              <Link href="/faq" className="text-sm text-[#7C5FF5] font-medium">
                 FAQ
               </Link>
-              <Link href="/privacy" className="text-sm text-gray-500 hover:text-[#0D9488]">
+              <Link href="/privacy" className="text-sm text-gray-500 hover:text-[#7C5FF5]">
                 Privacy Policy
               </Link>
             </div>
             <p className="text-sm text-gray-400">
-              © 2026 Career Forward. All rights reserved.
+              © 2027 Career Forward. All rights reserved.
             </p>
           </div>
         </div>
@@ -387,16 +387,16 @@ function CategoryCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay }}
       onClick={onClick}
-      className="text-left bg-white rounded-xl p-6 shadow-lg shadow-gray-200/50 border border-gray-100 hover:border-[#0D9488]/30 hover:shadow-xl transition-all group"
+      className="text-left bg-white rounded-xl p-6 shadow-lg shadow-gray-200/50 border border-gray-100 hover:border-[#7C5FF5]/30 hover:shadow-xl transition-all group"
     >
-      <div className="w-12 h-12 bg-[#0D9488]/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-[#0D9488]/20 transition-colors">
-        <Icon className="h-6 w-6 text-[#0D9488]" />
+      <div className="w-12 h-12 bg-[#7C5FF5]/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-[#7C5FF5]/20 transition-colors">
+        <Icon className="h-6 w-6 text-[#7C5FF5]" />
       </div>
-      <h3 className="font-semibold text-[#0F172A] mb-1 group-hover:text-[#0D9488] transition-colors">
+      <h3 className="font-semibold text-[#0F172A] mb-1 group-hover:text-[#7C5FF5] transition-colors">
         {category.title}
       </h3>
       <p className="text-sm text-gray-500 mb-3">{category.description}</p>
-      <span className="text-xs text-[#0D9488] font-medium">
+      <span className="text-xs text-[#7C5FF5] font-medium">
         {category.items.length} articles
       </span>
     </motion.button>
