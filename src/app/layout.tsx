@@ -20,14 +20,14 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   icons: {
     icon: [
-      { url: "/branding/3.png", sizes: "any" },
-      { url: "/branding/3.png", sizes: "32x32", type: "image/png" },
-      { url: "/branding/3.png", sizes: "16x16", type: "image/png" },
+      { url: "/branding/logo-transparent.png", sizes: "any" },
+      { url: "/branding/logo-transparent.png", sizes: "32x32", type: "image/png" },
+      { url: "/branding/logo-transparent.png", sizes: "16x16", type: "image/png" },
     ],
     apple: [
-      { url: "/branding/3.png", sizes: "180x180", type: "image/png" },
+      { url: "/branding/logo-transparent.png", sizes: "180x180", type: "image/png" },
     ],
-    shortcut: "/branding/3.png",
+    shortcut: "/branding/logo-transparent.png",
   },
   appleWebApp: {
     capable: true,
@@ -75,7 +75,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Career Forward" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="theme-color" content="#7C5FF5" />
-        <link rel="apple-touch-icon" href="/branding/3.png" />
+        <link rel="apple-touch-icon" href="/branding/logo-transparent.png" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
