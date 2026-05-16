@@ -10,14 +10,14 @@ export async function POST(request: NextRequest) {
     const validationResult = contactSchema.safeParse(body);
 
     if (!validationResult.success) {
-      console.error("[CONTACT FORM] Validation failed:", validationResult.error.errors);
+      console.error("[CONTACT FORM] Validation failed:", validationResult.error.issues);
       return NextResponse.json(
         {
           success: false,
           error: true,
           code: "VALIDATION_ERROR",
           message: "Please check your input and try again.",
-          details: validationResult.error.errors,
+          details: validationResult.error.issues,
         },
         { status: 400 }
       );
