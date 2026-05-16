@@ -23,11 +23,13 @@ export async function POST(request: NextRequest) {
     // Validate input
     const validationResult = waitlistSchema.safeParse(body);
     if (!validationResult.success) {
+      console.error("[WAITLIST] Validation error:", validationResult.error.flatten().fieldErrors);
       return NextResponse.json(
         {
+          success: false,
           error: true,
           code: "VALIDATION_ERROR",
-          message: "Invalid input",
+          message: "Invalid input. Please check your information and try again.",
           details: validationResult.error.flatten().fieldErrors,
         },
         { status: 400 }
@@ -35,15 +37,34 @@ export async function POST(request: NextRequest) {
     }
 
     const { firstName, lastName, email, region, referredBy } = validationResult.data;
+    const normalizedEmail = email.toLowerCase().trim();
+
+    // Log registration attempt
+    console.log(`[WAITLIST] Registration attempt: ${normalizedEmail} (${firstName} ${lastName})`);
 
     // Check if email already exists
-    const existingEntry = await prisma.waitlistEntry.findUnique({
-      where: { email: email.toLowerCase() },
-    });
+    let existingEntry;
+    try {
+      existingEntry = await prisma.waitlistEntry.findUnique({
+        where: { email: normalizedEmail },
+      });
+    } catch (dbError) {
+      console.error("[WAITLIST] Database error checking existing entry:", dbError);
+      return NextResponse.json(
+        {
+          success: false,
+          error: true,
+          code: "DATABASE_ERROR",
+          message: "Unable to process your request. Please try again in a moment.",
+        },
+        { status: 500 }
+      );
+    }
 
     if (existingEntry) {
       // Return the existing referral link instead of error
       const referralLink = `${APP_URL}/waitlist?ref=${existingEntry.referralCode}`;
+      console.log(`[WAITLIST] Duplicate registration: ${normalizedEmail}`);
       return NextResponse.json(
         {
           success: true,
@@ -70,40 +91,115 @@ export async function POST(request: NextRequest) {
       attempts++;
     }
 
-    // Create waitlist entry
-    const entry = await prisma.waitlistEntry.create({
-      data: {
-        email: email.toLowerCase(),
-        firstName,
-        lastName,
-        region,
-        referralCode,
-        referredBy: referredBy || null,
-      },
-    });
+    if (attempts >= 5) {
+      console.error("[WAITLIST] Failed to generate unique referral code after 5 attempts");
+      return NextResponse.json(
+        {
+          success: false,
+          error: true,
+          code: "GENERATION_ERROR",
+          message: "Unable to complete registration. Please try again.",
+        },
+        { status: 500 }
+      );
+    }
+
+    // Create waitlist entry with retry logic
+    let entry;
+    let retries = 0;
+    const maxRetries = 3;
+
+    while (retries < maxRetries) {
+      try {
+        entry = await prisma.waitlistEntry.create({
+          data: {
+            email: normalizedEmail,
+            firstName: firstName.trim(),
+            lastName: lastName.trim(),
+            region,
+            referralCode,
+            referredBy: referredBy || null,
+          },
+        });
+        console.log(`[WAITLIST] ✅ Successfully created entry: ${normalizedEmail} (${referralCode})`);
+        break;
+      } catch (dbError: any) {
+        retries++;
+        console.error(`[WAITLIST] Database error on attempt ${retries}/${maxRetries}:`, dbError);
+
+        // If this is a unique constraint violation, the email was just registered
+        if (dbError.code === "P2002") {
+          const existingEntry = await prisma.waitlistEntry.findUnique({
+            where: { email: normalizedEmail },
+          });
+          if (existingEntry) {
+            const referralLink = `${APP_URL}/waitlist?ref=${existingEntry.referralCode}`;
+            return NextResponse.json(
+              {
+                success: true,
+                alreadyExists: true,
+                message: "You're already on the waitlist! Here's your referral link.",
+                referralCode: existingEntry.referralCode,
+                referralLink,
+              },
+              { status: 200 }
+            );
+          }
+        }
+
+        if (retries >= maxRetries) {
+          console.error(`[WAITLIST] ❌ Failed to create entry after ${maxRetries} attempts`);
+          return NextResponse.json(
+            {
+              success: false,
+              error: true,
+              code: "DATABASE_ERROR",
+              message: "We're experiencing technical difficulties. Please try again in a moment, or contact support@martinbuiltstrategies.com if the issue persists.",
+            },
+            { status: 500 }
+          );
+        }
+
+        // Wait before retry (exponential backoff)
+        await new Promise((resolve) => setTimeout(resolve, 100 * Math.pow(2, retries)));
+      }
+    }
+
+    if (!entry) {
+      console.error("[WAITLIST] ❌ Entry creation failed unexpectedly");
+      return NextResponse.json(
+        {
+          success: false,
+          error: true,
+          code: "UNKNOWN_ERROR",
+          message: "Registration failed. Please try again or contact support@martinbuiltstrategies.com",
+        },
+        { status: 500 }
+      );
+    }
 
     const referralLink = `${APP_URL}/waitlist?ref=${referralCode}`;
 
-    // Send confirmation email (non-blocking)
+    // Send confirmation email (non-blocking - failure won't affect registration)
     let emailSent = false;
     try {
       const emailResult = await sendWaitlistConfirmationEmail(
-        email,
+        normalizedEmail,
         firstName,
         referralLink
       );
       emailSent = emailResult.success;
       if (!emailResult.success) {
-        console.error("Failed to send waitlist email:", emailResult.error);
+        console.error("[WAITLIST] Email send failed:", emailResult.error);
+      } else {
+        console.log(`[WAITLIST] Email sent successfully to ${normalizedEmail}`);
       }
     } catch (emailError) {
-      console.error("Email service error:", emailError);
+      console.error("[WAITLIST] Email service error:", emailError);
     }
 
-    // Log in development
-    if (process.env.NODE_ENV === "development") {
-      console.log(`Waitlist signup: ${email}, referral code: ${referralCode}`);
-    }
+    // Log success
+    console.log(`[WAITLIST] ✅ Registration complete: ${normalizedEmail} | Referral: ${referralCode} | Email sent: ${emailSent}`);
 
     return NextResponse.json(
       {
@@ -112,16 +208,22 @@ export async function POST(request: NextRequest) {
         referralCode,
         referralLink,
         emailSent,
+        entry: {
+          firstName: entry.firstName,
+          email: entry.email,
+          region: entry.region,
+        },
       },
       { status: 201 }
     );
-  } catch (error) {
-    console.error("Waitlist error:", error);
+  } catch (error: any) {
+    console.error("[WAITLIST] ❌ Unexpected error:", error);
     return NextResponse.json(
       {
+        success: false,
         error: true,
         code: "INTERNAL_ERROR",
-        message: "An error occurred. Please try again.",
+        message: "An unexpected error occurred. Please try again or contact support@martinbuiltstrategies.com",
       },
       { status: 500 }
     );

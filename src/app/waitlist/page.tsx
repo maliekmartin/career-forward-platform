@@ -52,8 +52,34 @@ export default function WaitlistPage() {
   const [waitlistCount, setWaitlistCount] = useState<number>(SEED_SIGNUPS.length);
   const [displaySignups, setDisplaySignups] = useState<Array<{ name: string; region: string; timeAgo: string }>>([]);
 
-  // Dynamic visitor counter
+  // Check if user is already registered (from localStorage)
   useEffect(() => {
+    try {
+      const savedData = localStorage.getItem("careerforward_waitlist");
+      if (savedData) {
+        const parsed = JSON.parse(savedData);
+        if (parsed.registered && parsed.email) {
+          // Check if registration was within last 30 days
+          const registeredDate = new Date(parsed.timestamp);
+          const daysSince = (Date.now() - registeredDate.getTime()) / (1000 * 60 * 60 * 24);
+
+          if (daysSince < 30) {
+            // User is already registered, populate form and show they're registered
+            setFormData({
+              firstName: parsed.firstName || "",
+              lastName: "",
+              email: parsed.email || "",
+              region: "",
+            });
+            console.log("User already registered (from localStorage):", parsed.email);
+          }
+        }
+      }
+    } catch (err) {
+      console.error("Error reading localStorage:", err);
+    }
+
+    // Dynamic visitor counter
     const storedCount = localStorage.getItem("waitlist_visitor_count");
     const initialCount = storedCount ? parseInt(storedCount, 10) : 11;
     const newCount = initialCount + 1;
@@ -139,12 +165,29 @@ export default function WaitlistPage() {
       const data = await response.json();
 
       if (data.success) {
+        // Save to localStorage as backup
+        try {
+          localStorage.setItem("careerforward_waitlist", JSON.stringify({
+            registered: true,
+            email: formData.email,
+            firstName: formData.firstName,
+            referralCode: data.referralCode,
+            referralLink: data.referralLink,
+            timestamp: new Date().toISOString(),
+          }));
+        } catch (storageError) {
+          console.error("Failed to save to localStorage:", storageError);
+        }
         setIsSuccess(true);
       } else {
-        setError(data.message || "Something went wrong. Please try again.");
+        // Show specific error message from API
+        const errorMessage = data.message || "Something went wrong. Please try again.";
+        setError(errorMessage);
+        console.error("Waitlist registration error:", data);
       }
-    } catch {
-      setError("Network error. Please check your connection and try again.");
+    } catch (networkError) {
+      console.error("Network error during waitlist registration:", networkError);
+      setError("Network error. Please check your connection and try again. If this persists, contact support@martinbuiltstrategies.com");
     } finally {
       setIsSubmitting(false);
     }
