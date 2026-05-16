@@ -624,3 +624,282 @@ The Career Forward Team
     };
   }
 }
+
+/**
+ * Send contact form submission notification to support team
+ */
+export async function sendContactFormNotification(
+  name: string,
+  email: string,
+  message: string
+): Promise<SendEmailResult> {
+  const supportEmail = "support@martinbuiltstrategies.com";
+
+  try {
+    const { data, error } = await getResend().emails.send({
+      from: FROM_EMAIL,
+      to: supportEmail,
+      replyTo: email,
+      subject: \`New Contact Form Submission from \${name}\`,
+      html: \`
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+  <div style="text-align: center; margin-bottom: 30px;">
+    <h1 style="color: #7C5FF5; margin: 0;">Career Forward</h1>
+  </div>
+
+  <h2 style="color: #1f2937;">New Contact Form Submission</h2>
+
+  <div style="background-color: #f3f4f6; border-left: 4px solid #7C5FF5; padding: 20px; margin: 20px 0;">
+    <p style="margin: 0 0 10px 0;"><strong>From:</strong> \${name}</p>
+    <p style="margin: 0 0 10px 0;"><strong>Email:</strong> <a href="mailto:\${email}" style="color: #7C5FF5;">\${email}</a></p>
+    <p style="margin: 0 0 10px 0;"><strong>Received:</strong> \${new Date().toLocaleString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    })}</p>
+  </div>
+
+  <div style="background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; margin: 20px 0;">
+    <h3 style="color: #1f2937; margin-top: 0;">Message:</h3>
+    <p style="color: #4b5563; white-space: pre-wrap;">\${message}</p>
+  </div>
+
+  <div style="background-color: #fef3c7; border: 1px solid #fcd34d; border-radius: 8px; padding: 16px; margin: 20px 0;">
+    <p style="color: #92400e; margin: 0;"><strong>⏰ Action Required:</strong> Please respond within 24 hours.</p>
+  </div>
+
+  <div style="text-align: center; margin: 30px 0;">
+    <a href="mailto:\${email}?subject=Re: Career Forward Contact" style="background-color: #7C5FF5; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; display: inline-block;">
+      Reply to \${name}
+    </a>
+  </div>
+
+  <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
+
+  <p style="color: #9ca3af; font-size: 12px; text-align: center;">
+    Career Forward Contact Form Notification<br>
+    © \${new Date().getFullYear()} Career Forward. All rights reserved.
+  </p>
+</body>
+</html>
+      \`,
+      text: \`
+New Contact Form Submission
+
+From: \${name}
+Email: \${email}
+Received: \${new Date().toLocaleString()}
+
+Message:
+\${message}
+
+---
+Please respond within 24 hours.
+Reply directly to: \${email}
+      \`.trim(),
+    });
+
+    if (error) {
+      console.error("[CONTACT FORM] Resend error:", error);
+      return { success: false, error: error.message };
+    }
+
+    console.log(\`[CONTACT FORM] ✅ Notification sent to \${supportEmail} for \${email}\`);
+    return { success: true, messageId: data?.id };
+  } catch (error) {
+    console.error("[CONTACT FORM] Email send error:", error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Failed to send notification",
+    };
+  }
+}
+
+/**
+ * Send pricing lead notification to sales team
+ */
+export async function sendPricingLeadNotification(
+  leadType: "coach" | "organization",
+  firstName: string,
+  lastName: string,
+  email: string,
+  organization?: string,
+  phone?: string,
+  teamSize?: number,
+  coachCount?: number,
+  notes?: string
+): Promise<SendEmailResult> {
+  const salesEmail = "support@martinbuiltstrategies.com";
+  const fullName = \`\${firstName} \${lastName}\`;
+
+  try {
+    const { data, error } = await getResend().emails.send({
+      from: FROM_EMAIL,
+      to: salesEmail,
+      replyTo: email,
+      subject: \`🎯 New \${leadType === "coach" ? "Coach" : "Organization"} Lead: \${fullName}\`,
+      html: \`
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+  <div style="text-align: center; margin-bottom: 30px;">
+    <h1 style="color: #7C5FF5; margin: 0;">Career Forward</h1>
+  </div>
+
+  <div style="background-color: #7C5FF5; color: white; padding: 20px; border-radius: 8px 8px 0 0; text-align: center;">
+    <h2 style="margin: 0;">🎯 New \${leadType === "coach" ? "Coach Tier" : "Organization Tier"} Lead</h2>
+  </div>
+
+  <div style="background-color: #f9fafb; border: 1px solid #e5e7eb; border-top: none; border-radius: 0 0 8px 8px; padding: 20px; margin-bottom: 20px;">
+    <h3 style="color: #1f2937; margin-top: 0;">Contact Information</h3>
+    <table style="width: 100%; border-collapse: collapse;">
+      <tr>
+        <td style="padding: 8px 0; color: #6b7280; font-weight: 600;">Name:</td>
+        <td style="padding: 8px 0; color: #111827;">\${fullName}</td>
+      </tr>
+      <tr>
+        <td style="padding: 8px 0; color: #6b7280; font-weight: 600;">Email:</td>
+        <td style="padding: 8px 0;"><a href="mailto:\${email}" style="color: #7C5FF5; text-decoration: none;">\${email}</a></td>
+      </tr>
+      \${phone ? \`
+      <tr>
+        <td style="padding: 8px 0; color: #6b7280; font-weight: 600;">Phone:</td>
+        <td style="padding: 8px 0;"><a href="tel:\${phone}" style="color: #7C5FF5; text-decoration: none;">\${phone}</a></td>
+      </tr>
+      \` : ""}
+      \${organization ? \`
+      <tr>
+        <td style="padding: 8px 0; color: #6b7280; font-weight: 600;">Organization:</td>
+        <td style="padding: 8px 0; color: #111827;">\${organization}</td>
+      </tr>
+      \` : ""}
+      <tr>
+        <td style="padding: 8px 0; color: #6b7280; font-weight: 600;">Lead Type:</td>
+        <td style="padding: 8px 0;">
+          <span style="background-color: \${leadType === "coach" ? "#DBEAFE" : "#FEF3C7"}; color: \${leadType === "coach" ? "#1E40AF" : "#92400E"}; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600;">
+            \${leadType === "coach" ? "COACH TIER" : "ORGANIZATION TIER"}
+          </span>
+        </td>
+      </tr>
+    </table>
+
+    \${(teamSize || coachCount) ? \`
+    <h3 style="color: #1f2937; margin-top: 20px; margin-bottom: 10px;">Pricing Details</h3>
+    <table style="width: 100%; border-collapse: collapse;">
+      \${teamSize ? \`
+      <tr>
+        <td style="padding: 8px 0; color: #6b7280; font-weight: 600;">Team Size:</td>
+        <td style="padding: 8px 0; color: #111827;"><strong>\${teamSize} members</strong></td>
+      </tr>
+      \` : ""}
+      \${coachCount ? \`
+      <tr>
+        <td style="padding: 8px 0; color: #6b7280; font-weight: 600;">Coach Count:</td>
+        <td style="padding: 8px 0; color: #111827;"><strong>\${coachCount} coaches</strong></td>
+      </tr>
+      \` : ""}
+    </table>
+    \` : ""}
+
+    \${notes ? \`
+    <h3 style="color: #1f2937; margin-top: 20px; margin-bottom: 10px;">Additional Notes</h3>
+    <div style="background-color: #ffffff; border: 1px solid #e5e7eb; border-radius: 6px; padding: 15px;">
+      <p style="color: #4b5563; margin: 0; white-space: pre-wrap;">\${notes}</p>
+    </div>
+    \` : ""}
+
+    <p style="color: #6b7280; font-size: 14px; margin-top: 20px; margin-bottom: 0;">
+      <strong>Received:</strong> \${new Date().toLocaleString("en-US", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      })}
+    </p>
+  </div>
+
+  <div style="background-color: #fef3c7; border: 1px solid #fcd34d; border-radius: 8px; padding: 16px; margin: 20px 0;">
+    <p style="color: #92400e; margin: 0;"><strong>🔥 HOT LEAD:</strong> Pricing page leads are high-intent. Follow up within 2 hours for best conversion rates.</p>
+  </div>
+
+  <div style="text-align: center; margin: 30px 0;">
+    <a href="mailto:\${email}?subject=Career Forward - \${leadType === "coach" ? "Coach" : "Organization"} Tier Inquiry" style="background-color: #7C5FF5; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; display: inline-block; margin: 0 5px;">
+      Reply to Lead
+    </a>
+    \${phone ? \`
+    <a href="tel:\${phone}" style="background-color: #10b981; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; font-weight: 600; display: inline-block; margin: 0 5px;">
+      Call Now
+    </a>
+    \` : ""}
+  </div>
+
+  <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
+
+  <p style="color: #9ca3af; font-size: 12px; text-align: center;">
+    Career Forward Pricing Lead Notification<br>
+    © \${new Date().getFullYear()} Career Forward. All rights reserved.
+  </p>
+</body>
+</html>
+      \`,
+      text: \`
+🎯 New \${leadType === "coach" ? "Coach Tier" : "Organization Tier"} Lead
+
+CONTACT INFORMATION:
+Name: \${fullName}
+Email: \${email}
+\${phone ? \`Phone: \${phone}\` : ""}
+\${organization ? \`Organization: \${organization}\` : ""}
+Lead Type: \${leadType.toUpperCase()}
+
+\${(teamSize || coachCount) ? \`
+PRICING DETAILS:
+\${teamSize ? \`Team Size: \${teamSize} members\` : ""}
+\${coachCount ? \`Coach Count: \${coachCount} coaches\` : ""}
+\` : ""}
+
+\${notes ? \`
+ADDITIONAL NOTES:
+\${notes}
+\` : ""}
+
+Received: \${new Date().toLocaleString()}
+
+---
+🔥 HOT LEAD: Pricing page leads are high-intent. Follow up within 2 hours for best conversion rates.
+
+Reply to: \${email}
+\${phone ? \`Call: \${phone}\` : ""}
+      \`.trim(),
+    });
+
+    if (error) {
+      console.error("[PRICING LEAD] Resend error:", error);
+      return { success: false, error: error.message };
+    }
+
+    console.log(\`[PRICING LEAD] ✅ Notification sent to \${salesEmail} for \${leadType} lead: \${email}\`);
+    return { success: true, messageId: data?.id };
+  } catch (error) {
+    console.error("[PRICING LEAD] Email send error:", error);
+    return {
+      success: false,
+      error: error instanceof Error ? error.message : "Failed to send notification",
+    };
+  }
+}

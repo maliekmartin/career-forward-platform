@@ -630,6 +630,43 @@ model WaitlistEntry {
   @@map("waitlist_entries")
 }
 
+// ==================== CONTACT FORM ====================
+
+model ContactSubmission {
+  id          String   @id @default(cuid())
+  name        String
+  email       String
+  message     String   @db.Text
+  responded   Boolean  @default(false)
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  @@index([createdAt])
+  @@index([responded])
+  @@map("contact_submissions")
+}
+
+// ==================== PRICING LEADS ====================
+
+model PricingLead {
+  id             String   @id @default(cuid())
+  leadType       String   @map("lead_type") // "coach" or "organization"
+  firstName      String   @map("first_name")
+  lastName       String   @map("last_name")
+  email          String
+  organization   String?
+  phone          String?
+  teamSize       Int?     @map("team_size")
+  coachCount     Int?     @map("coach_count")
+  notes          String?  @db.Text
+  responded      Boolean  @default(false)
+  createdAt      DateTime @default(now()) @map("created_at")
+
+  @@index([createdAt])
+  @@index([leadType])
+  @@index([responded])
+  @@map("pricing_leads")
+}
+
 // ==================== WORKFORCE CENTER (Future Multi-tenant) ====================
 
 model WorkforceCenter {
