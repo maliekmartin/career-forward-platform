@@ -346,11 +346,11 @@ export default function WaitlistPage() {
                         required
                         value={formData.region}
                         onChange={(e) => setFormData({ ...formData, region: e.target.value })}
-                        className="w-full h-12 px-4 rounded-xl border border-gray-200 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#7C5FF5]/20 focus:border-[#7C5FF5]"
+                        className="w-full h-12 px-4 rounded-xl border border-gray-200 bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#7C5FF5]/20 focus:border-[#7C5FF5] [&>option]:text-gray-900"
                       >
-                        <option value="">Select your region</option>
+                        <option value="" className="text-gray-400">Select your region</option>
                         {US_REGIONS.map((region) => (
-                          <option key={region.value} value={region.value}>
+                          <option key={region.value} value={region.value} className="text-gray-900">
                             {region.label}
                           </option>
                         ))}
@@ -590,88 +590,109 @@ export default function WaitlistPage() {
 
         {/* Product Preview */}
         {!isSuccess && (
-          <section className="py-20 px-6">
-            <div className="max-w-5xl mx-auto">
+          <section className="py-20 px-6 bg-gradient-to-br from-[#F3E8FF] via-white to-[#E9D5FF]">
+            <div className="max-w-6xl mx-auto">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="text-center mb-12"
+                className="text-center mb-16"
               >
-                <h2 className="text-3xl font-bold text-[#0F172A] mb-3">
-                  Your job search, simplified
+                <div className="inline-flex items-center gap-2 bg-[#7C5FF5]/10 rounded-full px-4 py-2 mb-6">
+                  <Sparkles className="w-4 h-4 text-[#7C5FF5]" />
+                  <span className="text-sm font-semibold text-[#7C5FF5]">Everything You Need in One Place</span>
+                </div>
+                <h2 className="text-4xl md:text-5xl font-bold text-[#0F172A] mb-4">
+                  Stop juggling spreadsheets.
+                  <br />
+                  <span className="text-[#7C5FF5]">Start landing offers.</span>
                 </h2>
-                <p className="text-gray-600">
-                  One dashboard to track every application
+                <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                  Career Forward brings everything together—resumes, applications, coaching, and insights—so you can focus on what matters: getting hired.
                 </p>
               </motion.div>
 
+              {/* Feature Grid */}
+              <div className="grid md:grid-cols-3 gap-6 mb-12">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 }}
+                  className="bg-white rounded-2xl p-6 shadow-lg border border-[#7C5FF5]/10"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#7C5FF5] to-[#A78BFA] flex items-center justify-center mb-4">
+                    <CheckCircle2 className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-[#0F172A] mb-2">100-Point Resume Scoring</h3>
+                  <p className="text-gray-600">
+                    Get instant feedback on your resume with our AI-powered scoring system. Know exactly what to improve before you apply.
+                  </p>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.2 }}
+                  className="bg-white rounded-2xl p-6 shadow-lg border border-[#7C5FF5]/10"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#7C5FF5] to-[#A78BFA] flex items-center justify-center mb-4">
+                    <Briefcase className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-[#0F172A] mb-2">Smart Application Tracker</h3>
+                  <p className="text-gray-600">
+                    Never lose track of an application again. Stoplight status tracking (Green/Yellow/Red) keeps you organized and focused.
+                  </p>
+                </motion.div>
+
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.3 }}
+                  className="bg-white rounded-2xl p-6 shadow-lg border border-[#7C5FF5]/10"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#7C5FF5] to-[#A78BFA] flex items-center justify-center mb-4">
+                    <Sparkles className="w-6 h-6 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-[#0F172A] mb-2">AI Career Coach</h3>
+                  <p className="text-gray-600">
+                    Get personalized career guidance 24/7. From resume tips to interview prep, Compass has your back at every step.
+                  </p>
+                </motion.div>
+              </div>
+
+              {/* Video Demo */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
-                <div className="bg-[#0F172A] rounded-2xl p-2 shadow-2xl">
-                  <div className="flex items-center gap-2 px-4 py-3">
-                    <div className="flex gap-1.5">
-                      <div className="w-3 h-3 rounded-full bg-red-500" />
-                      <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                      <div className="w-3 h-3 rounded-full bg-green-500" />
-                    </div>
-                    <div className="flex-1 text-center">
-                      <span className="text-gray-400 text-sm">careerforward.io</span>
+                <div className="bg-gradient-to-br from-[#7C5FF5] to-[#A78BFA] rounded-3xl p-1 shadow-2xl">
+                  <div className="bg-white rounded-[22px] p-2">
+                    <div className="bg-[#0F172A] rounded-2xl overflow-hidden">
+                      <div className="flex items-center gap-2 px-4 py-3 bg-[#1F2937]">
+                        <div className="flex gap-1.5">
+                          <div className="w-3 h-3 rounded-full bg-red-500" />
+                          <div className="w-3 h-3 rounded-full bg-yellow-500" />
+                          <div className="w-3 h-3 rounded-full bg-green-500" />
+                        </div>
+                        <div className="flex-1 text-center">
+                          <span className="text-gray-400 text-sm font-medium">careerforward.io</span>
+                        </div>
+                      </div>
+                      <video
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className="w-full"
+                      >
+                        <source src="/hero-b2c.mp4" type="video/mp4" />
+                      </video>
                     </div>
                   </div>
-                  <div className="rounded-xl overflow-hidden">
-                    <video
-                      autoPlay
-                      muted
-                      loop
-                      playsInline
-                      className="w-full"
-                    >
-                      <source src="/hero-b2c.mp4" type="video/mp4" />
-                    </video>
-                  </div>
-                </div>
-
-                {/* Stats Below Video */}
-                <div className="flex justify-center gap-4 mt-6">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3 }}
-                    className="bg-white rounded-xl px-5 py-4 shadow-lg border border-gray-100"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-[#7C5FF5] flex items-center justify-center">
-                        <Briefcase className="w-5 h-5 text-white" />
-                      </div>
-                      <div>
-                        <p className="text-2xl font-bold text-[#0F172A]">2,847</p>
-                        <p className="text-xs text-gray-500">Jobs Tracked</p>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.4 }}
-                    className="bg-white rounded-xl px-5 py-4 shadow-lg border border-gray-100"
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-lg bg-green-500 flex items-center justify-center">
-                        <CheckCircle2 className="w-5 h-5 text-white" />
-                      </div>
-                      <div>
-                        <p className="text-2xl font-bold text-[#0F172A]">94%</p>
-                        <p className="text-xs text-gray-500">Success Rate</p>
-                      </div>
-                    </div>
-                  </motion.div>
                 </div>
               </motion.div>
             </div>
@@ -680,26 +701,65 @@ export default function WaitlistPage() {
 
         {/* Final CTA */}
         {!isSuccess && (
-          <section className="py-20 px-6 bg-[#020617]">
-            <div className="max-w-2xl mx-auto text-center">
+          <section className="py-20 px-6 bg-gradient-to-br from-[#0F172A] via-[#1F2937] to-[#0F172A] relative overflow-hidden">
+            {/* Background Effects */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(124,95,245,0.15),transparent_50%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(167,139,250,0.15),transparent_50%)]" />
+
+            <div className="max-w-4xl mx-auto text-center relative z-10">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
               >
-                <h2 className="text-3xl font-bold text-white mb-4">
-                  Ready to transform your job search?
+                <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-8">
+                  <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                  <span className="text-sm font-semibold text-white">Launching Q2 2027</span>
+                </div>
+
+                <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+                  Your dream job is waiting.
+                  <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7C5FF5] to-[#A78BFA]">
+                    Don't miss early access.
+                  </span>
                 </h2>
-                <p className="text-white/70 mb-8">
-                  Join the waitlist and be the first to know when we launch.
+
+                <p className="text-xl text-white/80 mb-10 max-w-2xl mx-auto">
+                  Join <strong className="text-white">{waitlistCount.toLocaleString()}+ founding members</strong> who are getting 2 months free premium, an exclusive badge, and first access to the platform that's changing how people find work.
                 </p>
+
+                {/* Benefits Bar */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10 max-w-3xl mx-auto">
+                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4">
+                    <div className="text-3xl mb-2">🎁</div>
+                    <div className="text-sm font-medium text-white">2 Months Free</div>
+                    <div className="text-xs text-white/60">Premium Access</div>
+                  </div>
+                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4">
+                    <div className="text-3xl mb-2">⭐</div>
+                    <div className="text-sm font-medium text-white">Founding Member Badge</div>
+                    <div className="text-xs text-white/60">Exclusive Recognition</div>
+                  </div>
+                  <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4">
+                    <div className="text-3xl mb-2">🚀</div>
+                    <div className="text-sm font-medium text-white">Early Access</div>
+                    <div className="text-xs text-white/60">Beta Testing Invite</div>
+                  </div>
+                </div>
+
                 <Button
                   onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                  className="bg-[#7C5FF5] text-white hover:bg-[#6B4FE4] h-12 px-8 rounded-xl font-medium shadow-lg shadow-[#7C5FF5]/30"
+                  size="lg"
+                  className="bg-gradient-to-r from-[#7C5FF5] to-[#A78BFA] hover:from-[#6B4FE4] hover:to-[#9370ED] text-white h-14 px-10 rounded-full font-semibold text-lg shadow-2xl shadow-[#7C5FF5]/50 hover:scale-105 transition-all"
                 >
-                  Join the Waitlist
-                  <ArrowRight className="w-4 h-4 ml-2" />
+                  Secure Your Spot Now
+                  <ArrowRight className="w-5 h-5 ml-2" />
                 </Button>
+
+                <p className="text-sm text-white/50 mt-6">
+                  No credit card required • Launch: April-June 2027
+                </p>
               </motion.div>
             </div>
           </section>
