@@ -46,9 +46,9 @@ export function HeaderNav() {
               <Image
                 src="/branding/logo.svg"
                 alt="Career Forward"
-                width={160}
-                height={45}
-                className="h-10 w-auto"
+                width={184}
+                height={52}
+                className="h-[46px] w-auto"
               />
             </Link>
 
